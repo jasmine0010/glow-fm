@@ -352,16 +352,20 @@ input[type="range"]:focus-visible::-moz-range-thumb { outline: 2px solid var(--a
 /* the map */
 .map-stage { --x: 50%; position: fixed; inset: 0; overflow: hidden; }
 .map-stage .map { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 0; }
-.map-stage .radar-top { clip-path: inset(0 0 0 var(--x)); }
 .map-stage .tag { top: calc(var(--bar) + 10px); z-index: 2; pointer-events: none; }
-/* The labels wrap before they reach a side panel or the zoom buttons. */
-.map-stage .tag-now { left: auto; right: calc(100% - var(--x) + 12px); max-width: calc(var(--x) - var(--rail-l) - 2 * var(--gap) - 18px); border-left: 2px solid var(--truth); }
-.map-stage .tag-radar { left: calc(var(--x) + 12px); right: auto; max-width: calc(100% - var(--x) - var(--rail-r) - 2 * var(--gap) - 62px); border-left: 0; border-right: 2px solid var(--nisar); }
-.map-stage .swipe-handle { z-index: 3; }
+/* What the map shows: one switch, centred over the open part of the map, with the moment it shows under it. */
+.map-show { position: absolute; z-index: 3; top: calc(var(--bar) + 10px); left: calc(var(--rail-l) + 2 * var(--gap)); right: calc(var(--rail-r) + 2 * var(--gap)); display: flex; flex-direction: column; align-items: center; gap: 6px; pointer-events: none; }
+.map-show .seg { pointer-events: auto; background: rgba(3, 6, 10, .82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.map-show .seg[hidden] { display: none; }
+.map-show .tag { position: static; text-align: center; max-width: 100%; }
+.show-key { display: inline-block; width: 10px; height: 10px; border-radius: 2px; flex: none; }
+.key-nisar { background: #d63ad6; }
+.key-est { background: #2cc4e6; }
+.key-both { background: linear-gradient(135deg, #d63ad6 50%, #28ebff 50%); }
 .grid-labels { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
 .grid-labels[hidden] { display: none; }
 .grid-labels span { position: absolute; font: 400 var(--fs-micro)/1 var(--sans); color: #dbe5ea; text-shadow: 0 0 3px #000, 0 0 3px #000; white-space: nowrap; }
-.link-btn[hidden], .time-bar[hidden], .tag[hidden], .swipe-handle[hidden], .radar-top[hidden], .pane[hidden], .sel-card[hidden], .card-note[hidden] { display: none; }
+.link-btn[hidden], .time-bar[hidden], .tag[hidden], .swipe-handle[hidden], .pane[hidden], .sel-card[hidden], .card-note[hidden] { display: none; }
 /* top bar */
 .dash-bar { position: fixed; top: 0; left: 0; right: 0; min-height: var(--bar); z-index: 7; display: flex; align-items: center; padding: 0 var(--gap); background: var(--glass); border-bottom: 1px solid var(--glass-line); }
 .bar-gap { flex: 1; }
@@ -375,8 +379,6 @@ input[type="range"]:focus-visible::-moz-range-thumb { outline: 2px solid var(--a
 .rail > * { pointer-events: auto; flex: none; }
 .rail-left { left: var(--gap); width: var(--rail-l); }
 .rail-right { right: var(--gap); width: var(--rail-r); }
-.dash-page.panels-off { --rail-l: 0px; --rail-r: 0px; }
-.panels-off .rail { display: none; }
 .glass { background: var(--glass); border: 1px solid var(--glass-line); border-radius: var(--r); }
 .panel-title { margin: 0 0 4px; font-size: var(--fs-micro); font-weight: 600; letter-spacing: 0; color: var(--soft); }
 .river-title { margin: 0; font-weight: 600; line-height: 1.25; }
@@ -415,9 +417,8 @@ input[type="range"]:focus-visible::-moz-range-thumb { outline: 2px solid var(--a
 .event-value { flex: none; font: 400 var(--fs-micro)/1.25 var(--sans); color: var(--soft); }
 .event-sub { display: block; padding-left: 16px; font-size: var(--fs-micro); line-height: 1.3; color: var(--muted); }
 /* controls */
-#dash-layers label, #dash-layers-more label, .layer-row { display: flex; align-items: center; gap: 7px; min-height: 26px; margin: 0; cursor: pointer; font-size: var(--fs-small); line-height: 1.25; }
+#dash-layers label, #dash-layers-after label, .layer-row { display: flex; align-items: center; gap: 7px; min-height: 26px; margin: 0; cursor: pointer; font-size: var(--fs-small); line-height: 1.25; }
 .ctl { display: flex; align-items: center; gap: 8px; font-size: var(--fs-small); color: var(--soft); }
-.ctl-opacity { margin-top: 2px; }
 .ctl input[type="range"] { flex: 1; min-width: 0; }
 .ctl-range output { min-width: 42px; font: 400 var(--fs-small)/1 var(--sans); color: var(--ink); text-align: right; }
 .ctl-buttons { display: flex; flex-wrap: wrap; gap: 5px; }
@@ -438,8 +439,6 @@ input[type="range"]:focus-visible::-moz-range-thumb { outline: 2px solid var(--a
 .atlas-stats { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; margin: 0; font-size: var(--fs-small); }
 .atlas-stats dt { color: var(--soft); }
 .atlas-stats dd { margin: 0; font: 500 var(--fs-small)/1.4 var(--sans); text-align: right; }
-.layer-more { margin-top: 4px; font-size: var(--fs-small); color: var(--soft); }
-.layer-more > summary { min-height: 24px; cursor: pointer; }
 .story-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
 .story-actions .btn { display: inline-flex; align-items: center; min-height: 36px; padding: 4px 14px; font-size: var(--fs-small); text-decoration: none; }
 .atlas-search { display: block; box-sizing: border-box; width: 100%; min-height: 32px; padding: 4px 8px; background: rgba(205, 219, 226, .06); border: 1px solid var(--glass-line); border-radius: var(--r-small); color: var(--ink); font: inherit; font-size: var(--fs-small); }
@@ -466,11 +465,9 @@ input[type="range"]:focus-visible::-moz-range-thumb { outline: 2px solid var(--a
 /* the bottom of the map */
 .dock-stack { position: fixed; left: calc(var(--rail-l) + 2 * var(--gap)); right: calc(var(--rail-r) + 2 * var(--gap)); bottom: calc(var(--drawer) + 6px); z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 5px; pointer-events: none; }
 .dock-stack > * { pointer-events: auto; }
-.panels-off .dock-stack { left: var(--gap); right: var(--gap); }
 .time-bar { width: 100%; max-width: 860px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; padding: 5px 8px; background: var(--glass); border: 1px solid var(--glass-line); border-radius: var(--r); }
 .time-track { flex: 1 1 180px; min-width: 0; position: relative; padding-bottom: 16px; }
 #t-out { font: 400 var(--fs-micro)/1.2 var(--sans); white-space: nowrap; }
-.time-hourly { display: inline-flex; align-items: center; gap: 5px; min-height: 24px; font-size: var(--fs-micro); color: var(--soft); cursor: pointer; white-space: nowrap; }
 .dock-stack > .dock-row { width: 100%; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: 5px 8px; pointer-events: none; }
 .dock-row .dock { pointer-events: auto; margin-left: auto; }
 .dock { display: none; background: var(--glass); border: 1px solid var(--glass-line); border-radius: var(--r); overflow: hidden; }
@@ -480,7 +477,6 @@ input[type="range"]:focus-visible::-moz-range-thumb { outline: 2px solid var(--a
 .phone-only { display: none; }
 .dock-note { margin: 0; padding: 1px 7px; background: var(--glass); border-radius: var(--r-small); font-size: var(--fs-micro); color: var(--soft); text-align: center; }
 .map-tools { position: fixed; right: calc(var(--rail-r) + 2 * var(--gap)); top: calc(var(--bar) + 10px); z-index: 5; display: flex; flex-direction: column; background: var(--glass); border: 1px solid var(--glass-line); border-radius: var(--r); overflow: hidden; }
-.panels-off .map-tools { right: var(--gap); }
 .map-tools button { width: 32px; height: 32px; background: none; border: 0; color: var(--ink); font: 400 var(--fs-body)/1 var(--sans); cursor: pointer; }
 .map-tools button:hover { background: var(--hover); }
 /* One thin strip, level with the panel buttons, so it stays clear of the flood. */
@@ -520,7 +516,9 @@ body:not(.overview) .event-pin.is-active { display: none; }
   .dash-bar { flex-wrap: wrap; align-content: flex-start; padding-top: 6px; padding-bottom: 6px; }
   .dash-bar .seg { order: 3; width: 100%; }
   .dash-bar .seg button { flex: 1; justify-content: center; min-height: 34px; }
-  .map-stage .tag { top: 92px; white-space: normal; max-width: calc(50vw - 16px); }
+  .map-show { top: 160px; left: auto; right: var(--gap); align-items: flex-end; }
+  .map-show .seg button { padding: 3px 9px; min-height: 30px; }
+  .map-show .tag { display: none; }
   .mini { display: block; top: 136px; }
   [data-sheet="left"] .mini, [data-sheet="right"] .mini { display: none; }
   .grid-labels { display: none; }
@@ -1222,8 +1220,8 @@ body.night::before, body.night::after { display: none; }
 /* the orbit rail: NISAR's ground track down the right edge, one station per section */
 .orbit { position: fixed; z-index: 15; right: max(8px, calc(var(--gutter) / 2 - 14px)); top: 96px; bottom: 32px; width: 28px; pointer-events: none; }
 .orbit-track { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.orbit-path { fill: none; stroke: rgba(205, 225, 235, .14); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.orbit-done { fill: none; stroke: rgba(229, 122, 229, .7); stroke-width: 1.5; vector-effect: non-scaling-stroke; stroke-dasharray: 0 1; }
+.orbit-path { fill: none; stroke: rgba(205, 225, 235, .18); stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; shape-rendering: geometricPrecision; vector-effect: non-scaling-stroke; }
+.orbit-done { fill: none; stroke: rgba(229, 122, 229, .7); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; shape-rendering: geometricPrecision; vector-effect: non-scaling-stroke; stroke-dasharray: 0 1; }
 .orbit ol { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; }
 .orbit li { position: absolute; left: 0; right: 0; height: 0; }
 .orbit-stop { position: absolute; left: calc(50% + var(--x, 0px)); top: 0; width: 24px; height: 24px; transform: translate(-50%, -50%); display: grid; place-items: center; padding: 0; background: none; border: 0; cursor: pointer; pointer-events: auto; }
@@ -1845,7 +1843,7 @@ body.night::before, body.night::after { display: none; }
 .tool-go { margin-top: 0; }
 .night .deep > summary::before { content: none; }
 /* Dashboard: one card for the chosen flood, one headline number; the rest folds away. Map labels and notes unboxed. */
-.night .tag, .map-stage .tag, .map-stage .tag-now, .map-stage .tag-radar { background: none; border: 0; padding: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.night .tag, .map-stage .tag { background: none; border: 0; padding: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
 .hud-coord { display: none; }
 .dock-note { background: none; text-shadow: 0 1px 3px #03060a; }
 
@@ -1876,7 +1874,7 @@ body.night::before, body.night::after { display: none; }
    Only the user's choice changes what the card says; nothing here depends on zoom. */
 /* one segmented style: the mode switch, the Choose tabs and the phone dock */
 .flood-tabs { display: flex; gap: 0; padding: 0; background: none; border: 1px solid var(--glass-line); border-radius: var(--r); overflow: hidden; }
-.flood-tabs button { flex: 1; min-height: 30px; padding: 3px 6px; background: none; border: 0; border-radius: 0; color: var(--soft); font: inherit; font-size: var(--fs-micro); cursor: pointer; }
+.flood-tabs button { flex: 1; min-height: 30px; padding: 3px 4px; white-space: nowrap; background: none; border: 0; border-radius: 0; color: var(--soft); font: inherit; font-size: var(--fs-micro); cursor: pointer; }
 .flood-tabs button:hover { background: var(--hover); color: var(--ink); }
 .flood-tabs button[aria-pressed="true"] { font-weight: 600; }
 /* the time bar steps through a tested river's flood, so it shows only while that river is the selection */
@@ -1915,8 +1913,154 @@ body.night::before, body.night::after { display: none; }
 @media (max-width: 480px) {
   .dash-page .mini { top: 176px; }
   .dash-page .dock-row > .map-hud { top: 204px; }
+  .dash-page .map-show { top: 200px; }
 }
 /* the story's "What's next" fold: one picture of NISAR's phase over the swamp (Results, Fig. 11) */
 .next-fig { margin: var(--s4) 0 0; max-width: 560px; }
 .next-fig img { display: block; width: 100%; height: auto; border-radius: var(--r-small); }
 .next-fig figcaption { margin-top: var(--s2); font-size: var(--fs-micro); line-height: 1.5; color: var(--muted); }
+/* Run it yourself: the road on the flagged ground, one quiet line under the area */
+.live-roads { margin: 8px 0; font-size: var(--fs-small); line-height: 1.5; color: var(--soft); }
+.live-roads b { color: #ff8c42; font-weight: 600; }
+.live-roads .note { display: block; margin-top: 2px; font-size: var(--fs-micro); color: var(--muted); }
+
+/* ==================== dashboard rhythm ====================
+   One gap and one hairline between every section of both panels, and the same padding inside them. The estimate and
+   the what-if slider sit in the card, not under Details: the slider is the part people play with. */
+.dash-page { --sect: var(--s4); }
+.dash-page .glass-primary { padding: var(--s5); }
+.sel-card .readouts, .sel-card .estimate, .card-foot, .sel-card > .collapse, .layers-fold { margin-top: var(--sect); padding-top: var(--sect); border-top: 1px solid var(--hairline); }
+.sel-card .dash-sub { margin: var(--s2) 0 0; font-size: var(--fs-small); line-height: 1.5; color: var(--soft); }
+.card-foot { gap: var(--s3); }
+.choose .flood-tabs { margin: var(--s3) 0 0; }
+.choose .flood-tab { margin-top: var(--s3); }
+.choose .rail-note { margin-top: var(--s3); }
+#tab-blind > .panel-title { margin: var(--sect) 0 var(--s2); }
+/* the estimate: its two numbers side by side, in their map colours, and the slider right under them */
+.est-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
+.est { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.est-num { font: 600 1.4rem/1.15 var(--display); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+#k-ha { color: #3fd8e8; }
+#k-road { color: #ff8c42; }
+.est .kpi-sub { font-size: var(--fs-micro); }
+.what-if { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--s2) var(--s3); margin-top: var(--s4); cursor: pointer; }
+.what-if-label { grid-column: 1 / -1; font-size: var(--fs-small); font-weight: 600; color: var(--ink); }
+.what-if input { width: 100%; margin: 0; accent-color: #3fd8e8; }
+.what-if output { min-width: 3.4em; text-align: right; font: 600 var(--fs-small)/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--ink); }
+/* Map layers is the legend: the blind-spot ramp sits under its switch */
+.layer-ramp { display: flex; align-items: center; gap: 4px; margin: 0 0 var(--s2) 30px; font-size: var(--fs-micro); color: var(--muted); }
+.layer-ramp:empty { display: none; }
+.swatch.dot { border-radius: 50%; }
+.layer-ramp { white-space: nowrap; }
+.swatch.diamond { transform: rotate(45deg) scale(.8); }
+/* the flood or place card: the same template as the river card, its spot reading in the blind-spot colour */
+.est-forest { color: #4fdcb0; }
+.sel-card .estimate .atlas-level { margin: 0 0 var(--s3); font-size: var(--fs-small); }
+.sel-card .collapse p { margin: 0 0 var(--s3); font-size: var(--fs-small); line-height: 1.5; color: var(--soft); }
+.sel-card .collapse .atlas-act b { color: var(--ink); }
+.sel-card .collapse .atlas-not { margin: 0; padding: 0; border: 0; font-size: var(--fs-micro); color: var(--muted); }
+.sel-card .collapse .link-btn { color: var(--soft); text-decoration-color: var(--hairline); }
+.sel-card .collapse .link-btn:hover { color: var(--ink); }
+/* Run it yourself: the figures sit under the flood list and the map, across both columns, while the run panel runs on
+   down the right, so they show as soon as the map ends */
+.live-grid > .live-analysis { grid-column: 1 / -1; margin: 0; padding-top: var(--s5); }
+@media (min-width: 1101px) {
+  .live-grid { grid-template-rows: auto 1fr; }
+  .live-cases { grid-column: 1; grid-row: 1; }
+  .live-map-wrap { grid-column: 2; grid-row: 1; }
+  .live-panel { grid-column: 3; grid-row: 1 / span 2; }
+  .live-grid > .live-analysis { grid-column: 1 / 3; grid-row: 2; }
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .live-grid { grid-template-rows: auto auto 1fr; }
+  .live-cases { grid-column: 1 / -1; grid-row: 1; }
+  .live-map-wrap { grid-column: 1; grid-row: 2; }
+  .live-panel { grid-column: 2; grid-row: 2 / span 2; }
+  .live-grid > .live-analysis { grid-column: 1; grid-row: 3; }
+  .live-grid > .live-analysis .analysis-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ==================== Run it yourself: one result first, the rest on request ====================
+   The panel reads: the flood, Run, the result (one big number, one row, short lines), then folds for how it got there
+   and the settings, and one quiet download row. One gap and one hairline between sections, as on the dashboard. */
+.live-page { --sect: var(--s4); }
+.live-lede { margin: 0; max-width: 46em; font-size: var(--fs-body); line-height: 1.5; color: var(--soft); }
+.live-kind:empty, .live-panel > .live-result:empty { display: none; }
+.live-panel .live-result, .live-panel .live-how, .live-panel .live-settings, .live-panel .live-dl { margin: var(--sect) 0 0; padding-top: var(--sect); border-top: 1px solid var(--hairline); }
+.live-panel .live-notes { margin: var(--s3) 0 0; font-size: var(--fs-micro); line-height: 1.5; color: var(--muted); }
+.live-panel .live-notes:empty { display: none; }
+.live-result .run-area { margin: 0; }
+.run-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s2) var(--s3); margin: var(--s3) 0 0; }
+.run-score { font-size: var(--fs-small); color: var(--soft); }
+.run-score b { margin-right: 4px; font: 600 1.35rem/1 var(--display); font-variant-numeric: tabular-nums; color: var(--water-ink); }
+.run-none { color: var(--muted); }
+.run-line { margin: var(--s2) 0 0; font-size: var(--fs-small); line-height: 1.45; color: var(--soft); }
+.run-roads { font-weight: 600; color: #ff8c42; }
+.live-how > summary, .live-settings > summary, .live-more > summary { min-height: 28px; cursor: pointer; font-size: var(--fs-small); font-weight: 600; color: var(--ink); }
+.live-how .live-steps { margin: var(--s3) 0 0; }
+.live-how .cut-instr { margin: var(--s3) 0 0; }
+.live-dl { font-size: var(--fs-small); color: var(--muted); }
+.live-dl .link-btn { font-size: var(--fs-small); color: var(--soft); }
+/* the legend under the map is the layer switches */
+.live-legend { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s1) var(--s5); margin-top: var(--s3); }
+.live-legend .layer-row { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; cursor: pointer; font-size: var(--fs-small); color: var(--soft); }
+.live-legend .legend-key { font-size: var(--fs-small); color: var(--muted); }
+/* why: two figures, the rest under More figures */
+.live-more { margin-top: var(--s6); padding-top: var(--s4); border-top: 1px solid var(--hairline); }
+.live-more .analysis-grid { margin-top: var(--s4); }
+.live-analysis .fk-downloads { opacity: .7; }
+/* Run it yourself, Why: every figure has one frame. Its title and one line on top, then the chart, then a quiet download
+   line; a hairline above each, and figures side by side line up at the top. */
+.live-analysis .analysis-grid { align-items: start; gap: var(--s6) var(--s5); }
+.live-analysis .analysis-fig { display: flex; flex-direction: column; gap: var(--s3); padding-top: var(--s4); border-top: 1px solid var(--hairline); }
+.live-analysis .analysis-fig figcaption { order: -1; margin: 0; font-size: var(--fs-small); line-height: 1.5; color: var(--muted); }
+.live-analysis .analysis-fig figcaption b { display: block; margin-bottom: 2px; font-size: var(--fs-body); font-weight: 600; color: var(--ink); }
+.live-analysis .fk-downloads { margin-top: var(--s2); }
+.live-analysis .analysis-fig[hidden] { display: none; }
+
+/* Run it yourself: the notice for a flood the dashboard sent that isn't prepared, above everything else */
+.live-banner { margin: 0 0 var(--s5); padding: var(--s3) var(--s4); max-width: 62em; border: 1px solid rgba(255, 207, 138, 0.45); border-left-width: 4px; border-radius: 8px; background: rgba(255, 207, 138, 0.08); color: var(--soft, #cfe3e8); line-height: 1.5; }
+.live-banner b { color: #ffcf8a; }
+.live-banner a { color: #ffcf8a; }
+
+/* Under the Show switch, Both explains its three colours. */
+.tag-key { display: flex; justify-content: center; align-items: center; gap: 5px 10px; flex-wrap: wrap; margin-top: 3px; }
+.tag-key i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: -6px; }
+.tag-key .k-both { background: #6fa2ee; }
+.tag-key .k-nisar { background: #d63ad6; }
+.tag-key .k-est { background: #28c9e0; }
+
+/* Top bar: one straight line under the page you're on (yellow) and under what you point at (faint), never a curve or a
+   text underline. Square corners keep the line straight to its ends. */
+.topbar-tool, .topbar-plain, .bar-more > summary { border-radius: 0; text-decoration: none; }
+.topbar-tool.here, .topbar-plain.here, button.topbar-plain.on { border-radius: 0; text-decoration: none; box-shadow: inset 0 -2px 0 var(--accent); }
+.topbar-tool:not(.here):hover, .topbar-plain:not(.here):hover, .bar-more > summary:hover { text-decoration: none; box-shadow: inset 0 -2px 0 rgba(255, 255, 255, .35); }
+.bar-more[open] > summary { box-shadow: inset 0 -2px 0 rgba(255, 255, 255, .35); }
+
+/* Dashboard tour (dashtour.js): the control is lit, the rest of the page dimmed, and a short popup beside it. */
+.tour-spot { position: fixed; z-index: 40; border-radius: var(--r); box-shadow: 0 0 0 2px var(--accent), 0 0 0 9999px rgba(2, 5, 9, .55); pointer-events: none; transition: left .25s, top .25s, width .25s, height .25s; }
+.tour-pop { position: fixed; z-index: 41; width: min(300px, calc(100vw - 20px)); padding: var(--s4); background: #0b1218; border: 1px solid var(--glass-line); border-radius: var(--r); color: var(--ink); box-shadow: 0 10px 30px rgba(0, 0, 0, .5); transition: left .25s, top .25s; }
+.tour-pop::before { content: ""; position: absolute; width: 12px; height: 12px; background: #0b1218; border: solid var(--glass-line); border-width: 0 0 1px 1px; }
+.tour-pop[data-side="right"]::before { left: -7px; top: calc(var(--ay) - 6px); transform: rotate(45deg); }
+.tour-pop[data-side="left"]::before { right: -7px; top: calc(var(--ay) - 6px); transform: rotate(-135deg); }
+.tour-pop[data-side="below"]::before { top: -7px; left: calc(var(--ax) - 6px); transform: rotate(135deg); }
+.tour-pop[data-side="above"]::before { bottom: -7px; left: calc(var(--ax) - 6px); transform: rotate(-45deg); }
+.tour-count { margin: 0 0 var(--s1); font-size: var(--fs-micro); color: var(--muted); }
+.tour-title { margin: 0 0 var(--s2); font: 600 var(--fs-body)/1.3 var(--sans); }
+.tour-text { margin: 0; font-size: var(--fs-small); line-height: 1.5; color: var(--soft); }
+.tour-nav { display: flex; justify-content: flex-end; align-items: center; gap: var(--s4); margin: var(--s4) 0 0; }
+.tour-nav .btn-primary { min-height: 34px; padding: 4px 18px; }
+.tour-back[hidden], .tour-skip[hidden] { display: none; }
+.tour-close { position: absolute; top: 6px; right: 6px; width: 30px; height: 30px; background: none; border: 0; color: var(--muted); font-size: 20px; line-height: 1; cursor: pointer; }
+.tour-close:hover { color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .tour-spot, .tour-pop { transition: none; } }
+
+/* The river card keeps its height while the what-if slider moves: the status line and the line under each estimate
+   always hold two lines, so text that wraps or unwraps doesn't shift the card. */
+.river-card .dash-sub { min-height: 2lh; }
+.river-card .est .kpi-sub { min-height: 2lh; }
+.tour-skip { margin-right: auto; color: var(--muted); }
+
+/* Run it yourself: every prepared flood is listed; a long list scrolls inside its column. */
+.live-page #cases-board { max-height: min(62vh, 640px); overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; scrollbar-width: thin; }
+@media (max-width: 760px) { .live-page #cases-board { max-height: 50vh; } }

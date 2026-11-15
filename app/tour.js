@@ -90,7 +90,7 @@ function buildScenes(manifest, metrics, summary, iquitos) {
   const iq = iquitos.place, iqBox = [iq.lon - 1.1, iq.lat - 0.8, iq.lon + 1.1, iq.lat + 0.8];
   const label = (f) => {
     const day = new Date(f.time).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
-    return f.flagged_ha === 0 ? `${day}: river far past its crest, so no NISAR map` : day;
+    return f.flagged_ha === 0 ? `${day}, river far past its crest, so no NISAR map` : day;
   };
   const frameLayer = (k) => `y${k}`;
   return [
@@ -120,7 +120,7 @@ function buildScenes(manifest, metrics, summary, iquitos) {
         setTopMap("lens");
         this.start = { ...tour.lens, r: lensRadius() };
         if (!this.start.x) this.start = { x: 0.5, y: 0.45, r: lensRadius() };
-        setWords("It mapped most of the flooding that river gauges and ground heights estimate, with a method fixed in advance.", "The method was frozen before this river's data was opened.", "NISAR flood map, Oct 15");
+        setWords("It mapped most of the flooding that river gauges and ground heights estimate, with a method fixed in advance.", "GLOWfm was frozen before this river's data was opened.", "NISAR flood map, Oct 15");
         setChip(`Match score ${lead.csi.toFixed(2)} out of 1 · fair test`);
       },
       tick(f) {
@@ -147,7 +147,7 @@ function buildScenes(manifest, metrics, summary, iquitos) {
         showLayers([], [frameLayer(0)]);
         setTopMap("open");
         moveCamera(yellow.bounds, 1500, animate);
-        setWords("NISAR returns every few days, so a map can follow a flood over time.", "Yellow River, Florida, which helped build the method.");
+        setWords("NISAR returns every few days, so a map can follow a flood over time.", "Yellow River, Florida, which helped build GLOWfm.");
         this.shown = 0;
         setChip(label(frames[0]));
       },

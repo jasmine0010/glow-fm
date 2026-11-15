@@ -194,11 +194,11 @@ function gaugeChart(id, gauges, layout) {
 // the light can't be green, so it shows amber. Its record: right on 3 of 4 fresh passes, too few to prove it.
 const TRUST_RECORD = "Set before it was tested, and right on 3 of 4 new passes so far. Too few to prove it yet, and green is never a guarantee.";
 function trustLight({ mapped = true, confident, rainy }) {
-  if (!mapped) return { cls: "grey", label: "No map", why: "The river was far past its crest, so the method doesn't map this pass." };
-  if (!confident) return { cls: "red", label: "Don't rely on this map", why: "Its own check failed: flooded forest didn't stand out clearly from higher ground." };
+  if (!mapped) return { cls: "grey", label: "No map", why: "The river was far past its crest, so GLOWfm doesn't map this pass." };
+  if (!confident) return { cls: "red", label: "Don't rely on this map", why: "Its own check failed, because flooded forest didn't stand out clearly from higher ground." };
   if (rainy === null || rainy === undefined) return { cls: "amber", label: "Partly checked", why: "Its own check passed, but rain wasn't checked, and heavy rain can make dry ground look flooded." };
   if (rainy) return { cls: "red", label: "Don't rely on this map", why: "Heavy rain fell in the days before, and wet ground can look flooded to radar." };
-  return { cls: "green", label: "Trust light: green", why: "Flooded forest stood out clearly, with no heavy rain: the conditions where NISAR's maps scored best." };
+  return { cls: "green", label: "Trust light: green", why: "Flooded forest stood out clearly, with no heavy rain, the conditions where NISAR's maps scored best." };
 }
 const rainyFrom = (rain) => (rain && rain.rain_24h_mm !== undefined ? rain.rain_24h_mm >= 5 || rain.rain_72h_mm >= 25 : null);
 function trustChip(t, { long = false } = {}) {

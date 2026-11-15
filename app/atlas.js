@@ -63,7 +63,7 @@ function atlasSetEnabled(on) {
   atlas.enabled = on;
   $("lyr-atlas").checked = on;
   if (!state.mapReady) return;
-  [map, radarMap].forEach((m) => m.setLayoutProperty("atlas", "visibility", on ? "visible" : "none"));
+  map.setLayoutProperty("atlas", "visibility", on ? "visible" : "none");
   map.setLayoutProperty("atlas-pick", "visibility", on ? "visible" : "none");
   state.keyView = null;
   renderKey();
@@ -74,8 +74,8 @@ function atlasSetEnabled(on) {
 // The legend's blind-spot entry: one ramp from the least to the most floodplain under trees.
 function atlasKey() {
   const s = atlas.summary;
-  if (!s) return `<span><i class="swatch" style="background:#4fdcb0"></i>Blind-spot map</span>`;
-  return `<span class="key-ramp">Blind-spot map: floodplain under trees, ${100 * s.breaks[0]}% <span class="ramp">${s.colors.map((c) => `<i style="background:${c}"></i>`).join("")}</span> ${100 * s.breaks[3]}%+</span>`;
+  if (!s) return "";
+  return `${100 * s.breaks[0]}% <span class="ramp">${s.colors.map((c) => `<i style="background:${c}"></i>`).join("")}</span> ${100 * s.breaks[3]}%+ under trees`;
 }
 
 // Who lives in these towns, not who is at risk: rounded to 5 million, city districts skipped, towns within 10 km merged
@@ -98,7 +98,7 @@ function renderAtlas() {
   if (!s) return;
   state.keyView = null;
   renderKey();
-  $("atlas-lede").textContent = `A blank flood map doesn't always mean dry ground. ${pct(s.share, 0)} of mapped river floodplains, ${millionKm2(s.tree_km2)}, sit under trees. ${atlasTownsText(s)}. This marks where a flood could hide, not where one is.`;
+  $("atlas-lede").textContent = `${pct(s.share, 0)} of river floodplain worldwide is under trees, where flood maps can miss water. It shows where a flood could hide, not where one is.`;
   $("atlas-try").innerHTML = `<span class="atlas-try-label">Try</span>${s.towns.examples.slice(0, 4).map((e, k) => `<button type="button" class="atlas-chip" data-try="${k}">${esc(e.name)}</button>`).join("")}`;
   $("atlas-countries").innerHTML = s.countries.slice(0, 5).map((x) => `<button type="button" class="atlas-row" data-country="${esc(x.name)}"><span>${esc(x.name)}</span><span>${km2(x.tree_km2)}</span></button>`).join("");
   if (state.sel === "pick") renderAtlasPick();
@@ -114,24 +114,24 @@ function atlasLabelText(p, v) {
 function renderAtlasPick() {
   const box = $("atlas-pick"), p = atlas.pick, ev = typeof worldCard === "function" ? worldCard() : null;
   if (!p && !ev) { box.innerHTML = '<p class="muted">Choose a flood, or check a place.</p>'; return; }
-  const v = p && !p.loading && !p.failed ? atlasVerdict(p.share, p.floodplain) : null;
+  const v = p && !p.loading && !p.failed ? atlasVerdict(p.share, p.floodplain) : null, big = v && p.floodplain >= atlas.summary.towns.rule.min_floodplain_km2;
   const near = p && p.at && !ev ? nearestTested(p.at) : null, label = v ? atlasLabelText(p, v) : "";
-  const verdict = !p ? "" : p.failed ? `<p class="muted">Couldn't check the floodplain here just now. <button type="button" class="link-btn" id="atlas-retry">Try again</button></p>`
-    : p.loading ? '<p class="muted">Checking the floodplain here…</p>'
-      : `<p class="atlas-level"><i class="status-dot ${v.cls}"></i>${v.level}</p><p class="atlas-why">${v.text}</p>${v.act ? `<p class="atlas-act"><b>What to do:</b> ${v.act}</p>` : ""}` +
-        // A place shows these as its number; a reported flood's number is its NISAR passes, so they go here.
-        (ev && p.floodplain >= atlas.summary.towns.rule.min_floodplain_km2 ? `<dl class="atlas-stats"><dt>${p.at ? "Floodplain within about 25 km" : "Mapped floodplain"}</dt><dd>${km2(p.floodplain)}</dd><dt>Under trees</dt><dd>${pct(p.share, 0)}</dd></dl>` : "") +
-        '<p class="atlas-not">Not a flood forecast: this says how well satellite flood maps can see the ground here, not whether it floods.</p>';
+  // The reading for this spot, as a block like the river card's estimate: its verdict, then two numbers side by side.
+  const reading = !p ? "" : p.failed ? `<div class="estimate"><p class="muted">Couldn't check the floodplain here just now. <button type="button" class="link-btn" id="atlas-retry">Try again</button></p></div>`
+    : p.loading ? '<div class="estimate"><p class="muted">Checking the floodplain here…</p></div>'
+      : `<div class="estimate"><p class="atlas-level"><i class="status-dot ${v.cls}"></i>${v.level}</p>` +
+        (big ? `<div class="est-pair"><div class="est"><span class="kpi-label">Under trees</span><span class="est-num est-forest">${pct(p.share, 0)}</span><span class="kpi-sub">of the floodplain</span></div>` +
+          `<div class="est"><span class="kpi-label">${p.at ? "Floodplain nearby" : "Floodplain"}</span><span class="est-num">${km2(p.floodplain)}</span><span class="kpi-sub">${p.at ? "within 25 km" : "mapped in the country"}</span></div></div>` : "") + "</div>";
+  const explain = !v ? "" : `<p class="atlas-why">${v.text}</p>${v.act ? `<p class="atlas-act"><b>What to do:</b> ${v.act}</p>` : ""}<p class="atlas-not">Not a flood forecast. It says how well flood maps can see the ground here.</p>`;
   if (ev) {
     box.innerHTML = `<h2 class="river-title">${esc(ev.title)}</h2><p class="dash-sub">${ev.status}</p>` +
       `<div class="readouts"><div class="kpi kpi-lead"><span class="kpi-label">NISAR passes during this flood</span><span class="kpi-num">${ev.number}</span><span class="kpi-sub">${ev.numberSub}</span></div></div>` +
-      `<div class="card-foot">${ev.foot}</div>` +
-      `<details class="collapse" open><summary>Details</summary>${ev.details}<h3 class="panel-title">Flood maps at this spot</h3>${verdict}</details>`;
+      reading + `<div class="card-foot">${ev.foot}</div>` +
+      `<details class="collapse"><summary>Details</summary>${ev.details}${explain}</details>`;
   } else {
-    box.innerHTML = `<h2 class="river-title">${esc(p.name)}</h2><p class="dash-sub">${esc(label || (p.loading ? "Checking…" : ""))}</p>` +
-      (v && p.floodplain >= atlas.summary.towns.rule.min_floodplain_km2 ? `<div class="readouts"><div class="kpi kpi-lead kpi-place"><span class="kpi-label">${p.at ? "Floodplain under trees within about 25 km" : "Floodplain under trees"}</span><span class="kpi-num">${pct(p.share, 0)}</span><span class="kpi-sub">of ${km2(p.floodplain)} of mapped floodplain</span></div></div>` : "") +
+    box.innerHTML = `<h2 class="river-title">${esc(p.name)}</h2><p class="dash-sub">${esc(label || (p.loading ? "Checking…" : ""))}</p>` + reading +
       (near ? `<div class="card-foot"><p class="flood-tools"><button type="button" class="link-btn atlas-near" data-river="${near.r.id}">The nearest tested flood: ${esc(shortRiver(near.r))}, ${Math.round(near.km)} km away</button></p></div>` : "") +
-      `<details class="collapse" open><summary>Details</summary>${verdict}</details>`;
+      (explain ? `<details class="collapse"><summary>Details</summary>${explain}</details>` : "");
   }
   if ($("atlas-retry")) $("atlas-retry").addEventListener("click", () => atlasPickAt(p.at[0], p.at[1], p.name, p.short));
   if (label) $("announce").textContent = label;

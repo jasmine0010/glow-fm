@@ -8,7 +8,7 @@ const index = JSON.parse(fs.readFileSync(path.join(root, "index.json"), "utf8"))
 let bad = 0;
 for (const c of index.cases) {
   const rec = JSON.parse(fs.readFileSync(path.join(root, c.id, "case.json"), "utf8"));
-  const buf = fs.readFileSync(path.join(root, c.id, "pack.bin"));
+  const buf = c.pack === "gz" ? require("zlib").gunzipSync(fs.readFileSync(path.join(root, c.id, "pack.bin.gz"))) : fs.readFileSync(path.join(root, c.id, "pack.bin"));
   const d = M.decodePack(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.length), rec.layout);
   const r = M.run(d, rec.layout.width, rec.layout.height), ref = rec.reference_run;
   if (r.error) { bad++; console.log(`FAIL ${c.id}: ${r.error}`); continue; }

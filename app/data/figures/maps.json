@@ -1,0 +1,144 @@
+{
+ "note": "Post hoc and descriptive: the saved layers of frozen runs, drawn; nothing re-scored.",
+ "db_range": [
+  -3.0,
+  6.0
+ ],
+ "passes": [
+  {
+   "river": "satilla",
+   "pair": "047A_oct15",
+   "kind": "strong",
+   "csi": 0.7327453000257533,
+   "recall": 0.7853298371515319,
+   "precision": 0.9162708316560664,
+   "trust": "green",
+   "method": "v4, overbank test (frozen)",
+   "pixel_m": 50.0,
+   "hit_ha": 2845,
+   "false_alarm_ha": 260,
+   "miss_ha": 778,
+   "dry_ha": 2592,
+   "overview": {
+    "image": "data/figures/maps_satilla_047A_oct15_overview.png",
+    "px": [
+     358,
+     92
+    ],
+    "block_m": 200.0,
+    "km": [
+     71.6,
+     18.4
+    ],
+    "window_frac": [
+     0.26187150837988826,
+     0.14986376021798364,
+     0.22346368715083798,
+     0.6539509536784741
+    ]
+   },
+   "window": {
+    "change": "data/figures/maps_satilla_047A_oct15_change.png",
+    "classes": "data/figures/maps_satilla_047A_oct15_classes.png",
+    "px": [
+     320,
+     240
+    ],
+    "km": [
+     16.0,
+     12.0
+    ]
+   }
+  },
+  {
+   "river": "st_marys",
+   "pair": "098D_oct07",
+   "kind": "typical",
+   "csi": 0.5797902764537655,
+   "recall": 0.8044973544973545,
+   "precision": 0.6748779405237462,
+   "trust": "red",
+   "method": "v4, overbank test (frozen)",
+   "pixel_m": 50.0,
+   "hit_ha": 760,
+   "false_alarm_ha": 366,
+   "miss_ha": 185,
+   "dry_ha": 2323,
+   "overview": {
+    "image": "data/figures/maps_st_marys_098D_oct07_overview.png",
+    "px": [
+     87,
+     344
+    ],
+    "block_m": 150.0,
+    "km": [
+     13.0,
+     51.6
+    ],
+    "window_frac": [
+     -0.31417624521072796,
+     0.7526673132880698,
+     1.2260536398467432,
+     0.23278370514064015
+    ]
+   },
+   "window": {
+    "change": "data/figures/maps_st_marys_098D_oct07_change.png",
+    "classes": "data/figures/maps_st_marys_098D_oct07_classes.png",
+    "px": [
+     320,
+     240
+    ],
+    "km": [
+     16.0,
+     12.0
+    ]
+   }
+  },
+  {
+   "river": "pee_dee",
+   "pair": "098D_jul27",
+   "kind": "failed",
+   "csi": 0.10257759074171488,
+   "recall": 0.2625378660383709,
+   "precision": 0.1440975429521522,
+   "trust": null,
+   "method": "v4, median baseline (frozen)",
+   "pixel_m": 50.0,
+   "hit_ha": 195,
+   "false_alarm_ha": 1158,
+   "miss_ha": 548,
+   "dry_ha": 17088,
+   "overview": {
+    "image": "data/figures/maps_pee_dee_098D_jul27_overview.png",
+    "px": [
+     187,
+     371
+    ],
+    "block_m": 250.0,
+    "km": [
+     46.6,
+     92.8
+    ],
+    "window_frac": [
+     0.44957081545064376,
+     0.6296495956873316,
+     0.34334763948497854,
+     0.1293800539083558
+    ]
+   },
+   "window": {
+    "change": "data/figures/maps_pee_dee_098D_jul27_change.png",
+    "classes": "data/figures/maps_pee_dee_098D_jul27_classes.png",
+    "px": [
+     320,
+     240
+    ],
+    "km": [
+     16.0,
+     12.0
+    ]
+   }
+  }
+ ]
+}

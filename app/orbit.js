@@ -1,18 +1,18 @@
 // The orbit rail: NISAR's ground track down the right edge of the page. A satellite travels it as you scroll, through
 // a major station at the opening and at each act, and a smaller one per section (the journey's parts too); each jumps
 // there when clicked.
-// The track's shape traces NISAR's latitude through an orbit at its real 98.4° inclination; it's an illustration of
-// the orbit, not NISAR's position. On phones it becomes a thin progress line under the top bar, with a sections menu.
+// The track is a smooth wave, an illustration of an orbit swinging pole to pole, not NISAR's position. (Its real
+// latitude at 98.4° inclination is nearly a triangle wave, which drew as straight runs with sharp corners.) On phones it becomes a thin progress line under the top bar, with a sections menu.
 
 const ORBIT = { stops: [], nav: null, sat: null, done: null, line: null, active: -1, queued: false, pts: [] };
 const ORBIT_W = 28;
 
-// The track: x follows the satellite's latitude as it goes round, so it swings pole to pole and back.
-function orbitTrack(n = 240, waves = 1.5) {
+// The track: a sine wave, so it swings side to side and back with no corners.
+function orbitTrack(n = 400, waves = 1.5) {
   const pts = [];
   for (let i = 0; i <= n; i++) {
-    const s = i / n, [, lat] = subSatellite(s * waves * 2 * Math.PI, 0);
-    pts.push([ORBIT_W / 2 + (ORBIT_W / 2 - 4) * (lat / (Math.PI / 2)), s * 1000]);
+    const s = i / n;
+    pts.push([ORBIT_W / 2 + (ORBIT_W / 2 - 5) * Math.sin(s * waves * 2 * Math.PI), s * 1000]);
   }
   return pts;
 }

@@ -69,7 +69,7 @@ function renderTownLabel(p) {
   $("town-label").innerHTML = `<p class="atlas-place">${esc(p.name)}</p>` +
     (enough ? `<div class="qn" style="--c: var(--forest-ink)"><span class="qn-k">Floodplain under trees</span><b class="qn-n" id="tl-share">${pct(p.share, 0)}</b><span class="qn-u">of ${km2(p.floodplain)} of river floodplain within about ${ATLAS_RADIUS_KM} km</span></div>` : "") +
     `<p class="atlas-label atlas-label-${v.cls}">${esc(label)}</p><p class="atlas-level"><i class="status-dot ${v.cls}"></i>${v.level}</p><p class="atlas-why">${v.text}</p>${v.act ? `<p class="atlas-act"><b>What to do:</b> ${v.act}</p>` : ""}` +
-    `<p class="atlas-not">Not a flood forecast. This says how well satellite flood maps can see the ground here, not whether it floods.</p><a class="more-link" href="dashboard.html?${esc(q.toString())}">Open on the blind-spot map</a>`;
+    `<p class="atlas-not">Not a flood forecast: it says how well flood maps can see the ground here.</p><a class="more-link" href="dashboard.html?${esc(q.toString())}">Open on the blind-spot map</a>`;
   if (enough) countUp($("tl-share"), 100 * p.share, (x) => `${Math.round(x)}%`, 900);
   $("town-announce").textContent = label;
   soundPing({ gain: 0.08 });
@@ -93,7 +93,7 @@ function setupTownGlobe(summary) {
       TOWN.picked = { name: c.name, lat, lon, country: true };
       if (g) { const span = Math.max(boundsWidthKm(c.bbox), (n - s) * 111.32) * 1.3; townFlyTo({ lon, lat, R: g.w / (Math.min(2 * EARTH_KM, span) / EARTH_KM), cx: townCx(), cy: g.h / 2 }); }
       const v = atlasVerdict(c.share, c.floodplain_km2);
-      $("town-label").innerHTML = `<p class="atlas-place">${esc(c.name)}</p><div class="qn" style="--c: var(--forest-ink)"><span class="qn-k">Floodplain under trees</span><b class="qn-n">${pct(c.share, 0)}</b><span class="qn-u">of ${km2(c.floodplain_km2)} of mapped river floodplain</span></div><p class="atlas-label atlas-label-${v.cls}">${esc(atlasLabelText({ name: c.name }, v))}</p><p class="atlas-why">${v.text}</p>${v.act ? `<p class="atlas-act"><b>What to do:</b> ${v.act}</p>` : ""}<p class="atlas-not">Not a flood forecast. This says how well satellite flood maps can see the ground here, not whether it floods.</p>`;
+      $("town-label").innerHTML = `<p class="atlas-place">${esc(c.name)}</p><div class="qn" style="--c: var(--forest-ink)"><span class="qn-k">Floodplain under trees</span><b class="qn-n">${pct(c.share, 0)}</b><span class="qn-u">of ${km2(c.floodplain_km2)} of mapped river floodplain</span></div><p class="atlas-label atlas-label-${v.cls}">${esc(atlasLabelText({ name: c.name }, v))}</p><p class="atlas-why">${v.text}</p>${v.act ? `<p class="atlas-act"><b>What to do:</b> ${v.act}</p>` : ""}<p class="atlas-not">Not a flood forecast: it says how well flood maps can see the ground here.</p>`;
       soundPing({ gain: 0.08 });
       return;
     }

@@ -15,31 +15,15 @@ bridges left out. The case files themselves (case.json, pack.bin) are not touche
 
 import json
 import math
-import urllib.parse
-import urllib.request
+from itertools import pairwise
 
 import numpy as np
-from build_roads import MAJOR, SKIP
+from build_roads import MAJOR, SKIP, overpass
 
 from hidden_floods.config import REPO_ROOT, data_root
-from hidden_floods.fetch import OVERPASS, USER_AGENT
 
 LIVE = REPO_ROOT / "app" / "data" / "live"
 CACHE = data_root() / "live" / "roads"
-
-
-def overpass(box):
-    w, s, e, n = box
-    query = f'[out:json][timeout:180];way["highway"]({s},{w},{n},{e});out geom;'
-    last = None
-    for base in OVERPASS:
-        try:
-            req = urllib.request.Request(base + "?" + urllib.parse.urlencode({"data": query}), headers={"User-Agent": USER_AGENT})
-            with urllib.request.urlopen(req, timeout=300) as r:
-                return r.read()
-        except OSError as exc:      # network or HTTP error: try the next mirror
-            last = exc
-    raise RuntimeError(f"Overpass failed: {last}")
 
 
 def build(case_id):
@@ -66,7 +50,7 @@ def build(case_id):
         f.write(bytes(-len(lines) % 4))
         f.write(np.array([pt for ln in lines for pt in ln], np.float32).tobytes())
     km_per_deg = 111.32
-    km = sum(math.hypot((b[0] - a[0]) * km_per_deg * math.cos(math.radians(a[1])), (b[1] - a[1]) * km_per_deg) for ln in lines for a, b in zip(ln, ln[1:], strict=False))
+    km = sum(math.hypot((b[0] - a[0]) * km_per_deg * math.cos(math.radians(a[1])), (b[1] - a[1]) * km_per_deg) for ln in lines for a, b in pairwise(ln))
     print(f"{case_id:28} {len(lines):5,} drivable roads, about {km:,.0f} km in and around the box", flush=True)
 
 

@@ -119,7 +119,7 @@ async function figSignature(box, only) {
       const curvesPanel = (x, y, w, h, letter) => {
         const p = fkPanel(svg, { x, y, w, h, letter, title: `Median backscatter change, ${d.passes.length} passes` });
         const sx = fkLinear(-5, 3, 0, p.w), sy = fkLinear(-1, 4, p.h, 0);
-        fkAxes(p, sx, sy, { xlabel: depthLabel, ylabel: "Δσ° (dB)" });
+        fkAxes(p, sx, sy, { xlabel: depthLabel, ylabel: "Δγ⁰ (dB)" });
         refLine(p.g, sx(0), 0, sx(0), p.h);
         const band = d.bins.filter((b) => b.hh_q[0] !== null), mid = (b) => sx((b.lo + b.hi) / 2);
         fkEl(p.g, "path", { d: fkPath(band.map((b) => [mid(b), sy(b.hh_q[2])])) + band.slice().reverse().map((b) => `L${mid(b)} ${sy(b.hh_q[0])}`).join("") + "Z", class: "f-nisar", "fill-opacity": 0.15 });
@@ -136,7 +136,7 @@ async function figSignature(box, only) {
       const bandPanel = (x, y, w, h, letter) => {
         const p = fkPanel(svg, { x, y, w, h, letter, title: "C-band against L-band, Pearl River" });
         const c = d.pearl, sx = fkLinear(-5, 3, 0, p.w), sy = fkLinear(-1.5, 3, p.h, 0);
-        fkAxes(p, sx, sy, { xlabel: depthLabel, ylabel: "Δσ° (dB)" });
+        fkAxes(p, sx, sy, { xlabel: depthLabel, ylabel: "Δγ⁰ (dB)" });
         refLine(p.g, sx(0), 0, sx(0), p.h);
         refLine(p.g, 0, sy(0), p.w, sy(0));
         const pts = [];
@@ -213,9 +213,9 @@ async function figSeparability(box) {
   ctl.querySelector("select").addEventListener("change", (e) => { pick = Number(e.target.value); fig.render(); });
 }
 
-// ---------- Fig. 4: accuracy ----------
+// ---------- Fig. 5: accuracy ----------
 async function figAccuracy(box, only) {
-  const metrics = (await loadData())[1];
+  const metrics = (await loadData())[1], refSelf = (await figJson("figures/reference.json")).summary.median_agreement;
   const ob = new Map(metrics.overbank.map((o) => [`${o.site} ${o.pair}`, o]));
   const short = (r) => `${FIG_SHORT(r.site).replace(/ River$/, "")}, ${passDay(r.pair)}`;
   const groups = [["Method 1, fixed cut-off", "v1", "Method 1"], ["Method 2, self-calibrating", "v2", "Method 2"], ["Method 3, Otsu", "v3", "Method 3"], ["Method 4, first test", "v4, median", "Method 4, first"], ["Method 4, latest test", "v4, overbank", "Method 4, latest"]];
@@ -227,7 +227,7 @@ async function figAccuracy(box, only) {
   const scored = metrics.held_out.filter((r) => r.recall !== undefined && r.recall !== null);
   const forest = 30 + rows.length * 19 + 46, forestH = (W) => forest + (wide(W) ? 0 : 40);
   fkFigure(box, {
-    name: "fig4-accuracy", label: "Match score with 95% intervals for every frozen test, against a lidar-only map, and precision against recall",
+    name: "fig5-accuracy", label: "Match score with 95% intervals for every frozen test, against a lidar-only map, and precision against recall",
     height: (W) => (only === "a" ? forestH(W) : only === "b" ? 420 : wide(W) ? Math.max(forest, 440) : forestH(W) + 16 + 400),
     csv: () => [["river", "pass", "method", "csi", "csi_lo", "csi_hi", "recall", "precision", "lidar_csi", "judged"], ...rows.filter((x) => x.r).map(({ r, o, judged }) => [r.site, r.pair, r.method, r.csi, r.ci95?.[0], r.ci95?.[1], r.recall, r.precision, o?.lidar_csi, judged])],
     draw(svg, W, H, tip) {
@@ -237,6 +237,8 @@ async function figAccuracy(box, only) {
         const p = fkPanel(svg, { x: 0, y: 0, w: pw, h: forestH(W), letter: only ? null : "a", title: `CSI of each frozen one-time test (n = ${metrics.held_out.length})`, m: { t: 30, r: 14, b: wide(W) ? 46 : 86, l: Math.min(190, pw * 0.42) } });
         const sx = fkLinear(0, 1, 0, p.w), rh = p.h / rows.length;
         fkAxes(p, sx, fkLinear(0, 1, p.h, 0), { xlabel: "Critical success index (CSI)", yticks: [], xfmt: (v) => v.toFixed(1) });
+        // How well the reference matches itself with one gauge hidden (Fig. 10): scores near it are about as close as it can tell.
+        fkEl(p.g, "line", { x1: sx(refSelf), x2: sx(refSelf), y1: 0, y2: p.h, class: "s-water", "stroke-width": 1.2, "stroke-dasharray": "5 4", "stroke-opacity": 0.8 });
         const pts = [];
         rows.forEach((x, k) => {
           const y = (k + 0.5) * rh;
@@ -255,7 +257,7 @@ async function figAccuracy(box, only) {
           if (o && o.lidar_csi !== null) fkMark(p.g, "D", sx(o.lidar_csi), y, "f-none s-ink", 3.5, { "stroke-width": 1.2 });
           pts.push({ x: sx(r.csi), y, html: `<b>${siteTitle(r.site)}, ${passDay(r.pair)}</b><br>${r.method}<br>CSI ${r.csi.toFixed(2)}${r.ci95 ? ` (95% ${r.ci95[0].toFixed(2)}–${r.ci95[1].toFixed(2)})` : ""}${o && o.lidar_csi !== null ? `<br>lidar-only map ${o.lidar_csi.toFixed(2)}` : ""}${judged ? "" : "<br>too little flooding to judge"}` });
         });
-        const key4a = [["errbar", "f-nisar s-nisar", "NISAR, 95% CI"], ["D", "f-none s-ink", "Lidar-only map"], ["errbar", "f-veil s-veil", `< ${n0f(JUDGE_HA)} ha flooded (not judged)`]];
+        const key4a = [["errbar", "f-nisar s-nisar", "NISAR, 95% CI"], ["D", "f-none s-ink", "Lidar-only map"], ["errbar", "f-veil s-veil", `< ${n0f(JUDGE_HA)} ha flooded (not judged)`], ["line", "s-water", `Reference vs itself, ${refSelf.toFixed(2)}`, "5 4"]];
         if (wide(W)) fkKey(p, key4a, "br"); else fkLegend(svg, 6, forestH(W) - 30, key4a);
         fkHover(p, tip, (px, py) => fkNearest(pts, px, py, 18));
       }
@@ -287,12 +289,12 @@ async function figAccuracy(box, only) {
   });
 }
 
-// ---------- Fig. 5: where it works ----------
+// ---------- Fig. 6: where it works ----------
 async function figStrata(box) {
   const d = await figJson("figures/strata.json"), metrics = (await loadData())[1];
   const [green, all] = d.groups, ob = metrics.overbank.filter((o) => o.judgeable);
   fkFigure(box, {
-    name: "fig5-where-it-works", label: "Recall and precision by water depth, height above the river and land cover, and the trust light against the outcome",
+    name: "fig6-where-it-works", label: "Recall and precision by water depth, height above the river and land cover, and the trust light against the outcome",
     height: (W) => (wide(W) ? 620 : 4 * 290),
     csv: () => [["group", "stratum", "label", "recall", "recall_lo", "recall_hi", "precision", "precision_lo", "precision_hi", "flooded_px", "dry_px"],
       ...d.groups.flatMap((g) => ["by_depth", "by_hand", "by_landcover"].flatMap((k) => g[k].map((c) => [g.group, k, c.label, c.recall, c.recall_ci?.[0], c.recall_ci?.[1], c.precision, c.precision_ci?.[0], c.precision_ci?.[1], c.n_wet, c.n_dry])))],
@@ -343,14 +345,14 @@ async function figStrata(box) {
   });
 }
 
-// ---------- Fig. 6: a flood through time ----------
+// ---------- Fig. 7: a flood through time ----------
 async function figTime(box) {
   const [d, metrics] = await Promise.all([figJson("figures/time.json"), loadData().then((x) => x[1])]);
   const test = metrics.held_out.find((r) => r.site === d.river);
   const T = (s) => Date.parse(/Z$/.test(s) ? s : `${s}Z`), frames = d.frames;
   const t0 = T(frames[0].time) - 3 * 864e5, t1 = T(frames[frames.length - 1].time) + 3 * 864e5;
   fkFigure(box, {
-    name: "fig6-flood-through-time", label: `River level, mapped area and match score for each NISAR pass on the ${siteTitle(d.river)}`,
+    name: "fig7-flood-through-time", label: `River level, mapped area and match score for each NISAR pass on the ${siteTitle(d.river)}`,
     height: () => 600,
     csv: () => [["pass", "time", "nisar_mapped_ha", "rivers_answer_ha", "lidar_map_ha", "csi", "csi_lo", "csi_hi"], ...frames.map((f) => [f.pair, f.time, f.flagged_ha, f.confirmed_ha, f.static_ha, f.csi, f.csi_ci95?.[0], f.csi_ci95?.[1]])],
     draw(svg, W, H, tip) {
@@ -401,7 +403,7 @@ async function figTime(box) {
   });
 }
 
-// ---------- Fig. 7: the official map's blind spot ----------
+// ---------- Fig. 8: the official map's blind spot ----------
 async function figBlind(box, only) {
   const [a, metrics, w, charts] = await Promise.all([figJson("figures/audit.json"), loadData().then((x) => x[1]), figJson("figures/world.json"), figJson("story/charts.json")]);
   const sat = metrics.satilla_audit;
@@ -410,7 +412,7 @@ async function figBlind(box, only) {
   const day = (s) => fkDay(Date.parse(`${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}T12:00Z`));
   const ah = 30 + rows.length * 30 + 64;
   fkFigure(box, {
-    name: "fig7-official-map-blind-spot", label: "Flooding estimated from the gauges against what the official flood map mapped, the official map's forest mask, and its revisits",
+    name: "fig8-official-map-blind-spot", label: "Flooding estimated from the gauges against what the official flood map mapped, the official map's forest mask, and its revisits",
     height: (W) => (only === "a" ? ah : wide(W) && !only ? Math.max(ah, 380) + 16 + 320 : ah + 16 + 330 + 16 + 340),
     csv: () => [["river", "date", "estimated_ha", "gfm_mapped_ha"], ...rows.map((r) => [r.site, r.date, r.est, r.gfm])],
     draw(svg, W, H, tip) {
@@ -476,13 +478,13 @@ async function figBlind(box, only) {
   });
 }
 
-// ---------- Fig. 8: worldwide ----------
+// ---------- Fig. 9: worldwide ----------
 async function figWorld(box, only) {
   const d = await figJson("figures/world.json");
   const lats = d.lat.map((l, i) => ({ lat: l, f: d.floodplain_km2[i], t: d.tree_km2[i] })).filter((r) => r.lat >= -56 && r.lat <= 74);
   const latFmt = (v) => `${Math.abs(v)}°${v > 0 ? "N" : v < 0 ? "S" : ""}`;
   fkFigure(box, {
-    name: "fig8-worldwide", label: "Forested and total river floodplain by latitude, and each country's floodplain against its share under trees",
+    name: "fig9-worldwide", label: "Forested and total river floodplain by latitude, and each country's floodplain against its share under trees",
     height: (W) => (only === "a" ? (wide(W) ? 420 : 520) : wide(W) && !only ? 540 : 520 + 16 + 420),
     csv: () => [["latitude_band_deg", "floodplain_km2", "floodplain_under_trees_km2"], ...lats.map((r) => [r.lat, r.f, r.t])],
     draw(svg, W, H, tip) {
@@ -539,15 +541,19 @@ async function figWorld(box, only) {
   });
 }
 
-// ---------- Fig. 9: checking the reference ----------
+// ---------- Fig. 10: checking the reference ----------
 async function figReference(box) {
-  const d = await figJson("figures/reference.json");
+  const [d, rc] = await Promise.all([figJson("figures/reference.json"), figJson("figures/reference_checks.json")]);
   fkFigure(box, {
-    name: "fig9-checking-the-reference", label: "Hidden-gauge check: predicted against measured water level, and the error against the distance to the next gauge",
-    height: (W) => (wide(W) ? 380 : 760),
-    csv: () => [["river", "pass", "hidden_gauge", "neighbour_gap_km", "predicted_m", "measured_m", "error_m"], ...d.cases.map((c) => [c.river, c.pair, c.gauge, c.neighbour_gap_km, c.predicted_m, c.measured_m, c.error_m])],
+    name: "fig10-checking-the-reference", label: "Hidden-gauge check: predicted against measured water level, the error against the distance to the next gauge, and each score with the reference's water surface moved",
+    height: (W) => (wide(W) ? 380 + 20 + 340 : 3 * 370 + 40),
+    csv: () => [["river", "pass", "hidden_gauge", "neighbour_gap_km", "predicted_m", "measured_m", "error_m", "", "shift_river", "shift_pass", "shift_m", "csi"],
+      ...Array.from({ length: Math.max(d.cases.length, rc.passes.length * rc.shifts_m.length) }, (_, i) => {
+        const c = d.cases[i], q = rc.passes[Math.floor(i / rc.shifts_m.length)], sh = q && q.shift[i % rc.shifts_m.length];
+        return [c?.river ?? "", c?.pair ?? "", c?.gauge ?? "", c?.neighbour_gap_km ?? "", c?.predicted_m ?? "", c?.measured_m ?? "", c?.error_m ?? "", "", q?.river ?? "", q?.pair ?? "", sh?.shift_m ?? "", sh?.csi ?? ""];
+      })],
     draw(svg, W, H, tip) {
-      const side = wide(W), pw = side ? W / 2 - 8 : W, ph = side ? H : 370;
+      const side = wide(W), pw = side ? W / 2 - 8 : W, ph = side ? 380 : 370;
       {
         const p = fkPanel(svg, { x: 0, y: 0, w: pw, h: ph, letter: "a", title: `Hidden-gauge prediction (n = ${d.cases.length})` });
         const vals = d.cases.flatMap((c) => [c.predicted_m, c.measured_m]), lo = Math.floor(Math.min(...vals)), hi = Math.ceil(Math.max(...vals));
@@ -568,11 +574,29 @@ async function figReference(box) {
         fkEl(p.g, "text", { x: 8, y: 16, class: "fk-tick" }, `Median |error| = ${d.summary.median_abs_error_m.toFixed(2)} m`);
         fkHover(p, tip, (px, py) => fkNearest(pts, px, py, 14));
       }
+      {
+        // Post hoc: the same frozen maps scored again with the reference's water surface moved up or down.
+        const p = fkPanel(svg, { x: 0, y: side ? 400 : 780, w: W, h: side ? 340 : 370, letter: "c", title: "Each judged pass's CSI with the reference's water surface moved (post hoc)", m: { t: 30, r: side ? 170 : 18, b: 42, l: 56 } });
+        const sx = fkLinear(rc.shifts_m[0], rc.shifts_m[rc.shifts_m.length - 1], 0, p.w), sy = fkLinear(0, 1, p.h, 0);
+        fkAxes(p, sx, sy, { xlabel: "Water surface moved (m)", ylabel: "CSI", xfmt: (v) => `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(1)}`, yfmt: (v) => v.toFixed(1) });
+        refLine(p.g, sx(0), 0, sx(0), p.h);
+        const pts = [], labels = [];
+        rc.passes.forEach((q) => {
+          const cls = q.trust === "green" ? "s-green" : "s-red";
+          fkEl(p.g, "path", { d: fkPath(q.shift.map((x) => [sx(x.shift_m), sy(x.csi)])), class: cls, fill: "none", "stroke-width": 1.5 });
+          q.shift.forEach((x) => pts.push({ x: sx(x.shift_m), y: sy(x.csi), html: `<b>${siteTitle(q.river)}, ${passDay(q.pair)}</b><br>surface ${x.shift_m > 0 ? "+" : ""}${x.shift_m} m · CSI ${x.csi.toFixed(2)}` }));
+          labels.push({ y: sy(q.shift[q.shift.length - 1].csi) + 4, text: `${FIG_SHORT(q.river).replace(/ River$/, "")}, ${passDay(q.pair)}` });
+        });
+        // Line ends that sit close together get their names spaced apart.
+        if (side) { labels.sort((a, b) => a.y - b.y); labels.forEach((l, k) => { if (k) l.y = Math.max(l.y, labels[k - 1].y + 12); fkEl(p.g, "text", { x: p.w + 6, y: l.y, class: "fk-tick" }, l.text); }); }
+        fkKey(p, [["line", "s-green", "Trust light green"], ["line", "s-red", "Trust light red"]], "tl");
+        fkHover(p, tip, (px, py) => fkNearest(pts, px, py, 14));
+      }
     },
   });
 }
 
-// Fig. 10: how often, and how soon, NISAR saw this season's reported floods (scripts/build_coverage.py, NASA's CMR catalog).
+// Fig. 11: how often, and how soon, NISAR saw this season's reported floods (scripts/build_coverage.py, NASA's CMR catalog).
 async function figCoverage(box, only) {
   const d = await figJson("figures/coverage.json"), S = d.summary, F = d.floods, N = F.length;
   const ecdf = (vals, xmax) => {   // share of all floods reached by day x, as a step line
@@ -583,7 +607,7 @@ async function figCoverage(box, only) {
   };
   const lat = F.flatMap((f) => f.latency_days);
   fkFigure(box, {
-    name: "fig10-nisar-coverage", label: "How often and how soon NISAR saw this season's reported floods",
+    name: "fig11-nisar-coverage", label: "How often and how soon NISAR saw this season's reported floods",
     height: (W) => (only ? 330 : wide(W) ? 360 : 740),
     csv: () => [["gdacs_id", "country", "from", "to", "passes_during_flood", "method_kind_passes", "first_pass_days", "first_in_catalog_days", "in_catalog_during_flood"],
       ...F.map((f) => [f.id, f.country, f.from, f.to, f.passes, f.method_passes, f.first_pass_days, f.first_ready_days, f.ready_during_flood])],
@@ -617,7 +641,7 @@ async function figCoverage(box, only) {
   });
 }
 
-// ---------- Fig. 11: water level under the canopy (exploratory, scripts/posthoc_swamp_fringes.py) ----------
+// ---------- Fig. 12: water level under the canopy (exploratory, scripts/posthoc_swamp_fringes.py) ----------
 // The pictures go into the SVG as data: URIs, so they stay in the SVG and PNG downloads.
 const figDataUrl = (src) => (FIG_CACHE[src] ??= fetch(src).then((r) => r.blob()).then((b) => new Promise((ok, fail) => { const fr = new FileReader(); fr.onload = () => ok(fr.result); fr.onerror = fail; fr.readAsDataURL(b); })));
 const FRINGE_LOOK = { control: ["s-ink", "2 3"], flood: ["s-nisar", null], crest: ["s-nisar", "6 3"] };
@@ -632,7 +656,7 @@ async function figFringes(box) {
     return { across, gap, iw, ih, cell, aH, bH: 300 };
   };
   fkFigure(box, {
-    name: "fig11-water-level-under-canopy", label: "NISAR interferograms over the Choctawhatchee delta swamp, and the water-level change along it",
+    name: "fig12-water-level-under-canopy", label: "NISAR interferograms over the Choctawhatchee delta swamp, and the water-level change along it",
     height: (W) => { const L = layout(W); return L.aH + 16 + L.bH; },
     csv: () => [["pair", "dates", "direction", "longitude", "km_east_of_bunker", "water_level_change_m", "coherent"],
       ...P.flatMap((p) => p.lon.map((lon, k) => [p.name, p.dates, p.direction, lon, km(lon).toFixed(2), p.dh_m[k], p.ok[k]]))],
@@ -684,7 +708,88 @@ async function figFringes(box) {
   });
 }
 
-const FIGS = { study: figStudy, signature: figSignature, separability: figSeparability, accuracy: figAccuracy, strata: figStrata, time: figTime, blind: figBlind, world: figWorld, reference: figReference, coverage: figCoverage, fringes: figFringes };
+// ---------- Fig. 4: maps of the results (scripts/posthoc_result_maps.py, drawn from the frozen runs' saved layers) ----------
+const MAP_CLASSES = [["#6fa2ee", "Hit, both flooded"], ["#d63ad6", "False alarm, GLOWfm only"], ["#28c9e0", "Miss, the reference only"], ["rgba(120,132,140,0.47)", "Both dry"]];
+
+async function figMaps(box) {
+  const d = await figJson("figures/maps.json"), P = d.passes;
+  const urls = await Promise.all(P.map((p) => Promise.all([p.overview.image, p.window.change, p.window.classes].map(figDataUrl))));
+  const kindWord = { strong: "a strong pass", typical: "a typical pass", failed: "a failed pass" };
+  const layout = (W) => {
+    const across = wide(W), gap = 14;
+    if (across) {
+      const ow = Math.round(W * 0.27), ww = Math.floor((W - ow - 2 * gap) / 2), wh = Math.round((ww * P[0].window.px[1]) / P[0].window.px[0]);
+      return { across, gap, ow, ww, wh, oh: wh, head: 0, row: 40 + 16 + wh + 26 };
+    }
+    const ww = W, wh = Math.round((W * P[0].window.px[1]) / P[0].window.px[0]), oh = 170;
+    return { across, gap, ow: W, ww, wh, oh, head: 14, row: 14 + 40 + 3 * 16 + oh + 2 * wh + 2 * gap + 26 };
+  };
+  const label = (g, x, y, text) => fkEl(g, "text", { x, y, class: "fk-tick" }, text);
+  const scaleBar = (g, x, y, pxPerKm) => {
+    const km = 5, len = km * pxPerKm;
+    fkEl(g, "rect", { x: x - 4, y: y - 14, width: len + 8, height: 20, fill: "#000", "fill-opacity": 0.45, rx: 2 });
+    fkEl(g, "line", { x1: x, x2: x + len, y1: y, y2: y, stroke: "#fff", "stroke-width": 2 });
+    [x, x + len].forEach((xx) => fkEl(g, "line", { x1: xx, x2: xx, y1: y - 4, y2: y + 1, stroke: "#fff", "stroke-width": 1.5 }));
+    fkEl(g, "text", { x: x + len / 2, y: y - 4, "text-anchor": "middle", fill: "#fff", "font-size": 10, "font-family": "IBM Plex Sans, sans-serif" }, `${km} km`);
+  };
+  fkFigure(box, {
+    name: "fig4-result-maps", label: "Maps of GLOWfm's frozen result against the reference for a strong, a typical and a failed pass: the whole reach, the radar change and each pixel as a hit, miss or false alarm",
+    height: (W) => { const L = layout(W); return P.length * L.row + 64; },
+    csv: () => [["river", "pass", "kind", "csi", "recall", "precision", "hit_ha", "false_alarm_ha", "miss_ha", "both_dry_ha", "trust_light"],
+      ...P.map((p) => [p.river, p.pair, p.kind, p.csi, p.recall, p.precision, p.hit_ha, p.false_alarm_ha, p.miss_ha, p.dry_ha, p.trust ?? "none yet"])],
+    draw(svg, W) {
+      const L = layout(W);
+      P.forEach((p, k) => {
+        const g0 = fkEl(svg, "g", { transform: `translate(0,${k * L.row})` }), [ov, ch, cl] = urls[k];
+        fkEl(g0, "text", { x: 0, y: 13, class: "fk-letter" }, "abc"[k]);
+        fkEl(g0, "text", { x: 16, y: 13, class: "fk-ptitle" }, `${siteTitle(p.river)}, ${passDay(p.pair)}, ${kindWord[p.kind]}`);
+        const lead = `CSI ${p.csi.toFixed(2)} · ${p.trust ? `trust light ${p.trust}` : "before the trust light"}`, counts = `hits ${p.hit_ha.toLocaleString("en-US")} ha · false alarms ${p.false_alarm_ha.toLocaleString("en-US")} ha · misses ${p.miss_ha.toLocaleString("en-US")} ha`;
+        // on a phone the numbers take a second line
+        if (L.across) label(g0, 16, 30, `${lead} · ${counts}`); else { label(g0, 16, 30, lead); label(g0, 16, 44, counts); }
+        const g = fkEl(g0, "g", { transform: `translate(0,${L.head})` });
+        // the whole scored reach, fitted into its box, with the window marked
+        const [opw, oph] = p.overview.px, s = Math.min(L.ow / opw, L.oh / oph), iw = opw * s, ih = oph * s;
+        const ox = L.across ? (L.ow - iw) / 2 : (W - iw) / 2, oy = 40 + 16 + (L.oh - ih) / 2;
+        label(g, 0, 40 + 12, `Whole scored reach, ${p.overview.km[0]} × ${p.overview.km[1]} km`);
+        fkEl(g, "rect", { x: L.across ? 0 : 0, y: 40 + 16, width: L.across ? L.ow : W, height: L.oh, class: "fk-spine", fill: "none" });
+        fkEl(g, "image", { x: ox, y: oy, width: iw, height: ih, href: ov, preserveAspectRatio: "none", style: "image-rendering: pixelated" });
+        const [fx, fy, fw, fh] = p.overview.window_frac;
+        fkEl(g, "rect", { x: ox + fx * iw, y: oy + fy * ih, width: Math.max(3, fw * iw), height: Math.max(3, fh * ih), fill: "none", stroke: "#ffd166", "stroke-width": 1.5 });
+        // the window: radar change, then the same pixels against the reference
+        const wy = L.across ? 40 + 16 : 40 + 16 + L.oh + L.gap + 16;
+        const cx = L.across ? L.ow + L.gap : 0, kx = L.across ? cx + L.ww + L.gap : 0, ky = L.across ? wy : wy + L.wh + L.gap + 16;
+        const [kmW, kmH] = p.window.km;
+        label(g, cx, wy - 4, `Radar change, smoothed HH (dB), the ${kmW} × ${kmH} km window`);
+        label(g, kx, ky - 4, "The same window against the reference");
+        fkEl(g, "rect", { x: cx, y: wy, width: L.ww, height: L.wh, class: "fk-spine", fill: "#000" });
+        fkEl(g, "image", { x: cx, y: wy, width: L.ww, height: L.wh, href: ch, preserveAspectRatio: "none", style: "image-rendering: pixelated" });
+        fkEl(g, "rect", { x: kx, y: ky, width: L.ww, height: L.wh, class: "fk-spine", fill: "none" });
+        fkEl(g, "image", { x: kx, y: ky, width: L.ww, height: L.wh, href: cl, preserveAspectRatio: "none", style: "image-rendering: pixelated" });
+        const pxPerKm = L.ww / kmW;
+        scaleBar(g, cx + 12, wy + L.wh - 10, pxPerKm);
+        scaleBar(g, kx + 12, ky + L.wh - 10, pxPerKm);
+      });
+      // the key: the four classes, and the change ramp
+      const y0 = P.length * L.row + 6, g = fkEl(svg, "g", { transform: `translate(0,${y0})` });
+      let x = 0, y = 0;
+      MAP_CLASSES.forEach(([col, text]) => {
+        const t = fkEl(g, "text", { x: x + 16, y: y + 10, class: "fk-tick" }, text), w = 16 + t.getComputedTextLength() + 18;
+        if (x > 0 && x + w > W) { x = 0; y += 18; t.setAttribute("x", 16); t.setAttribute("y", y + 10); }
+        fkEl(g, "rect", { x, y: y + 1, width: 11, height: 11, fill: col, rx: 2 });
+        x += w;
+      });
+      const ry = y + 24, gradId = `ramp-${Math.random().toString(36).slice(2, 8)}`, defs = fkEl(svg, "defs");
+      const grad = fkEl(defs, "linearGradient", { id: gradId });
+      fkEl(grad, "stop", { offset: "0", "stop-color": "rgb(40,40,40)" }); fkEl(grad, "stop", { offset: "1", "stop-color": "rgb(255,255,255)" });
+      fkEl(g, "rect", { x: 0, y: ry, width: 120, height: 10, fill: `url(#${gradId})`, stroke: "#8a969e", "stroke-width": 0.5 });
+      const rampText = [`Radar change ${fkMinus(String(d.db_range[0]))} to +${d.db_range[1]} dB; brighter is a bigger rise.`, "The yellow box shows where the window sits."];
+      if (wide(W)) fkEl(g, "text", { x: 128, y: ry + 9, class: "fk-tick" }, rampText.join(" "));
+      else { fkEl(g, "text", { x: 128, y: ry + 9, class: "fk-tick" }, `${fkMinus(String(d.db_range[0]))} to +${d.db_range[1]} dB, brighter is a bigger rise`); fkEl(g, "text", { x: 0, y: ry + 28, class: "fk-tick" }, rampText[1]); }
+    },
+  });
+}
+
+const FIGS = { study: figStudy, signature: figSignature, separability: figSeparability, maps: figMaps, accuracy: figAccuracy, strata: figStrata, time: figTime, blind: figBlind, world: figWorld, reference: figReference, coverage: figCoverage, fringes: figFringes };
 
 // Draw one mount, once (a later call is a no-op), and resolve when it's drawn.
 function drawFigure(el) {

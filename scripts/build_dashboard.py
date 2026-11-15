@@ -10,16 +10,34 @@ scripts/check_estimator.cjs checks the browser estimate against Python.
 
 import json
 import subprocess
+from datetime import datetime, timedelta
+from pathlib import Path
 
 import numpy as np
-from build_app import DATA, HERO_GFM_DATE, build_satilla_layers, corners, gauge_name, gauge_rows, gauges_json, web_grid
+from build_app import (
+    COLORS,
+    DATA,
+    HERO_GFM_DATE,
+    corners,
+    gauge_name,
+    gauge_rows,
+    gauges_json,
+    overlay,
+    to_web,
+    web_grid,
+)
 from build_roads import main as build_roads
+from pyproj import Transformer
 
 from hidden_floods.audit import truth_context
 from hidden_floods.config import REPO_ROOT, data_root, load_site
 from hidden_floods.drivers import DriverInputs, summarize
+from hidden_floods.frozen_v4 import RECEIPT as V4_RECEIPT
+from hidden_floods.frozen_v4 import rule_from as v4_rule_from
+from hidden_floods.grid import Grid
 from hidden_floods.io.dem import dem_on_grid
 from hidden_floods.io.operational import gfm_mosaic
+from hidden_floods.live import decode_pack
 from hidden_floods.pipeline import analysis_grid
 from hidden_floods.series import yellow_series_site
 from hidden_floods.trust import worldcover_class, worldcover_on_grid
@@ -28,11 +46,30 @@ OUT = DATA / "dashboard"
 FT = 0.3048
 CASES = {  # river -> case title, what the record is, GFM date for the static mask
     "satilla": {"title": "Satilla River, GA", "event": "October 2026 flood", "role": "held-out", "gfm": HERO_GFM_DATE},
+    "st_johns": {"title": "St. Johns River, FL", "event": "autumn 2026 flood", "role": "sealed", "gfm": None},
+    "st_marys": {"title": "St Marys River, GA/FL", "event": "October 2026 flood", "role": "held-out", "gfm": "20261017"},
+    "ochlockonee": {"title": "Ochlockonee River, GA/FL", "event": "October 2026 flood", "role": "held-out", "gfm": "20261017"},
+    "alapaha": {"title": "Alapaha River, GA", "event": "October 2026 flood", "role": "held-out", "gfm": "20261017"},
+    "withlacoochee": {"title": "Withlacoochee River, GA", "event": "October 2026 flood", "role": "held-out", "gfm": "20261017"},
     "yellow": {"title": "Yellow River, FL", "event": "Hurricane Isaias", "role": "development", "gfm": "20261022"},
     "choctawhatchee": {"title": "Choctawhatchee River, FL", "event": "Hurricane Isaias", "role": "development", "gfm": "20261022"},
     "pearl": {"title": "Pearl River, LA/MS", "event": "Tropical Storm Arthur", "role": "development", "gfm": "20260628"},
     "tangipahoa": {"title": "Tangipahoa River, LA", "event": "Tropical Storm Arthur", "role": "development", "gfm": "20260628"},
+    "lower_sabine": {"title": "Lower Sabine River, TX/LA", "event": "July 2026 flood", "role": "held-out", "gfm": "20260715"},
+    "pine_island": {"title": "Pine Island Bayou, TX", "event": "Tropical Storm Edouard", "role": "held-out", "gfm": "20260906"},
+    "village_creek": {"title": "Village Creek, TX", "event": "Tropical Storm Edouard", "role": "held-out", "gfm": "20260906"},
+    "neuse": {"title": "Neuse River, NC", "event": "July 2026 flood", "role": "held-out", "gfm": "20260727"},
+    "pee_dee": {"title": "Pee Dee River, SC", "event": "July 2026 flood", "role": "held-out", "gfm": "20260727"},
 }
+# The sealed test's river (scripts/setup_st_johns.py): no frozen run, so its one NISAR pass is Run it yourself's case,
+# whose map covers only the 24 km box around one gauge.
+LIVE_PASSES = {"st_johns": ("us_astf1_20261031", "the 24 km box around Astor")}
+# Rivers whose passes come from their one-time frozen runs (outputs/<river>/<pass>/), not from the development build.
+# Rivers added automatically (scripts/auto_rivers.py): not tested, listed after the others.
+AUTO_REGISTRY = REPO_ROOT / "sites" / "auto_rivers.json"
+AUTO = {r["name"]: r for r in (json.loads(AUTO_REGISTRY.read_text())["rivers"] if AUTO_REGISTRY.exists() else [])}
+CASES |= {name: {"title": r["title"], "event": r["event"], "role": "auto", "gfm": None} for name, r in AUTO.items()}
+FROM_FROZEN = ("satilla", "st_marys", "ochlockonee", "alapaha", "withlacoochee", "lower_sabine", "pine_island", "village_creek", "neuse", "pee_dee")
 
 
 # Frozen passes with enough estimated flooding to judge, including the failures. Human notes repeat what the protocols recorded before each run.
@@ -96,27 +133,113 @@ def held_out_drivers():
 
 
 def flood_levels():
-    """NWS flood level in feet of gauge stage, by gauge ID. Levels listed as elevations are not used, because the dashboard compares stage."""
+    """NWS flood level in feet of gauge stage, by gauge ID, since the dashboard compares stage.
+
+    First the levels recorded with each pass, then the NWS minor flood stages each river saved
+    (<data root>/<river>/nws_flood_levels.json, from scripts/river_setup.py save_nws_levels), which already turn levels NWS
+    lists as elevations into gage height with the gauge's own datum. Last the overbank screen's levels."""
     out = {}
     for row in json.loads((REPO_ROOT / "research" / "flood_stage_by_pass.json").read_text()):
         for g in row["gauges"]:
             if g.get("flood_stage_ft"):
                 out[g["id"]] = g["flood_stage_ft"]
+    for path in sorted(data_root().glob("*/nws_flood_levels.json")):
+        for gid, ft in json.loads(path.read_text())["levels"].items():
+            out.setdefault(gid, float(ft))
     screen = json.loads((REPO_ROOT / "research" / "overbank_screen.json").read_text())
-    for g in screen["satilla"]["gauges"]:
-        if g.get("flood_m") and g["flood_m"] > 0:
-            out[g["id"]] = g["flood_m"] / FT
+    for basin in screen.values():
+        for g in basin["gauges"]:
+            flood, datum = g.get("flood_m"), float(g.get("datum_ft") or 0) * FT
+            if not flood or flood <= 0:
+                continue
+            # Some levels were recorded as heights above sea level rather than gauge readings: above a datum over 1 m they
+            # can't be a reading, so the gauge's datum is taken off, in whichever datum (NAVD88 or NGVD29) USGS lists it.
+            # Below 1 m the screen can't tell the two apart; those gauges' levels come from the NWS files above.
+            if datum > 1 and flood > datum:
+                flood -= datum
+            out.setdefault(g["id"], flood / FT)
     return out
 
 
-def satilla_pass(site, pair, r):
-    """One held-out Satilla pass, from the one-time run's saved layers. Reads no radar."""
-    z = np.load(REPO_ROOT / "outputs" / "satilla" / pair / "frozen_v4_layers.npz")
-    corridor = truth_context(site, site.pairs[pair].wet_time).truth.corridor
-    region = z["region"] & corridor
-    lidar = np.isin(z["landcover"], (0, 1, 2)) & (z["hand"] < 2.0)
-    return {"id": pair, "time": site.pairs[pair].wet_time, "layer": f"satilla/{pair}/nisar.png", "score": r["csi"], "score_type": "frozen", "confident": r["high"], "rainy": r["rainy"], "lidar_score": r["lidar_csi"],
-            "flagged_ha": float((z["pred"] & region).sum() * 0.25), "static_ha": float((lidar & region).sum() * 0.25)}
+def gfm_on_or_near(ops, date, grid, corridor, days=3):
+    """The GFM date for a river's static mask, and that date's mosaic: its case date if GFM saved scenes that day; if
+    not, the nearest date within `days` whose scenes cover at least 90% of the corridor, as scripts/build_app.py
+    pick_gfm_date does (failing that, the nearest with any scene). (None, empty mosaic) if there's none."""
+    has = lambda d: any(Path(ops).glob(f"GFM_{d}T*_ensemble_flood_extent.tif"))
+    if has(date):
+        return date, gfm_mosaic(ops, date, grid)
+    near = []
+    for k in sorted(range(-days, days + 1), key=abs):
+        d = f"{datetime.strptime(date, '%Y%m%d') + timedelta(days=k):%Y%m%d}"
+        if k and has(d):
+            near.append((d, gfm_mosaic(ops, d, grid)))
+    for d, m in near:
+        if m.covered[corridor].mean() >= 0.9:
+            return d, m
+    return near[0] if near else (None, gfm_mosaic(ops, date, grid))
+
+
+def box_pass(name, flooded, box, time, scene, confident, where, score_type, **extra):
+    """One NISAR pass whose map covers only a box (a Run it yourself case, or an automatically added river), drawn on
+    the river's map. It carries "box", so the dashboard doesn't compare its area with the river's estimate. No score."""
+    track = scene.split("_GCOV_")[1].split("_")
+    pair = f"{track[1]}{track[2]}_{datetime.fromisoformat(time):%b%d}".lower()
+    (DATA / name / pair).mkdir(parents=True, exist_ok=True)
+    overlay(to_web(flooded.astype(np.uint8), box, web_grid(load_site(name)), True, 0) == 1, COLORS["nisar"], 225, DATA / name / pair / "nisar.png")
+    return {"id": pair, "time": time, "layer": f"{name}/{pair}/nisar.png", "score": None, "score_type": score_type, "confident": bool(confident),
+            "rainy": None, "lidar_score": None, "flagged_ha": float(flooded.sum() * box.res * box.res / 1e4), "static_ha": None, "box": where, **extra}
+
+
+def live_case_pass(name, case_id, where):
+    """A river's NISAR pass from a Run it yourself case: the frozen v4 rule rerun on the case's stored arrays, exactly as
+    its reference run (scripts/live_cases.py). This river has no frozen test yet."""
+    folder = DATA / "live" / case_id
+    rec = json.loads((folder / "case.json").read_text())
+    d = decode_pack(folder, rec["layout"])
+    res = v4_rule_from(json.loads(V4_RECEIPT.read_text())).apply(d["wet_hh"] - d["median_hh"], d["wet_hv"] - d["median_hv"], d["landcover"], d["timing"], d["hand"], d["dist"])
+    epsg, w, h = rec["inputs"]["epsg"], rec["layout"]["width"], rec["layout"]["height"]
+    x0, y0 = Transformer.from_crs(4326, epsg, always_xy=True).transform(*rec["corners"][0])
+    res_m = (rec["pixel_ha"] * 1e4) ** 0.5
+    box = Grid(crs=epsg, x0=round(x0 / res_m) * res_m, y0=round(y0 / res_m) * res_m, res=res_m, width=w, height=h)
+    return [box_pass(name, res["pred"] & (d["water"] == 0), box, rec["wet"]["time"], rec["wet"]["name"], res["confident"], where, "live", case=case_id)]
+
+
+def auto_pass(entry):
+    """An automatically added river's pass (scripts/auto_rivers.py), from the map it saved."""
+    p = entry["pass"]
+    flooded = np.load(data_root() / p["file"])["flooded"]
+    return [box_pass(entry["name"], flooded, Grid(**p["grid"]), p["time"], p["scene"], p["confident"], p["where"], "auto")]
+
+
+def frozen_passes(name, metrics, rain):
+    """A held-out river's passes, each from its one-time run's saved layers (outputs/<river>/<pass>/frozen_*_layers.npz),
+    with its NISAR map layer. The score, trust light and rain flag are the ones recorded by that run. Reads no radar."""
+    site = load_site(name)
+    grid, wg = analysis_grid(site), web_grid(site)
+    dem = dem_on_grid(site.dem_path, grid)
+    overbank = {r["pair"]: r for r in metrics["overbank"] if r["site"] == name}
+    held = {r["pair"]: r for r in metrics["held_out"] if r["site"] == name}
+    out = []
+    for pair in sorted(set(overbank) | set(held)):
+        folder = REPO_ROOT / "outputs" / name / pair
+        z = np.load(folder / ("frozen_v4_layers.npz" if (folder / "frozen_v4_layers.npz").exists() else "frozen_edouard_layers.npz"))
+        corridor = truth_context(site, site.pairs[pair].wet_time, dem=dem, grid=grid).truth.corridor
+        region = z["region"] & corridor
+        lidar = np.isin(z["landcover"], (0, 1, 2)) & (z["hand"] < 2.0)
+        (DATA / name / pair).mkdir(parents=True, exist_ok=True)
+        overlay(to_web((z["pred"] & corridor).astype(np.uint8), grid, wg, True, 0) == 1, COLORS["nisar"], 225, DATA / name / pair / "nisar.png")
+        p = {"id": pair, "time": site.pairs[pair].wet_time, "layer": f"{name}/{pair}/nisar.png", "score_type": "frozen",
+             "flagged_ha": float((z["pred"] & region).sum() * grid.pixel_area_ha), "static_ha": float((lidar & region).sum() * grid.pixel_area_ha)}
+        if pair in overbank:       # the latest test: its own judgeability, trust light, rain flag and lidar-only score
+            r = overbank[pair]
+            p.update(score=r["csi"] if r["judgeable"] else None, confident=r["high"], rainy=r["rainy"], lidar_score=r["lidar_csi"] if r["judgeable"] else None)
+        else:                      # earlier tests: the trust light came with method v4, so a v3 run has none
+            p.update(score=held[pair]["csi"], rainy=rain.get((name, pair)), lidar_score=None)
+            v4 = folder / "frozen_v4_metrics.json"
+            if v4.exists():
+                p["confident"] = json.loads(v4.read_text())["confident"]
+        out.append(p)
+    return out
 
 
 def build_river(name, passes, times, levels):
@@ -132,7 +255,7 @@ def build_river(name, passes, times, levels):
     crop_rows, crop_cols = int(r1 - r0), int(c1 - c0)
     lc = worldcover_class(worldcover_on_grid(data_root() / "worldcover", grid))
     ops = data_root() / name / "ops_audit" if name == "satilla" else site.operational_dir
-    gfm = gfm_mosaic(ops, case["gfm"], grid)
+    gfm_date, gfm = gfm_on_or_near(ops, case["gfm"], grid, corridor) if case["gfm"] else (None, gfm_mosaic(ops, "00000000", grid))
     flags = (ctx.permanent_water.astype(np.uint8) | (ctx.supported.astype(np.uint8) << 1) | (lc.astype(np.uint8) << 2)
              | (gfm.excluded.astype(np.uint8) << 4) | (gfm.covered.astype(np.uint8) << 5))
     OUT.mkdir(parents=True, exist_ok=True)
@@ -163,9 +286,9 @@ def build_river(name, passes, times, levels):
     wg = web_grid(site)
     lons, lats = zip(*site.valley_line)
     (OUT / f"{name}_gauges.json").write_text(json.dumps(gauges_json(site, times)))
-    entry = {"id": name, **{k: case[k] for k in ("title", "event", "role")}, "gfm_date": case["gfm"], "bounds": [min(lons) - 0.04, min(lats) - 0.08, max(lons) + 0.04, max(lats) + 0.08], "corners": corners(wg), "gauges": gauges, "profile": profile, "passes": passes, "checks": checks,
+    entry = {"id": name, **{k: case[k] for k in ("title", "event", "role")}, "gfm_date": gfm_date, "bounds": [min(lons) - 0.04, min(lats) - 0.08, max(lons) + 0.04, max(lats) + 0.08], "corners": corners(wg), "gauges": gauges, "profile": profile, "passes": passes, "checks": checks,
              "grid": {"rows": crop_rows, "cols": crop_cols, "pixels": int(corridor.sum()), "quad": quad, "pixel_ha": grid.pixel_area_ha, "margin_m": site.margin_m}}
-    print(name, entry["grid"]["pixels"], "pixels", [g["flood_ft"] for g in gauges], flush=True)
+    print(name, entry["grid"]["pixels"], "pixels", [g["flood_ft"] for g in gauges], "GFM", gfm_date, f"covers {gfm.covered[corridor].mean():.0%}", flush=True)
     return entry
 
 
@@ -173,17 +296,17 @@ def main():
     manifest = json.loads((DATA / "manifest.json").read_text())
     metrics = json.loads((DATA / "metrics.json").read_text())
     levels = flood_levels()
-    satilla = {r["pair"]: r for r in metrics["overbank"] if r["site"] == "satilla"}
     # The trust light (app/shared.js) needs the frozen rain flag: research/RAINFALL.md, as fixed in OVERBANK_PROTOCOL.md section 4.
     rain = {(r["river"], r["pair"]): r["rainy"] for r in json.loads((REPO_ROOT / "research" / "rainfall_imerg.json").read_text())["passes"]}
     rivers = []
-    build_satilla_layers(("047A_oct15", "098D_oct19"))
     for name in CASES:
-        if name == "satilla":
-            hero = manifest["hero"]
-            sat = load_site("satilla")
-            passes = [satilla_pass(sat, p, r) for p, r in satilla.items()]
-            gfm_layer = f"satilla/{hero['pass']}/gfm_excl.png"
+        if name in AUTO:
+            passes, gfm_layer = auto_pass(AUTO[name]), None
+        elif name in LIVE_PASSES:
+            passes, gfm_layer = live_case_pass(name, *LIVE_PASSES[name]), None
+        elif name in FROM_FROZEN:
+            passes = frozen_passes(name, metrics, rain)
+            gfm_layer = f"satilla/{manifest['hero']['pass']}/gfm_excl.png" if name == "satilla" else None
         else:
             s = next(x for x in manifest["sites"] if x["id"] == name)
             passes = [{"id": p["id"], "time": p["time"], "layer": f"{name}/{p['id']}/{p['layers']['nisar']}", "score": p["score"]["csi"] if p["score"]["scorable"] else None, "score_type": "development", "confident": p["confident"],

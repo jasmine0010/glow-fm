@@ -95,7 +95,7 @@ function drawPixels(ctx, from, to, t, span, { alpha, color, size = innerWidth < 
 // ---------- Act 1: the flood, and the official map's own mask passing over it ----------
 function actVeil(T) {
   const day = fmtDay(T.time), gfmDay = fmtDay(`${T.gfm_date.slice(0, 4)}-${T.gfm_date.slice(4, 6)}-${T.gfm_date.slice(6, 8)}T12:00Z`);
-  const f = actFigure(1, `Each point is ${T.unit_ha} ha of the flooding the river's gauges point to on ${day}, on the map above. Grey: inside the "can't map here" mask the official map (Copernicus GFM) published with its ${gfmDay} scene.`,
+  const f = actFigure(1, `Each point is ${T.unit_ha} ha of the flooding the river's gauges point to on ${day}, on the map above. Grey points fall inside the "can't map here" mask the official map (Copernicus GFM) published with its ${gfmDay} scene.`,
     `${pctOf(T.mask_share_wet)} of the Satilla's flooding on ${day} lies inside the official flood map's own exclusion mask; ${pctOf(T.tree_share_wet)} is under trees.`);
   if (!f) return;
   Motion.instrument(f.canvas, (ctx, t, w, h) => {
@@ -122,7 +122,7 @@ function actVeil(T) {
 
 // ---------- Act 2: the flood's shape sorts itself into radar brightening against water depth ----------
 function actScatter(T) {
-  const f = actFigure(2, `The same pixels, sorted: each point is ${T.unit_ha} ha of the Satilla on ${fmtDay(T.time)}. Cyan: flooded, by the river's answer; grey: dry. Values beyond the axes sit on the edge.`,
+  const f = actFigure(2, `The same pixels, sorted. Each point is ${T.unit_ha} ha of the Satilla on ${fmtDay(T.time)}, cyan where the river's answer says flooded and grey where it says dry. Values beyond the axes sit on the edge.`,
     "Radar brightening against water depth, for the Satilla's pixels: flooded forest brightens; dry ground doesn't.");
   if (!f) return;
   const P = T.particles, F = T.fields, wet = F.indexOf("wet"), db = F.indexOf("d_hh_db");
@@ -151,7 +151,7 @@ async function actSeason(T) {
   const index = await fetch("data/live/index.json").then((r) => r.json());
   const cases = currentCases(index).slice().sort((a, b) => Date.parse(a.wet) - Date.parse(b.wet));
   const span = cases.length ? `${fmtDay(cases[0].wet)}–${fmtDay(cases[cases.length - 1].wet)}` : "";
-  const f = actFigure(3, `The Satilla's flood, gathered into its place on Earth (magenta). Cyan: this season's floods ready to run, lit in the order NISAR passed them, ${span}. Equal-area map.`,
+  const f = actFigure(3, `The Satilla's flood, gathered into its place on Earth (magenta), with this season's floods ready to run in cyan, lit in the order NISAR passed them, ${span}. Equal-area map.`,
     `The Satilla River, and ${cases.length} floods ready to run: ${cases.map((c) => c.place).join("; ")}.`);
   if (!f) return;
   await loadGlobeData(small());
@@ -193,7 +193,7 @@ async function actSeason(T) {
 // ---------- The proof: the flood becomes its own test's dot, among every judged test ----------
 function actTests(metrics, T) {
   const judged = judgedPasses(metrics), [lo, hi] = scoreRange(metrics);
-  const f = actFigure(4, `Each dot is one frozen test, run once, with its 95% range. The Satilla's pixels gather into their own test's dot, ${T.csi.toFixed(2)}. Grey: Method 4's first test, where it failed on three rivers.`,
+  const f = actFigure(4, `Each dot is one frozen test, run once, with its 95% range. The Satilla's pixels gather into their own test's dot, ${T.csi.toFixed(2)}. Grey dots are Method 4's first test, where it failed on three rivers.`,
     `${judged.length} judged tests, scores from ${lo.toFixed(2)} to ${hi.toFixed(2)}, where 1 is perfect; the Satilla on ${fmtDay(T.time)} scored ${T.csi.toFixed(2)}.`);
   if (!f) return;
   Motion.instrument(f.canvas, (ctx, t, w, h) => {

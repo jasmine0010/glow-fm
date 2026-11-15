@@ -225,9 +225,10 @@ class Handler(NoCache):
                 return None
             if url.path.startswith("/api/"):
                 return self.send_json({"error": "Not found."}, 404)
-            if url.path == "/live.html":
-                # Mark the page so it offers "choose any place"; a plain static copy of the site never asks for the reader.
-                page = (APP / "live.html").read_text(encoding="utf8").replace("</head>", READER_META + "</head>", 1).encode()
+            if url.path in ("/live.html", "/dashboard.html"):
+                # Mark the page so it offers "choose any place" (and the dashboard "Try GLOWfm here"); a plain static copy of
+                # the site never asks for the reader.
+                page = (APP / url.path.lstrip("/")).read_text(encoding="utf8").replace("</head>", READER_META + "</head>", 1).encode()
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html; charset=utf-8")
                 self.send_header("Content-Length", str(len(page)))

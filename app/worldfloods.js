@@ -151,8 +151,8 @@ function renderWorld() {
     return `<button type="button" class="event-row world-row${e.id === active ? " on" : ""}" data-world="${esc(e.id)}" aria-label="${esc(label)}"><span class="event-main"><i class="status-dot ${v ? v.cls : "grey"}"></i><span class="event-name">${esc(e.country)}</span><span class="event-value">${nisarText(n)}</span></span><span class="event-sub" title="Flood maps here: ${v ? LEVEL_WORD[v.cls] : "checking"}">${dates} · ${esc(e.alert.toLowerCase())} alert</span></button>`;
   }).join("") + (world.events.length > WORLD_SHOWN ? `<button type="button" class="link-btn world-more" id="world-more">${world.showAll ? "Show fewer" : `Show all ${world.events.length}`}</button>` : "");
   if (focusId) { const again = box.querySelector(`[data-world="${focusId}"]`); if (again) again.focus(); }
-  const starred = shown.some((e) => (world.nisar.get(e.id) || {}).saved) ? " * Saved count: NASA's catalog didn't answer just now." : "";
-  $("world-source").textContent = (world.live ? `Live from GDACS, the UN and EU disaster alert system, last ${WORLD_DAYS} days. NISAR passes from NASA's catalog.` : `${Number.isFinite(world.savedAt) ? `GDACS list saved ${shortDay(world.savedAt)}` : "A saved GDACS list"}, because the live feed didn't answer. NISAR passes as of then.`) + starred;
+  const starred = shown.some((e) => (world.nisar.get(e.id) || {}).saved) ? " * A saved count, because NASA's catalog didn't answer just now." : "";
+  $("world-source").textContent = (world.live ? `GDACS alerts, last ${WORLD_DAYS} days · passes from NASA's catalog` : `${Number.isFinite(world.savedAt) ? `GDACS list saved ${shortDay(world.savedAt)}` : "A saved GDACS list"}, because the live feed didn't answer. NISAR passes as of then.`) + starred;
   shown.forEach(lookUp);
   if (typeof state === "object" && state.mapReady) renderKey();   // the legend lists reported floods once there are some
 }
@@ -170,14 +170,35 @@ function chooseWorld(e) {
 }
 
 // Floods the live-runs page has prepared (scripts/live_cases.py), so a card can offer to run the method on them.
-let liveCases = [];
-fetch("data/live/index.json").then((r) => (r.ok ? r.json() : { cases: [] })).then((x) => { liveCases = x.cases || []; if (atlas.event) renderAtlasPick(); }).catch(() => {});
-const liveCaseFor = (e) => liveCases.find((c) => c.kind === "world" && c.gdacs === e.id);
+let liveCases = [], liveSkips = new Map();
+fetch("data/live/index.json").then((r) => (r.ok ? r.json() : { cases: [] })).then((x) => {
+  liveCases = x.cases || [];
+  // scripts/prepare_all_floods.py records why a dashboard flood couldn't be prepared
+  liveSkips = new Map(((x.coverage || {}).skipped || []).filter((s) => s.gdacs).map((s) => [String(s.gdacs), s.skip]));
+  if (atlas.event) renderAtlasPick();
+}).catch(() => {});
+const liveCaseFor = (e) => liveCases.find((c) => c.kind === "world" && String(c.gdacs) === String(e.id) && !c.superseded_by)
+  || liveCases.find((c) => c.kind === "world" && String(c.gdacs) === String(e.id));
+// The job's reason, in a visitor's words.
+function whyNotRun(e) {
+  const why = liveSkips.get(String(e.id));
+  if (!why) return null;
+  const few = why.match(/^Only (\d+) earlier pass/);
+  if (few) return `Can't run here yet. GLOWfm compares the flood with 3 earlier NISAR passes on the same track, and there ${few[1] === "1" ? "is" : "are"} only ${few[1]}.`;
+  if (/^No NISAR pass/.test(why)) return "Can't run here yet. None of NISAR's passes during this flood are the kind GLOWfm reads (40 MHz, HH and HV).";
+  return "GLOWfm couldn't be prepared for this flood.";
+}
+// A flood nobody prepared can only run where the local box reader (scripts/custom_server.py) is serving the site, so its
+// button shows only when that reader answers. A static copy of the site has none, and offers only prepared floods.
+let hasReader = false;
+if (document.querySelector('meta[name="glowfm-reader"]')) {   // only scripts/custom_server.py adds this
+  fetch("/api/health").then((r) => (r.ok ? r.json() : null)).then((x) => { hasReader = !!(x && x.ok); if (hasReader && atlas.event) renderAtlasPick(); }).catch(() => {});
+}
 // Run it yourself on a reported flood: a 24 km box on its reported point, over its reported dates.
 function tryHere(e) {
   const dy = 12 / 111.32, dx = dy / Math.max(0.1, Math.cos((e.lat * Math.PI) / 180)), day = (ms) => new Date(ms).toISOString().slice(0, 10);
   const box = [e.lon - dx, e.lat - dy, e.lon + dx, e.lat + dy].map((v) => v.toFixed(4)).join(",");
-  return `live.html?box=${box}&from=${day(e.from)}&to=${day(Math.min(e.to, Date.now()))}`;
+  return `live.html?box=${box}&from=${day(e.from)}&to=${day(Math.min(e.to, Date.now()))}&flood=${encodeURIComponent(e.id)}&name=${encodeURIComponent(e.name)}`;
 }
 
 // A reported flood, in the Selected card's template (atlas.js renderAtlasPick): a title, one status sentence, one number,
@@ -192,11 +213,11 @@ function worldCard() {
   const saved = n && n.saved ? ` ${n.saved === true ? "From the saved list" : `As of ${shortDay(n.saved)}`}, because NASA's catalog didn't answer just now.` : "";
   const number = !n ? "…" : n.failed ? "—" : String(n.count);
   const numberSub = !n ? "checking NASA's catalog" : n.failed ? "NASA's catalog didn't answer" : n.count ? `most recently ${shortDay(n.latest)}${saved}` : `none over this spot so far${saved}`;
-  const action = run ? `<a class="btn-primary card-primary" href="live.html?case=${encodeURIComponent(run.id)}">Run the method on this flood</a>`
-    : n && n.count ? `<a class="btn-primary card-primary" href="${tryHere(e)}">Try the method here</a>` : "";
+  const action = run ? `<a class="btn-primary card-primary" href="live.html?case=${encodeURIComponent(run.id)}">Run GLOWfm on this flood</a>`
+    : hasReader && n && n.count && !whyNotRun(e) ? `<a class="btn-primary card-primary" href="${tryHere(e)}">Try GLOWfm here</a>` : "";
   const foot = `${action ? `<p class="card-actions">${action}</p>` : ""}${e.report ? `<p class="flood-tools"><a class="link-btn" href="${esc(e.report)}" target="_blank" rel="noopener">GDACS report</a></p>` : ""}`;
   const details = `${n && n.count && e.current ? `<p class="atlas-small">${nextPassText(n.latest, waitDays)}</p>` : ""}${quickLine(n)}` +
-    (run ? "" : n && n.count ? `<p class="atlas-small">We haven't prepared this flood. "Try the method here" opens Run it yourself with a 24 km box on its reported point and its dates, on a computer running the local box reader (scripts/custom_server.py).</p>`
+    (run ? "" : whyNotRun(e) ? `<p class="atlas-small">${whyNotRun(e)}</p>` : n && n.count ? `<p class="atlas-small">${hasReader ? "Not prepared yet. GLOWfm reads its NISAR radar from NASA when you try it." : "Not prepared yet, so GLOWfm can't run on it here."}</p>`
       : `<p class="atlas-small">We haven't mapped this flood. A pass means NISAR's radar could show it, including under trees.</p>`);
   return { title: e.name, status: `GDACS ${esc(e.alert.toLowerCase())} alert · ${dayRange(e.from, e.to)}, ${new Date(e.to).getUTCFullYear()}${e.current ? ", still reported" : ""}`, number, numberSub, foot, details };
 }
@@ -262,7 +283,7 @@ function quickLine(n) {
   if (!q) return "";
   const day = shortDay(q.time), open = `<a href="${esc(q.url)}" target="_blank" rel="noopener">open it</a>`;
   if (quick.state === "loading") return `<p class="world-quick">Loading NISAR's picture from ${day} (about 5 MB)…</p>`;
-  if (quick.state === "shown") return `<p class="world-quick"><b>On the map: NISAR's radar picture from ${day}.</b> NASA's quick-look, placed from the scene's corner coordinates. Open water looks dark, and flooded forest can look very bright. <button type="button" class="link-btn" id="quick-hide">Hide it</button></p>`;
+  if (quick.state === "shown") return `<p class="world-quick">The map shows NISAR's radar picture from ${day}. Open water looks dark; flooded forest can look bright. <button type="button" class="link-btn" id="quick-hide">Hide it</button></p>`;
   if (quick.state === "unplaced") return `<p class="world-quick">NISAR's picture from ${day} couldn't be placed on the map exactly, so it isn't drawn. You can ${open}.</p>`;
   if (quick.state === "hidden") return `<p class="world-quick">NISAR's picture from ${day} is hidden. <button type="button" class="link-btn" id="quick-show">Show it</button></p>`;
   if (quick.state === "failed") return `<p class="world-quick">NISAR's picture from ${day} didn't load. You can ${open}.</p>`;

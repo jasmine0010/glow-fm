@@ -20,10 +20,13 @@ drivable ways only, footpaths and bridges left out.
 """
 
 import json
+import urllib.parse
+import urllib.request
 
 import numpy as np
 
 from hidden_floods.config import REPO_ROOT, data_root, load_site
+from hidden_floods.fetch import OVERPASS, USER_AGENT
 from hidden_floods.pipeline import analysis_grid
 from hidden_floods.series import yellow_series_site
 
@@ -32,12 +35,35 @@ SKIP = {"footway", "path", "steps", "cycleway", "pedestrian", "bridleway", "corr
 MAJOR = {"motorway", "motorway_link", "trunk", "trunk_link", "primary", "primary_link", "secondary", "secondary_link", "tertiary", "tertiary_link"}
 
 
-def osm_path(name):
+def overpass(box):
+    """The highway ways in box (west, south, east, north), whole, from the Overpass service (falls back to a mirror)."""
+    w, s, e, n = box
+    query = f'[out:json][timeout:300];way["highway"]({s},{w},{n},{e});out geom;'
+    last = None
+    for base in OVERPASS:
+        try:
+            req = urllib.request.Request(base + "?" + urllib.parse.urlencode({"data": query}), headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(req, timeout=600) as r:
+                return r.read()
+        except OSError as exc:      # network or HTTP error: try the next mirror
+            last = exc
+    raise RuntimeError(f"Overpass failed: {last}")
+
+
+def osm_path(name, box=None):
+    """The OpenStreetMap ways saved for the river's blind-spot audit; for a river without one, its roads are asked for
+    once and kept in <data root>/<river>/roads/osm_roads.json."""
     for sub in ("ops", "ops_audit"):
         p = data_root() / name / sub / "osm.json"
         if p.exists():
             return p
-    raise FileNotFoundError(f"no osm.json for {name}")
+    p = data_root() / name / "roads" / "osm_roads.json"
+    if not p.exists():
+        if box is None:
+            raise FileNotFoundError(f"no OpenStreetMap roads saved for {name}")
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_bytes(overpass(box))
+    return p
 
 
 def build(river):
@@ -57,7 +83,8 @@ def build(river):
     lookup[idx] = np.arange(n)
 
     pix, seg_at, ts, length, big, lines, npts = [], [], [], [], [], [], 0
-    osm = json.loads(osm_path(name).read_text(encoding="utf-8"))
+    lons, lats = [q[0] for q in g["quad"]], [q[1] for q in g["quad"]]
+    osm = json.loads(osm_path(name, (min(lons) - 0.01, min(lats) - 0.01, max(lons) + 0.01, max(lats) + 0.01)).read_text(encoding="utf-8"))
     lon_lo = lat_lo = 1e9
     lon_hi = lat_hi = -1e9
     for el in osm.get("elements", []):

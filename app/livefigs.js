@@ -16,7 +16,7 @@ const LiveFigs = (() => {
     const rule = { ...F, ...s }, lcSet = new Set(rule.landcover), land = (i) => !(d.water && d.water[i]);
     const eligible = (i, hmax) => res.change[i] === res.change[i] && lcSet.has(d.landcover[i]) && d.hand[i] < hmax && res.mapped[i];
 
-    // A. the method's signal against height above the nearest water, forest and wetland on the valley floor
+    // A. GLOWfm's signal against height above the nearest water, forest and wetland on the valley floor
     const step = 0.5, h0 = -1, h1 = 10, nb = Math.round((h1 - h0) / step), binVals = Array.from({ length: nb }, () => []), binFlag = new Array(nb).fill(0);
     for (let i = 0; i < n; i++) {
       const lc = d.landcover[i], hd = d.hand[i], v = res.change[i];
@@ -77,12 +77,12 @@ const LiveFigs = (() => {
   const panelH = (W) => (W < 640 ? 300 : 320);
   function figSignature(box) {
     return fkFigure(box, {
-      name: "run-signature", label: "This run's radar signature: the method's signal against height above the nearest water",
+      name: "run-signature", label: "This run's radar signature: GLOWfm's signal against height above the nearest water",
       height: (W) => panelH(W) + 150,
       csv: () => [["height_from_m", "height_to_m", "pixels", "signal_q25_db", "signal_median_db", "signal_q75_db", "share_flagged"], ...S.out.sig.map((b) => [b.lo, b.hi, b.n, b.q25, b.q50, b.q75, b.flagged])],
       draw(svg, W, H, tip) {
         const o = S.out, ok = o.sig.filter((b) => b.n >= 30), x0 = -1, x1 = 10;
-        const pa = fkPanel(svg, { x: 0, y: 0, w: W, h: panelH(W), letter: "a", title: `The method's signal by height above the nearest water (forest and wetland, ${o.sig.reduce((t, b) => t + b.n, 0).toLocaleString("en-US")} pixels)` });
+        const pa = fkPanel(svg, { x: 0, y: 0, w: W, h: panelH(W), letter: "a", title: `GLOWfm's signal by height above the nearest water (forest and wetland, ${o.sig.reduce((t, b) => t + b.n, 0).toLocaleString("en-US")} pixels)` });
         const vals = ok.flatMap((b) => [b.q25, b.q75, S.res.threshold]), lo = Math.floor(Math.min(...vals, -1)), hi = Math.ceil(Math.max(...vals, 2));
         const sx = fkLinear(x0, x1, 0, pa.w), sy = fkLinear(lo, hi, pa.h, 0);
         fkAxes(pa, sx, sy, { ylabel: "Signal (dB)", xticks: [] });
@@ -92,10 +92,10 @@ const LiveFigs = (() => {
         fkEl(pa.g, "line", { x1: sx(S.out.rule.hand_max_m), x2: sx(S.out.rule.hand_max_m), y1: 0, y2: pa.h, class: "fk-ref" });
         fkEl(pa.g, "text", { x: 4, y: sy(S.res.threshold) - 5, class: "fk-tick" }, `cut-off ${sdb(S.res.threshold)}`);
         fkEl(pa.g, "text", { x: sx(S.out.rule.hand_max_m) + 4, y: 14, class: "fk-tick" }, `height limit ${S.out.rule.hand_max_m} m`);
-        fkKey(pa, [["line", "s-nisar", "Median"], ["patch", "f-nisar", "Middle half"]], "tr");
+        fkKey(pa, [["line", "s-nisar", "Median"], ["patch", "f-nisar", "Middle half"]], "br");   // the top carries the height-limit label
         const pts = ok.map((b) => ({ x: sx((b.lo + b.hi) / 2), y: sy(b.q50), html: `${b.lo}–${b.hi} m above water · ${b.n.toLocaleString("en-US")} px<br>median ${sdb(b.q50)} · ${Math.round(100 * b.flagged)}% flagged` }));
         fkHover(pa, tip, (px, py) => fkNearest(pts, px, py, 20));
-        const pb = fkPanel(svg, { x: 0, y: panelH(W) + 6, w: W, h: 144, letter: "b", title: "Share of those pixels the method flagged", m: { t: 26, r: 18, b: 42, l: 56 } });
+        const pb = fkPanel(svg, { x: 0, y: panelH(W) + 6, w: W, h: 144, letter: "b", title: "Share of those pixels GLOWfm flagged", m: { t: 26, r: 18, b: 42, l: 56 } });
         const sy2 = fkLinear(0, 1, pb.h, 0);
         fkAxes(pb, sx, sy2, { xlabel: "Height above the nearest mapped water (m)", ylabel: "Flagged", yfmt: (v) => `${Math.round(v * 100)}%`, yticks: [0, 0.5, 1] });
         ok.forEach((b) => fkEl(pb.g, "rect", { x: sx(b.lo) + 0.5, y: sy2(b.flagged), width: Math.max(1, sx(b.hi) - sx(b.lo) - 1), height: pb.h - sy2(b.flagged), class: "f-nisar", "fill-opacity": 0.6 }));
@@ -122,7 +122,7 @@ const LiveFigs = (() => {
         if (t.highMed !== null) fkEl(p.g, "line", { x1: sx(t.highMed), x2: sx(t.highMed), y1: 0, y2: p.h, class: "s-veil", "stroke-dasharray": "4 3" });
         const gap = S.res.lowMinusHigh, verdict = gap === null ? `too few forest pixels to compare (needs ${t.min} in each)` : `gap ${sdb(gap)}: ${gap > t.rule ? "above" : "not above"} the ${t.rule} dB rule, so ${gap > t.rule ? "green" : "red"}`;
         fkEl(p.g, "text", { x: 6, y: 16, class: "fk-tick" }, verdict);
-        fkKey(p, [["line", "s-water", "Forest under 2 m above water"], ["line", "s-veil", "Forest 4–8 m above water"]], "tr");
+        fkKey(p, [["line", "s-water", "Forest under 2 m above water"], ["line", "s-veil", "Forest 4–8 m above water"]], "br");   // the top left carries the verdict, and the right-hand tail is empty
       },
     });
   }
@@ -208,6 +208,20 @@ const LiveFigs = (() => {
   const MAKERS = { signature: figSignature, trust: figTrust, robust: figRobust, where: figWhere, score: figScore };
 
   // ---------- public: draw (or redraw) for the latest run ----------
+  // Two figures show for each flood: the radar signature, then the score against the gauges where there is one, or the
+  // trust light's check where there isn't. The rest wait under More figures and draw when it opens (figkit needs a width).
+  const pending = new Set();
+  function drawFig(k) {
+    const box = $(`af-${k}`).querySelector(".af-mount");
+    if (S.figs[k] && S.figs[k].box === box) S.figs[k].fig.render();
+    else S.figs[k] = { box, fig: MAKERS[k](box) };
+  }
+  $("figs-more").addEventListener("toggle", () => {
+    if (!$("figs-more").open || !S.out) return;
+    pending.forEach(drawFig);
+    pending.clear();
+  });
+
   function update(rec, d, res, s) {
     Object.assign(S, { rec, d, res, s });
     clearTimeout(S.timer);
@@ -215,15 +229,15 @@ const LiveFigs = (() => {
       if (S.res !== res || res.error) return;
       S.out = compute();
       $("analysis").hidden = false;
-      $("analysis-sub").innerHTML = `${escHtml(rec.place)} · NISAR pass ${fmtTime(rec.wet.time)} · ${rec.layout.width} × ${rec.layout.height} pixels of ${(Math.sqrt(rec.pixel_ha) * 100).toFixed(0)} m` +
-        (rec.kind === "us" && d.estimate ? "" : ' · <span class="live-warn">not checked against ground truth</span>') + ". Each figure is computed here, from this run, and downloads with its data.";
+      $("analysis-sub").innerHTML = `${escHtml(rec.place)} · NISAR pass ${fmtTime(rec.wet.time)}` + (rec.kind === "us" && d.estimate ? "" : ' · <span class="live-warn">not checked against ground truth</span>');
+      const shown = d.estimate ? ["signature", "score"] : ["signature", "trust"], folded = ["robust", "where", ...(d.estimate ? ["trust"] : [])];
+      shown.forEach((k) => $("figs-main").appendChild($(`af-${k}`)));
+      folded.forEach((k) => $("figs-more-grid").appendChild($(`af-${k}`)));
       $("af-score").hidden = !d.estimate;
-      for (const [k, make] of Object.entries(MAKERS)) {
-        if (k === "score" && !d.estimate) continue;
-        const box = $(`af-${k}`).querySelector(".af-mount");
-        if (S.figs[k] && S.figs[k].box === box) S.figs[k].fig.render();
-        else S.figs[k] = { box, fig: make(box) };
-      }
+      pending.clear();
+      shown.forEach(drawFig);
+      if ($("figs-more").open) folded.forEach(drawFig);
+      else folded.forEach((k) => pending.add(k));
     }, 250);
   }
 
@@ -263,14 +277,14 @@ const LiveFigs = (() => {
     y = wrap(`NISAR pass ${fmtTime(rec.wet.time)}, compared with ${rec.baseline.length} earlier pass${rec.baseline.length === 1 ? "" : "es"} on the same track`, M, y + 4, W - 2 * M, 30, { font: sans(21) });
     hr(y + 14); y += 92;
     g.font = disp(84); g.fillStyle = nisar; g.fillText(`${ha(area)} ha`, M, y);
-    y = wrap("flagged as flooded by NISAR's method, outside permanent lakes and rivers", M, y + 40, W - 2 * M, 30, { font: sans(22), color: soft });
+    y = wrap("flagged as flooded by GLOWfm, outside permanent lakes and rivers", M, y + 40, W - 2 * M, 30, { font: sans(22), color: soft });
     const dot = { green: "#2f9e4f", red: "#d64545", amber: "#d49b12", grey: "#8a969e" }[light.cls] || "#8a969e";
     g.fillStyle = dot; g.beginPath(); g.arc(M + 9, y + 12, 9, 0, 2 * Math.PI); g.fill();
     g.font = sans(23, 600); g.fillStyle = ink; g.fillText(light.cls === "grey" ? light.label : `Trust light: ${light.cls}${light.cls === "red" ? ". Don't rely on this map" : ""}`, M + 28, y + 20);
     y = wrap(light.why, M + 28, y + 52, W - 2 * M - 28, 28, { font: sans(19) });
     if (rec.kind === "us" && rec.score && rec.score.scores) {
-      y = wrap(`Checked against the river's own gauges and lidar: match ${rec.score.scores.csi.toFixed(2)} (1 is perfect, 95% range ${rec.score.ci95.csi[0].toFixed(2)}–${rec.score.ci95.csi[1].toFixed(2)}), in the frozen test run before anyone saw the result.`, M, y + 10, W - 2 * M, 28, { font: sans(19), color: ink });
-    } else y = wrap("Not checked against ground truth: there are no river gauges here, so the trust light decides.", M, y + 10, W - 2 * M, 28, { font: sans(19), color: ink });
+      y = wrap(`Checked against the river's own gauges and lidar, it matched at ${rec.score.scores.csi.toFixed(2)} (1 is perfect, 95% range ${rec.score.ci95.csi[0].toFixed(2)}–${rec.score.ci95.csi[1].toFixed(2)}), in the frozen test run before anyone saw the result.`, M, y + 10, W - 2 * M, 28, { font: sans(19), color: ink });
+    } else y = wrap("Not checked against ground truth. There are no river gauges here, so the trust light decides.", M, y + 10, W - 2 * M, 28, { font: sans(19), color: ink });
     if (!frozen) y = wrap(`Settings changed from the frozen method${yourCsi !== null && yourCsi !== undefined ? ` (match ${yourCsi.toFixed(2)} with these settings)` : ""}. This is not the tested run.`, M, y + 6, W - 2 * M, 28, { font: sans(19, 600), color: "#a35a00" });
     // the map as shown on screen
     y += 18;
@@ -285,7 +299,7 @@ const LiveFigs = (() => {
     if (next) y = wrap(next, M, y + 24, W - 2 * M, 28, { font: sans(19, 500), color: ink });
     hr(y + 6); y += 44;
     g.font = sans(17, 600); g.fillStyle = muted; g.fillText("LIMITS", M, y);
-    y = wrap("Provisional NISAR data; not an operational product. Not for emergency decisions on its own: use it beside official warnings and local reports. " +
+    y = wrap("Provisional NISAR data; not an operational product. Not for emergency decisions on its own; use it beside official warnings and local reports. " +
       `${TRUST_RECORD} Water under trees shows as brighter radar; open water outside the river's valley floor is left out.`, M, y + 32, W - 2 * M, 27, { font: sans(18) });
     g.font = sans(17, 600); g.fillStyle = muted; g.fillText("WHERE IT CAME FROM", M, y + 22); y += 54;
     y = wrap(`Flood pass: ${rec.wet.name}`, M, y, W - 2 * M, 24, { font: sans(15), breakAll: true });

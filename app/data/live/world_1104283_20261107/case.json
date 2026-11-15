@@ -1,0 +1,199 @@
+{
+  "id": "world_1104283_20261107",
+  "kind": "world",
+  "name": "Flood in Thailand",
+  "place": "Thailand",
+  "category": "green",
+  "lat": 10.3783,
+  "lon": 99.0078,
+  "flood_from": "2026-11-06T01:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": "https://www.gdacs.org/report.aspx?eventid=1104283&episodeid=2&eventtype=FL",
+  "usgs": null,
+  "noaa": null,
+  "wet": {
+    "time": "2026-11-07T23:00:59Z",
+    "name": "NISAR_L2_PR_GCOV_035_040_A_007_4005_DHDH_A_20261107T230059_20261107T230134_P05036_N_F_J_001",
+    "stack": "040A_007_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_035_040_A_007_4005_DHDH_A_20261107T230059_20261107T230134_P05036_N_F_J_001/NISAR_L2_PR_GCOV_035_040_A_007_4005_DHDH_A_20261107T230059_20261107T230134_P05036_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          99.70227,
+          10.04872
+        ],
+        [
+          99.19172,
+          12.19358
+        ],
+        [
+          96.87606,
+          11.64622
+        ],
+        [
+          97.39894,
+          9.50988
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-09-08T23:00:58Z",
+      "name": "NISAR_L2_PR_GCOV_030_040_A_007_4005_DHDH_A_20260908T230058_20260908T230133_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-20T23:00:58Z",
+      "name": "NISAR_L2_PR_GCOV_031_040_A_007_4005_DHDH_A_20260920T230058_20260920T230133_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-10-02T23:00:58Z",
+      "name": "NISAR_L2_PR_GCOV_032_040_A_007_4005_DHDH_A_20261002T230058_20261002T230133_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-10-14T23:00:58Z",
+      "name": "NISAR_L2_PR_GCOV_033_040_A_007_4005_DHDH_A_20261014T230058_20261014T230133_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-10-26T23:00:59Z",
+      "name": "NISAR_L2_PR_GCOV_034_040_A_007_4005_DHDH_A_20261026T230059_20261026T230133_P05036_N_F_J_001"
+    }
+  ],
+  "passes_during": 1,
+  "corners": [
+    [
+      98.898107,
+      10.486462
+    ],
+    [
+      99.117885,
+      10.486456
+    ],
+    [
+      99.117804,
+      10.270296
+    ],
+    [
+      98.898177,
+      10.270302
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 481,
+    "height": 478,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32647",
+    "heights": "FABDEM V1-2 bare-earth model (trees and buildings removed)",
+    "river": "nearest water in ESA WorldCover",
+    "protocol": "research/LIVE_PROTOCOL_V2.md",
+    "fabdem_tiles": [
+      {
+        "name": "N10E098_FABDEM_V1-2.tif",
+        "sha256": "53aabacac9fcd636b56d69274c7cad4fd09e055a40a7dc2d8b1d6e86649a16c3",
+        "bytes": 15847354,
+        "crc32": "5e1967ec",
+        "archive": "N10E090-N20E100_FABDEM_V1-2.zip"
+      },
+      {
+        "name": "N10E099_FABDEM_V1-2.tif",
+        "sha256": "0716a5c1f95b7a22f9c38c08ce9a6d26633c54fea82038e192522b34ab349374",
+        "bytes": 7988212,
+        "crc32": "9d486d55",
+        "archive": "N10E090-N20E100_FABDEM_V1-2.zip"
+      }
+    ],
+    "licence": "Height layer made from FABDEM V1-2 (Hawker et al. 2022), CC BY-NC-SA 4.0, for non-commercial use. FABDEM is produced using Copernicus WorldDEM-30 \u00a9 DLR e.V. 2010-2014 and \u00a9 Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved."
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.5,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": 0.05702798068523407,
+    "flagged_ha": 3703.75,
+    "mapped_ha": 57479.5
+  },
+  "reference_run": {
+    "threshold_db": 0.5,
+    "flagged_px": 14823,
+    "flagged_land_px": 14800,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": 0.05777771770954132
+  },
+  "score": null,
+  "attempt": {
+    "case": "world_1104283_20261107",
+    "dev": false,
+    "git_head": "684667117082efd0b1af1077d03611bc0ddeb46d"
+  },
+  "dev": false,
+  "selection": "coverage"
+}

@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GLOWfm</title>
-  <meta name="description" content="A blank flood map can hide a flood under the trees. GLOWfm finds that water with NISAR's radar, lets anyone run the method on this season's floods in their browser, grades it against the river's own gauges, and tells you when to trust it.">
+  <meta name="description" content="A blank flood map can hide a flood under the trees. GLOWfm finds that water with NISAR's radar, lets anyone run it on this season's floods in their browser, grades it against the river's own gauges, and tells you when to trust it.">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#03060a">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="GLOWfm">
   <meta property="og:title" content="GLOWfm">
-  <meta property="og:description" content="A blank flood map can hide a flood under the trees. GLOWfm finds that water with NISAR's radar, lets anyone run the method on this season's floods in their browser, grades it against the river's own gauges, and tells you when to trust it.">
+  <meta property="og:description" content="A blank flood map can hide a flood under the trees. GLOWfm finds that water with NISAR's radar, lets anyone run it on this season's floods in their browser, grades it against the river's own gauges, and tells you when to trust it.">
   <meta property="og:image" content="og-card.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=32">
+  <link rel="stylesheet" href="style.css?v=43">
 </head>
 <body class="night">
   <nav class="topbar" aria-label="GLOWfm">
@@ -143,7 +143,7 @@
         <div class="qn waves-num waves-l" style="--c: var(--nisar-ink)"><span class="qn-k">NISAR · L-band · 24 cm</span><b class="qn-n" id="band-l-num"></b><span class="qn-u" id="band-l-label"></span></div>
       </div>
       <p class="bands-controls"><label><input type="checkbox" id="bands-truth"> Show where the river says it flooded</label> <button type="button" class="btn-quiet" id="bands-hear">▶ Hear the difference</button></p>
-      <p class="story-fig-link"><a href="evidence.html#fig2">Every pass's signature, and C-band against L-band: Fig. 2 in the results</a></p>
+      <p class="story-fig-link"><a href="evidence.html#fig2">Every pass's signature, and C-band against L-band, in Fig. 2 of the results</a></p>
       <details class="fine">
         <summary>The fine print</summary>
         <div class="fine-body">
@@ -190,12 +190,12 @@
         <div class="fine-body">
           <p id="time-claim"></p>
           <p id="time-trust-why"></p>
-          <p><b id="time-date"></b> Mapped on ground the river says is dry: <span id="time-false"></span>. Match with its 95% range: <span id="time-csi-full"></span>.</p>
-          <p>Change at each gauge since the lowest pass: <span id="time-gauges"></span></p>
+          <p><b id="time-date"></b> It mapped <span id="time-false"></span> on ground the river says is dry<span id="time-csi-full"></span>.</p>
+          <p>Change at each gauge since the lowest pass, <span id="time-gauges"></span>.</p>
           <p id="time-sound-note"></p>
           <p id="time-area-note"></p>
           <p id="time-note"></p>
-          <p><a href="evidence.html#fig6">Fig. 6 in the results</a> plots the river levels, the mapped areas and the score for every pass on one time axis.</p>
+          <p><a href="evidence.html#fig7">Fig. 7 in the results</a> plots the river levels, the mapped areas and the score for every pass on one time axis.</p>
         </div>
       </details>
     </div>
@@ -226,7 +226,7 @@
         <summary>The fine print</summary>
         <div class="fine-body">
           <p id="game-fine-photo"></p>
-          <p>Only ground the river's gauges can label counts toward a score, exactly as in the frozen test. The sweep when you grade is an illustration of NISAR's pass: an ascending pass builds its image from south to north. On a touch screen, the page scrolls outside the photo.</p>
+          <p>Only ground the river's gauges can label counts toward a score, exactly as in the frozen test. The sweep when you grade is an illustration of NISAR's pass, since an ascending pass builds its image from south to north. On a touch screen, the page scrolls outside the photo.</p>
         </div>
       </details>
     </section>
@@ -266,7 +266,7 @@
 
     <section class="wrap story run-teaser reveal" id="run" data-station="The tools" data-story-act="3">
       <p class="eyebrow">The tools</p>
-      <h2>See every flood now. Then run the method yourself.</h2>
+      <h2>See every flood now. Then run GLOWfm yourself.</h2>
       <p class="plain" id="run-coverage"></p>
       <div class="tool-cards">
         <article class="tool-card">
@@ -276,7 +276,7 @@
           <p class="tool-go"><a class="btn-primary" href="dashboard.html">Open the live dashboard</a></p>
         </article>
         <article class="tool-card">
-          <h3>Run NISAR's method on this season's floods</h3>
+          <h3>Run GLOWfm on this season's floods</h3>
           <p class="tool-line">In your browser. It grades itself against the river's gauges and says when not to trust it.</p>
           <table class="departures" id="run-board"><caption class="sr-only">Floods ready to run</caption></table>
           <p class="tool-go"><a class="btn-line" href="live.html">Run it yourself</a></p>
@@ -304,12 +304,12 @@
       <details class="deep">
         <summary>What's next</summary>
         <div class="deep-body">
-          <p class="plain">Use NISAR's phase to measure water level under trees. In one Florida swamp during Hurricane Isaias, it showed the water rising: each band of colour is about 16 cm. It's an early demonstration, checked against a dry-season control.</p>
-          <figure class="next-fig"><img src="data/figures/fringes_flood.jpg" width="549" height="392" loading="lazy" alt="Rainbow bands across the Choctawhatchee delta swamp in a NISAR interferogram from Oct 9 to Oct 21, each band about 16 cm of water rising under the trees"><figcaption>NISAR, Oct 9 to Oct 21, Choctawhatchee River delta. Colour: change in the radar's phase; brightness: how clearly it could read it. <a href="evidence.html#fig11">See Fig. 11</a></figcaption></figure>
+          <p class="plain">Use NISAR's phase to measure water level under trees. In one Florida swamp during Hurricane Isaias, it showed the water rising; each band of colour is about 16 cm. It's an early demonstration, checked against a dry-season control.</p>
+          <figure class="next-fig"><img src="data/figures/fringes_flood.jpg" width="549" height="392" loading="lazy" alt="Rainbow bands across the Choctawhatchee delta swamp in a NISAR interferogram from Oct 9 to Oct 21, each band about 16 cm of water rising under the trees"><figcaption>NISAR, Oct 9 to Oct 21, Choctawhatchee River delta. Colour shows the change in the radar's phase, and brightness how clearly it could read it. <a href="evidence.html#fig12">See Fig. 12</a></figcaption></figure>
         </div>
       </details>
       <p class="story-actions"><a class="btn-primary" href="evidence.html">See every test</a></p>
-      <p class="deeper-links"><a href="dashboard.html">Live dashboard</a> · <a href="live.html">Run it yourself</a> · <a href="tour.html">The 1-minute tour</a></p>
+      <p class="deeper-links"><a href="dashboard.html">Live dashboard</a> · <a href="live.html">Run it yourself</a> · <a href="dashboard.html?tour=1">Dashboard tour</a></p>
     </section>
   </main>
 
@@ -320,22 +320,22 @@
   </footer>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-  <script src="shared.js?v=29"></script>
+  <script src="shared.js?v=31"></script>
   <script src="sound.js?v=29"></script>
-  <script src="atlas.js?v=29"></script>
+  <script src="atlas.js?v=30"></script>
   <script src="charts.js?v=29"></script>
-  <script src="game.js?v=29"></script>
+  <script src="game.js?v=30"></script>
   <script src="estimator.js?v=29"></script>
   <script src="globe.js?v=32"></script>
   <script src="strip.js?v=29"></script>
-  <script src="lantern.js?v=29"></script>
+  <script src="lantern.js?v=30"></script>
   <script src="where.js?v=29"></script>
-  <script src="orbit.js?v=29"></script>
+  <script src="orbit.js?v=30"></script>
   <script src="figkit.js?v=29"></script>
   <script src="figures.js?v=32"></script>
   <script src="motion.js?v=29"></script>
-  <script src="acts.js?v=29"></script>
+  <script src="acts.js?v=30"></script>
   <script src="livefloods.js?v=29"></script>
-  <script src="story.js?v=29"></script>
+  <script src="story.js?v=34"></script>
 </body>
 </html>

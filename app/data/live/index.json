@@ -59,6 +59,531 @@
       "lat": 29.166666666667,
       "lon": -81.522222222222,
       "gdacs": null
+    },
+    {
+      "id": "world_1104177_20260917",
+      "kind": "world",
+      "place": "South Africa",
+      "name": "Flood in South Africa",
+      "category": "green",
+      "wet": "2026-09-17T16:00:52Z",
+      "scored": false,
+      "lat": -29.8435,
+      "lon": 30.8076,
+      "gdacs": "1104177",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104187_20260921",
+      "kind": "world",
+      "place": "Brazil",
+      "name": "Flood in Brazil",
+      "category": "green",
+      "wet": "2026-09-21T21:33:49Z",
+      "scored": false,
+      "lat": -28.8472,
+      "lon": -51.8908,
+      "gdacs": "1104187",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104216_20261101",
+      "kind": "world",
+      "place": "Brazil",
+      "name": "Flood in Brazil",
+      "category": "green",
+      "wet": "2026-11-01T21:24:56Z",
+      "scored": false,
+      "lat": -27.2163,
+      "lon": -49.6437,
+      "gdacs": "1104216",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104259_20261031",
+      "kind": "world",
+      "place": "Peru",
+      "name": "Flood in Peru",
+      "category": "green",
+      "wet": "2026-10-31T23:40:17Z",
+      "scored": false,
+      "lat": -3.9269,
+      "lon": -80.6388,
+      "gdacs": "1104259",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104262_20261019",
+      "kind": "world",
+      "place": "Peru",
+      "name": "Flood in Peru",
+      "category": "green",
+      "wet": "2026-10-19T23:39:44Z",
+      "scored": false,
+      "lat": -3.5708,
+      "lon": -80.4596,
+      "gdacs": "1104262",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104224_20261010",
+      "kind": "world",
+      "place": "Indonesia",
+      "name": "Flood in Indonesia",
+      "category": "green",
+      "wet": "2026-10-10T11:35:00Z",
+      "scored": false,
+      "lat": -0.5828,
+      "lon": 100.6133,
+      "gdacs": "1104224",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104255_20261025",
+      "kind": "world",
+      "place": "Uganda",
+      "name": "Flood in Uganda",
+      "category": "green",
+      "wet": "2026-10-25T03:41:12Z",
+      "scored": false,
+      "lat": 0.131,
+      "lon": 30.0048,
+      "gdacs": "1104255",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104185_20260921",
+      "kind": "world",
+      "place": "Uganda",
+      "name": "Flood in Uganda",
+      "category": "green",
+      "wet": "2026-09-21T16:25:47Z",
+      "scored": false,
+      "lat": 0.131,
+      "lon": 30.0048,
+      "gdacs": "1104185",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104168_20260923",
+      "kind": "world",
+      "place": "Indonesia",
+      "name": "Flood in Indonesia",
+      "category": "green",
+      "wet": "2026-09-23T11:42:13Z",
+      "scored": false,
+      "lat": 2.1924,
+      "lon": 99.3812,
+      "gdacs": "1104168",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104239_20261031",
+      "kind": "world",
+      "place": "Malaysia",
+      "name": "Flood in Malaysia",
+      "category": "green",
+      "wet": "2026-10-31T22:50:25Z",
+      "scored": false,
+      "lat": 3.2083,
+      "lon": 101.3041,
+      "gdacs": "1104239",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104200_20261027",
+      "kind": "world",
+      "place": "Colombia",
+      "name": "Flood in Colombia",
+      "category": "green",
+      "wet": "2026-10-27T10:38:30Z",
+      "scored": false,
+      "lat": 4.546,
+      "lon": -75.6715,
+      "gdacs": "1104200",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104253_20261031",
+      "kind": "world",
+      "place": "Indonesia",
+      "name": "Flood in Indonesia",
+      "category": "green",
+      "wet": "2026-10-31T11:58:20Z",
+      "scored": false,
+      "lat": 4.3685,
+      "lon": 97.0253,
+      "gdacs": "1104253",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104186_20261023",
+      "kind": "world",
+      "place": "Nigeria",
+      "name": "Flood in Nigeria",
+      "category": "green",
+      "wet": "2026-10-23T05:05:33Z",
+      "scored": false,
+      "lat": 5.1128,
+      "lon": 7.3651,
+      "gdacs": "1104186",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104204_20260927",
+      "kind": "world",
+      "place": "Panama",
+      "name": "Flood in Panama",
+      "category": "green",
+      "wet": "2026-09-27T23:53:07Z",
+      "scored": false,
+      "lat": 8.7376,
+      "lon": -82.6258,
+      "gdacs": "1104204",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104208_20260920",
+      "kind": "world",
+      "place": "Thailand",
+      "name": "Flood in Thailand",
+      "category": "green",
+      "wet": "2026-09-20T23:00:22Z",
+      "scored": false,
+      "lat": 8.8707,
+      "lon": 98.3438,
+      "gdacs": "1104208",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104227_20261019",
+      "kind": "world",
+      "place": "Costa Rica",
+      "name": "Flood in Costa Rica",
+      "category": "green",
+      "wet": "2026-10-19T11:13:27Z",
+      "scored": false,
+      "lat": 10.0255,
+      "lon": -84.1256,
+      "gdacs": "1104227",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104197_20260925",
+      "kind": "world",
+      "place": "Costa Rica",
+      "name": "Flood in Costa Rica",
+      "category": "green",
+      "wet": "2026-09-25T11:13:27Z",
+      "scored": false,
+      "lat": 10.068,
+      "lon": -83.8669,
+      "gdacs": "1104197",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104219_20261008",
+      "kind": "world",
+      "place": "Venezuela",
+      "name": "Flood in Venezuela",
+      "category": "green",
+      "wet": "2026-10-08T22:54:12Z",
+      "scored": false,
+      "lat": 10.2343,
+      "lon": -66.3807,
+      "gdacs": "1104219",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104283_20261107",
+      "kind": "world",
+      "place": "Thailand",
+      "name": "Flood in Thailand",
+      "category": "green",
+      "wet": "2026-11-07T23:00:59Z",
+      "scored": false,
+      "lat": 10.3783,
+      "lon": 99.0078,
+      "gdacs": "1104283",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104214_20260928",
+      "kind": "world",
+      "place": "Vietnam",
+      "name": "Flood in Vietnam",
+      "category": "green",
+      "wet": "2026-09-28T22:27:40Z",
+      "scored": false,
+      "lat": 10.7567,
+      "lon": 106.7229,
+      "gdacs": "1104214",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104205_20260929",
+      "kind": "world",
+      "place": "Chad",
+      "name": "Flood in Chad",
+      "category": "green",
+      "wet": "2026-09-29T17:29:00Z",
+      "scored": false,
+      "lat": 12.1192,
+      "lon": 15.0503,
+      "gdacs": "1104205",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104174_20260918",
+      "kind": "world",
+      "place": "Cambodia",
+      "name": "Flood in Cambodia",
+      "category": "green",
+      "wet": "2026-09-18T22:44:53Z",
+      "scored": false,
+      "lat": 13.7989,
+      "lon": 102.8863,
+      "gdacs": "1104174",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104176_20261002",
+      "kind": "world",
+      "place": "Philippines",
+      "name": "Flood in Philippines",
+      "category": "green",
+      "wet": "2026-10-02T10:24:31Z",
+      "scored": false,
+      "lat": 13.8114,
+      "lon": 121.1763,
+      "gdacs": "1104176",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104173_20260920",
+      "kind": "world",
+      "place": "Honduras",
+      "name": "Flood in Honduras",
+      "category": "green",
+      "wet": "2026-09-20T11:22:54Z",
+      "scored": false,
+      "lat": 14.7875,
+      "lon": -87.7673,
+      "gdacs": "1104173",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104209_20261002",
+      "kind": "world",
+      "place": "Honduras",
+      "name": "Flood in Honduras",
+      "category": "green",
+      "wet": "2026-10-02T11:22:54Z",
+      "scored": false,
+      "lat": 14.5505,
+      "lon": -87.691,
+      "gdacs": "1104209",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104203_20261004",
+      "kind": "world",
+      "place": "Senegal",
+      "name": "Flood in Senegal",
+      "category": "green",
+      "wet": "2026-10-04T06:39:53Z",
+      "scored": false,
+      "lat": 14.7607,
+      "lon": -17.4315,
+      "gdacs": "1104203",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104248_20261104",
+      "kind": "world",
+      "place": "India",
+      "name": "Flood in India",
+      "category": "green",
+      "wet": "2026-11-04T00:08:41Z",
+      "scored": false,
+      "lat": 15.446,
+      "lon": 80.1661,
+      "gdacs": "1104248",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104249_20261020",
+      "kind": "world",
+      "place": "Jamaica",
+      "name": "Flood in Jamaica",
+      "category": "green",
+      "wet": "2026-10-20T10:34:04Z",
+      "scored": false,
+      "lat": 17.9474,
+      "lon": -76.3502,
+      "gdacs": "1104249",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104169_20261007",
+      "kind": "world",
+      "place": "Thailand",
+      "name": "Flood in Thailand",
+      "category": "green",
+      "wet": "2026-10-07T22:54:53Z",
+      "scored": false,
+      "lat": 18.2661,
+      "lon": 98.9675,
+      "gdacs": "1104169",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104099_20261104",
+      "kind": "world",
+      "place": "Mexico",
+      "name": "Flood in Mexico",
+      "category": "green",
+      "wet": "2026-11-04T11:51:14Z",
+      "scored": false,
+      "lat": 25.881,
+      "lon": -97.5065,
+      "gdacs": "1104099",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104180_20260918",
+      "kind": "world",
+      "place": "Tunisia",
+      "name": "Flood in Tunisia",
+      "category": "green",
+      "wet": "2026-09-18T04:32:52Z",
+      "scored": false,
+      "lat": 35.6514,
+      "lon": 9.0563,
+      "gdacs": "1104180",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104182_20260920",
+      "kind": "world",
+      "place": "Japan",
+      "name": "Flood in Japan",
+      "category": "green",
+      "wet": "2026-09-20T19:48:28Z",
+      "scored": false,
+      "lat": 35.609,
+      "lon": 140.1246,
+      "gdacs": "1104182",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104151_20260917",
+      "kind": "world",
+      "place": "Spain",
+      "name": "Flood in Spain",
+      "category": "green",
+      "wet": "2026-09-17T05:14:29Z",
+      "scored": false,
+      "lat": 37.6155,
+      "lon": -0.9875,
+      "gdacs": "1104151",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104221_20261008",
+      "kind": "world",
+      "place": "Slovenia",
+      "name": "Flood in Slovenia",
+      "category": "green",
+      "wet": "2026-10-08T04:02:22Z",
+      "scored": false,
+      "lat": 45.8238,
+      "lon": 13.8443,
+      "gdacs": "1104221",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
+    },
+    {
+      "id": "world_1104211_20260930",
+      "kind": "world",
+      "place": "Iceland",
+      "name": "Flood in Iceland",
+      "category": "green",
+      "wet": "2026-09-30T04:41:40Z",
+      "scored": false,
+      "lat": 64.9068,
+      "lon": -14.6007,
+      "gdacs": "1104211",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2
     }
   ],
   "considered": [
@@ -117,5 +642,446 @@
       "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
     }
   ],
-  "protocol": "research/LIVE_PROTOCOL.md"
+  "protocols": [
+    "research/LIVE_PROTOCOL.md",
+    "research/LIVE_PROTOCOL_V2.md"
+  ],
+  "coverage": {
+    "about": "Every dashboard flood with a usable NISAR pass, prepared by scripts/prepare_all_floods.py with the frozen method; not picked by the live protocol.",
+    "skipped": [
+      {
+        "kind": "us",
+        "key": "COCF1",
+        "name": "St. Johns River near Cocoa",
+        "place": "St. Johns River near Cocoa, FL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "WLWA2",
+        "name": "Willow Creek near Willow",
+        "place": "Willow Creek near Willow, AK",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "CCSA2",
+        "name": "Campbell Creek near Spenard",
+        "place": "Campbell Creek near Spenard, AK",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "GENF1",
+        "name": "St. Johns River above Lake Harney",
+        "place": "St. Johns River above Lake Harney, FL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "MNRC2",
+        "name": "Mancos River near Mancos",
+        "place": "Mancos River near Mancos, CO",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "TILT2",
+        "name": "Nueces River near Tilden",
+        "place": "Nueces River near Tilden, TX",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104190",
+        "key": "1104190",
+        "name": "Flood in Chile",
+        "place": "Chile",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104192",
+        "key": "1104192",
+        "name": "Flood in Argentina",
+        "place": "Argentina",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104217",
+        "key": "1104217",
+        "name": "Flood in Chile",
+        "place": "Chile",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104218",
+        "key": "1104218",
+        "name": "Flood in Argentina",
+        "place": "Argentina",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104229",
+        "key": "1104229",
+        "name": "Flood in Brazil",
+        "place": "Brazil",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104250",
+        "key": "1104250",
+        "name": "Flood in Argentina",
+        "place": "Argentina",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104145",
+        "key": "1104145",
+        "name": "Flood in Peru",
+        "place": "Peru",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104166",
+        "key": "1104166",
+        "name": "Flood in Democratic Republic of Congo",
+        "place": "Democratic Republic of Congo",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104252",
+        "key": "1104252",
+        "name": "Flood in Democratic Republic of Congo",
+        "place": "Democratic Republic of Congo",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104167",
+        "key": "1104167",
+        "name": "Flood in Ecuador",
+        "place": "Ecuador",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104251",
+        "key": "1104251",
+        "name": "Flood in Ecuador",
+        "place": "Ecuador",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104279",
+        "key": "1104279",
+        "name": "Flood in Uganda",
+        "place": "Uganda",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104256",
+        "key": "1104256",
+        "name": "Flood in Central African Republic",
+        "place": "Central African Republic",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104178",
+        "key": "1104178",
+        "name": "Flood in Guinea",
+        "place": "Guinea",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104132",
+        "key": "1104132",
+        "name": "Flood in Cambodia",
+        "place": "Cambodia",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104237",
+        "key": "1104237",
+        "name": "Flood in Nicaragua",
+        "place": "Nicaragua",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104244",
+        "key": "1104244",
+        "name": "Flood in Guatemala",
+        "place": "Guatemala",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104241",
+        "key": "1104241",
+        "name": "Flood in Thailand",
+        "place": "Thailand",
+        "skip": "Only 0 earlier passes on the same track before the flood; the method needs 3."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104223",
+        "key": "1104223",
+        "name": "Flood in China",
+        "place": "China",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104011",
+        "key": "1104011",
+        "name": "Flood in Myanmar",
+        "place": "Myanmar",
+        "skip": "Only 2 earlier passes on the same track before the flood; the method needs 3."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104280",
+        "key": "1104280",
+        "name": "Flood in Myanmar",
+        "place": "Myanmar",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104179",
+        "key": "1104179",
+        "name": "Flood in Algeria",
+        "place": "Algeria",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104154",
+        "key": "1104154",
+        "name": "Flood in India",
+        "place": "India",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104264",
+        "key": "1104264",
+        "name": "Flood in Egypt",
+        "place": "Egypt",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "key": "EDPF1",
+        "name": "Eldredge Park (In MHHW)",
+        "place": "Eldredge Park (In MHHW), FL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104226",
+        "key": "1104226",
+        "name": "Flood in Morocco",
+        "place": "Morocco",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104081",
+        "key": "1104081",
+        "name": "Flood in China",
+        "place": "China",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104231",
+        "key": "1104231",
+        "name": "Flood in Libya",
+        "place": "Libya",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104175",
+        "key": "1104175",
+        "name": "Flood in Cyprus",
+        "place": "Cyprus",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104263",
+        "key": "1104263",
+        "name": "Flood in Syria",
+        "place": "Syria",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1103888",
+        "key": "1103888",
+        "name": "Flood in United States",
+        "place": "United States",
+        "skip": "Only 0 earlier passes on the same track before the flood; the method needs 3."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104254",
+        "key": "1104254",
+        "name": "Flood in T\u00fcrkiye",
+        "place": "T\u00fcrkiye",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104053",
+        "key": "1104053",
+        "name": "Flood in Italy",
+        "place": "Italy",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104240",
+        "key": "1104240",
+        "name": "Flood in South Korea",
+        "place": "South Korea",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104247",
+        "key": "1104247",
+        "name": "Flood in Islamic Republic of Iran",
+        "place": "Islamic Republic of Iran",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104199",
+        "key": "1104199",
+        "name": "Flood in Spain",
+        "place": "Spain",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104230",
+        "key": "1104230",
+        "name": "Flood in T\u00fcrkiye",
+        "place": "T\u00fcrkiye",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104183",
+        "key": "1104183",
+        "name": "Flood in T\u00fcrkiye",
+        "place": "T\u00fcrkiye",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104202",
+        "key": "1104202",
+        "name": "Flood in France",
+        "place": "France",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104270",
+        "key": "1104270",
+        "name": "Flood in France",
+        "place": "France",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104220",
+        "key": "1104220",
+        "name": "Flood in Italy",
+        "place": "Italy",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104153",
+        "key": "1104153",
+        "name": "Flood in Croatia",
+        "place": "Croatia",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104260",
+        "key": "1104260",
+        "name": "Flood in Romania",
+        "place": "Romania",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104242",
+        "key": "1104242",
+        "name": "Flood in Ukraine",
+        "place": "Ukraine",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104193",
+        "key": "1104193",
+        "name": "Flood in Ukraine",
+        "place": "Ukraine",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104243",
+        "key": "1104243",
+        "name": "Flood in France",
+        "place": "France",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104258",
+        "key": "1104258",
+        "name": "Flood in Ireland",
+        "place": "Ireland",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104245",
+        "key": "1104245",
+        "name": "Flood in Ecuador",
+        "place": "Ecuador",
+        "skip": "The method couldn't run here: too few valley-floor pixels (0)"
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104196",
+        "key": "1104196",
+        "name": "Flood in Ghana",
+        "place": "Ghana",
+        "skip": "The method couldn't run here: too few valley-floor pixels (0)"
+      }
+    ]
+  }
 }

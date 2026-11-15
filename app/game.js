@@ -303,7 +303,7 @@ async function setupGame(manifest, metrics) {
   // NISAR's line uses the frozen test's own numbers, not the web-grid copy, so it matches the rest of the site.
   game.nisar = { csi: ob.csi, share: row.recall, onDry: 1 - row.precision, lidar: ob.lidar_csi, confident: ob.high, rainy: ob.rainy, gfmLater: `${inWords(later)} days later: ${ha(a.gfm_on_wet_ha)} ha flooded` };
   const before = calendarDays(HERO_PHOTO.time, hero.time);
-  $("game-fine-photo").textContent = `${siteTitle(hero.site).replace(", GA", ", Georgia")}: the photo is Sentinel-2 from ${fmtDay(HERO_PHOTO.time)}, ${before === 1 ? "the day" : `${inWords(before)} days`} before NISAR's ${fmtDay(hero.time)} pass.`;
+  $("game-fine-photo").textContent = `The photo of the ${siteTitle(hero.site).replace(", GA", ", Georgia")} is Sentinel-2 from ${fmtDay(HERO_PHOTO.time)}, ${before === 1 ? "the day" : `${inWords(before)} days`} before NISAR's ${fmtDay(hero.time)} pass.`;
   gameIntro();
   whenNear($("game-map"), async () => {
     const meta = (await fetch("data/story/charts.json").then((r) => r.json())).game;

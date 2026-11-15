@@ -128,7 +128,7 @@
         if (d.dist[i] < r.valley_m) floor.push(change[i]);
       }
     }
-    if (floor.length < 500) return { error: `Too few valley-floor pixels (${floor.length}) for the method to set a cut-off.` };
+    if (floor.length < 500) return { error: `Too few valley-floor pixels (${floor.length}) for GLOWfm to set a cut-off.` };
     const scan = otsuScan(floor), otsuDb = scan.at, threshold = Math.max(otsuDb, r.min_threshold_db);
     const pred = new Uint8Array(n);
     let flagged = 0, flaggedLand = 0;

@@ -1,0 +1,188 @@
+{
+  "id": "world_1104208_20260920",
+  "kind": "world",
+  "name": "Flood in Thailand",
+  "place": "Thailand",
+  "category": "green",
+  "lat": 8.8707,
+  "lon": 98.3438,
+  "flood_from": "2026-09-18T01:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": "https://www.gdacs.org/report.aspx?eventid=1104208&episodeid=2&eventtype=FL",
+  "usgs": null,
+  "noaa": null,
+  "wet": {
+    "time": "2026-09-20T23:00:22Z",
+    "name": "NISAR_L2_PR_GCOV_031_040_A_006_4005_DHDH_A_20260920T230022_20260920T230059_P05023_N_F_J_001",
+    "stack": "040A_006_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_040_A_006_4005_DHDH_A_20260920T230022_20260920T230059_P05023_N_F_J_001/NISAR_L2_PR_GCOV_031_040_A_006_4005_DHDH_A_20260920T230022_20260920T230059_P05023_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          100.13424,
+          7.88756
+        ],
+        [
+          99.60677,
+          10.1528
+        ],
+        [
+          97.37245,
+          9.62953
+        ],
+        [
+          97.91101,
+          7.37308
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-07-22T23:00:23Z",
+      "name": "NISAR_L2_PR_GCOV_026_040_A_006_4005_DHDH_A_20260722T230023_20260722T230101_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-08-15T23:00:22Z",
+      "name": "NISAR_L2_PR_GCOV_028_040_A_006_4005_DHDH_A_20260815T230022_20260815T230059_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-08-27T23:00:22Z",
+      "name": "NISAR_L2_PR_GCOV_029_040_A_006_4005_DHDH_A_20260827T230022_20260827T230059_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-08T23:00:22Z",
+      "name": "NISAR_L2_PR_GCOV_030_040_A_006_4005_DHDH_A_20260908T230022_20260908T230059_P05023_N_F_J_001"
+    }
+  ],
+  "passes_during": 1,
+  "corners": [
+    [
+      98.234013,
+      8.978834
+    ],
+    [
+      98.453248,
+      8.979224
+    ],
+    [
+      98.453568,
+      8.762603
+    ],
+    [
+      98.234462,
+      8.762222
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 482,
+    "height": 479,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32647",
+    "heights": "FABDEM V1-2 bare-earth model (trees and buildings removed)",
+    "river": "nearest water in ESA WorldCover",
+    "protocol": "research/LIVE_PROTOCOL_V2.md",
+    "fabdem_tiles": [
+      {
+        "name": "N08E098_FABDEM_V1-2.tif",
+        "sha256": "df48732abe4a6fc4c930fdb355a9cf138f4e49996a278813273fb1e88dd3f920",
+        "bytes": 18852958,
+        "crc32": "4ec3cbae",
+        "archive": "N00E090-N10E100_FABDEM_V1-2.zip"
+      }
+    ],
+    "licence": "Height layer made from FABDEM V1-2 (Hawker et al. 2022), CC BY-NC-SA 4.0, for non-commercial use. FABDEM is produced using Copernicus WorldDEM-30 \u00a9 DLR e.V. 2010-2014 and \u00a9 Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved."
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.5,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": 0.04650658369064331,
+    "flagged_ha": 3172.25,
+    "mapped_ha": 57719.5
+  },
+  "reference_run": {
+    "threshold_db": 0.5,
+    "flagged_px": 14726,
+    "flagged_land_px": 12675,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": 0.04666660726070404
+  },
+  "score": null,
+  "attempt": {
+    "case": "world_1104208_20260920",
+    "dev": false,
+    "git_head": "684667117082efd0b1af1077d03611bc0ddeb46d"
+  },
+  "dev": false,
+  "selection": "coverage"
+}

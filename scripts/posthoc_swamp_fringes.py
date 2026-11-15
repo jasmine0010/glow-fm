@@ -94,7 +94,7 @@ def main():
         w, h = picture(view, name)
         # where the band and the gauge fall in the picture, as fractions of its width and height
         x0, x1, y1, y0 = view.xs[0], view.xs[-1], view.ys[0], view.ys[-1]
-        frac = lambda lon, lat: [round((t.transform(lon, lat)[0] - x0) / (x1 - x0), 4), round((y1 - t.transform(lon, lat)[1]) / (y1 - y0), 4)]
+        frac = lambda lon, lat, t=t, x0=x0, x1=x1, y0=y0, y1=y1: [round((t.transform(lon, lat)[0] - x0) / (x1 - x0), 4), round((y1 - t.transform(lon, lat)[1]) / (y1 - y0), 4)]
         p = profile(path, t, tb)
         out["pairs"].append({"name": name, "dates": dates, "role": role, "direction": direction.lower(), "track": key.split("_")[2] + key.split("_")[3],
                              "image": f"data/figures/fringes_{name}.jpg", "image_px": [w, h],
