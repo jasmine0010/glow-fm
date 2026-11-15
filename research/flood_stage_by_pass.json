@@ -1,0 +1,574 @@
+[
+ {
+  "river": "choctawhatchee",
+  "pair": "076A_oct17",
+  "stage": "below",
+  "gauges_read": 3,
+  "gauges": [
+   {
+    "name": "Pittman",
+    "id": "02365200",
+    "stage_ft": 13.732,
+    "flood_stage_ft": 23.0,
+    "state": "below"
+   },
+   {
+    "name": "Caryville",
+    "id": "02365500",
+    "stage_ft": 11.3684,
+    "flood_stage_ft": 14.0,
+    "state": "below"
+   },
+   {
+    "name": "Bruce",
+    "id": "02366500",
+    "stage_ft": 13.4268,
+    "flood_stage_ft": 14.0,
+    "state": "below"
+   }
+  ]
+ },
+ {
+  "river": "choctawhatchee",
+  "pair": "127D_oct21",
+  "stage": "below",
+  "gauges_read": 3,
+  "gauges": [
+   {
+    "name": "Pittman",
+    "id": "02365200",
+    "stage_ft": 9.110999999999999,
+    "flood_stage_ft": 23.0,
+    "state": "below"
+   },
+   {
+    "name": "Caryville",
+    "id": "02365500",
+    "stage_ft": 5.421,
+    "flood_stage_ft": 14.0,
+    "state": "below"
+   },
+   {
+    "name": "Bruce",
+    "id": "02366500",
+    "stage_ft": 11.471,
+    "flood_stage_ft": 14.0,
+    "state": "below"
+   }
+  ]
+ },
+ {
+  "river": "pearl",
+  "pair": "105A_jul03",
+  "stage": "mixed",
+  "gauges_read": 3,
+  "gauges": [
+   {
+    "name": "Bogalusa",
+    "id": "02489500",
+    "stage_ft": 20.214555555555556,
+    "flood_stage_ft": 18.0,
+    "state": "above"
+   },
+   {
+    "name": "Pools Bluff",
+    "id": "02490193",
+    "stage_ft": 62.51727777777778,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   },
+   {
+    "name": "Pearl River LA",
+    "id": "02492600",
+    "stage_ft": 15.94,
+    "flood_stage_ft": 14.0,
+    "state": "above"
+   },
+   {
+    "name": "I-10 Slidell",
+    "id": "02492700",
+    "stage_ft": 7.0072777777777775,
+    "flood_stage_ft": 10.0,
+    "state": "below"
+   }
+  ]
+ },
+ {
+  "river": "pearl",
+  "pair": "156D_jun25",
+  "stage": "mixed",
+  "gauges_read": 3,
+  "gauges": [
+   {
+    "name": "Bogalusa",
+    "id": "02489500",
+    "stage_ft": 19.300133333333335,
+    "flood_stage_ft": 18.0,
+    "state": "above"
+   },
+   {
+    "name": "Pools Bluff",
+    "id": "02490193",
+    "stage_ft": 62.20026666666667,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   },
+   {
+    "name": "Pearl River LA",
+    "id": "02492600",
+    "stage_ft": 15.179866666666666,
+    "flood_stage_ft": 14.0,
+    "state": "above"
+   },
+   {
+    "name": "I-10 Slidell",
+    "id": "02492700",
+    "stage_ft": 6.95,
+    "flood_stage_ft": 10.0,
+    "state": "below"
+   }
+  ]
+ },
+ {
+  "river": "tangipahoa",
+  "pair": "105A_jun21",
+  "stage": "below",
+  "gauges_read": 3,
+  "gauges": [
+   {
+    "name": "Kentwood",
+    "id": "07375300",
+    "stage_ft": 3.22,
+    "flood_stage_ft": 13.0,
+    "state": "below"
+   },
+   {
+    "name": "Amite",
+    "id": "07375430",
+    "stage_ft": 6.91,
+    "flood_stage_ft": 21.0,
+    "state": "below"
+   },
+   {
+    "name": "Robert",
+    "id": "07375500",
+    "stage_ft": 13.539066666666667,
+    "flood_stage_ft": 15.0,
+    "state": "below"
+   },
+   {
+    "name": "Ponchatoula",
+    "id": "07375650",
+    "stage_ft": 13.024533333333332,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   }
+  ]
+ },
+ {
+  "river": "tangipahoa",
+  "pair": "156D_jun25",
+  "stage": "below",
+  "gauges_read": 3,
+  "gauges": [
+   {
+    "name": "Kentwood",
+    "id": "07375300",
+    "stage_ft": 2.06,
+    "flood_stage_ft": 13.0,
+    "state": "below"
+   },
+   {
+    "name": "Amite",
+    "id": "07375430",
+    "stage_ft": 5.83,
+    "flood_stage_ft": 21.0,
+    "state": "below"
+   },
+   {
+    "name": "Robert",
+    "id": "07375500",
+    "stage_ft": 9.01,
+    "flood_stage_ft": 15.0,
+    "state": "below"
+   },
+   {
+    "name": "Ponchatoula",
+    "id": "07375650",
+    "stage_ft": 7.739866666666667,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   }
+  ]
+ },
+ {
+  "river": "yellow",
+  "pair": "055D_oct04",
+  "stage": "below",
+  "gauges_read": 1,
+  "gauges": [
+   {
+    "name": "YELLOW RIVER NR OAK GROVE, FLA.",
+    "id": "02367900",
+    "stage_ft": 79.88,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   },
+   {
+    "name": "YELLOW RIVER AT MILLIGAN, FLA.",
+    "id": "02368000",
+    "stage_ft": 0.89,
+    "flood_stage_ft": 12.0,
+    "state": "below"
+   },
+   {
+    "name": "YELLOW RIVER NR MILTON, FLA.",
+    "id": "02369600",
+    "stage_ft": 37.570933333333336,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   }
+  ]
+ },
+ {
+  "river": "yellow",
+  "pair": "076A_oct05",
+  "stage": "below",
+  "gauges_read": 1,
+  "gauges": [
+   {
+    "name": "YELLOW RIVER NR OAK GROVE, FLA.",
+    "id": "02367900",
+    "stage_ft": 80.2516,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   },
+   {
+    "name": "YELLOW RIVER AT MILLIGAN, FLA.",
+    "id": "02368000",
+    "stage_ft": 1.8448,
+    "flood_stage_ft": 12.0,
+    "state": "below"
+   },
+   {
+    "name": "YELLOW RIVER NR MILTON, FLA.",
+    "id": "02369600",
+    "stage_ft": 38.8848,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   }
+  ]
+ },
+ {
+  "river": "yellow",
+  "pair": "127D_oct09",
+  "stage": "below",
+  "gauges_read": 1,
+  "gauges": [
+   {
+    "name": "YELLOW RIVER NR OAK GROVE, FLA.",
+    "id": "02367900",
+    "stage_ft": 81.301,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   },
+   {
+    "name": "YELLOW RIVER AT MILLIGAN, FLA.",
+    "id": "02368000",
+    "stage_ft": 2.171,
+    "flood_stage_ft": 12.0,
+    "state": "below"
+   },
+   {
+    "name": "YELLOW RIVER NR MILTON, FLA.",
+    "id": "02369600",
+    "stage_ft": 38.8,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   }
+  ]
+ },
+ {
+  "river": "yellow",
+  "pair": "055D_oct16",
+  "stage": "below",
+  "gauges_read": 1,
+  "gauges": [
+   {
+    "name": "YELLOW RIVER NR OAK GROVE, FLA.",
+    "id": "02367900",
+    "stage_ft": 82.30546666666666,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   },
+   {
+    "name": "YELLOW RIVER AT MILLIGAN, FLA.",
+    "id": "02368000",
+    "stage_ft": 5.8064,
+    "flood_stage_ft": 12.0,
+    "state": "below"
+   },
+   {
+    "name": "YELLOW RIVER NR MILTON, FLA.",
+    "id": "02369600",
+    "stage_ft": 41.38,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   }
+  ]
+ },
+ {
+  "river": "yellow",
+  "pair": "076A_oct17",
+  "stage": "below",
+  "gauges_read": 1,
+  "gauges": [
+   {
+    "name": "YELLOW RIVER NR OAK GROVE, FLA.",
+    "id": "02367900",
+    "stage_ft": 81.65,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   },
+   {
+    "name": "YELLOW RIVER AT MILLIGAN, FLA.",
+    "id": "02368000",
+    "stage_ft": 2.84,
+    "flood_stage_ft": 12.0,
+    "state": "below"
+   },
+   {
+    "name": "YELLOW RIVER NR MILTON, FLA.",
+    "id": "02369600",
+    "stage_ft": 40.4684,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   }
+  ]
+ },
+ {
+  "river": "yellow",
+  "pair": "127D_oct21",
+  "stage": "below",
+  "gauges_read": 1,
+  "gauges": [
+   {
+    "name": "YELLOW RIVER NR OAK GROVE, FLA.",
+    "id": "02367900",
+    "stage_ft": 80.87100000000001,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   },
+   {
+    "name": "YELLOW RIVER AT MILLIGAN, FLA.",
+    "id": "02368000",
+    "stage_ft": 1.8,
+    "flood_stage_ft": 12.0,
+    "state": "below"
+   },
+   {
+    "name": "YELLOW RIVER NR MILTON, FLA.",
+    "id": "02369600",
+    "stage_ft": 38.64,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   }
+  ]
+ },
+ {
+  "river": "village_creek",
+  "pair": "134A_sep03",
+  "stage": "above",
+  "gauges_read": 2,
+  "gauges": [
+   {
+    "name": "Village Ck at US Hwy 69 nr Village Mills, TX",
+    "id": "08041300",
+    "stage_ft": 76.6514,
+    "flood_stage_ft": 70.0,
+    "state": "above"
+   },
+   {
+    "name": "Village Ck nr Kountze, TX",
+    "id": "08041500",
+    "stage_ft": 20.6528,
+    "flood_stage_ft": 17.0,
+    "state": "above"
+   }
+  ]
+ },
+ {
+  "river": "village_creek",
+  "pair": "012D_sep07",
+  "stage": "mixed",
+  "gauges_read": 2,
+  "gauges": [
+   {
+    "name": "Village Ck at US Hwy 69 nr Village Mills, TX",
+    "id": "08041300",
+    "stage_ft": 71.3852,
+    "flood_stage_ft": 70.0,
+    "state": "above"
+   },
+   {
+    "name": "Village Ck nr Kountze, TX",
+    "id": "08041500",
+    "stage_ft": 16.107599999999998,
+    "flood_stage_ft": 17.0,
+    "state": "below"
+   }
+  ]
+ },
+ {
+  "river": "pine_island",
+  "pair": "012D_sep07",
+  "stage": "above",
+  "gauges_read": 2,
+  "gauges": [
+   {
+    "name": "Pine Island Bayou nr Sour Lake, TX",
+    "id": "08041700",
+    "stage_ft": 27.67,
+    "flood_stage_ft": 25.0,
+    "state": "above"
+   },
+   {
+    "name": "Pine Island Bayou abv BI Pump Plant, Beaumont, TX",
+    "id": "08041749",
+    "stage_ft": 11.15,
+    "flood_stage_ft": 11.0,
+    "state": "above"
+   }
+  ]
+ },
+ {
+  "river": "pine_island",
+  "pair": "134A_sep03",
+  "stage": "below",
+  "gauges_read": 2,
+  "gauges": [
+   {
+    "name": "Pine Island Bayou nr Sour Lake, TX",
+    "id": "08041700",
+    "stage_ft": 21.3462,
+    "flood_stage_ft": 25.0,
+    "state": "below"
+   },
+   {
+    "name": "Pine Island Bayou abv BI Pump Plant, Beaumont, TX",
+    "id": "08041749",
+    "stage_ft": 7.0476,
+    "flood_stage_ft": 11.0,
+    "state": "below"
+   }
+  ]
+ },
+ {
+  "river": "pee_dee",
+  "pair": "098D_jul27",
+  "stage": "below",
+  "gauges_read": 2,
+  "gauges": [
+   {
+    "name": "PEE DEE RIVER AT CHERAW, SC",
+    "id": "02130000",
+    "stage_ft": 11.9685,
+    "flood_stage_ft": 30.0,
+    "state": "below"
+   },
+   {
+    "name": "PEE DEE RIVER NR BENNETTSVILLE, SC",
+    "id": "02130561",
+    "stage_ft": 64.71566666666666,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   },
+   {
+    "name": "PEE DEE RIVER AT PEEDEE, SC",
+    "id": "02131000",
+    "stage_ft": 15.017166666666666,
+    "flood_stage_ft": 19.0,
+    "state": "below"
+   },
+   {
+    "name": "PEE DEE RIVER BELOW PEE DEE, SC",
+    "id": "02131010",
+    "stage_ft": 22.777166666666666,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   },
+   {
+    "name": "PEE DEE RIVER AT US378 ABOVE POSTON, SC",
+    "id": "02131210",
+    "stage_ft": 16.578666666666667,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   }
+  ]
+ },
+ {
+  "river": "neuse",
+  "pair": "090A_jul26",
+  "stage": "below",
+  "gauges_read": 3,
+  "gauges": [
+   {
+    "name": "NEUSE RIVER NEAR COX MILL, NC",
+    "id": "02088119",
+    "stage_ft": 79.1245888888889,
+    "flood_stage_ft": null,
+    "state": "no NWS flood stage"
+   },
+   {
+    "name": "NEUSE RIVER NEAR GOLDSBORO, NC",
+    "id": "02089000",
+    "stage_ft": 11.82458888888889,
+    "flood_stage_ft": 18.0,
+    "state": "below"
+   },
+   {
+    "name": "NEUSE RIVER AT KINSTON, NC",
+    "id": "02089500",
+    "stage_ft": 8.96,
+    "flood_stage_ft": 14.0,
+    "state": "below"
+   },
+   {
+    "name": "NEUSE RIVER NEAR FORT BARNWELL, NC",
+    "id": "02091814",
+    "stage_ft": 5.544588888888889,
+    "flood_stage_ft": 13.0,
+    "state": "below"
+   }
+  ]
+ },
+ {
+  "river": "lower_sabine",
+  "pair": "134A_jul17",
+  "stage": "below",
+  "gauges_read": 3,
+  "gauges": [
+   {
+    "name": "Sabine Rv nr Burkeville, TX",
+    "id": "08026000",
+    "stage_ft": 15.4156,
+    "flood_stage_ft": 36.0,
+    "state": "below"
+   },
+   {
+    "name": "Sabine Rv nr Bon Wier, TX",
+    "id": "08028500",
+    "stage_ft": 16.422355555555555,
+    "flood_stage_ft": 30.0,
+    "state": "below"
+   },
+   {
+    "name": "Sabine Rv nr Ruliff, TX",
+    "id": "08030500",
+    "stage_ft": 23.353822222222224,
+    "flood_stage_ft": 24.0,
+    "state": "below"
+   }
+  ]
+ }
+]

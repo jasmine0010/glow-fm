@@ -1,0 +1,176 @@
+{
+  "id": "world_1104121_20261006",
+  "kind": "world",
+  "name": "Flood in India",
+  "place": "India",
+  "category": "orange",
+  "lat": 11.3324,
+  "lon": 78.6099,
+  "flood_from": "2026-08-09T01:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": "https://www.gdacs.org/report.aspx?eventid=1104121&episodeid=22&eventtype=FL",
+  "usgs": null,
+  "noaa": null,
+  "wet": {
+    "time": "2026-10-06T00:15:53Z",
+    "name": "NISAR_L2_PR_GCOV_032_084_A_007_4005_DHDH_A_20261006T001553_20261006T001627_P05023_N_F_J_001",
+    "stack": "084A_007_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_084_A_007_4005_DHDH_A_20261006T001553_20261006T001627_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_084_A_007_4005_DHDH_A_20261006T001553_20261006T001627_P05023_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          80.92492,
+          10.03724
+        ],
+        [
+          80.4301,
+          12.12277
+        ],
+        [
+          78.13647,
+          11.58047
+        ],
+        [
+          78.64678,
+          9.50406
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-06-20T00:15:57Z",
+      "name": "NISAR_L2_PR_GCOV_023_084_A_007_4005_DHDH_A_20260620T001557_20260620T001631_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-07-02T00:15:56Z",
+      "name": "NISAR_L2_PR_GCOV_024_084_A_007_4005_DHDH_A_20260702T001556_20260702T001630_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-07-14T00:15:55Z",
+      "name": "NISAR_L2_PR_GCOV_025_084_A_007_4005_DHDH_A_20260714T001555_20260714T001630_P05023_F_F_J_001"
+    },
+    {
+      "time": "2026-07-26T00:15:55Z",
+      "name": "NISAR_L2_PR_GCOV_026_084_A_007_4005_DHDH_A_20260726T001555_20260726T001629_P05023_N_F_J_001"
+    }
+  ],
+  "passes_during": 6,
+  "corners": [
+    [
+      78.497953,
+      11.440325
+    ],
+    [
+      78.720076,
+      11.44214
+    ],
+    [
+      78.721802,
+      11.224358
+    ],
+    [
+      78.499847,
+      11.222579
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 485,
+    "height": 482,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32644",
+    "heights": "Copernicus GLO-30 surface model (includes trees)",
+    "river": "nearest water in ESA WorldCover"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.5,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": 0.04043486714363098,
+    "flagged_ha": 372.5,
+    "mapped_ha": 58442.5
+  },
+  "reference_run": {
+    "threshold_db": 0.5,
+    "flagged_px": 1487,
+    "flagged_land_px": 1487,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": 0.038888633251190186
+  },
+  "score": null,
+  "attempt": {
+    "case": "world_1104121_20261006",
+    "dev": false,
+    "git_head": "6c4dc3d89132c05f456d69e682f414507cfcd735"
+  },
+  "dev": false
+}

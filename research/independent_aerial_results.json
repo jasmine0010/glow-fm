@@ -1,0 +1,227 @@
+{
+ "protocol_sha256": "58c3777954b0f669362adf37eedc830f6fa901441f3962d06c05b14b2e89c3ad",
+ "class_kappa": 0.396,
+ "score_kappa": 0.47,
+ "score_within_one": 1.0,
+ "strata": {
+  "A": {
+   "n": 24,
+   "FLOOD": 0,
+   "PERMANENT": 4,
+   "DRY": 0,
+   "CANOPY": 17,
+   "UNSURE": 3,
+   "decidable": 4,
+   "water_sign": 4,
+   "share": 0.167,
+   "ci": [
+    0.07,
+    0.36
+   ],
+   "reviewer_1_2plus": 5,
+   "reviewer_2_2plus": 4,
+   "mean_score": 0.79
+  },
+  "E": {
+   "n": 7,
+   "FLOOD": 0,
+   "PERMANENT": 1,
+   "DRY": 0,
+   "CANOPY": 2,
+   "UNSURE": 4,
+   "decidable": 1,
+   "water_sign": 1,
+   "share": 0.143,
+   "ci": [
+    0.03,
+    0.51
+   ],
+   "reviewer_1_2plus": 3,
+   "reviewer_2_2plus": 1,
+   "mean_score": 1.07
+  },
+  "F": {
+   "n": 24,
+   "FLOOD": 1,
+   "PERMANENT": 1,
+   "DRY": 2,
+   "CANOPY": 4,
+   "UNSURE": 16,
+   "decidable": 4,
+   "water_sign": 3,
+   "share": 0.125,
+   "ci": [
+    0.04,
+    0.31
+   ],
+   "reviewer_1_2plus": 6,
+   "reviewer_2_2plus": 4,
+   "mean_score": 0.96
+  },
+  "D": {
+   "n": 24,
+   "FLOOD": 0,
+   "PERMANENT": 3,
+   "DRY": 0,
+   "CANOPY": 3,
+   "UNSURE": 18,
+   "decidable": 3,
+   "water_sign": 4,
+   "share": 0.167,
+   "ci": [
+    0.07,
+    0.36
+   ],
+   "reviewer_1_2plus": 4,
+   "reviewer_2_2plus": 4,
+   "mean_score": 0.98
+  },
+  "G": {
+   "n": 24,
+   "FLOOD": 0,
+   "PERMANENT": 0,
+   "DRY": 3,
+   "CANOPY": 6,
+   "UNSURE": 15,
+   "decidable": 3,
+   "water_sign": 0,
+   "share": 0.0,
+   "ci": [
+    0.0,
+    0.14
+   ],
+   "reviewer_1_2plus": 5,
+   "reviewer_2_2plus": 0,
+   "mean_score": 0.79
+  },
+  "H": {
+   "n": 24,
+   "FLOOD": 0,
+   "PERMANENT": 0,
+   "DRY": 4,
+   "CANOPY": 2,
+   "UNSURE": 18,
+   "decidable": 4,
+   "water_sign": 3,
+   "share": 0.125,
+   "ci": [
+    0.04,
+    0.31
+   ],
+   "reviewer_1_2plus": 4,
+   "reviewer_2_2plus": 3,
+   "mean_score": 0.83
+  }
+ },
+ "readings": {
+  "1 control": {
+   "H_water_sign": [
+    3,
+    24
+   ],
+   "share": 0.125,
+   "interpretable": true
+  },
+  "2 D vs G": {
+   "a": [
+    4,
+    24
+   ],
+   "b": [
+    0,
+    24
+   ],
+   "difference": 0.167,
+   "ci": [
+    -0.004,
+    0.359
+   ],
+   "above_zero": false
+  },
+  "2 D vs H": {
+   "a": [
+    4,
+    24
+   ],
+   "b": [
+    3,
+    24
+   ],
+   "difference": 0.042,
+   "ci": [
+    -0.169,
+    0.25
+   ],
+   "above_zero": false
+  },
+  "3 A vs F": {
+   "a": [
+    4,
+    24
+   ],
+   "b": [
+    3,
+    24
+   ],
+   "difference": 0.042,
+   "ci": [
+    -0.169,
+    0.25
+   ],
+   "above_zero": false
+  },
+  "3 A vs H": {
+   "a": [
+    4,
+    24
+   ],
+   "b": [
+    3,
+    24
+   ],
+   "difference": 0.042,
+   "ci": [
+    -0.169,
+    0.25
+   ],
+   "above_zero": false
+  },
+  "4 E vs F": {
+   "a": [
+    1,
+    7
+   ],
+   "b": [
+    3,
+    24
+   ],
+   "difference": 0.018,
+   "ci": [
+    -0.201,
+    0.397
+   ],
+   "above_zero": false
+  },
+  "5 A vs E": {
+   "a": [
+    4,
+    24
+   ],
+   "b": [
+    1,
+    7
+   ],
+   "difference": 0.024,
+   "ci": [
+    -0.36,
+    0.249
+   ],
+   "above_zero": false
+  },
+  "main": "not supported by this check",
+  "inside corridor": "not supported by this check",
+  "estimate alone": "not supported by this check"
+ },
+ "protocol_sha256_at_run": "aeb6445223f909d3db81a3c878cebcd355e90828f675ef361dd30201a2fe680f",
+ "note": "Dates were removed from the rules file after the run; nothing else changed. The *_at_run hash is the one the run used."
+}

@@ -1,0 +1,173 @@
+[
+ {
+  "pair": "055D_oct04",
+  "time": "2026-10-04T00:36:48Z",
+  "track": "055D",
+  "frozen": false,
+  "threshold_db": 0.5,
+  "timing": [
+   "rising",
+   "rising",
+   "rising"
+  ],
+  "stage_rise_m": [
+   -0.03,
+   -0.0,
+   0.1
+  ],
+  "flagged_ha": 390.75,
+  "confirmed_ha": 8.0,
+  "dry_ha": 4922.5,
+  "flagged_on_dry_ha": 220.5,
+  "csi": 0.0032822757111597373,
+  "csi_ci95": [
+   0.0,
+   0.0136986301369863
+  ],
+  "recall": 0.09375,
+  "precision": 0.003389830508474576,
+  "coverage": 1.0
+ },
+ {
+  "pair": "076A_oct05",
+  "time": "2026-10-05T11:02:24Z",
+  "track": "076A",
+  "frozen": false,
+  "threshold_db": 1.0959569441416526,
+  "timing": [
+   "rising",
+   "rising",
+   "near crest"
+  ],
+  "stage_rise_m": [
+   0.08,
+   0.29,
+   0.32
+  ],
+  "flagged_ha": 2704.5,
+  "confirmed_ha": 1030.5,
+  "dry_ha": 4869.25,
+  "flagged_on_dry_ha": 1677.5,
+  "csi": 0.08631831610044313,
+  "csi_ci95": [
+   0.032399079156802874,
+   0.13869260068549505
+  ],
+  "recall": 0.22683163512857837,
+  "precision": 0.1223021582733813,
+  "coverage": 1.0
+ },
+ {
+  "pair": "127D_oct09",
+  "time": "2026-10-09T00:28:30Z",
+  "track": "127D",
+  "frozen": false,
+  "threshold_db": 1.0674018735182471,
+  "timing": [
+   "rising",
+   "rising",
+   "rising"
+  ],
+  "stage_rise_m": [
+   0.42,
+   0.43,
+   0.39
+  ],
+  "flagged_ha": 1435.0,
+  "confirmed_ha": 1003.0,
+  "dry_ha": 4992.0,
+  "flagged_on_dry_ha": 192.0,
+  "csi": 0.5803347280334729,
+  "csi_ci95": [
+   0.43177079262096457,
+   0.6338608841624225
+  ],
+  "recall": 0.6914257228315055,
+  "precision": 0.7831733483907397,
+  "coverage": 1.0
+ },
+ {
+  "pair": "055D_oct16",
+  "time": "2026-10-16T00:36:48Z",
+  "track": "055D",
+  "frozen": true,
+  "threshold_db": 1.5042245960794385,
+  "timing": [
+   "receding",
+   "receding",
+   "near crest"
+  ],
+  "stage_rise_m": [
+   0.71,
+   1.5,
+   1.26
+  ],
+  "flagged_ha": 2191.75,
+  "confirmed_ha": 1868.5,
+  "dry_ha": 4417.75,
+  "flagged_on_dry_ha": 40.5,
+  "csi": 0.8822682032477737,
+  "csi_ci95": [
+   0.7983166123796283,
+   0.9242113884234341
+  ],
+  "recall": 0.9013914905004013,
+  "precision": 0.9765183359907232,
+  "coverage": 1.0
+ },
+ {
+  "pair": "076A_oct17",
+  "time": "2026-10-17T11:02:24Z",
+  "track": "076A",
+  "frozen": false,
+  "threshold_db": 1.2658367999829354,
+  "timing": [
+   "receding",
+   "receding",
+   "receding"
+  ],
+  "stage_rise_m": [
+   0.51,
+   0.59,
+   0.81
+  ],
+  "flagged_ha": 1767.25,
+  "confirmed_ha": 1680.0,
+  "dry_ha": 4840.0,
+  "flagged_on_dry_ha": 117.25,
+  "csi": 0.8318264014466547,
+  "csi_ci95": [
+   0.6698068109885406,
+   0.8929033597004428
+  ],
+  "recall": 0.8898809523809523,
+  "precision": 0.9272755465963716,
+  "coverage": 1.0
+ },
+ {
+  "pair": "127D_oct21",
+  "time": "2026-10-21T00:28:30Z",
+  "track": "127D",
+  "frozen": false,
+  "threshold_db": 0.8784189142053945,
+  "timing": [
+   "late recession",
+   "late recession",
+   "late recession"
+  ],
+  "stage_rise_m": [
+   0.29,
+   0.32,
+   0.34
+  ],
+  "flagged_ha": 0.0,
+  "confirmed_ha": 915.75,
+  "dry_ha": 4942.25,
+  "flagged_on_dry_ha": 0.0,
+  "csi": null,
+  "csi_ci95": null,
+  "recall": null,
+  "precision": null,
+  "coverage": 0.0
+ }
+]

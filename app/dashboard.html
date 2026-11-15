@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GLOWfm Dashboard</title>
+  <meta name="description" content="One map of every flood we studied: live river levels, flooding estimated from gauges and lidar, the latest NISAR radar maps, and past floods.">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#03060a">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GLOWfm">
+  <meta property="og:title" content="GLOWfm Dashboard">
+  <meta property="og:description" content="One map of every flood we studied: live river levels, flooding estimated from gauges and lidar, the latest NISAR radar maps, and past floods.">
+  <meta property="og:image" content="og-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css?v=32">
+</head>
+<body class="dash-page night">
+  <nav class="dash-bar" aria-label="Pages and mode">
+    <a class="brand" href="index.html" aria-label="GLOWfm"><span aria-hidden="true">GLOW<span class="brand-fm">fm</span></span></a>
+    <h1 class="sr-only">NISAR flood dashboard</h1>
+    <div class="seg" role="group" aria-label="Mode">
+      <button type="button" data-mode="live" class="on" aria-pressed="true"><i class="live-dot"></i>Live now</button>
+      <button type="button" data-mode="history" aria-pressed="false">Past flood</button>
+    </div>
+    <span class="bar-gap"></span>
+    <details class="bar-more" id="bar-more">
+      <summary class="btn-quiet">More</summary>
+      <div class="bar-menu">
+        <button type="button" data-panel="about">How to read this dashboard</button>
+        <button type="button" id="panels">Hide panels</button>
+        <button type="button" id="share">Copy link to this view</button>
+        <button type="button" id="csv">Download gauge readings (CSV)</button>
+        <button type="button" id="refresh">Refresh river levels</button>
+        <a href="tour.html">1-minute tour</a>
+      </div>
+    </details>
+    <span class="topbar-pages"><a class="topbar-plain" href="index.html">Story</a><a class="topbar-tool here" href="dashboard.html" aria-current="page">Dashboard</a><a class="topbar-tool" href="live.html">Run it yourself</a><a class="topbar-plain" href="evidence.html">Results</a></span>
+  </nav>
+
+  <main class="map-stage" id="stage" aria-label="Flood map">
+    <div id="dash-map" class="map"></div>
+    <div id="radar-map" class="map radar-top"></div>
+    <div class="grid-labels" id="grid-labels" aria-hidden="true"></div>
+    <div class="tag tag-now" id="map-tag"></div>
+    <div class="tag tag-radar" id="radar-tag"></div>
+    <div class="swipe-handle" id="d-handle" role="slider" tabindex="0" aria-label="Move the divider between the estimate and the NISAR map" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span class="swipe-grip" aria-hidden="true"></span></div>
+  </main>
+
+  <p class="mini" id="mini" aria-hidden="true"></p>
+  <p class="sr-only" id="announce" role="status" aria-live="polite"></p>
+
+  <aside class="rail rail-left" id="rail-left" aria-label="Choose a flood or a place">
+    <section class="glass glass-primary choose" aria-labelledby="choose-title">
+      <h2 class="panel-title" id="choose-title">Choose</h2>
+      <div class="flood-tabs" role="group" aria-label="What to list">
+        <button type="button" data-tab="world" aria-pressed="true">Worldwide</button>
+        <button type="button" data-tab="tested" aria-pressed="false">Tested, US</button>
+        <button type="button" data-tab="blind" aria-pressed="false">Blind spots</button>
+      </div>
+      <div class="flood-tab" id="tab-world">
+        <div id="world-list" class="events world-list"></div>
+        <p class="rail-note" id="world-source"></p>
+      </div>
+      <div class="flood-tab" id="tab-tested" hidden>
+        <div id="events" class="events"></div>
+        <p class="rail-note">Scored against river gauges and lidar, which only these US rivers have.</p>
+      </div>
+      <div class="flood-tab" id="tab-blind" hidden>
+        <label class="rail-label" for="atlas-q">Check a town, river or country</label>
+        <input type="search" class="atlas-search" id="atlas-q" placeholder="Town, river or country" autocomplete="off">
+        <div id="atlas-results" class="atlas-results"></div>
+        <div id="atlas-try" class="atlas-try"></div>
+        <h3 class="panel-title">Most floodplain under trees</h3>
+        <div id="atlas-countries"></div>
+        <p class="rail-note" id="atlas-lede"></p>
+      </div>
+      <details class="collapse layers-fold" id="layers-box" open>
+        <summary>Map layers</summary>
+        <div id="dash-layers"></div>
+        <label class="layer-row"><input type="checkbox" id="lyr-atlas" checked><span class="swatch" style="background:#4fdcb0"></span>Blind-spot map</label>
+        <details class="layer-more">
+          <summary>More layers</summary>
+          <div id="dash-layers-more"></div>
+          <label class="ctl ctl-opacity">Estimate opacity <input type="range" id="opacity" min="0.2" max="1" step="0.1" value="0.8"></label>
+        </details>
+      </details>
+    </section>
+  </aside>
+
+  <aside class="rail rail-right" id="rail-right" aria-label="Selected" tabindex="0">
+    <section class="glass glass-primary sel-card river-card" id="sel-river">
+      <h2 class="river-title" id="river-title"></h2>
+      <p class="dash-sub" id="dash-sub"></p>
+      <p class="card-note" id="card-note" hidden></p>
+      <div class="readouts" aria-label="Key numbers">
+        <div class="kpi kpi-lead"><span class="kpi-label" id="k-radar-label">NISAR flood map</span><span class="kpi-num" id="k-radar">—</span><span class="kpi-sub" id="k-radar-sub"></span><span class="kpi-trust" id="k-trust"></span></div>
+      </div>
+      <div class="card-foot">
+        <div class="freshness" id="freshness"></div>
+        <p class="card-actions"><button type="button" class="btn-primary card-primary" id="replay" hidden></button></p>
+        <p class="flood-tools" aria-label="More about this flood"><button type="button" class="link-btn" data-panel="gauges">Gauge table</button> <button type="button" class="link-btn" data-panel="graphs">Graphs</button> <button type="button" class="link-btn" id="fly-back"></button></p>
+      </div>
+      <details class="collapse" id="details-box">
+        <summary>Details</summary>
+        <h3 class="panel-title">What if the river rose?</h3>
+        <label class="ctl ctl-range"><input type="range" id="rise" min="0" max="5" step="0.25" value="0" aria-label="Rise added to every gauge"><output id="rise-out">0 m</output></label>
+        <div class="kpi"><span class="kpi-label" id="k-ha-label">Estimated flooding</span><span class="kpi-num" id="k-ha">—</span><span class="kpi-sub" id="k-ha-sub"></span></div>
+        <div class="kpi"><span class="kpi-label">Under tree cover</span><span class="kpi-num" id="k-tree">—</span><span class="kpi-sub">of the estimated flooding</span></div>
+        <div class="kpi"><span class="kpi-label">Road under water</span><span class="kpi-num" id="k-road">—</span><span class="kpi-sub" id="k-road-sub"></span></div>
+        <h3 class="panel-title">This spot</h3>
+        <div id="spot" class="card"><p class="muted">Click the map.</p></div>
+        <div class="details-part" id="record"></div>
+        <h3 class="panel-title details-part">More detail</h3>
+        <p class="pass-line" id="pass-line"></p>
+        <div id="insights" class="insights"></div>
+      </details>
+    </section>
+    <section class="glass glass-primary sel-card" id="atlas-pick" aria-label="The flood or place you chose" hidden></section>
+  </aside>
+
+  <div class="dock-stack" role="region" aria-label="Time controls and details">
+    <div class="time-bar" id="time-bar" hidden>
+      <button type="button" class="btn" id="t-play">Play</button>
+      <button type="button" class="btn" id="t-prev" aria-label="Previous NISAR pass" title="Previous NISAR pass">‹ Pass</button>
+      <div class="time-track time-strip" id="t-strip"></div>
+      <button type="button" class="btn" id="t-next" aria-label="Next NISAR pass" title="Next NISAR pass">Pass ›</button>
+      <output id="t-out"></output>
+      <label class="time-hourly" title="Move through every hour instead of stopping only at NISAR passes"><input type="checkbox" id="t-hourly">Hourly</label>
+    </div>
+    <div class="dock-row">
+      <div class="map-hud">
+        <div class="hud-coord" id="hud-coord" aria-hidden="true"></div>
+        <div class="hud-scale" aria-hidden="true"><span class="hud-bar" id="hud-bar"></span><span id="hud-scale"></span></div>
+        <div class="map-key" id="map-key"></div>
+      </div>
+      <div class="dock" role="group" aria-label="Open a panel">
+      <button type="button" class="phone-only" data-panel="left">Choose</button>
+      <button type="button" class="phone-only" data-panel="right">Selected</button>
+      </div>
+    </div>
+    <p class="dock-note">Estimates and provisional data. Don't use for emergency decisions.</p>
+  </div>
+
+  <div class="map-tools" role="region" aria-label="Zoom">
+    <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+    <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+  </div>
+
+  <section class="drawer" id="drawer" aria-label="Details" tabindex="-1">
+    <button type="button" class="link-btn drawer-close" id="drawer-close">Close</button>
+    <div class="pane" id="pane-gauges" hidden>
+      <h2 class="panel-title">Gauges</h2>
+      <div class="table-wrap"><table id="t-gauges"></table></div>
+    </div>
+    <div class="pane" id="pane-graphs" hidden>
+      <p class="muted" id="graphs-status" role="status" hidden></p>
+      <div class="dash-charts">
+        <figure><figcaption>River level at each gauge</figcaption><div id="c-levels" class="chart"></div></figure>
+        <figure><figcaption>Estimated flooding through time</figcaption><div id="c-area" class="chart"></div><p class="note" id="c-area-note"></p></figure>
+        <figure><figcaption>Water surface along the valley</figcaption><div id="c-profile" class="chart"></div><p class="note">Ground heights come from lidar. The water line runs straight between gauges, which is the estimate's biggest simplification.</p></figure>
+      </div>
+    </div>
+    <div class="pane" id="pane-about" hidden>
+      <h2 class="panel-title">How to read this dashboard</h2>
+      <p class="note" id="map-note"></p>
+      <ul class="plain-list">
+        <li><b>NISAR's map is the newest available pass, and river levels are live.</b> Levels come straight from USGS. NISAR passes every few days, its scenes reach NASA's catalog days later, and this site's radar maps aren't updated automatically.</li>
+        <li><b>The flooding shown is an estimate.</b> It compares river level with lidar ground height, within 10 km of a gauge. It isn't radar, and it isn't a sighting of water.</li>
+        <li><b>"What if" isn't a forecast.</b> It adds the same rise to every gauge on every river. Real floods don't rise evenly.</li>
+        <li><b>How scores work.</b> The match score runs from 0 to 1 and compares NISAR's map with the estimate at the same moment. It only counts ground the estimate can clearly call flooded or dry, so the two areas shown can differ even when the score is high. In a fair test, the method was fixed before the flood's data was opened, and the results page calls these frozen tests. Development scores come from rivers that helped build the method, so they flatter it. A river's fair test may have used an earlier method, so it can differ from the current method's score.</li>
+        <li><b>The blind-spot map is a layer.</b> It's strongest zoomed out and fades to a faint trace over a tested flood; the switch in Map layers turns it off. The Blind spots tab checks any town, river or country. It shows where river floodplains sit under trees, using a modelled 100-year flood map and land cover. It marks where a flood could be hidden, not where one is. A place reads as high risk when at least half of its mapped floodplain within about 25 km is under trees and that covers at least 100 km², and moderate from a fifth and 25 km². Those cutoffs are our own.</li>
+        <li><b>Roads under water.</b> The card counts drivable roads from OpenStreetMap on the ground the estimate floods, leaving out bridges and footpaths, and how much of it lies where Copernicus GFM's mask says today's flood map doesn't map. Mapped roads can be incomplete, and a raised road can stay dry where the ground beside it floods.</li>
+        <li><b>Don't use this for emergency decisions.</b> Follow official warnings. See <a href="evidence.html">the results page</a> for how well each part has held up.</li>
+      </ul>
+      <p class="note">Data: USGS water data and 3DEP lidar · NISAR L2 PROVISIONAL GCOV (NASA/ISRO) via NASA Earthdata · Copernicus Emergency Management Service Global Flood Monitoring · NOAA National Water Prediction Service flood levels · OpenStreetMap roads, © OpenStreetMap contributors (ODbL) · ESA WorldCover 2021 (CC BY 4.0) · Copernicus CEMS GloFAS flood hazard maps, © European Union (CC BY 4.0) · GeoNames place names (CC BY 4.0) · Natural Earth · Imagery © Esri.</p>
+      <p class="note">Provisional data; not an operational product. Much of the code was written with AI assistance (Claude).</p>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="shared.js?v=31"></script>
+  <script src="estimator.js?v=32"></script>
+  <script src="atlas.js?v=31"></script>
+  <script src="livefloods.js?v=31"></script>
+  <script src="worldfloods.js?v=31"></script>
+  <script src="strip.js?v=31"></script>
+  <script src="dashboard.js?v=32"></script>
+</body>
+</html>

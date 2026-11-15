@@ -1,0 +1,17 @@
+{
+ "sealed_utc": "2026-11-15T00:22:50Z",
+ "list": "research/sealed/sealed_20261115T0022.json",
+ "sha256": {
+  "research/SEALED_TEST_PROTOCOL.md": "e1fb78b79612e1d7b5bb0df7587aac9953123fc78e4f8519bd005c1628eb7c3d",
+  "scripts/seal_next_passes.py": "12a2f7a4de882df6f870c2588054e12e93b15b8bd415c260dd091e3f039a0d1b",
+  "scripts/score_sealed.py": "56ef403dba998d623dd53e699c4a11eecf5869641798870b6c0513673ee4f989",
+  "src/hidden_floods/sealed.py": "61eff0f442dc7599e70b7d18b767cfa282aa316af65c28c8395d96f7da63892e",
+  "src/hidden_floods/live.py": "45a8ab8dad9f2b5655ccbb184865a3fda98c3bf83d3f0b428702daeb8a107c34",
+  "scripts/live_cases.py": "4ba5ca23f907fe70cfdec79166348d6c941cfec4fae03329ad40d4c4fd87dcec",
+  "research/freeze_receipt_live.json": "03a648823443325053ef5acfce5188e7e54474d183318fbf9234ddc2948881e2",
+  "research/freeze_receipt_v4.json": "e286873d04558a4b2fac17c524aa4def6adbb3f6c3d43be91aff9d54de46e3cf",
+  "research/OVERBANK_PROTOCOL.md": "fa1f6ebcb19506f6da755f4cfc0b12b96b268621169cd9b2f7df75f6ff7aace7",
+  "scripts/rain_imerg.py": "1b10e8ec92956af966d6dcf18de6efafcdbaac7af24b090701956dd176a7ef6d",
+  "research/sealed/sealed_20261115T0022.json": "8ecef2f41a57583c59642f96f7c614bd3c39e455cc75f14caa4a18247a8ef984"
+ }
+}

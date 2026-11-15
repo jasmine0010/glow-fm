@@ -1,0 +1,170 @@
+{
+ "nisar_time": "2026-10-15T10:45:42",
+ "primary_date": null,
+ "dates": [
+  {
+   "date": "20260925",
+   "scene_time_utc": "2026-09-25T23:20:58Z",
+   "corridor_coverage": 0.0,
+   "estimated_ha": 0.0,
+   "dry_ha": 0.0,
+   "gauge_wse_navd88_m": {
+    "SATILLA RIVER AT GA 158, NEAR WAYCROSS, GA": 28.58,
+    "SATILLA RIVER NEAR WAYCROSS, GA": 21.73,
+    "SATILLA RIVER AT ATKINSON, GA": 5.49
+   },
+   "gfm_on_wet_ha": 0.0,
+   "gfm_share": null,
+   "wet_share_in_mask": null,
+   "dry_share_in_mask": null,
+   "corridor_share_in_mask": null,
+   "wet_outside_mask_ha": 0.0,
+   "gfm_on_wet_outside_mask_ha": 0.0,
+   "tree_share": null,
+   "dswx_on_wet_ha": null,
+   "dswx_share": null
+  },
+  {
+   "date": "20260930",
+   "scene_time_utc": "2026-09-30T23:28:15Z",
+   "corridor_coverage": 0.888,
+   "estimated_ha": 0.0,
+   "dry_ha": 6286.25,
+   "gauge_wse_navd88_m": {
+    "SATILLA RIVER AT GA 158, NEAR WAYCROSS, GA": 28.43,
+    "SATILLA RIVER NEAR WAYCROSS, GA": 21.64,
+    "SATILLA RIVER AT ATKINSON, GA": 5.35
+   },
+   "gfm_on_wet_ha": 0.0,
+   "gfm_share": null,
+   "wet_share_in_mask": null,
+   "dry_share_in_mask": 0.9312388148737324,
+   "corridor_share_in_mask": 0.8020384277772359,
+   "wet_outside_mask_ha": 0.0,
+   "gfm_on_wet_outside_mask_ha": 0.0,
+   "tree_share": null,
+   "dswx_on_wet_ha": null,
+   "dswx_share": null
+  },
+  {
+   "date": "20261005",
+   "scene_time_utc": "2026-10-05T23:36:34Z",
+   "corridor_coverage": 0.0,
+   "estimated_ha": 0.0,
+   "dry_ha": 0.0,
+   "gauge_wse_navd88_m": {
+    "SATILLA RIVER AT GA 158, NEAR WAYCROSS, GA": 29.48,
+    "SATILLA RIVER NEAR WAYCROSS, GA": 22.55,
+    "SATILLA RIVER AT ATKINSON, GA": 5.98
+   },
+   "gfm_on_wet_ha": 0.0,
+   "gfm_share": null,
+   "wet_share_in_mask": null,
+   "dry_share_in_mask": null,
+   "corridor_share_in_mask": null,
+   "wet_outside_mask_ha": 0.0,
+   "gfm_on_wet_outside_mask_ha": 0.0,
+   "tree_share": null,
+   "dswx_on_wet_ha": null,
+   "dswx_share": null
+  },
+  {
+   "date": "20261017",
+   "scene_time_utc": "2026-10-17T23:36:34Z",
+   "corridor_coverage": 0.0,
+   "estimated_ha": 0.0,
+   "dry_ha": 0.0,
+   "gauge_wse_navd88_m": {
+    "SATILLA RIVER AT GA 158, NEAR WAYCROSS, GA": 31.47,
+    "SATILLA RIVER NEAR WAYCROSS, GA": 24.57,
+    "SATILLA RIVER AT ATKINSON, GA": 8.4
+   },
+   "gfm_on_wet_ha": 0.0,
+   "gfm_share": null,
+   "wet_share_in_mask": null,
+   "dry_share_in_mask": null,
+   "corridor_share_in_mask": null,
+   "wet_outside_mask_ha": 0.0,
+   "gfm_on_wet_outside_mask_ha": 0.0,
+   "tree_share": null,
+   "dswx_on_wet_ha": null,
+   "dswx_share": null
+  },
+  {
+   "date": "20261024",
+   "scene_time_utc": "2026-10-24T23:28:15Z",
+   "corridor_coverage": 0.888,
+   "estimated_ha": 1149.25,
+   "dry_ha": 4117.5,
+   "gauge_wse_navd88_m": {
+    "SATILLA RIVER AT GA 158, NEAR WAYCROSS, GA": 29.88,
+    "SATILLA RIVER NEAR WAYCROSS, GA": 23.71,
+    "SATILLA RIVER AT ATKINSON, GA": 8.13
+   },
+   "gfm_on_wet_ha": 0.0,
+   "gfm_share": 0.0,
+   "wet_share_in_mask": 0.9704154883619752,
+   "dry_share_in_mask": 0.8778992106860959,
+   "corridor_share_in_mask": 0.8020384277772359,
+   "wet_outside_mask_ha": 34.0,
+   "gfm_on_wet_outside_mask_ha": 0.0,
+   "tree_share": 0.9412660430715684,
+   "dswx_on_wet_ha": 15.0,
+   "dswx_share": 0.013051990428540352,
+   "exposure_unmapped_by_gfm": {
+    "road_km": 8.21,
+    "road_km_by_class": {
+     "track": 6.78,
+     "residential": 1.27,
+     "secondary": 0.11,
+     "service": 0.06
+    },
+    "buildings": 0
+   }
+  },
+  {
+   "date": "20261029",
+   "scene_time_utc": "2026-10-29T23:36:34Z",
+   "corridor_coverage": 0.0,
+   "estimated_ha": 0.0,
+   "dry_ha": 0.0,
+   "gauge_wse_navd88_m": {
+    "SATILLA RIVER AT GA 158, NEAR WAYCROSS, GA": 29.1,
+    "SATILLA RIVER NEAR WAYCROSS, GA": 22.66,
+    "SATILLA RIVER AT ATKINSON, GA": 7.48
+   },
+   "gfm_on_wet_ha": 0.0,
+   "gfm_share": null,
+   "wet_share_in_mask": null,
+   "dry_share_in_mask": null,
+   "corridor_share_in_mask": null,
+   "wet_outside_mask_ha": 0.0,
+   "gfm_on_wet_outside_mask_ha": 0.0,
+   "tree_share": null,
+   "dswx_on_wet_ha": null,
+   "dswx_share": null
+  },
+  {
+   "date": "20261031",
+   "scene_time_utc": "2026-10-31T23:20:58Z",
+   "corridor_coverage": 0.0,
+   "estimated_ha": 0.0,
+   "dry_ha": 0.0,
+   "gauge_wse_navd88_m": {
+    "SATILLA RIVER AT GA 158, NEAR WAYCROSS, GA": 29.0,
+    "SATILLA RIVER NEAR WAYCROSS, GA": 22.4,
+    "SATILLA RIVER AT ATKINSON, GA": 7.13
+   },
+   "gfm_on_wet_ha": 0.0,
+   "gfm_share": null,
+   "wet_share_in_mask": null,
+   "dry_share_in_mask": null,
+   "corridor_share_in_mask": null,
+   "wet_outside_mask_ha": 0.0,
+   "gfm_on_wet_outside_mask_ha": 0.0,
+   "tree_share": null,
+   "dswx_on_wet_ha": null,
+   "dswx_share": null
+  }
+ ]
+}

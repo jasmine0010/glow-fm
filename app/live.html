@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GLOWfm: Run It Yourself</title>
+  <meta name="description" content="Run GLOWfm's frozen method on this season's floods, in your browser, on NISAR radar prepared from NASA's catalog. US floods grade themselves against the river's gauges.">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#03060a">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GLOWfm">
+  <meta property="og:title" content="GLOWfm: Run It Yourself">
+  <meta property="og:description" content="Run GLOWfm's frozen method on this season's floods, in your browser, on NISAR radar prepared from NASA's catalog. US floods grade themselves against the river's gauges.">
+  <meta property="og:image" content="og-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css?v=32">
+</head>
+<body class="live-page night">
+  <nav class="topbar" aria-label="Pages">
+    <div class="wrap topbar-in">
+      <a class="brand" href="index.html" aria-label="GLOWfm"><span aria-hidden="true">GLOW<span class="brand-fm">fm</span></span></a>
+      <button type="button" class="sound-btn" id="sound-btn" aria-pressed="false" title="Radar pings at key moments. Off unless you switch it on."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="sound-wave" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg><span class="sound-word">Sound off</span></button>
+      <span class="topbar-space"></span>
+      <span class="topbar-pages"><a class="topbar-plain" href="index.html">Story</a><a class="topbar-tool" href="dashboard.html">Dashboard</a><a class="topbar-tool here" href="live.html" aria-current="page">Run it yourself</a><a class="topbar-plain" href="evidence.html">Results</a></span>
+    </div>
+  </nav>
+
+  <main class="live">
+    <header class="live-head">
+      <p class="eyebrow">Run it yourself · this season's floods, separate from the tested results</p>
+      <h1>Run NISAR's flood method yourself</h1>
+    </header>
+
+    <div class="live-grid">
+      <aside class="live-cases" id="live-cases" aria-labelledby="pick-title">
+        <h2 class="live-step" id="pick-title"><span aria-hidden="true">1</span> Choose a flood</h2>
+        <div class="flood-tabs live-tabs" id="pick-tabs" role="group" aria-label="What to run" hidden>
+          <button type="button" data-pane="ready" aria-pressed="true">This season's floods</button>
+          <button type="button" data-pane="any" aria-pressed="false">Any place</button>
+        </div>
+        <div id="pane-ready">
+          <p class="pick-head"><span>Flood</span><span>NISAR pass</span></p>
+          <ul class="pick-list" id="cases-board" aria-label="Floods ready to run"></ul>
+          <p class="live-kind" id="cases-note">Graded against the river's gauges in the US; elsewhere the trust light decides.</p>
+        </div>
+        <div class="anywhere" id="anywhere" hidden>
+          <p class="live-kind">Draw a box on the map, 5–50 km a side. NISAR's passes over it appear below; choose one and this computer reads its radar with its own Earthdata sign-in. Nothing is published.</p>
+          <p class="anywhere-tools"><button type="button" class="btn" id="any-draw" aria-pressed="false">Draw a box on the map</button> <button type="button" class="btn-quiet" id="any-clear" hidden>Clear</button></p>
+          <label class="anywhere-coords">Or type a place <input type="text" id="any-coords" placeholder="latitude, longitude: -3.25, -60.2" autocomplete="off" inputmode="decimal"></label>
+          <p class="anywhere-point" id="any-point">No box yet.</p>
+          <details class="anywhere-dates"><summary>Dates: <span id="any-span">the last 30 days</span></summary><div><label>From <input type="date" id="any-from"></label><label>To <input type="date" id="any-to"></label></div></details>
+          <p class="note" id="any-status" aria-live="polite"></p>
+          <ul class="anywhere-passes" id="any-passes"></ul>
+          <p class="note">Looking for a reported flood? <a href="dashboard.html">The dashboard</a> lists every one, each with "Try the method here".</p>
+        </div>
+      </aside>
+
+      <section class="live-map-wrap" aria-label="Map of the chosen flood">
+        <div id="live-map" class="map live-map"></div>
+        <div class="live-legend" id="live-legend" aria-hidden="true"></div>
+      </section>
+
+      <section class="live-panel" id="live-panel" aria-labelledby="case-title">
+        <p class="live-step"><span aria-hidden="true">2</span> Run</p>
+        <h2 id="case-title">No flood chosen yet</h2>
+        <p class="live-sub" id="case-sub"></p>
+        <button type="button" class="btn-primary live-run" id="run" disabled>Run NISAR's method</button>
+        <ol class="live-steps" id="steps" hidden></ol>
+        <figure class="cut-instr" id="cut-instr" hidden><canvas role="img" aria-label="The valley floor's radar change, and the cut-off the scene set"></canvas><figcaption class="act-legend"></figcaption></figure>
+        <div id="result" class="live-result" aria-live="polite"></div>
+        <div class="live-layers" id="layers" role="group" aria-label="Map layers"></div>
+        <details class="live-settings" id="settings">
+          <summary>Change the method's settings</summary>
+          <p class="note">These change only this run, on this page. The published result uses the frozen settings.</p>
+          <fieldset><legend>Dry reference</legend>
+            <label><input type="radio" name="baseline" value="median" checked> Median of the earlier passes</label>
+            <label><input type="radio" name="baseline" value="single"> Only the latest earlier pass</label>
+          </fieldset>
+          <fieldset><legend>Radar signal</legend>
+            <label><input type="radio" name="signal" value="adaptive" checked> Chosen by the scene</label>
+            <label><input type="radio" name="signal" value="hh"> HH change</label>
+            <label><input type="radio" name="signal" value="hh_minus_hv"> HH change minus HV change</label>
+          </fieldset>
+          <label class="live-range">Lowest cut-off <output id="floor-out">0.5 dB</output>
+            <input type="range" id="floor" min="0" max="3" step="0.1" value="0.5"></label>
+          <label class="live-range">Highest ground above the river <output id="hand-out">6 m</output>
+            <input type="range" id="hand" min="1" max="12" step="0.5" value="6"></label>
+          <label class="live-check"><input type="checkbox" id="late" checked> Skip ground where the flood is long past its crest</label>
+          <button type="button" class="btn" id="reset">Back to the frozen settings</button>
+        </details>
+        <p class="note" id="case-notes"></p>
+      </section>
+    </div>
+    <section class="live-analysis" id="analysis" hidden aria-labelledby="analysis-title">
+      <p class="live-step"><span aria-hidden="true">3</span> Read why</p>
+      <h2 id="analysis-title">Why the method did what it did</h2>
+      <p class="plain" id="analysis-sub"></p>
+      <div class="analysis-grid">
+        <figure class="analysis-fig" id="af-signature"><div class="af-mount"></div><figcaption><b>The radar signature here.</b> If the flood sits under the trees, low ground brightens and the method flags it; higher ground stays put.</figcaption></figure>
+        <figure class="analysis-fig" id="af-trust"><div class="af-mount"></div><figcaption><b>The trust light's own check.</b> Green only if forest near the water brightened clearly more than forest well above it.</figcaption></figure>
+        <figure class="analysis-fig analysis-wide" id="af-robust"><div class="af-mount"></div><figcaption><b>How much the map depends on its settings.</b> A flat curve means a stable answer; a steep one means the area hangs on the setting.</figcaption></figure>
+        <figure class="analysis-fig" id="af-where"><div class="af-mount"></div><figcaption><b>Where the flagged area sits.</b> Flooded forest should dominate, close to the water.</figcaption></figure>
+        <figure class="analysis-fig" id="af-score" hidden><div class="af-mount"></div><figcaption><b>Against the river's gauges and lidar.</b> How the score would move with the cut-off; the published test is marked.</figcaption></figure>
+      </div>
+      <p class="analysis-actions"><button type="button" class="btn" id="run-download">Download this run (JSON)</button> <button type="button" class="btn" id="brief-download">Download a one-page brief</button> <button type="button" class="btn-quiet" id="map-download">Download the map (PNG and corners)</button></p>
+    </section>
+    <details class="fine live-foot">
+      <summary>How it works, and the data</summary>
+      <div class="fine-body">
+        <p id="live-updated"></p>
+        <p>The trust light is also on trial: before NISAR flew, we sealed which of its next passes over US floods will be scored, and what the light predicts for each (<a href="evidence.html#sealed">Table 5 in the results</a>).</p>
+        <p>Floods the job looked at but couldn't prepare (<span id="skip-n">0</span>), and why:</p>
+        <ul class="live-skipped" id="skipped"></ul>
+        <p>How it works: the method compares NISAR's pass during the flood with earlier passes on the same track, keeps forest and wetland close to the river, and lets the scene set its own cut-off. Its rules are in <a href="evidence.html">the results</a> and in research/LIVE_PROTOCOL.md; since protocol v2 (research/LIVE_PROTOCOL_V2.md), floods outside the US use bare-earth heights from FABDEM, which <a href="evidence.html#no-lidar">tested better than treetop heights without lidar</a>. Data: NISAR GCOV (NASA/ISRO, via ASF), NOAA river gauges, USGS river lines, gauges and 3DEP lidar, ESA WorldCover 2021, Copernicus GLO-30, FABDEM V1-2 (University of Bristol; Hawker et al. 2022; CC BY-NC-SA 4.0, height layers made from it are shared under the same licence for non-commercial use; produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved), GDACS. Imagery © Esri.</p>
+      </div>
+    </details>
+  </main>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="shared.js?v=29"></script>
+  <script src="sound.js?v=29"></script>
+  <script src="motion.js?v=29"></script>
+  <script src="livemethod.js?v=29"></script>
+  <script src="figkit.js?v=29"></script>
+  <script src="livefigs.js?v=29"></script>
+  <script src="live.js?v=30"></script>
+</body>
+</html>

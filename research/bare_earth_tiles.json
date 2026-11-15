@@ -1,0 +1,130 @@
+{
+ "source": {
+  "dataset": "FABDEM",
+  "version": "V1-2",
+  "doi": "https://doi.org/10.5523/bris.s5hqmjcdj8yo2ibzi9b4ew3sn",
+  "licence": "CC BY-NC-SA 4.0",
+  "citation": "Hawker, L. et al. (2022) A 30 m global map of elevation with forests and buildings removed. Environ. Res. Lett. 17, 024016",
+  "fetched_utc": "2026-11-14T10:50:23+00:00",
+  "archives": {
+   "N30W100-N40W090_FABDEM_V1-2.zip": {
+    "url": "https://data.bris.ac.uk/datasets/s5hqmjcdj8yo2ibzi9b4ew3sn/N30W100-N40W090_FABDEM_V1-2.zip",
+    "bytes": 2192868994
+   },
+   "N30W080-N40W070_FABDEM_V1-2.zip": {
+    "url": "https://data.bris.ac.uk/datasets/s5hqmjcdj8yo2ibzi9b4ew3sn/N30W080-N40W070_FABDEM_V1-2.zip",
+    "bytes": 587443659
+   },
+   "N30W090-N40W080_FABDEM_V1-2.zip": {
+    "url": "https://data.bris.ac.uk/datasets/s5hqmjcdj8yo2ibzi9b4ew3sn/N30W090-N40W080_FABDEM_V1-2.zip",
+    "bytes": 2300584454
+   }
+  }
+ },
+ "tiles": {
+  "lower_sabine": {
+   "N30W094_FABDEM_V1-2.tif": {
+    "sha256": "3e2a59c021ddfbc6682c343f5a7a330bb007c238902cddbf869380dd0838535f",
+    "bytes": 18957572,
+    "crc32": "3109bebb",
+    "archive": "N30W100-N40W090_FABDEM_V1-2.zip"
+   },
+   "N31W094_FABDEM_V1-2.tif": {
+    "sha256": "e78d0c720be465e0da344163bc5541ad1bf4cb9e0719e56ff3ac7bd1b2cf20ed",
+    "bytes": 21415065,
+    "crc32": "4d14ecfc",
+    "archive": "N30W100-N40W090_FABDEM_V1-2.zip"
+   }
+  },
+  "neuse": {
+   "N35W079_FABDEM_V1-2.tif": {
+    "sha256": "5616fb1c49453080f6de74636939171678c659908f373689378effb6cdb905d6",
+    "bytes": 22034963,
+    "crc32": "a7bf1193",
+    "archive": "N30W080-N40W070_FABDEM_V1-2.zip"
+   },
+   "N35W078_FABDEM_V1-2.tif": {
+    "sha256": "268fb9ef546d5ab048193e918ccb6c0d6654d6aca11f2caeb9724eb0e29d2a71",
+    "bytes": 19919998,
+    "crc32": "0b8b3720",
+    "archive": "N30W080-N40W070_FABDEM_V1-2.zip"
+   }
+  },
+  "ochlockonee": {
+   "N30W085_FABDEM_V1-2.tif": {
+    "sha256": "335d217dea0a9246b4b1cbb18c443aaa6d9e3bc79c13efc33979cbd4bd5a0db0",
+    "bytes": 21131787,
+    "crc32": "44e2e4d4",
+    "archive": "N30W090-N40W080_FABDEM_V1-2.zip"
+   },
+   "N30W084_FABDEM_V1-2.tif": {
+    "sha256": "d35300c527423ca25efa9386b65acd9beb65758486935204aea61d74cd61a8c4",
+    "bytes": 20859166,
+    "crc32": "fca88e89",
+    "archive": "N30W090-N40W080_FABDEM_V1-2.zip"
+   },
+   "N31W085_FABDEM_V1-2.tif": {
+    "sha256": "83df04ab7aa0c86f78d7d7f6b5f22f03dbe387de2b135e10ec4ae8f6b59f89c5",
+    "bytes": 21593490,
+    "crc32": "fe9cd0d8",
+    "archive": "N30W090-N40W080_FABDEM_V1-2.zip"
+   },
+   "N31W084_FABDEM_V1-2.tif": {
+    "sha256": "90367da0923695175f4fe34358251eca3ba3814dcff4660dd2940c5a3c4b1109",
+    "bytes": 21673316,
+    "crc32": "ed5aa0f2",
+    "archive": "N30W090-N40W080_FABDEM_V1-2.zip"
+   }
+  },
+  "pee_dee": {
+   "N33W080_FABDEM_V1-2.tif": {
+    "sha256": "6dd88843ec9efa4a561ac24acf8b2cf8241981c63ea5d4abd9fe3a4765dbbb11",
+    "bytes": 17922578,
+    "crc32": "a0389722",
+    "archive": "N30W080-N40W070_FABDEM_V1-2.zip"
+   },
+   "N34W080_FABDEM_V1-2.tif": {
+    "sha256": "e5b83b6b4644b195ebfb4eda0fcf83a8e1a597fb8e63d984810f2b970a6f20d2",
+    "bytes": 20492476,
+    "crc32": "465edd37",
+    "archive": "N30W080-N40W070_FABDEM_V1-2.zip"
+   }
+  },
+  "satilla": {
+   "N31W083_FABDEM_V1-2.tif": {
+    "sha256": "be1aa656878e3a4694fd3692d59b66625599681ca74832d02ba04c6d617c4105",
+    "bytes": 20701051,
+    "crc32": "f3eb5b32",
+    "archive": "N30W090-N40W080_FABDEM_V1-2.zip"
+   },
+   "N31W082_FABDEM_V1-2.tif": {
+    "sha256": "3fb5430322d14ece36aff600548c1a2bdd05d1c8ed51456b635eab5bc6535ca1",
+    "bytes": 15435560,
+    "crc32": "c935fa84",
+    "archive": "N30W090-N40W080_FABDEM_V1-2.zip"
+   }
+  },
+  "st_marys": {
+   "N30W083_FABDEM_V1-2.tif": {
+    "sha256": "f08176c0e31a0eadd40979b0631df5d5ca0e0823630e0694a9f1e85ad06bb31b",
+    "bytes": 19359866,
+    "crc32": "c47756c9",
+    "archive": "N30W090-N40W080_FABDEM_V1-2.zip"
+   },
+   "N30W082_FABDEM_V1-2.tif": {
+    "sha256": "c8e576d48dca6f7fda4e9803bcc14d9cdcb1b467a4d0eee446546e3fa9b2c8d4",
+    "bytes": 11560173,
+    "crc32": "758354f8",
+    "archive": "N30W090-N40W080_FABDEM_V1-2.zip"
+   }
+  },
+  "yellow": {
+   "N30W087_FABDEM_V1-2.tif": {
+    "sha256": "43ab362859099272b7b633ab692b36dd559cc9dacc0e2099b57b1906904b970d",
+    "bytes": 13555042,
+    "crc32": "acba94c0",
+    "archive": "N30W090-N40W080_FABDEM_V1-2.zip"
+   }
+  }
+ }
+}

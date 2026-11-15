@@ -1,0 +1,192 @@
+{
+ "rules": "research/TONLE_SAP_CASE.md",
+ "rules_sha256": "ec0966193f82bcd7e5bbf25e13add2d8e80d9cdeebe94f8fb95884cdcccb7316",
+ "unvalidated": true,
+ "baseline_dates": [
+  "2026-06-19",
+  "2026-07-01",
+  "2026-07-13"
+ ],
+ "lake_ha": 168422.4,
+ "corners": [
+  [
+   103.34955647043952,
+   13.400449409795877
+  ],
+  [
+   104.35045936000549,
+   13.400449409795877
+  ],
+  [
+   104.35045936000549,
+   12.749959302152927
+  ],
+  [
+   103.34955647043952,
+   12.749959302152927
+  ]
+ ],
+ "land_cover_shares": {
+  "tree": 0.41766677961695925,
+  "wetland": 0.16257009107197565,
+  "open": 0.39988000965492915,
+  "other": 0.019883119656135987
+ },
+ "frames": [
+  {
+   "date": "2026-07-25",
+   "time": "2026-07-25T22:36:35Z",
+   "mapped_ha": 53423.64,
+   "threshold_db": 0.5,
+   "confident": false,
+   "used_hh_minus_hv": true,
+   "low_minus_high_db": 0.22465813159942627,
+   "near_tree_hh_db": 0.6711907386779785,
+   "near_tree_hv_db": 0.5084524154663086,
+   "far_tree_hh_db": 0.6067311763763428,
+   "far_tree_hv_db": 0.4229731559753418,
+   "bright_tree_ha": 6795.719999999999,
+   "dark_land_ha": 14817.24,
+   "valid_share": 1.0,
+   "gfm_date": null,
+   "gfm_water_ha": null,
+   "bright_in_gfm_mask": null
+  },
+  {
+   "date": "2026-08-18",
+   "time": "2026-08-18T22:36:34Z",
+   "mapped_ha": 155144.16,
+   "threshold_db": 0.5,
+   "confident": false,
+   "used_hh_minus_hv": true,
+   "low_minus_high_db": -2.235474795103073,
+   "near_tree_hh_db": 0.9232373237609863,
+   "near_tree_hv_db": -0.24231243133544922,
+   "far_tree_hh_db": 0.9863295555114746,
+   "far_tree_hv_db": 0.25403881072998047,
+   "bright_tree_ha": 32203.079999999998,
+   "dark_land_ha": 39521.159999999996,
+   "valid_share": 1.0,
+   "gfm_date": null,
+   "gfm_water_ha": null,
+   "bright_in_gfm_mask": null
+  },
+  {
+   "date": "2026-08-30",
+   "time": "2026-08-30T22:36:33Z",
+   "mapped_ha": 155861.63999999998,
+   "threshold_db": 0.5,
+   "confident": false,
+   "used_hh_minus_hv": true,
+   "low_minus_high_db": -3.3226890563964844,
+   "near_tree_hh_db": 1.581822395324707,
+   "near_tree_hv_db": -0.33764171600341797,
+   "far_tree_hh_db": 1.5750608444213867,
+   "far_tree_hv_db": 0.6325139999389648,
+   "bright_tree_ha": 94132.8,
+   "dark_land_ha": 76660.2,
+   "valid_share": 1.0,
+   "gfm_date": "20260828",
+   "gfm_water_ha": 30071.16,
+   "bright_in_gfm_mask": 0.7649801132017745
+  },
+  {
+   "date": "2026-09-11",
+   "time": "2026-09-11T22:36:33Z",
+   "mapped_ha": 54820.439999999995,
+   "threshold_db": 0.5,
+   "confident": false,
+   "used_hh_minus_hv": false,
+   "low_minus_high_db": -2.549012780189514,
+   "near_tree_hh_db": 1.465193748474121,
+   "near_tree_hv_db": -0.9579238891601562,
+   "far_tree_hh_db": 2.3960208892822266,
+   "far_tree_hv_db": 0.8418841361999512,
+   "bright_tree_ha": 112833.36,
+   "dark_land_ha": 116053.92,
+   "valid_share": 1.0,
+   "gfm_date": "20260909",
+   "gfm_water_ha": 33434.64,
+   "bright_in_gfm_mask": 0.8303586811559985
+  },
+  {
+   "date": "2026-09-23",
+   "time": "2026-09-23T22:36:33Z",
+   "mapped_ha": 33715.799999999996,
+   "threshold_db": 0.5,
+   "confident": false,
+   "used_hh_minus_hv": false,
+   "low_minus_high_db": -1.6065280437469482,
+   "near_tree_hh_db": 0.03783607482910156,
+   "near_tree_hv_db": -2.9345808029174805,
+   "far_tree_hh_db": 2.3378963470458984,
+   "far_tree_hv_db": 0.295562744140625,
+   "bright_tree_ha": 64959.84,
+   "dark_land_ha": 170944.56,
+   "valid_share": 1.0,
+   "gfm_date": "20260921",
+   "gfm_water_ha": 60857.28,
+   "bright_in_gfm_mask": 0.8513056682405622
+  },
+  {
+   "date": "2026-10-05",
+   "time": "2026-10-05T22:36:33Z",
+   "mapped_ha": 23674.32,
+   "threshold_db": 0.5,
+   "confident": false,
+   "used_hh_minus_hv": false,
+   "low_minus_high_db": -1.9663090705871582,
+   "near_tree_hh_db": -0.7587471008300781,
+   "near_tree_hv_db": -3.7753353118896484,
+   "far_tree_hh_db": 1.7690659761428833,
+   "far_tree_hv_db": -0.6159272193908691,
+   "bright_tree_ha": 40453.92,
+   "dark_land_ha": 214889.75999999998,
+   "valid_share": 1.0,
+   "gfm_date": "20261003",
+   "gfm_water_ha": 41657.76,
+   "bright_in_gfm_mask": 0.8845797885594276
+  },
+  {
+   "date": "2026-10-17",
+   "time": "2026-10-17T22:36:33Z",
+   "mapped_ha": 22583.52,
+   "threshold_db": 0.5,
+   "confident": false,
+   "used_hh_minus_hv": false,
+   "low_minus_high_db": -2.018775463104248,
+   "near_tree_hh_db": -0.7627649307250977,
+   "near_tree_hv_db": -3.700716972351074,
+   "far_tree_hh_db": 1.7686927318572998,
+   "far_tree_hv_db": -0.5347781181335449,
+   "bright_tree_ha": 39315.24,
+   "dark_land_ha": 213372.36,
+   "valid_share": 1.0,
+   "gfm_date": "20261015",
+   "gfm_water_ha": 36053.28,
+   "bright_in_gfm_mask": 0.8843685044272908
+  }
+ ],
+ "predictions": {
+  "1_peak_on_or_after_sep11": {
+   "peak_date": "2026-08-30",
+   "peak_db": 1.581822395324707,
+   "holds": false
+  },
+  "2_hh_exceeds_hv_by_1db": {
+   "difference_db": 1.919464111328125,
+   "holds": true
+  },
+  "3_far_forest_under_1db": {
+   "largest_abs_db": 2.3960208892822266,
+   "holds": false
+  },
+  "4_rises_with_gfm_water": {
+   "usable_dates": 5,
+   "rank_correlation": -0.49999999999999994,
+   "holds": false
+  }
+ },
+ "rules_sha256_at_run": "7545f2e44e836f84de0d4b71aa28d805040b08d979f52b272f8ce14f44874a0d",
+ "note": "Dates were removed from the rules file after the run; nothing else changed. The *_at_run hash is the one the run used."
+}

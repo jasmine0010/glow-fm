@@ -1,0 +1,285 @@
+{
+  "site": "pine_island",
+  "pair": "134A_sep03",
+  "protocol": "research/EDOUARD_PROTOCOL.md",
+  "regression_check": false,
+  "attempt": {
+    "git_head": "c6a17474152f9a9d097ac24a47039e14afb01e78",
+    "site": "pine_island",
+    "pair": "134A_sep03",
+    "regression_check": false
+  },
+  "v3_rule": {
+    "type": "v3_otsu",
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "v3_threshold_db": 1.8721980728488417,
+  "v2_threshold_db": null,
+  "gauge_wse_navd88_m": {
+    "Pine Island Bayou nr Sour Lake, TX": 6.04912176,
+    "Pine Island Bayou abv BI Pump Plant, Beaumont, TX": 1.89207648
+  },
+  "gauge_timing_class": {
+    "Pine Island Bayou nr Sour Lake, TX": 1,
+    "Pine Island Bayou abv BI Pump Plant, Beaumont, TX": 1
+  },
+  "upland_warning": {
+    "upland_hh_db": null,
+    "upland_px": 6,
+    "warned": null
+  },
+  "coverage_of_confirmed_flooding": 1.0,
+  "truth_ha": {
+    "wet_primary": 162.75,
+    "dry_primary": 9411.25,
+    "wet_supported": 162.75,
+    "ambiguous_left_out": 0.0
+  },
+  "valid_share_of_labelled": 1.0,
+  "primary_v3_mapped_area": {
+    "scores": {
+      "tp": 285,
+      "fn": 366,
+      "fp": 11580,
+      "tn": 26065,
+      "recall": 0.4377880184331797,
+      "precision": 0.02402022756005057,
+      "csi": 0.023301447142506745,
+      "f1": 0.04554170661553212,
+      "tp_ha": 71.25,
+      "fn_ha": 91.5,
+      "fp_ha": 2895.0,
+      "tn_ha": 6516.25
+    },
+    "ci95": {
+      "recall": [
+        0.4377880184331797,
+        0.4377880184331797
+      ],
+      "precision": [
+        0.0,
+        0.09138648008299641
+      ],
+      "csi": [
+        0.0,
+        0.08178789087856969
+      ],
+      "f1": [
+        0.0,
+        0.15120873318334166
+      ]
+    }
+  },
+  "secondary_v3_ponding_tolerant": {
+    "scores": {
+      "tp": 285,
+      "fn": 366,
+      "fp": 11580,
+      "tn": 26065,
+      "recall": 0.4377880184331797,
+      "precision": 0.02402022756005057,
+      "csi": 0.023301447142506745,
+      "f1": 0.04554170661553212,
+      "tp_ha": 71.25,
+      "fn_ha": 91.5,
+      "fp_ha": 2895.0,
+      "tn_ha": 6516.25
+    },
+    "ci95": {
+      "recall": [
+        0.4377880184331797,
+        0.4377880184331797
+      ],
+      "precision": [
+        0.0,
+        0.09138648008299641
+      ],
+      "csi": [
+        0.0,
+        0.08178789087856969
+      ],
+      "f1": [
+        0.0,
+        0.15120873318334166
+      ]
+    }
+  },
+  "secondary_v3_full_corridor": {
+    "scores": {
+      "tp": 285,
+      "fn": 366,
+      "fp": 11580,
+      "tn": 26065,
+      "recall": 0.4377880184331797,
+      "precision": 0.02402022756005057,
+      "csi": 0.023301447142506745,
+      "f1": 0.04554170661553212,
+      "tp_ha": 71.25,
+      "fn_ha": 91.5,
+      "fp_ha": 2895.0,
+      "tn_ha": 6516.25
+    },
+    "ci95": {
+      "recall": [
+        0.4377880184331797,
+        0.4377880184331797
+      ],
+      "precision": [
+        0.0,
+        0.09138648008299641
+      ],
+      "csi": [
+        0.0,
+        0.08178789087856969
+      ],
+      "f1": [
+        0.0,
+        0.15120873318334166
+      ]
+    }
+  },
+  "baseline_v2_same_pixels": null,
+  "baseline_v1_same_pixels": {
+    "scores": {
+      "tp": 270,
+      "fn": 381,
+      "fp": 12100,
+      "tn": 25545,
+      "recall": 0.4147465437788018,
+      "precision": 0.021827000808407437,
+      "csi": 0.021174809818837736,
+      "f1": 0.04147146916519469,
+      "tp_ha": 67.5,
+      "fn_ha": 95.25,
+      "fp_ha": 3025.0,
+      "tn_ha": 6386.25
+    },
+    "ci95": {
+      "recall": [
+        0.4147465437788018,
+        0.4147465437788018
+      ],
+      "precision": [
+        0.0,
+        0.07933980744785245
+      ],
+      "csi": [
+        0.0,
+        0.07135148119895178
+      ],
+      "f1": [
+        0.0,
+        0.13319900770743115
+      ]
+    }
+  },
+  "v3_minus_v2_csi": null,
+  "v3_minus_v1_csi": {
+    "difference": 0.002126637323669009,
+    "ci95": [
+      0.0,
+      0.010498465076510838
+    ]
+  },
+  "by_landcover": {
+    "tree cover": {
+      "scores": {
+        "tp": 285,
+        "fn": 293,
+        "fp": 11354,
+        "tn": 21366,
+        "recall": 0.4930795847750865,
+        "precision": 0.024486639745682617,
+        "csi": 0.02388535031847134,
+        "f1": 0.04665629860031104,
+        "tp_ha": 71.25,
+        "fn_ha": 73.25,
+        "fp_ha": 2838.5,
+        "tn_ha": 5341.5
+      },
+      "ci95": {
+        "recall": [
+          0.4930795847750865,
+          0.4930795847750865
+        ],
+        "precision": [
+          0.0,
+          0.0940012430997016
+        ],
+        "csi": [
+          0.0,
+          0.08571751290877795
+        ],
+        "f1": [
+          0.0,
+          0.15790021169428423
+        ]
+      }
+    },
+    "other": {
+      "scores": {
+        "tp": 0,
+        "fn": 73,
+        "fp": 225,
+        "tn": 269,
+        "recall": 0.0,
+        "precision": 0.0,
+        "csi": 0.0,
+        "f1": 0.0,
+        "tp_ha": 0.0,
+        "fn_ha": 18.25,
+        "fp_ha": 56.25,
+        "tn_ha": 67.25
+      },
+      "ci95": {
+        "recall": [
+          0.0,
+          0.0
+        ],
+        "precision": [
+          0.0,
+          0.0
+        ],
+        "csi": [
+          0.0,
+          0.0
+        ],
+        "f1": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "wet": {
+      "granuleId": "NISAR_L2_PR_GCOV_029_134_A_017_4005_DHDH_A_20260903T113542_20260903T113616_P05023_N_F_J_001",
+      "trackNumber": 134,
+      "orbitPassDirection": "Ascending",
+      "zeroDopplerStartTime": "2026-09-03T11:35:42.000000000",
+      "isUrgentObservation": "False",
+      "compositeReleaseId": "P05023",
+      "productVersion": "1.0.11"
+    },
+    "dry": {
+      "granuleId": "NISAR_L2_PR_GCOV_028_134_A_017_4005_DHDH_A_20260822T113542_20260822T113616_P05023_N_F_J_001",
+      "trackNumber": 134,
+      "orbitPassDirection": "Ascending",
+      "zeroDopplerStartTime": "2026-08-22T11:35:42.000000000",
+      "isUrgentObservation": "False",
+      "compositeReleaseId": "P05023",
+      "productVersion": "1.0.11"
+    }
+  }
+}

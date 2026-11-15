@@ -1,0 +1,121 @@
+{
+  "cases": [
+    {
+      "id": "world_1104121_20261006",
+      "kind": "world",
+      "place": "India",
+      "name": "Flood in India",
+      "category": "orange",
+      "wet": "2026-10-06T00:15:53Z",
+      "scored": false,
+      "lat": 11.3324,
+      "lon": 78.6099,
+      "gdacs": "1104121"
+    },
+    {
+      "id": "world_1104099_20261019",
+      "kind": "world",
+      "place": "Mexico",
+      "name": "Flood in Mexico",
+      "category": "green",
+      "wet": "2026-10-19T01:53:59Z",
+      "scored": false,
+      "lat": 23.0598,
+      "lon": -109.7025,
+      "gdacs": "1104099"
+    },
+    {
+      "id": "world_1104141_20261003",
+      "kind": "world",
+      "place": "Vietnam",
+      "name": "Flood in Vietnam",
+      "category": "green",
+      "wet": "2026-10-03T22:21:01Z",
+      "scored": false,
+      "lat": 16.0685,
+      "lon": 108.224,
+      "gdacs": "1104141"
+    },
+    {
+      "id": "world_1104122_20260925",
+      "kind": "world",
+      "place": "Thailand",
+      "name": "Flood in Thailand",
+      "category": "green",
+      "wet": "2026-09-25T22:54:19Z",
+      "scored": false,
+      "lat": 17.1054,
+      "lon": 98.9954,
+      "gdacs": "1104122"
+    },
+    {
+      "id": "us_astf1_20261031",
+      "kind": "us",
+      "place": "St. Johns River at Astor, FL",
+      "name": "St. Johns River at Astor",
+      "category": "minor",
+      "wet": "2026-10-31T00:12:24Z",
+      "scored": true,
+      "lat": 29.166666666667,
+      "lon": -81.522222222222,
+      "gdacs": null
+    }
+  ],
+  "considered": [
+    {
+      "kind": "us",
+      "name": "St. Johns River near Cocoa",
+      "place": "St. Johns River near Cocoa, FL",
+      "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+    },
+    {
+      "kind": "us",
+      "name": "St. Johns River above Lake Harney",
+      "place": "St. Johns River above Lake Harney, FL",
+      "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+    },
+    {
+      "kind": "us",
+      "name": "Yentna River near Lake Creek",
+      "place": "Yentna River near Lake Creek, AK",
+      "skip": "No USGS gauge is linked to this NOAA gauge, so there's no river line or datum."
+    },
+    {
+      "kind": "us",
+      "name": "Peace River at SR 70 Arcadia",
+      "place": "Peace River at SR 70 Arcadia, FL",
+      "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+    },
+    {
+      "kind": "us",
+      "name": "Mancos River near Mancos",
+      "place": "Mancos River near Mancos, CO",
+      "skip": "No USGS gauge is linked to this NOAA gauge, so there's no river line or datum."
+    },
+    {
+      "kind": "us",
+      "name": "Coyote Creek (Marin) at Tam Valley",
+      "place": "Coyote Creek (Marin) at Tam Valley, CA",
+      "skip": "No USGS gauge is linked to this NOAA gauge, so there's no river line or datum."
+    },
+    {
+      "kind": "world",
+      "name": "Flood in China",
+      "place": "China",
+      "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+    },
+    {
+      "kind": "world",
+      "name": "Flood in Myanmar",
+      "place": "Myanmar",
+      "skip": "Only 2 earlier passes on the same track before the flood; the method needs 3."
+    },
+    {
+      "kind": "world",
+      "name": "Flood in Cambodia",
+      "place": "Cambodia",
+      "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+    }
+  ],
+  "protocol": "research/LIVE_PROTOCOL.md"
+}

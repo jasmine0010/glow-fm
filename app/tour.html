@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GLOWfm Tour</title>
+  <meta name="description" content="A one-minute guided tour: a flood hidden under trees, what NISAR's radar shows, where it falls short, and where else a blank flood map can mislead.">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#03060a">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GLOWfm">
+  <meta property="og:title" content="GLOWfm Tour">
+  <meta property="og:description" content="A one-minute guided tour: a flood hidden under trees, what NISAR's radar shows, where it falls short, and where else a blank flood map can mislead.">
+  <meta property="og:image" content="og-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css?v=32">
+</head>
+<body class="tour-page night">
+  <nav class="tour-bar" aria-label="Pages">
+    <a class="brand" href="index.html" aria-label="GLOWfm"><span aria-hidden="true">GLOW<span class="brand-fm">fm</span></span></a>
+    <button type="button" class="sound-btn" id="sound-btn" aria-pressed="false" title="Radar pings at key moments. Off unless you switch it on."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="sound-wave" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg><span class="sound-word">Sound off</span></button>
+    <a class="topbar-plain" href="index.html" id="tour-exit">Exit tour</a>
+  </nav>
+
+  <main class="tour-stage" id="tour-stage" aria-label="Guided tour map">
+    <div id="tour-base" class="map"></div>
+    <div id="tour-top" class="map tour-top"></div>
+    <div class="tour-ring" id="tour-ring" aria-hidden="true"></div>
+    <p class="tour-tag" id="tour-tag" aria-hidden="true"></p>
+  </main>
+
+  <section class="tour-panel" id="tour-panel" aria-label="Tour captions and controls">
+    <p class="tour-loading" id="tour-loading" role="status">Loading the tour…</p>
+    <div class="tour-card" id="tour-card" hidden>
+      <p class="tour-caption" id="tour-caption" role="status"></p>
+      <p class="tour-note" id="tour-note"></p>
+      <p class="tour-chip" id="tour-chip" aria-hidden="true"></p>
+    </div>
+    <div class="tour-end" id="tour-end" hidden>
+      <h1 class="tour-end-title" id="tour-end-title" tabindex="-1">Is your town on it?</h1>
+      <p class="tour-end-lede">A blank flood map doesn't always mean dry ground.</p>
+      <div class="tour-actions">
+        <a class="btn btn-strong" href="dashboard.html?view=atlas">Check a town</a>
+        <a class="btn" href="index.html">Read the story</a>
+        <a class="btn" href="dashboard.html?river=satilla&amp;mode=history&amp;t=2026-10-15T10:45">Explore the flood</a>
+        <a class="btn" href="evidence.html">See the results</a>
+        <button type="button" class="btn" id="tour-again">Watch again</button>
+      </div>
+      <p class="tour-credit">Data: NISAR (NASA/ISRO) · Contains modified Copernicus Sentinel data 2026 · Copernicus CEMS GFM and GloFAS flood hazard maps · USGS gauges and 3DEP lidar · ESA WorldCover 2021 · GeoNames · Imagery © Esri. Provisional data; not for emergency decisions. Much of the code was written with AI assistance (Claude).</p>
+    </div>
+    <div class="tour-controls" id="tour-controls" role="group" aria-label="Tour controls" hidden>
+      <button type="button" class="btn btn-strong" id="tour-play">Pause</button>
+      <button type="button" class="btn" id="tour-back" aria-label="Previous part">‹</button>
+      <button type="button" class="btn" id="tour-next" aria-label="Next part">›</button>
+      <div class="tour-parts" id="tour-parts"></div>
+      <span class="tour-clock" id="tour-clock" aria-hidden="true"></span>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="shared.js?v=29"></script>
+  <script src="sound.js?v=29"></script>
+  <script src="atlas.js?v=29"></script>
+  <script src="tour.js?v=29"></script>
+</body>
+</html>

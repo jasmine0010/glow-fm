@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GLOWfm: page not found</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #03060a; color: #d6e1e8; font-family: "IBM Plex Sans", system-ui, sans-serif; }
+    main { padding: 24px; max-width: 30em; }
+    h1 { font-family: "Space Grotesk", "IBM Plex Sans", sans-serif; color: #f2f6f8; font-size: 1.8rem; margin: 0 0 12px; }
+    a { color: #6fe3ef; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>This page isn't here.</h1>
+    <p>The flood map can be blank for a reason. This page is just missing.</p>
+    <p><a id="home" href="index.html">Back to GLOWfm</a></p>
+  </main>
+  <script>
+    // On a project site (GitHub Pages) the home page sits one folder down; on a root host it's at the top. Use whichever exists.
+    const first = location.pathname.split("/").filter(Boolean)[0], home = document.getElementById("home");
+    home.href = "/index.html";
+    if (first && !first.includes(".")) fetch(`/${first}/index.html`, { method: "HEAD" }).then((r) => { if (r.ok) home.href = `/${first}/index.html`; }).catch(() => {});
+  </script>
+</body>
+</html>

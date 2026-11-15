@@ -1,0 +1,16 @@
+{
+  "sha256": {
+    "research/NO_LIDAR_PROTOCOL.md": "89de241588864d44aacb3fcc891085a4d328b4226f16340d2586a4046733a70c",
+    "research/global_dem_tiles.json": "e04dfff93357e55c92283bd19fc6cf0314f63b5a151a55e653d79945fe375659",
+    "scripts/run_frozen_no_lidar.py": "6ce9dc54a3aa6dcf23e977eb6959d3497a81a174c72b10e26a1a63eccab24645",
+    "src/hidden_floods/frozen_no_lidar.py": "f6aabb7b2f7b818746e798e0c2a54977c35156cc00b002a72d19663d24f5d288",
+    "research/freeze_receipt_v4.json": "e286873d04558a4b2fac17c524aa4def6adbb3f6c3d43be91aff9d54de46e3cf",
+    "research/freeze_receipt_overbank.json": "9f2d8fb70d510560ef462a4be09b41ace8eca1b2d197b2f3460c331e39f2fa8b"
+  },
+  "sha256_at_freeze": {
+    "research/NO_LIDAR_PROTOCOL.md": "57bb421843f7327b1c5393dd25fef9fad958a8c469bcabd577c0a999d3a5407a",
+    "research/freeze_receipt_v4.json": "4476ee9b8645753a53f19557639172fb7a28007f95449179b6b6455aca9102f6",
+    "research/freeze_receipt_overbank.json": "9d0b7ec7cf677b41beeb320eec014f2164db27fa96f8da877690c73d919c8572"
+  },
+  "note": "Dates were removed from the hashed files after the freeze; nothing else changed. sha256_at_freeze holds the original hashes."
+}

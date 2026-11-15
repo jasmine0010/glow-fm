@@ -1,0 +1,353 @@
+{
+  "site": "pine_island",
+  "pair": "012D_sep07",
+  "protocol": "research/EDOUARD_PROTOCOL.md",
+  "regression_check": false,
+  "attempt": {
+    "git_head": "c6a17474152f9a9d097ac24a47039e14afb01e78",
+    "site": "pine_island",
+    "pair": "012D_sep07",
+    "regression_check": false
+  },
+  "v3_rule": {
+    "type": "v3_otsu",
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "v3_threshold_db": 1.8481482863821965,
+  "v2_threshold_db": null,
+  "gauge_wse_navd88_m": {
+    "Pine Island Bayou nr Sour Lake, TX": 7.976616000000001,
+    "Pine Island Bayou abv BI Pump Plant, Beaumont, TX": 3.142488
+  },
+  "gauge_timing_class": {
+    "Pine Island Bayou nr Sour Lake, TX": 2,
+    "Pine Island Bayou abv BI Pump Plant, Beaumont, TX": 2
+  },
+  "upland_warning": {
+    "upland_hh_db": null,
+    "upland_px": 6,
+    "warned": null
+  },
+  "coverage_of_confirmed_flooding": 1.0,
+  "truth_ha": {
+    "wet_primary": 1965.25,
+    "dry_primary": 11777.75,
+    "wet_supported": 1965.25,
+    "ambiguous_left_out": 0.0
+  },
+  "valid_share_of_labelled": 1.0,
+  "primary_v3_mapped_area": {
+    "scores": {
+      "tp": 7117,
+      "fn": 744,
+      "fp": 2180,
+      "tn": 44931,
+      "recall": 0.9053555527286605,
+      "precision": 0.7655157577713241,
+      "csi": 0.7087939448262125,
+      "f1": 0.8295838675836344,
+      "tp_ha": 1779.25,
+      "fn_ha": 186.0,
+      "fp_ha": 545.0,
+      "tn_ha": 11232.75
+    },
+    "ci95": {
+      "recall": [
+        0.8641636348104601,
+        0.9528206607993075
+      ],
+      "precision": [
+        0.6257333400181232,
+        0.8671247063927859
+      ],
+      "csi": [
+        0.6008843337201356,
+        0.786809227868049
+      ],
+      "f1": [
+        0.7506904953250835,
+        0.8806863268553327
+      ]
+    }
+  },
+  "secondary_v3_ponding_tolerant": {
+    "scores": {
+      "tp": 7117,
+      "fn": 744,
+      "fp": 2180,
+      "tn": 44931,
+      "recall": 0.9053555527286605,
+      "precision": 0.7655157577713241,
+      "csi": 0.7087939448262125,
+      "f1": 0.8295838675836344,
+      "tp_ha": 1779.25,
+      "fn_ha": 186.0,
+      "fp_ha": 545.0,
+      "tn_ha": 11232.75
+    },
+    "ci95": {
+      "recall": [
+        0.8641636348104601,
+        0.9528206607993075
+      ],
+      "precision": [
+        0.6257333400181232,
+        0.8671247063927859
+      ],
+      "csi": [
+        0.6008843337201356,
+        0.786809227868049
+      ],
+      "f1": [
+        0.7506904953250835,
+        0.8806863268553327
+      ]
+    }
+  },
+  "secondary_v3_full_corridor": {
+    "scores": {
+      "tp": 7117,
+      "fn": 744,
+      "fp": 2180,
+      "tn": 44931,
+      "recall": 0.9053555527286605,
+      "precision": 0.7655157577713241,
+      "csi": 0.7087939448262125,
+      "f1": 0.8295838675836344,
+      "tp_ha": 1779.25,
+      "fn_ha": 186.0,
+      "fp_ha": 545.0,
+      "tn_ha": 11232.75
+    },
+    "ci95": {
+      "recall": [
+        0.8641636348104601,
+        0.9528206607993075
+      ],
+      "precision": [
+        0.6257333400181232,
+        0.8671247063927859
+      ],
+      "csi": [
+        0.6008843337201356,
+        0.786809227868049
+      ],
+      "f1": [
+        0.7506904953250835,
+        0.8806863268553327
+      ]
+    }
+  },
+  "baseline_v2_same_pixels": null,
+  "baseline_v1_same_pixels": {
+    "scores": {
+      "tp": 6075,
+      "fn": 1786,
+      "fp": 4595,
+      "tn": 42516,
+      "recall": 0.772802442437349,
+      "precision": 0.5693533270852859,
+      "csi": 0.4877167630057804,
+      "f1": 0.6556580864497329,
+      "tp_ha": 1518.75,
+      "fn_ha": 446.5,
+      "fp_ha": 1148.75,
+      "tn_ha": 10629.0
+    },
+    "ci95": {
+      "recall": [
+        0.747539347847974,
+        0.8032938941855023
+      ],
+      "precision": [
+        0.4146678966789668,
+        0.7048113775247413
+      ],
+      "csi": [
+        0.37483535787046224,
+        0.5755852841738212
+      ],
+      "f1": [
+        0.545280344029001,
+        0.7306304389381706
+      ]
+    }
+  },
+  "v3_minus_v2_csi": null,
+  "v3_minus_v1_csi": {
+    "difference": 0.22107718182043212,
+    "ci95": [
+      0.17556481808520047,
+      0.2797641203228685
+    ]
+  },
+  "by_landcover": {
+    "tree cover": {
+      "scores": {
+        "tp": 7067,
+        "fn": 613,
+        "fp": 2100,
+        "tn": 34373,
+        "recall": 0.9201822916666667,
+        "precision": 0.7709174211846842,
+        "csi": 0.7225971370143149,
+        "f1": 0.8389624265447854,
+        "tp_ha": 1766.75,
+        "fn_ha": 153.25,
+        "fp_ha": 525.0,
+        "tn_ha": 8593.25
+      },
+      "ci95": {
+        "recall": [
+          0.8875668150831825,
+          0.9572643100173126
+        ],
+        "precision": [
+          0.6340339333115507,
+          0.8704259298745863
+        ],
+        "csi": [
+          0.610519221660108,
+          0.8012333644809148
+        ],
+        "f1": [
+          0.7581644643642866,
+          0.8896497036411276
+        ]
+      }
+    },
+    "herbaceous wetland": {
+      "scores": {
+        "tp": 2,
+        "fn": 2,
+        "fp": 0,
+        "tn": 1,
+        "recall": 0.5,
+        "precision": 1.0,
+        "csi": 0.5,
+        "f1": 0.6666666666666666,
+        "tp_ha": 0.5,
+        "fn_ha": 0.5,
+        "fp_ha": 0.0,
+        "tn_ha": 0.25
+      },
+      "ci95": {
+        "recall": [
+          0.5,
+          0.5
+        ],
+        "precision": [
+          1.0,
+          1.0
+        ],
+        "csi": [
+          0.5,
+          0.5
+        ],
+        "f1": [
+          0.6666666666666666,
+          0.6666666666666666
+        ]
+      }
+    },
+    "other": {
+      "scores": {
+        "tp": 48,
+        "fn": 78,
+        "fp": 80,
+        "tn": 940,
+        "recall": 0.38095238095238093,
+        "precision": 0.375,
+        "csi": 0.23300970873786409,
+        "f1": 0.3779527559055118,
+        "tp_ha": 12.0,
+        "fn_ha": 19.5,
+        "fp_ha": 20.0,
+        "tn_ha": 235.0
+      },
+      "ci95": {
+        "recall": [
+          0.35344827586206895,
+          0.8185714285714312
+        ],
+        "precision": [
+          0.01936307331771008,
+          0.6720010752688172
+        ],
+        "csi": [
+          0.01882357684244477,
+          0.31018450635386113
+        ],
+        "f1": [
+          0.03695144724556489,
+          0.4734974382553862
+        ]
+      }
+    },
+    "crop/grass/shrub": {
+      "scores": {
+        "tp": 0,
+        "fn": 51,
+        "fp": 0,
+        "tn": 9617,
+        "recall": 0.0,
+        "precision": NaN,
+        "csi": 0.0,
+        "f1": 0.0,
+        "tp_ha": 0.0,
+        "fn_ha": 12.75,
+        "fp_ha": 0.0,
+        "tn_ha": 2404.25
+      },
+      "ci95": {
+        "recall": [
+          0.0,
+          0.0
+        ],
+        "precision": [
+          NaN,
+          NaN
+        ],
+        "csi": [
+          0.0,
+          0.0
+        ],
+        "f1": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "wet": {
+      "granuleId": "NISAR_L2_PR_GCOV_030_012_D_073_4005_DHDH_A_20260907T010148_20260907T010222_P05023_N_F_J_001",
+      "trackNumber": 12,
+      "orbitPassDirection": "Descending",
+      "zeroDopplerStartTime": "2026-09-07T01:01:48.000000000",
+      "isUrgentObservation": "False",
+      "compositeReleaseId": "P05023",
+      "productVersion": "1.0.11"
+    },
+    "dry": {
+      "granuleId": "NISAR_L2_PR_GCOV_025_012_D_073_4005_DHDH_A_20260709T010150_20260709T010225_P05023_N_F_J_001",
+      "trackNumber": 12,
+      "orbitPassDirection": "Descending",
+      "zeroDopplerStartTime": "2026-07-09T01:01:50.000000000",
+      "isUrgentObservation": "False",
+      "compositeReleaseId": "P05023",
+      "productVersion": "1.0.11"
+    }
+  }
+}

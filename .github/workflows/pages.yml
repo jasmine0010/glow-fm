@@ -1,0 +1,30 @@
+# Publishes the static site in app/ to GitHub Pages ONLY when started by hand (Actions tab > Publish site > Run workflow).
+# It never runs on a push, so nothing is published by accident.
+# One-time setup on GitHub, when you decide to publish: Settings > Pages > Build and deployment > Source: "GitHub Actions".
+name: Publish site
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: pages
+        uses: actions/configure-pages@v5
+      # Link previews need the card's full address, which is only known once the site has one.
+      - run: sed -i 's#content="og-card.jpg"#content="${{ steps.pages.outputs.base_url }}/og-card.jpg"#' app/*.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: app
+      - id: deployment
+        uses: actions/deploy-pages@v4

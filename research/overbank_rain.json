@@ -1,0 +1,66 @@
+{
+ "satilla": {
+  "047A_oct15": {
+   "rain_24h_mm": 0.0,
+   "rain_72h_mm": 0.0,
+   "half_hours": 144,
+   "rainy": false
+  },
+  "098D_oct19": {
+   "rain_24h_mm": 0.0,
+   "rain_72h_mm": 0.0,
+   "half_hours": 144,
+   "rainy": false
+  }
+ },
+ "ochlockonee": {
+  "026D_oct14": {
+   "rain_24h_mm": 0.0,
+   "rain_72h_mm": 0.0,
+   "half_hours": 144,
+   "rainy": false
+  }
+ },
+ "alapaha": {
+  "047A_oct15": {
+   "rain_24h_mm": 0.0,
+   "rain_72h_mm": 0.0,
+   "half_hours": 144,
+   "rainy": false
+  },
+  "148A_oct22": {
+   "rain_24h_mm": 0.0,
+   "rain_72h_mm": 0.0,
+   "half_hours": 144,
+   "rainy": false
+  }
+ },
+ "withlacoochee": {
+  "047A_oct15": {
+   "rain_24h_mm": 0.0,
+   "rain_72h_mm": 0.0,
+   "half_hours": 144,
+   "rainy": false
+  },
+  "148A_oct10": {
+   "rain_24h_mm": 47.7,
+   "rain_72h_mm": 53.6,
+   "half_hours": 144,
+   "rainy": true
+  }
+ },
+ "st_marys": {
+  "098D_oct07": {
+   "rain_24h_mm": 9.0,
+   "rain_72h_mm": 75.7,
+   "half_hours": 144,
+   "rainy": true
+  },
+  "047A_oct15": {
+   "rain_24h_mm": 0.0,
+   "rain_72h_mm": 0.0,
+   "half_hours": 144,
+   "rainy": false
+  }
+ }
+}

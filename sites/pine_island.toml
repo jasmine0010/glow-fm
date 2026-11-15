@@ -1,0 +1,65 @@
+# Tropical Storm Edouard, Pine Island Bayou TX. Held-out v3 test. (created by hidden_floods.sitegen)
+
+name = "pine_island"
+crs = "EPSG:32615"
+resolution_m = 50.0
+bbox = [-94.3946, 30.046, -94.1288, 30.2388]
+
+[data]
+root = "pine_island"
+dem = "dem/dem10m.tif"
+gauges = "gauges"
+operational = "ops"
+
+[gcov]
+"012D_20260709" = "../edouard/NISAR_L2_PR_GCOV_025_012_D_073_4005_DHDH_A_20260709T010150_20260709T010225_P05023_N_F_J_001"
+"012D_20260907" = "../edouard/NISAR_L2_PR_GCOV_030_012_D_073_4005_DHDH_A_20260907T010148_20260907T010222_P05023_N_F_J_001"
+"134A_20260822" = "../edouard/NISAR_L2_PR_GCOV_028_134_A_017_4005_DHDH_A_20260822T113542_20260822T113616_P05023_N_F_J_001"
+"134A_20260903" = "../edouard/NISAR_L2_PR_GCOV_029_134_A_017_4005_DHDH_A_20260903T113542_20260903T113616_P05023_N_F_J_001"
+
+[gunw]
+
+[pairs."012D_sep07"]
+wet = "012D_20260907"
+dry = "012D_20260709"
+wet_time = "2026-09-07T01:01:48Z"
+dry_time = "2026-07-09T01:01:50Z"
+
+[pairs."134A_sep03"]
+wet = "134A_20260903"
+dry = "134A_20260822"
+wet_time = "2026-09-03T11:35:42Z"
+dry_time = "2026-08-22T11:35:42Z"
+
+
+[[gauges]]
+name = "Pine Island Bayou nr Sour Lake, TX"
+id = "USGS-08041700"
+lon = -94.334632
+lat = 30.106046
+datum_ft = -1.5
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "Pine Island Bayou abv BI Pump Plant, Beaumont, TX"
+id = "USGS-08041749"
+lon = -94.188794
+lat = 30.178823
+datum_ft = -0.84
+navd88_offset_ft = 0.000
+
+[valley]
+line = [[-94.3346, 30.1060], [-94.1888, 30.1788]]
+corridor_m = 4000.0
+
+[truth]
+margin_m = 0.5
+max_dry_height_m = 5.0
+
+[split]
+calibration_max_chainage_m = 0.0
+bootstrap_block_m = 2000.0
+
+[detector]
+forest_hv_db = -16.0
+thresholds_db = [2.0]

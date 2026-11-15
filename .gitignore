@@ -1,0 +1,17 @@
+# Environments and caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Large data lives outside the repo (HIDDEN_FLOODS_DATA, default C:/Users/Jasmi/nisar-data)
+*.h5
+*.npz
+
+# Generated run outputs (figures worth keeping are copied into research/figures)
+outputs/
+.pytest_tmp/
+
+# Packaging metadata
+*.egg-info/

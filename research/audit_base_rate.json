@@ -1,0 +1,248 @@
+[
+ {
+  "site": "choctawhatchee",
+  "date": "20261010",
+  "estimated_ha": 2198.5,
+  "dry_ha": 10750.5,
+  "box_share_in_mask": 0.8613781965772745,
+  "corridor_share_in_mask": 0.8985885519356555,
+  "wet_share_in_mask": 0.9744143734364339,
+  "dry_share_in_mask": 0.9081670619971164,
+  "difference_ci95": [
+   0.04716021000854145,
+   0.08728562216175183
+  ],
+  "gfm_on_wet_ha": 0.0,
+  "gfm_on_wet_in_mask_ha": 0.0,
+  "wet_outside_mask_ha": 56.25,
+  "gfm_on_wet_outside_mask_ha": 0.0,
+  "recall_outside_mask": 0.0,
+  "dry_outside_mask_ha": 987.25,
+  "gfm_on_dry_outside_mask_ha": 0.0,
+  "land_cover_wet": {
+   "tree": 0.877,
+   "wetland": 0.0,
+   "other": 0.122,
+   "crop_grass_shrub": 0.001
+  },
+  "land_cover_wet_outside_mask": {
+   "tree": 0.436,
+   "wetland": 0.0,
+   "other": 0.56,
+   "crop_grass_shrub": 0.004
+  },
+  "land_cover_wet_in_mask": {
+   "tree": 0.889,
+   "wetland": 0.0,
+   "other": 0.11,
+   "crop_grass_shrub": 0.0
+  },
+  "dswx_recall_inside_mask": 0.028055465978716543,
+  "dswx_recall_outside_mask": 0.0945945945945946
+ },
+ {
+  "site": "choctawhatchee",
+  "date": "20261022",
+  "estimated_ha": 1506.5,
+  "dry_ha": 11774.0,
+  "box_share_in_mask": 0.8613736004766606,
+  "corridor_share_in_mask": 0.8985885519356555,
+  "wet_share_in_mask": 0.9736143378692333,
+  "dry_share_in_mask": 0.9330304059792763,
+  "difference_ci95": [
+   0.02099089116529675,
+   0.059463759376476105
+  ],
+  "gfm_on_wet_ha": 0.0,
+  "gfm_on_wet_in_mask_ha": 0.0,
+  "wet_outside_mask_ha": 39.75,
+  "gfm_on_wet_outside_mask_ha": 0.0,
+  "recall_outside_mask": 0.0,
+  "dry_outside_mask_ha": 788.5,
+  "gfm_on_dry_outside_mask_ha": 0.0,
+  "land_cover_wet": {
+   "tree": 0.886,
+   "wetland": 0.0,
+   "other": 0.113,
+   "crop_grass_shrub": 0.0
+  },
+  "land_cover_wet_outside_mask": {
+   "tree": 0.434,
+   "wetland": 0.0,
+   "other": 0.566,
+   "crop_grass_shrub": 0.0
+  },
+  "land_cover_wet_in_mask": {
+   "tree": 0.899,
+   "wetland": 0.001,
+   "other": 0.101,
+   "crop_grass_shrub": 0.0
+  },
+  "dswx_recall_inside_mask": 0.025396284302028293,
+  "dswx_recall_outside_mask": 0.08176100628930817
+ },
+ {
+  "site": "pearl",
+  "date": "20260628",
+  "estimated_ha": 17972.0,
+  "dry_ha": 7402.25,
+  "box_share_in_mask": 0.8888892763893635,
+  "corridor_share_in_mask": 0.9368490691780456,
+  "wet_share_in_mask": 0.9924326730469619,
+  "dry_share_in_mask": 0.8348137390658246,
+  "difference_ci95": [
+   0.1310868076388634,
+   0.17679387923559078
+  ],
+  "gfm_on_wet_ha": 0.25,
+  "gfm_on_wet_in_mask_ha": 0.0,
+  "wet_outside_mask_ha": 136.0,
+  "gfm_on_wet_outside_mask_ha": 0.25,
+  "recall_outside_mask": 0.001838235294117647,
+  "dry_outside_mask_ha": 1222.75,
+  "gfm_on_dry_outside_mask_ha": 0.25,
+  "land_cover_wet": {
+   "tree": 0.98,
+   "wetland": 0.0,
+   "other": 0.017,
+   "crop_grass_shrub": 0.003
+  },
+  "land_cover_wet_outside_mask": {
+   "tree": 0.452,
+   "wetland": 0.018,
+   "other": 0.325,
+   "crop_grass_shrub": 0.204
+  },
+  "land_cover_wet_in_mask": {
+   "tree": 0.984,
+   "wetland": 0.0,
+   "other": 0.014,
+   "crop_grass_shrub": 0.001
+  },
+  "dswx_recall_inside_mask": 0.007877326754877775,
+  "dswx_recall_outside_mask": 0.07904411764705882
+ },
+ {
+  "site": "pearl",
+  "date": "20260705",
+  "estimated_ha": 16731.0,
+  "dry_ha": 8996.0,
+  "box_share_in_mask": 0.8891194516713283,
+  "corridor_share_in_mask": 0.9368490691780456,
+  "wet_share_in_mask": 0.9923047038431654,
+  "dry_share_in_mask": 0.8619386393952868,
+  "difference_ci95": [
+   0.09914682313592438,
+   0.16274543729567065
+  ],
+  "gfm_on_wet_ha": 0.75,
+  "gfm_on_wet_in_mask_ha": 0.0,
+  "wet_outside_mask_ha": 128.75,
+  "gfm_on_wet_outside_mask_ha": 0.75,
+  "recall_outside_mask": 0.005825242718446602,
+  "dry_outside_mask_ha": 1242.0,
+  "gfm_on_dry_outside_mask_ha": 0.25,
+  "land_cover_wet": {
+   "tree": 0.979,
+   "wetland": 0.0,
+   "other": 0.018,
+   "crop_grass_shrub": 0.003
+  },
+  "land_cover_wet_outside_mask": {
+   "tree": 0.435,
+   "wetland": 0.019,
+   "other": 0.342,
+   "crop_grass_shrub": 0.204
+  },
+  "land_cover_wet_in_mask": {
+   "tree": 0.983,
+   "wetland": 0.0,
+   "other": 0.015,
+   "crop_grass_shrub": 0.001
+  },
+  "dswx_recall_inside_mask": null,
+  "dswx_recall_outside_mask": null
+ },
+ {
+  "site": "yellow",
+  "date": "20261010",
+  "estimated_ha": 1545.0,
+  "dry_ha": 4282.5,
+  "box_share_in_mask": 0.7951512905386338,
+  "corridor_share_in_mask": 0.9092621420538588,
+  "wet_share_in_mask": 0.987378640776699,
+  "dry_share_in_mask": 0.9204319906596614,
+  "difference_ci95": [
+   0.024997489948189018,
+   0.11014432330740494
+  ],
+  "gfm_on_wet_ha": 0.0,
+  "gfm_on_wet_in_mask_ha": 0.0,
+  "wet_outside_mask_ha": 19.5,
+  "gfm_on_wet_outside_mask_ha": 0.0,
+  "recall_outside_mask": 0.0,
+  "dry_outside_mask_ha": 340.75,
+  "gfm_on_dry_outside_mask_ha": 0.0,
+  "land_cover_wet": {
+   "tree": 0.979,
+   "wetland": 0.007,
+   "other": 0.013,
+   "crop_grass_shrub": 0.001
+  },
+  "land_cover_wet_outside_mask": {
+   "tree": 0.603,
+   "wetland": 0.205,
+   "other": 0.167,
+   "crop_grass_shrub": 0.026
+  },
+  "land_cover_wet_in_mask": {
+   "tree": 0.984,
+   "wetland": 0.005,
+   "other": 0.011,
+   "crop_grass_shrub": 0.0
+  },
+  "dswx_recall_inside_mask": 0.001802687643395608,
+  "dswx_recall_outside_mask": 0.02564102564102564
+ },
+ {
+  "site": "yellow",
+  "date": "20261022",
+  "estimated_ha": 832.0,
+  "dry_ha": 4855.25,
+  "box_share_in_mask": 0.7951522535856077,
+  "corridor_share_in_mask": 0.9092621420538588,
+  "wet_share_in_mask": 0.9894831730769231,
+  "dry_share_in_mask": 0.9357911539055661,
+  "difference_ci95": [
+   0.018023310609158273,
+   0.0955051518783655
+  ],
+  "gfm_on_wet_ha": 0.0,
+  "gfm_on_wet_in_mask_ha": 0.0,
+  "wet_outside_mask_ha": 8.75,
+  "gfm_on_wet_outside_mask_ha": 0.0,
+  "recall_outside_mask": 0.0,
+  "dry_outside_mask_ha": 311.75,
+  "gfm_on_dry_outside_mask_ha": 0.0,
+  "land_cover_wet": {
+   "tree": 0.985,
+   "wetland": 0.006,
+   "other": 0.009,
+   "crop_grass_shrub": 0.0
+  },
+  "land_cover_wet_outside_mask": {
+   "tree": 0.686,
+   "wetland": 0.143,
+   "other": 0.171,
+   "crop_grass_shrub": 0.0
+  },
+  "land_cover_wet_in_mask": {
+   "tree": 0.988,
+   "wetland": 0.004,
+   "other": 0.008,
+   "crop_grass_shrub": 0.0
+  },
+  "dswx_recall_inside_mask": 0.010021257212268448,
+  "dswx_recall_outside_mask": 0.17142857142857143
+ }
+]

@@ -1,0 +1,176 @@
+{
+  "id": "world_1104099_20261019",
+  "kind": "world",
+  "name": "Flood in Mexico",
+  "place": "Mexico",
+  "category": "green",
+  "lat": 23.0598,
+  "lon": -109.7025,
+  "flood_from": "2026-08-17T01:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": "https://www.gdacs.org/report.aspx?eventid=1104099&episodeid=31&eventtype=FL",
+  "usgs": null,
+  "noaa": null,
+  "wet": {
+    "time": "2026-10-19T01:53:59Z",
+    "name": "NISAR_L2_PR_GCOV_033_099_D_077_4005_DHDH_A_20261019T015359_20261019T015421_P05023_N_P_J_001",
+    "stack": "099D_077_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_099_D_077_4005_DHDH_A_20261019T015359_20261019T015421_P05023_N_P_J_001/NISAR_L2_PR_GCOV_033_099_D_077_4005_DHDH_A_20261019T015359_20261019T015421_P05023_N_P_J_001_LATLON.png",
+      "corners": [
+        [
+          -109.996,
+          24.17589
+        ],
+        [
+          -110.37493,
+          22.81167
+        ],
+        [
+          -107.91177,
+          22.20556
+        ],
+        [
+          -107.5093,
+          23.56176
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-06-21T01:54:02Z",
+      "name": "NISAR_L2_PR_GCOV_023_099_D_077_4005_DHDH_A_20260621T015402_20260621T015424_P05023_N_P_J_001"
+    },
+    {
+      "time": "2026-07-03T01:54:02Z",
+      "name": "NISAR_L2_PR_GCOV_024_099_D_077_4005_DHDH_A_20260703T015402_20260703T015423_P05023_N_P_J_001"
+    },
+    {
+      "time": "2026-07-15T01:54:01Z",
+      "name": "NISAR_L2_PR_GCOV_025_099_D_077_4005_DHDH_A_20260715T015401_20260715T015422_P05023_N_P_J_001"
+    },
+    {
+      "time": "2026-07-27T01:54:00Z",
+      "name": "NISAR_L2_PR_GCOV_026_099_D_077_4005_DHDH_A_20260727T015400_20260727T015421_P05023_N_P_J_001"
+    }
+  ],
+  "passes_during": 17,
+  "corners": [
+    [
+      -109.819828,
+      23.169743
+    ],
+    [
+      -109.582966,
+      23.16779
+    ],
+    [
+      -109.585247,
+      22.9497
+    ],
+    [
+      -109.821729,
+      22.951633
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 485,
+    "height": 483,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32612",
+    "heights": "Copernicus GLO-30 surface model (includes trees)",
+    "river": "nearest water in ESA WorldCover"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 1.6555084275314584,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": -0.2867579460144043,
+    "flagged_ha": 322.0,
+    "mapped_ha": 58563.75
+  },
+  "reference_run": {
+    "threshold_db": 1.6557007354972302,
+    "flagged_px": 49760,
+    "flagged_land_px": 1287,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": -0.2866665720939636
+  },
+  "score": null,
+  "attempt": {
+    "case": "world_1104099_20261019",
+    "dev": false,
+    "git_head": "6c4dc3d89132c05f456d69e682f414507cfcd735"
+  },
+  "dev": false
+}

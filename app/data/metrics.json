@@ -1,0 +1,666 @@
+{
+ "audit": [
+  {
+   "site": "choctawhatchee",
+   "date": "20261010",
+   "truth_wet_ha": 2198.5,
+   "gfm_on_wet_ha": 0.0,
+   "corridor_share_in_mask": 0.8985885519356555,
+   "dry_share_in_mask": 0.9081670619971164,
+   "wet_share_in_mask": 0.9744143734364339,
+   "wet_outside_mask_ha": 56.25,
+   "gfm_outside_mask_ha": 0.0,
+   "tree_share": 0.877,
+   "gfm_share": 0.0,
+   "gfm_excluded_share": 0.9744143734364339,
+   "dswx_share": 0.029606299212598424,
+   "roads_km": 0.37
+  },
+  {
+   "site": "choctawhatchee",
+   "date": "20261022",
+   "truth_wet_ha": 1506.5,
+   "gfm_on_wet_ha": 0.0,
+   "corridor_share_in_mask": 0.8985885519356555,
+   "dry_share_in_mask": 0.9330304059792763,
+   "wet_share_in_mask": 0.9736143378692333,
+   "wet_outside_mask_ha": 39.75,
+   "gfm_outside_mask_ha": 0.0,
+   "tree_share": 0.886,
+   "gfm_share": 0.0,
+   "gfm_excluded_share": 0.9736143378692333,
+   "dswx_share": 0.026883504812479257,
+   "roads_km": 0.04
+  },
+  {
+   "site": "pearl",
+   "date": "20260628",
+   "truth_wet_ha": 17972.0,
+   "gfm_on_wet_ha": 0.25,
+   "corridor_share_in_mask": 0.9368490691780456,
+   "dry_share_in_mask": 0.8348137390658246,
+   "wet_share_in_mask": 0.9924326730469619,
+   "wet_outside_mask_ha": 136.0,
+   "gfm_outside_mask_ha": 0.25,
+   "tree_share": 0.98,
+   "gfm_share": 1.3910527487202315e-05,
+   "gfm_excluded_share": 0.9924326730469619,
+   "dswx_share": 0.0084158691297574,
+   "roads_km": 20.76
+  },
+  {
+   "site": "pearl",
+   "date": "20260705",
+   "truth_wet_ha": 16731.0,
+   "gfm_on_wet_ha": 0.75,
+   "corridor_share_in_mask": 0.9368490691780456,
+   "dry_share_in_mask": 0.8619386393952868,
+   "wet_share_in_mask": 0.9923047038431654,
+   "wet_outside_mask_ha": 128.75,
+   "gfm_outside_mask_ha": 0.75,
+   "tree_share": 0.979,
+   "gfm_share": 4.482696790389098e-05,
+   "gfm_excluded_share": 0.9923047038431654,
+   "dswx_share": null,
+   "roads_km": 23.02
+  },
+  {
+   "site": "tangipahoa",
+   "date": "20260628",
+   "truth_wet_ha": 6.5,
+   "gfm_on_wet_ha": null,
+   "corridor_share_in_mask": null,
+   "dry_share_in_mask": null,
+   "wet_share_in_mask": null,
+   "wet_outside_mask_ha": null,
+   "gfm_outside_mask_ha": null,
+   "tree_share": null,
+   "gfm_share": 0.0,
+   "gfm_excluded_share": 0.6923076923076923,
+   "dswx_share": 0.038461538461538464,
+   "roads_km": 0.05
+  },
+  {
+   "site": "yellow",
+   "date": "20261010",
+   "truth_wet_ha": 1545.0,
+   "gfm_on_wet_ha": 0.0,
+   "corridor_share_in_mask": 0.9092621420538588,
+   "dry_share_in_mask": 0.9204319906596614,
+   "wet_share_in_mask": 0.987378640776699,
+   "wet_outside_mask_ha": 19.5,
+   "gfm_outside_mask_ha": 0.0,
+   "tree_share": 0.979,
+   "gfm_share": 0.0,
+   "gfm_excluded_share": 0.987378640776699,
+   "dswx_share": 0.0022218695445167433,
+   "roads_km": 0.32
+  },
+  {
+   "site": "yellow",
+   "date": "20261022",
+   "truth_wet_ha": 832.0,
+   "gfm_on_wet_ha": 0.0,
+   "corridor_share_in_mask": 0.9092621420538588,
+   "dry_share_in_mask": 0.9357911539055661,
+   "wet_share_in_mask": 0.9894831730769231,
+   "wet_outside_mask_ha": 8.75,
+   "gfm_outside_mask_ha": 0.0,
+   "tree_share": 0.985,
+   "gfm_share": 0.0,
+   "gfm_excluded_share": 0.9894831730769231,
+   "dswx_share": 0.011627906976744186,
+   "roads_km": 0.03
+  }
+ ],
+ "held_out": [
+  {
+   "site": "pearl",
+   "pair": "105A_jul03",
+   "method": "v1, fixed 2 dB (frozen)",
+   "csi": 0.2343997493516214,
+   "ci95": [
+    0.1683647389994418,
+    0.3015637542834357
+   ],
+   "recall": 0.23662800913723422,
+   "precision": 0.9613778333035874,
+   "estimated_ha": 28455.0,
+   "stage": "mixed"
+  },
+  {
+   "site": "pearl",
+   "pair": "156D_jun25",
+   "method": "v1, fixed 2 dB (frozen)",
+   "csi": 0.12810249696062845,
+   "ci95": [
+    0.08813935562542254,
+    0.1707016926843429
+   ],
+   "recall": 0.13141585279275475,
+   "precision": 0.8355495913138953,
+   "estimated_ha": 26058.5,
+   "stage": "mixed"
+  },
+  {
+   "site": "tangipahoa",
+   "pair": "105A_jun21",
+   "method": "v2, self-calibrating (frozen)",
+   "csi": 0.29065116860392454,
+   "ci95": [
+    0.08190071500140782,
+    0.38040371363274356
+   ],
+   "recall": 0.47943510978249665,
+   "precision": 0.42467129291453615,
+   "estimated_ha": 2425.25,
+   "stage": "below"
+  },
+  {
+   "site": "tangipahoa",
+   "pair": "156D_jun25",
+   "method": "v2, self-calibrating (frozen)",
+   "csi": 0.0057156465825196475,
+   "ci95": [
+    0.0,
+    0.017981909212491147
+   ],
+   "recall": 0.07079646017699115,
+   "precision": 0.006179196704428424,
+   "estimated_ha": 84.75,
+   "stage": "below"
+  },
+  {
+   "site": "yellow",
+   "pair": "055D_oct16",
+   "method": "v3, Otsu threshold (frozen)",
+   "confirmed_ha": 1868.5,
+   "csi": 0.8822682032477737,
+   "ci95": [
+    0.7983166123796283,
+    0.9242113884234341
+   ],
+   "recall": 0.9013914905004013,
+   "precision": 0.9765183359907232,
+   "stage": "below"
+  },
+  {
+   "site": "village_creek",
+   "pair": "134A_sep03",
+   "method": "v3, Otsu threshold (frozen)",
+   "confirmed_ha": 1843.5,
+   "csi": 0.4702868852459016,
+   "ci95": [
+    0.3543568608136471,
+    0.601767260745844
+   ],
+   "recall": 0.7469487388120423,
+   "precision": 0.5594149908592322,
+   "stage": "above"
+  },
+  {
+   "site": "pine_island",
+   "pair": "012D_sep07",
+   "method": "v3, Otsu threshold (frozen)",
+   "confirmed_ha": 1965.25,
+   "csi": 0.7087939448262125,
+   "ci95": [
+    0.6008843337201356,
+    0.786809227868049
+   ],
+   "recall": 0.9053555527286605,
+   "precision": 0.7655157577713241,
+   "stage": "above"
+  },
+  {
+   "site": "village_creek",
+   "pair": "012D_sep07",
+   "method": "v3, Otsu threshold (frozen)",
+   "confirmed_ha": 623.5,
+   "csi": 0.30371541501976285,
+   "ci95": [
+    0.15890125597360427,
+    0.4522748226894186
+   ],
+   "recall": 0.7702485966319166,
+   "precision": 0.33397079276773295,
+   "stage": "mixed"
+  },
+  {
+   "site": "pine_island",
+   "pair": "134A_sep03",
+   "method": "v3, Otsu threshold (frozen)",
+   "confirmed_ha": 162.75,
+   "csi": 0.023301447142506745,
+   "ci95": [
+    0.0,
+    0.08178789087856969
+   ],
+   "recall": 0.4377880184331797,
+   "precision": 0.02402022756005057,
+   "stage": "below"
+  },
+  {
+   "site": "pee_dee",
+   "pair": "098D_jul27",
+   "method": "v4, median baseline (frozen)",
+   "confirmed_ha": 742.75,
+   "label": "low",
+   "csi": 0.10257759074171488,
+   "ci95": [
+    0.017004767153974656,
+    0.19678550804026346
+   ],
+   "recall": 0.2625378660383709,
+   "precision": 0.1440975429521522,
+   "stage": "below"
+  },
+  {
+   "site": "neuse",
+   "pair": "090A_jul26",
+   "method": "v4, median baseline (frozen)",
+   "confirmed_ha": 889.75,
+   "label": "low",
+   "csi": 0.06402296157450797,
+   "ci95": [
+    0.029722886964722136,
+    0.098036037735751
+   ],
+   "recall": 0.3071087384096656,
+   "precision": 0.07483226071477475,
+   "stage": "below"
+  },
+  {
+   "site": "lower_sabine",
+   "pair": "134A_jul17",
+   "method": "v4, median baseline (frozen)",
+   "confirmed_ha": 790.5,
+   "label": "low",
+   "csi": 0.05395057431256526,
+   "ci95": [
+    0.0,
+    0.13432380957141352
+   ],
+   "recall": 0.39215686274509803,
+   "precision": 0.05887380115848447,
+   "stage": "below"
+  },
+  {
+   "site": "satilla",
+   "pair": "047A_oct15",
+   "method": "v4, overbank test (frozen)",
+   "confirmed_ha": 3623.0,
+   "label": "high",
+   "csi": 0.7327453000257533,
+   "ci95": [
+    0.6614938009983926,
+    0.8352393169390723
+   ],
+   "recall": 0.7853298371515319,
+   "precision": 0.9162708316560664,
+   "stage": "2 of 3 gauges above"
+  },
+  {
+   "site": "satilla",
+   "pair": "098D_oct19",
+   "method": "v4, overbank test (frozen)",
+   "confirmed_ha": 2265.75,
+   "label": "high",
+   "csi": 0.7237301279565723,
+   "ci95": [
+    0.49014351461486017,
+    0.8175046156730883
+   ],
+   "recall": 0.8237890323292508,
+   "precision": 0.8562908590434682,
+   "stage": "1 of 3 gauges above"
+  },
+  {
+   "site": "alapaha",
+   "pair": "047A_oct15",
+   "method": "v4, overbank test (frozen)",
+   "confirmed_ha": 0.0,
+   "label": "low",
+   "stage": "0 of 3 gauges above"
+  },
+  {
+   "site": "alapaha",
+   "pair": "148A_oct22",
+   "method": "v4, overbank test (frozen)",
+   "confirmed_ha": 0.0,
+   "label": "low",
+   "stage": "0 of 3 gauges above"
+  },
+  {
+   "site": "ochlockonee",
+   "pair": "026D_oct14",
+   "method": "v4, overbank test (frozen)",
+   "confirmed_ha": 1453.0,
+   "label": "high",
+   "csi": 0.4343996291145109,
+   "ci95": [
+    0.2881659205478048,
+    0.5522508725202058
+   ],
+   "recall": 0.6448726772195458,
+   "precision": 0.570993296770262,
+   "stage": "0 of 4 gauges above"
+  },
+  {
+   "site": "withlacoochee",
+   "pair": "047A_oct15",
+   "method": "v4, overbank test (frozen)",
+   "confirmed_ha": 0.0,
+   "label": "low",
+   "stage": "0 of 4 gauges above"
+  },
+  {
+   "site": "withlacoochee",
+   "pair": "148A_oct10",
+   "method": "v4, overbank test (frozen)",
+   "confirmed_ha": 0.0,
+   "label": "low",
+   "stage": "0 of 4 gauges above"
+  },
+  {
+   "site": "st_marys",
+   "pair": "098D_oct07",
+   "method": "v4, overbank test (frozen)",
+   "confirmed_ha": 945.0,
+   "label": "high",
+   "csi": 0.5797902764537655,
+   "ci95": [
+    0.3380775864214688,
+    0.6837997043349168
+   ],
+   "recall": 0.8044973544973545,
+   "precision": 0.6748779405237462,
+   "stage": "0 of 2 gauges above"
+  },
+  {
+   "site": "st_marys",
+   "pair": "047A_oct15",
+   "method": "v4, overbank test (frozen)",
+   "confirmed_ha": 0.0,
+   "label": "high",
+   "stage": "1 of 2 gauges above"
+  }
+ ],
+ "overbank": [
+  {
+   "site": "satilla",
+   "pair": "047A_oct15",
+   "judgeable": true,
+   "csi": 0.7327453000257533,
+   "lidar_csi": 0.8318609787283506,
+   "signal": "green",
+   "signal_right": true,
+   "high": true,
+   "lidar_interval": [
+    -0.21791904534810405,
+    0.07108927216536254
+   ],
+   "lidar_difference": -0.0991156787025973,
+   "estimated_ha": 3623.0,
+   "rainy": false,
+   "upland_warned": false,
+   "v3_csi": 0.7230276907001045,
+   "recall": 0.7853298371515319,
+   "above_flood": 2,
+   "gauges": 3
+  },
+  {
+   "site": "satilla",
+   "pair": "098D_oct19",
+   "judgeable": true,
+   "csi": 0.7237301279565723,
+   "lidar_csi": 0.694260054666146,
+   "signal": "green",
+   "signal_right": true,
+   "high": true,
+   "lidar_interval": [
+    -0.07081941462234022,
+    0.21530521658742474
+   ],
+   "lidar_difference": 0.02947007329042628,
+   "estimated_ha": 2265.75,
+   "rainy": false,
+   "upland_warned": false,
+   "v3_csi": 0.6997205358003277,
+   "recall": 0.8237890323292508,
+   "above_flood": 1,
+   "gauges": 3
+  },
+  {
+   "site": "alapaha",
+   "pair": "047A_oct15",
+   "judgeable": false,
+   "csi": 0.0,
+   "lidar_csi": 0.0,
+   "signal": "red",
+   "signal_right": null,
+   "high": false,
+   "lidar_interval": [
+    0.0,
+    0.0
+   ],
+   "lidar_difference": 0.0,
+   "estimated_ha": 0.0,
+   "rainy": false,
+   "upland_warned": false,
+   "v3_csi": 0.0,
+   "recall": null,
+   "above_flood": 0,
+   "gauges": 3
+  },
+  {
+   "site": "alapaha",
+   "pair": "148A_oct22",
+   "judgeable": false,
+   "csi": 0.0,
+   "lidar_csi": 0.0,
+   "signal": "red",
+   "signal_right": null,
+   "high": false,
+   "lidar_interval": [
+    0.0,
+    0.0
+   ],
+   "lidar_difference": 0.0,
+   "estimated_ha": 0.0,
+   "rainy": false,
+   "upland_warned": false,
+   "v3_csi": 0.0,
+   "recall": null,
+   "above_flood": 0,
+   "gauges": 3
+  },
+  {
+   "site": "ochlockonee",
+   "pair": "026D_oct14",
+   "judgeable": true,
+   "csi": 0.4343996291145109,
+   "lidar_csi": 0.3878557024423034,
+   "signal": "green",
+   "signal_right": false,
+   "high": true,
+   "lidar_interval": [
+    -0.03340921467029093,
+    0.11167771781441584
+   ],
+   "lidar_difference": 0.046543926672207525,
+   "estimated_ha": 1453.0,
+   "rainy": false,
+   "upland_warned": true,
+   "v3_csi": 0.3881049440786035,
+   "recall": 0.6448726772195458,
+   "above_flood": 0,
+   "gauges": 4
+  },
+  {
+   "site": "withlacoochee",
+   "pair": "047A_oct15",
+   "judgeable": false,
+   "csi": 0.0,
+   "lidar_csi": 0.0,
+   "signal": "red",
+   "signal_right": null,
+   "high": false,
+   "lidar_interval": [
+    0.0,
+    0.0
+   ],
+   "lidar_difference": 0.0,
+   "estimated_ha": 0.0,
+   "rainy": false,
+   "upland_warned": false,
+   "v3_csi": 0.0,
+   "recall": null,
+   "above_flood": 0,
+   "gauges": 4
+  },
+  {
+   "site": "withlacoochee",
+   "pair": "148A_oct10",
+   "judgeable": false,
+   "csi": 0.0,
+   "lidar_csi": 0.0,
+   "signal": "red",
+   "signal_right": null,
+   "high": false,
+   "lidar_interval": [
+    0.0,
+    0.0
+   ],
+   "lidar_difference": 0.0,
+   "estimated_ha": 0.0,
+   "rainy": true,
+   "upland_warned": true,
+   "v3_csi": 0.0,
+   "recall": null,
+   "above_flood": 0,
+   "gauges": 4
+  },
+  {
+   "site": "st_marys",
+   "pair": "098D_oct07",
+   "judgeable": true,
+   "csi": 0.5797902764537655,
+   "lidar_csi": 0.539379131934464,
+   "signal": "red",
+   "signal_right": true,
+   "high": true,
+   "lidar_interval": [
+    -0.039323307644292836,
+    0.14977018355476515
+   ],
+   "lidar_difference": 0.0404111445193015,
+   "estimated_ha": 945.0,
+   "rainy": true,
+   "upland_warned": true,
+   "v3_csi": 0.5755716675962075,
+   "recall": 0.8044973544973545,
+   "above_flood": 0,
+   "gauges": 2
+  },
+  {
+   "site": "st_marys",
+   "pair": "047A_oct15",
+   "judgeable": false,
+   "csi": 0.0,
+   "lidar_csi": 0.0,
+   "signal": "green",
+   "signal_right": null,
+   "high": true,
+   "lidar_interval": [
+    0.0,
+    0.0
+   ],
+   "lidar_difference": 0.0,
+   "estimated_ha": 0.0,
+   "rainy": false,
+   "upland_warned": true,
+   "v3_csi": 0.0,
+   "recall": null,
+   "above_flood": 1,
+   "gauges": 2
+  }
+ ],
+ "development": [
+  {
+   "site": "choctawhatchee",
+   "pair": "076A_oct17",
+   "method": "v1 (development, lower reach)",
+   "csi": 0.660953160155451,
+   "ci95": [
+    0.5914938048090865,
+    0.7227442355251954
+   ],
+   "recall": 0.686772081951883,
+   "precision": 0.9461817755914734,
+   "stage": "below"
+  },
+  {
+   "site": "choctawhatchee",
+   "pair": "127D_oct21",
+   "method": "v1 (development, lower reach)",
+   "csi": 0.6089121887287025,
+   "ci95": [
+    0.5574722830335166,
+    0.6580389185770568
+   ],
+   "recall": 0.6358808715646557,
+   "precision": 0.9348840952994205,
+   "stage": "below"
+  }
+ ],
+ "hidden_gauge": {
+  "cases": 22,
+  "median_abs_error_m": 1.142,
+  "share_within_margin": 0.273,
+  "mean_signed_error_m": 1.287,
+  "worst_abs_error_m": 7.053,
+  "median_agreement": 0.718,
+  "agreement_cases": 21,
+  "gap_km": [
+   36.7,
+   91.4
+  ]
+ },
+ "tonle_sap": {
+  "predictions": 4,
+  "held": 1
+ },
+ "satilla_audit": {
+  "date": "20261024",
+  "scene_time_utc": "2026-10-24T23:28:15Z",
+  "corridor_coverage": 0.888,
+  "estimated_ha": 1149.25,
+  "dry_ha": 4117.5,
+  "gauge_wse_navd88_m": {
+   "SATILLA RIVER AT GA 158, NEAR WAYCROSS, GA": 29.88,
+   "SATILLA RIVER NEAR WAYCROSS, GA": 23.71,
+   "SATILLA RIVER AT ATKINSON, GA": 8.13
+  },
+  "gfm_on_wet_ha": 0.0,
+  "gfm_share": 0.0,
+  "wet_share_in_mask": 0.9704154883619752,
+  "dry_share_in_mask": 0.8778992106860959,
+  "corridor_share_in_mask": 0.8020384277772359,
+  "wet_outside_mask_ha": 34.0,
+  "gfm_on_wet_outside_mask_ha": 0.0,
+  "tree_share": 0.9412660430715684,
+  "dswx_on_wet_ha": 15.0,
+  "dswx_share": 0.013051990428540352,
+  "exposure_unmapped_by_gfm": {
+   "road_km": 8.21,
+   "road_km_by_class": {
+    "track": 6.78,
+    "residential": 1.27,
+    "secondary": 0.11,
+    "service": 0.06
+   },
+   "buildings": 0
+  }
+ }
+}

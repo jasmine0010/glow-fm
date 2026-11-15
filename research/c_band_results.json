@@ -1,0 +1,237 @@
+{
+ "protocol": "research/C_BAND_PROTOCOL.md",
+ "c_band": {
+  "dates": {
+   "before": "2026-06-16",
+   "flood": "2026-07-05"
+  },
+  "source": "Microsoft Planetary Computer sentinel-1-rtc (Catalyst RTC), scenes S1A_IW_GRDH_1SDV_20260616T000216, S1D_IW_GRDH_1SDV_20260705T000135",
+  "vv": {
+   "above_db": -0.7456755638122559,
+   "below_db": -0.5908298492431641,
+   "contrast_db": 0.1548457145690918,
+   "above_ha": 2965.0,
+   "below_ha": 15392.25
+  },
+  "vh": {
+   "above_db": -0.7185158729553223,
+   "below_db": -0.5566263198852539,
+   "contrast_db": 0.16188955307006836,
+   "above_ha": 2965.0,
+   "below_ha": 15392.25
+  },
+  "best_contrast_db": 0.16188955307006836,
+  "curve": [
+   {
+    "water_above_ground_m": -4.75,
+    "vv_db": -0.7698855400085449,
+    "vh_db": -0.7682857513427734,
+    "ha": 499.5
+   },
+   {
+    "water_above_ground_m": -4.25,
+    "vv_db": -0.7684807777404785,
+    "vh_db": -0.7275543212890625,
+    "ha": 515.25
+   },
+   {
+    "water_above_ground_m": -3.75,
+    "vv_db": -0.7687258720397949,
+    "vh_db": -0.6582937240600586,
+    "ha": 529.0
+   },
+   {
+    "water_above_ground_m": -3.25,
+    "vv_db": -0.7837095260620117,
+    "vh_db": -0.6867218017578125,
+    "ha": 448.75
+   },
+   {
+    "water_above_ground_m": -2.75,
+    "vv_db": -0.799551248550415,
+    "vh_db": -0.7574295997619629,
+    "ha": 491.0
+   },
+   {
+    "water_above_ground_m": -2.25,
+    "vv_db": -0.7230322360992432,
+    "vh_db": -0.7221179008483887,
+    "ha": 635.0
+   },
+   {
+    "water_above_ground_m": -1.75,
+    "vv_db": -0.7223930358886719,
+    "vh_db": -0.7037353515625,
+    "ha": 751.75
+   },
+   {
+    "water_above_ground_m": -1.25,
+    "vv_db": -0.7509002685546875,
+    "vh_db": -0.7016639709472656,
+    "ha": 1087.25
+   },
+   {
+    "water_above_ground_m": -0.75,
+    "vv_db": -0.6864373683929443,
+    "vh_db": -0.6429424285888672,
+    "ha": 1947.5
+   },
+   {
+    "water_above_ground_m": -0.25,
+    "vv_db": -0.6467990875244141,
+    "vh_db": -0.5861921310424805,
+    "ha": 2447.25
+   },
+   {
+    "water_above_ground_m": 0.25,
+    "vv_db": -0.5575017929077148,
+    "vh_db": -0.49853992462158203,
+    "ha": 3261.5
+   },
+   {
+    "water_above_ground_m": 0.75,
+    "vv_db": -0.6215829849243164,
+    "vh_db": -0.5780553817749023,
+    "ha": 5665.75
+   },
+   {
+    "water_above_ground_m": 1.25,
+    "vv_db": -0.6219682693481445,
+    "vh_db": -0.5691862106323242,
+    "ha": 5737.75
+   },
+   {
+    "water_above_ground_m": 1.75,
+    "vv_db": -0.5070524215698242,
+    "vh_db": -0.5157737731933594,
+    "ha": 3988.75
+   },
+   {
+    "water_above_ground_m": 2.25,
+    "vv_db": -0.541743278503418,
+    "vh_db": -0.5452289581298828,
+    "ha": 899.75
+   },
+   {
+    "water_above_ground_m": 2.75,
+    "vv_db": -0.8410253524780273,
+    "vh_db": -0.8687877655029297,
+    "ha": 96.75
+   }
+  ]
+ },
+ "l_band": {
+  "pair": "105A_jul03",
+  "hh_contrast_db": 1.1214070320129395,
+  "hv_contrast_db": 0.22224092483520508,
+  "fixed_in_protocol": {
+   "hh_contrast_db": 1.12,
+   "hv_contrast_db": 0.22
+  },
+  "curve": [
+   {
+    "water_above_ground_m": -4.75,
+    "hh_db": -0.23882770538330078,
+    "hv_db": -0.1707744598388672,
+    "ha": 520.5
+   },
+   {
+    "water_above_ground_m": -4.25,
+    "hh_db": -0.2303180694580078,
+    "hv_db": -0.1684703826904297,
+    "ha": 508.25
+   },
+   {
+    "water_above_ground_m": -3.75,
+    "hh_db": -0.26665210723876953,
+    "hv_db": -0.17178916931152344,
+    "ha": 499.0
+   },
+   {
+    "water_above_ground_m": -3.25,
+    "hh_db": -0.20949697494506836,
+    "hv_db": -0.11695671081542969,
+    "ha": 418.25
+   },
+   {
+    "water_above_ground_m": -2.75,
+    "hh_db": -0.1883763074874878,
+    "hv_db": -0.13883543014526367,
+    "ha": 452.5
+   },
+   {
+    "water_above_ground_m": -2.25,
+    "hh_db": -0.1499474048614502,
+    "hv_db": -0.14845800399780273,
+    "ha": 624.5
+   },
+   {
+    "water_above_ground_m": -1.75,
+    "hh_db": -0.15189743041992188,
+    "hv_db": -0.10636043548583984,
+    "ha": 688.75
+   },
+   {
+    "water_above_ground_m": -1.25,
+    "hh_db": -0.10324311256408691,
+    "hv_db": -0.0723419189453125,
+    "ha": 757.75
+   },
+   {
+    "water_above_ground_m": -0.75,
+    "hh_db": -0.015179634094238281,
+    "hv_db": -0.04467010498046875,
+    "ha": 948.75
+   },
+   {
+    "water_above_ground_m": -0.25,
+    "hh_db": 0.3975543975830078,
+    "hv_db": 0.07675004005432129,
+    "ha": 1436.5
+   },
+   {
+    "water_above_ground_m": 0.25,
+    "hh_db": 0.7639551162719727,
+    "hv_db": 0.0995473861694336,
+    "ha": 3601.5
+   },
+   {
+    "water_above_ground_m": 0.75,
+    "hh_db": 0.8442556858062744,
+    "hv_db": 0.10587596893310547,
+    "ha": 5693.75
+   },
+   {
+    "water_above_ground_m": 1.25,
+    "hh_db": 0.9266312122344971,
+    "hv_db": 0.11310529708862305,
+    "ha": 6612.5
+   },
+   {
+    "water_above_ground_m": 1.75,
+    "hh_db": 1.1717076301574707,
+    "hv_db": 0.105224609375,
+    "ha": 4710.5
+   },
+   {
+    "water_above_ground_m": 2.25,
+    "hh_db": 1.233996033668518,
+    "hv_db": 0.1413264274597168,
+    "ha": 1461.0
+   },
+   {
+    "water_above_ground_m": 2.75,
+    "hh_db": 0.976405143737793,
+    "hv_db": 0.13625860214233398,
+    "ha": 260.25
+   }
+  ]
+ },
+ "estimate_wet_tree_ha": 16381.0,
+ "reading": "C-band shows little of it",
+ "pictures": {
+  "reference": "each band's median change on dry forest, 1-3 m above the water",
+  "cband_ha_over_1db": 1984.5,
+  "lband_ha_over_1db": 14225.0
+ }
+}

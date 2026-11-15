@@ -1,0 +1,73 @@
+# July 2026 front, Neuse River NC. Held-out v4 test. (created by hidden_floods.sitegen)
+
+name = "neuse"
+crs = "EPSG:32618"
+resolution_m = 50.0
+bbox = [-78.2562, 35.1978, -77.2428, 35.4341]
+
+[data]
+root = "neuse"
+dem = "dem/dem10m.tif"
+gauges = "gauges"
+operational = "ops"
+
+[gcov]
+"wet_20260726" = "NISAR_L2_PR_GCOV_026_090_A_019_4005_DHDH_A_20260726T102153_20260726T102230_P05023_N_F_J_001"
+"dry_20260912" = "NISAR_L2_PR_GCOV_030_090_A_019_4005_DHDH_A_20260912T102151_20260912T102229_P05023_N_F_J_001"
+
+[gunw]
+
+[pairs."090A_jul26"]
+wet = "wet_20260726"
+dry = "dry_20260912"
+wet_time = "2026-07-26T10:21:53Z"
+dry_time = "2026-09-12T10:21:51Z"
+
+
+[[gauges]]
+name = "NEUSE RIVER NEAR COX MILL, NC"
+id = "USGS-02088119"
+lon = -78.196153
+lat = 35.374125
+datum_ft = 0.0
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "NEUSE RIVER NEAR GOLDSBORO, NC"
+id = "USGS-02089000"
+lon = -77.997500
+lat = 35.337500
+datum_ft = 41.9
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "NEUSE RIVER AT KINSTON, NC"
+id = "USGS-02089500"
+lon = -77.585556
+lat = 35.257778
+datum_ft = 9.7
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "NEUSE RIVER NEAR FORT BARNWELL, NC"
+id = "USGS-02091814"
+lon = -77.302778
+lat = 35.313889
+datum_ft = -1.4
+navd88_offset_ft = 0.000
+
+[valley]
+line = [[-78.1962, 35.3741], [-77.9975, 35.3375], [-77.5856, 35.2578], [-77.3028, 35.3139]]
+corridor_m = 4000.0
+
+[truth]
+margin_m = 0.5
+max_dry_height_m = 5.0
+
+[split]
+calibration_max_chainage_m = 0.0
+bootstrap_block_m = 2000.0
+
+[detector]
+forest_hv_db = -16.0
+thresholds_db = [2.0]

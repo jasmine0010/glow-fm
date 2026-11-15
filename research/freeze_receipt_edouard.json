@@ -1,0 +1,65 @@
+{
+  "method": "v3 unchanged, settings from research/freeze_receipt_v3.json",
+  "order": [
+    [
+      "village_creek",
+      "134A_sep03"
+    ],
+    [
+      "pine_island",
+      "012D_sep07"
+    ],
+    [
+      "village_creek",
+      "012D_sep07"
+    ],
+    [
+      "pine_island",
+      "134A_sep03"
+    ]
+  ],
+  "passes": {
+    "village_creek": [
+      "134A_sep03",
+      "012D_sep07"
+    ],
+    "pine_island": [
+      "012D_sep07",
+      "134A_sep03"
+    ]
+  },
+  "upland_warning_db": 0.5,
+  "sha256": {
+    "research/V3_YELLOW_PROTOCOL.md": "df99fd405a6eeba962a9c031e5eb932fee90f92082bbecfb3fb2f6829f0324e9",
+    "sites/yellow.toml": "b1f2cc9c3552f69fe901c9904f01b0cd636178984d84358222ecfeeb53c4c50d",
+    "scripts/run_frozen_v3.py": "7d3932b85f2fc1e31a3632475cc908390e22932d87316df6a2dd05b4831f418e",
+    "src/hidden_floods/frozen_v3.py": "10f4a79d8758e77e9abadc86ac5aca75944e78d1896eda3d9c5743b02da5dae8",
+    "src/hidden_floods/v3.py": "c615a19c47c9e1549dcf02d6e33345a650bf7b435db30c1187d1bed971e47959",
+    "src/hidden_floods/trust.py": "c0bea06bc6ad91e1b03f70b4f79f3f284a61e221b6a9b2993f5b190ac46ed684",
+    "src/hidden_floods/audit.py": "8e1405dcba093a18eb21169b8cb68bc0cf6216b330f36c8c96bfdc05320b413b",
+    "src/hidden_floods/selfcal.py": "b4594bba32bcbd89286ad331da7a944750d059974121bfa5ae641c674761966c",
+    "src/hidden_floods/detect.py": "1a326f33ea34cd1795a510111f588fee357da3f221d32133d88f5ec049565fce",
+    "src/hidden_floods/truth.py": "36005fc72410a511ea3679c3d6992e635da8cfa90bec63e17cfe9671cfcbb5a0",
+    "src/hidden_floods/metrics.py": "1af97f6454a7c5ad38eee17f373f5d13293e8285f0b6a3db56b580301b137c78",
+    "src/hidden_floods/grid.py": "5c4db944dbc210552a7623d428aa10cf84731f3ce632fcd8bcde6108f1a99536",
+    "src/hidden_floods/config.py": "ce66092469ad1146d63f29a42705976210ec2bfaa1624d505c8129a890f7d622",
+    "src/hidden_floods/pipeline.py": "8b00381cca997737b6107852cde49a3f418a01b4e510712f5975ba58433f09b1",
+    "src/hidden_floods/frozen.py": "8017fd7303c1b2853bb4ae3cb6efa4f591f61dfeca836d5aaa646fef02dcd2b5",
+    "src/hidden_floods/io/nisar.py": "9c0acfb9bfd3877716fb007ceef4384a92e2b94e91915f9e9555c0ecc5d7842b",
+    "src/hidden_floods/io/gauges.py": "59e0b1377175ceb7d9e59c1289bd1d89f826180e9117f0cab1dcbffd87e8e724",
+    "src/hidden_floods/io/dem.py": "7c56f455efa3c0646c06593f05a6e59a3063a40e78df229cbfedb4992a5ee251",
+    "src/hidden_floods/io/operational.py": "ff964e310fafa5ead04dcb10f14de9befed3f82d7615c29ee15b30d9a78c6055",
+    "research/EDOUARD_PROTOCOL.md": "7756cc8bd905581892ba43e8aedbdcc5f2776492a6a10a571cd5dca7d3cf5104",
+    "research/freeze_receipt_v3.json": "5087f684e6d31920749d2e18768b56e9f1a06738de9ce197726f8bed089ced11",
+    "sites/village_creek.toml": "68908540ffec7c4739ca0d06e716a8b9a83b09f907a5931f9de249120a1a1ebe",
+    "sites/pine_island.toml": "8f9271d26d87d1d5dc61ec35182f80f79fc34d2592455dff9f5eb90aa6c7de18",
+    "scripts/run_frozen_edouard.py": "19330f5f43e693acd7eb932e9efbf9de0894d123057e8616e712e91a29834481",
+    "src/hidden_floods/frozen_edouard.py": "b6677022fc9892e9cfbe6f38f6fa56183d04e8c565bda47bab0e5d6551863b56"
+  },
+  "sha256_at_freeze": {
+    "research/V3_YELLOW_PROTOCOL.md": "2ae347abbcc87d29b477e620bc32bf66a7aaae5d192ac2f5fd8616b6956a6396",
+    "research/EDOUARD_PROTOCOL.md": "c30b29db299672eaf4d591c6805daa974d9e390a72865e92c99cbbb9dbacc85d",
+    "research/freeze_receipt_v3.json": "e055d230324bebbfab9070827f1c6c9f2bd8acc920023ef6a61248eadb02f45a"
+  },
+  "note": "Dates were removed from the hashed files after the freeze; nothing else changed. sha256_at_freeze holds the original hashes."
+}

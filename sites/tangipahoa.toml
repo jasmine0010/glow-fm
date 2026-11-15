@@ -1,0 +1,82 @@
+# Tropical Storm Arthur flood, Tangipahoa River (LA), Jun 2026. Held-out third event for method v2.
+# Selection fixed in research/THIRD_EVENT_PROTOCOL.md before any imagery of this corridor was opened.
+
+name = "tangipahoa"
+crs = "EPSG:32615"          # UTM 15N (the 105A/017 and 156D/073 GCOV grid)
+resolution_m = 50.0
+bbox = [-90.58, 30.40, -90.28, 30.98]
+
+[data]
+# GCOV granules are shared with the Pearl event (same frames), so they live in the pearl folder.
+root = "pearl"
+dem = "../tangipahoa/dem/dem10m.tif"
+gauges = "../tangipahoa/gauges"
+operational = "../tangipahoa/ops"
+
+[gcov]
+"105A_20260621" = "NISAR_L2_PR_GCOV_023_105_A_017_4005_DHDH_A_20260621T111906_20260621T111941_P05023_N_F_J_001"
+"105A_20260820" = "NISAR_L2_PR_GCOV_028_105_A_017_4005_DHDH_A_20260820T111903_20260820T111938_P05023_N_F_J_001"
+"156D_20260625" = "NISAR_L2_PR_GCOV_023_156_D_073_4005_DHDH_A_20260625T004512_20260625T004547_P05023_N_F_J_001"
+"156D_20260812" = "NISAR_L2_PR_GCOV_027_156_D_073_4005_DHDH_A_20260812T004510_20260812T004544_P05023_N_F_J_001"
+
+[gunw]
+
+[pairs."105A_jun21"]
+wet = "105A_20260621"
+dry = "105A_20260820"
+wet_time = "2026-06-21T11:19:06Z"
+dry_time = "2026-08-20T11:19:03Z"
+
+[pairs."156D_jun25"]
+wet = "156D_20260625"
+dry = "156D_20260812"
+wet_time = "2026-06-25T00:45:12Z"
+dry_time = "2026-08-12T00:45:10Z"
+
+[[gauges]]
+name = "Kentwood"
+id = "USGS-07375300"
+lon = -90.4904
+lat = 30.9377
+datum_ft = 179.47
+navd88_offset_ft = 0.0
+
+[[gauges]]
+name = "Amite"
+id = "USGS-07375430"
+lon = -90.4843
+lat = 30.7291
+datum_ft = 80.0
+navd88_offset_ft = 0.0
+
+[[gauges]]
+name = "Robert"
+id = "USGS-07375500"
+lon = -90.3618
+lat = 30.5066
+datum_ft = 6.6
+navd88_offset_ft = 0.0
+
+[[gauges]]
+name = "Ponchatoula"
+id = "USGS-07375650"
+lon = -90.3346
+lat = 30.4437
+datum_ft = -2.75
+navd88_offset_ft = 0.0
+
+[valley]
+line = [[-90.4904, 30.9377], [-90.4843, 30.7291], [-90.3618, 30.5066], [-90.3346, 30.4437]]
+corridor_m = 4000.0
+
+[truth]
+margin_m = 0.5
+max_dry_height_m = 5.0
+
+[split]
+calibration_max_chainage_m = 0.0
+bootstrap_block_m = 2000.0
+
+[detector]
+forest_hv_db = -16.0
+thresholds_db = [2.0]

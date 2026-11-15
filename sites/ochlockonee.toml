@@ -1,0 +1,73 @@
+# Isaias-period rise, ochlockonee. Held-out overbank test. (created by hidden_floods.sitegen)
+
+name = "ochlockonee"
+crs = "EPSG:32616"
+resolution_m = 50.0
+bbox = [-84.4441, 30.4941, -83.879, 31.0624]
+
+[data]
+root = "ochlockonee"
+dem = "dem/dem10m.tif"
+gauges = "gauges"
+operational = "ops"
+
+[gcov]
+"wet_026D_20261014" = "NISAR_L2_PR_GCOV_033_026_D_073_4005_DHDH_A_20261014T002008_20261014T002045_P05023_N_F_J_001"
+"dry_026D_20261002" = "NISAR_L2_PR_GCOV_032_026_D_073_4005_DHDH_A_20261002T002008_20261002T002045_P05023_N_F_J_001"
+
+[gunw]
+
+[pairs."026D_oct14"]
+wet = "wet_026D_20261014"
+dry = "dry_026D_20261002"
+wet_time = "2026-10-14T00:20:08Z"
+dry_time = "2026-10-02T00:20:08Z"
+
+
+[[gauges]]
+name = "OCHLOCKONEE RIVER AT GA 188, NEAR COOLIDGE, GA"
+id = "USGS-02327355"
+lon = -83.939028
+lat = 31.002417
+datum_ft = 166.42
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "OCHLOCKONEE RIVER NEAR THOMASVILLE, GA"
+id = "USGS-02327500"
+lon = -84.046778
+lat = 30.875833
+datum_ft = 133.16
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "OCHLOCKONEE RIVER NR CONCORD, FLA."
+id = "USGS-02328522"
+lon = -84.305181
+lat = 30.669085
+datum_ft = 69.81
+navd88_offset_ft = -0.627
+
+[[gauges]]
+name = "OCHLOCKONEE RIVER NR HAVANA, FLA."
+id = "USGS-02329000"
+lon = -84.384072
+lat = 30.554086
+datum_ft = 59.36
+navd88_offset_ft = -0.604
+
+[valley]
+line = [[-83.9390, 31.0024], [-84.0468, 30.8758], [-84.3052, 30.6691], [-84.3841, 30.5541]]
+corridor_m = 4000.0
+
+[truth]
+margin_m = 0.5
+max_dry_height_m = 5.0
+
+[split]
+calibration_max_chainage_m = 0.0
+bootstrap_block_m = 2000.0
+
+[detector]
+forest_hv_db = -16.0
+thresholds_db = [2.0]

@@ -1,0 +1,86 @@
+# Hurricane Isaias flood, Choctawhatchee River (FL/AL), Oct 2026.
+# Values here are measurements and decisions from pre-event research (research/FEASIBILITY.md).
+
+name = "choctawhatchee"
+crs = "EPSG:32616"          # UTM 16N, the native NISAR GCOV/GUNW grid here
+resolution_m = 50.0         # analysis grid = 5x5 multilook of 10 m GCOV
+# Study box for extent and truth (lon/lat, WGS84).
+bbox = [-86.02, 30.40, -85.74, 30.86]
+
+[data]
+# Paths are relative to HIDDEN_FLOODS_DATA (default C:/Users/Jasmi/nisar-data).
+root = "choctawhatchee"
+dem = "dem/dem10m_utm16.tif"
+gauges = "gauges"
+operational = "ops"
+
+# GCOV scenes: name -> granule file stem. Same-track pairs share an identical 10 m grid.
+[gcov]
+"076A_20260923" = "NISAR_L2_PR_GCOV_031_076_A_017_4005_DHDH_A_20260923T110224_20260923T110258_P05023_N_F_J_001"
+"076A_20261017" = "NISAR_L2_PR_GCOV_033_076_A_017_4005_DHDH_A_20261017T110224_20261017T110259_P05023_N_F_J_001"
+"127D_20260927" = "NISAR_L2_PR_GCOV_031_127_D_073_4005_DHDH_A_20260927T002830_20260927T002905_P05023_N_F_J_001"
+"127D_20261021" = "NISAR_L2_PR_GCOV_033_127_D_073_4005_DHDH_A_20261021T002830_20261021T002905_P05023_N_F_J_001"
+
+[gunw]
+"127D_20260915_20260927" = "NISAR_L2_PR_GUNW_030_127_D_073_031_4000_SH_20260915T002830_20260915T002905_20260927T002830_20260927T002905_P05023_N_F_J_001"
+"127D_20261009_20261021" = "NISAR_L2_PR_GUNW_032_127_D_073_033_4000_SH_20261009T002830_20261009T002905_20261021T002830_20261021T002905_P05023_N_F_J_001"
+"076A_20261005_20261017" = "NISAR_L2_PR_GUNW_032_076_A_017_033_4000_SH_20261005T110224_20261005T110258_20261017T110224_20261017T110259_P05023_N_F_J_001"
+
+# Change-detection pairs used for extent: wet scene, same-track dry reference, acquisition time (UTC) for gauge lookup.
+[pairs."076A_oct17"]
+wet = "076A_20261017"
+dry = "076A_20260923"
+wet_time = "2026-10-17T11:02:24Z"
+dry_time = "2026-09-23T11:02:24Z"
+
+[pairs."127D_oct21"]
+wet = "127D_20261021"
+dry = "127D_20260927"
+wet_time = "2026-10-21T00:28:30Z"
+dry_time = "2026-09-27T00:28:30Z"
+
+# Gauges that define the water surface along the valley, ordered upstream -> downstream.
+# datum_ft is the gauge datum (NGVD29); navd88_offset_ft converts NGVD29 -> NAVD88 (NOAA VDatum, NAD27 input frame).
+[[gauges]]
+name = "Pittman"
+id = "USGS-02365200"
+lon = -85.8430
+lat = 30.9499
+datum_ft = 51.83
+navd88_offset_ft = -0.253
+
+[[gauges]]
+name = "Caryville"
+id = "USGS-02365500"
+lon = -85.8277
+lat = 30.7757
+datum_ft = 39.02
+navd88_offset_ft = -0.367
+
+[[gauges]]
+name = "Bruce"
+id = "USGS-02366500"
+lon = -85.8983
+lat = 30.4510
+datum_ft = 0.00
+navd88_offset_ft = -0.423
+
+[valley]
+# Coarse valley line (lon, lat), upstream -> downstream. Refined from the channel mask by truth.refine_centerline.
+line = [[-85.8430, 30.9499], [-85.8277, 30.7757], [-85.8600, 30.6200], [-85.8983, 30.4510]]
+corridor_m = 4000.0
+
+[truth]
+margin_m = 0.5            # |water - ground| band treated as uncertain and excluded
+max_dry_height_m = 5.0    # dry labels only where ground is within this height above water (plausibly floodable)
+
+[split]
+# Calibrate on the upper reach, test on the lower reach (chainage from the first gauge along the valley line).
+# NOTE: the lower reach was already scored once in pre-event research, so it is a development test only.
+# The clean held-out claim must come from a second event frozen before its data is examined.
+calibration_max_chainage_m = 37000.0
+bootstrap_block_m = 2000.0
+
+[detector]
+forest_hv_db = -16.0      # dry-date HV above this = woody-cover proxy
+thresholds_db = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0]

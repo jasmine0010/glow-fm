@@ -1,0 +1,70 @@
+{
+ "note": "Pixels on 100-year flood-hazard ground, 3 arc seconds. GFM's masks were saved for these flood windows, so the footprints are not a random sample of the world.",
+ "areas": [
+  {
+   "area": "Satilla, Georgia",
+   "mask_files": 25,
+   "tree_share": 0.577,
+   "gfm_excludes_share_under_trees": 0.938,
+   "gfm_excludes_share_elsewhere": 0.272,
+   "share_of_gfm_exclusion_that_is_trees": 0.825,
+   "tree_px": 1063307,
+   "other_px": 779707,
+   "in_mask_tree": 996932,
+   "in_mask_other": 211858
+  },
+  {
+   "area": "Choctawhatchee and Yellow, Florida",
+   "mask_files": 15,
+   "tree_share": 0.76,
+   "gfm_excludes_share_under_trees": 0.908,
+   "gfm_excludes_share_elsewhere": 0.345,
+   "share_of_gfm_exclusion_that_is_trees": 0.893,
+   "tree_px": 619696,
+   "other_px": 195550,
+   "in_mask_tree": 562576,
+   "in_mask_other": 67513
+  },
+  {
+   "area": "Pearl, Louisiana and Mississippi",
+   "mask_files": 12,
+   "tree_share": 0.625,
+   "gfm_excludes_share_under_trees": 0.958,
+   "gfm_excludes_share_elsewhere": 0.333,
+   "share_of_gfm_exclusion_that_is_trees": 0.828,
+   "tree_px": 850696,
+   "other_px": 510829,
+   "in_mask_tree": 814986,
+   "in_mask_other": 169871
+  },
+  {
+   "area": "Tangipahoa, Louisiana",
+   "mask_files": 11,
+   "tree_share": 0.496,
+   "gfm_excludes_share_under_trees": 0.95,
+   "gfm_excludes_share_elsewhere": 0.286,
+   "share_of_gfm_exclusion_that_is_trees": 0.766,
+   "tree_px": 2708265,
+   "other_px": 2752152,
+   "in_mask_tree": 2572844,
+   "in_mask_other": 786266
+  },
+  {
+   "area": "Tonle Sap, Cambodia",
+   "mask_files": 99,
+   "tree_share": 0.199,
+   "gfm_excludes_share_under_trees": 0.686,
+   "gfm_excludes_share_elsewhere": 0.088,
+   "share_of_gfm_exclusion_that_is_trees": 0.661,
+   "tree_px": 632407,
+   "other_px": 2545793,
+   "in_mask_tree": 434120,
+   "in_mask_other": 223086
+  }
+ ],
+ "gfm_excludes_share_under_trees": 0.916,
+ "gfm_excludes_share_elsewhere": 0.215,
+ "share_of_gfm_exclusion_that_is_trees": 0.787,
+ "lowest_area_share_under_trees": 0.686,
+ "highest_area_share_under_trees": 0.958
+}

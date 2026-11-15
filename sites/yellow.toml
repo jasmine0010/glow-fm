@@ -1,0 +1,73 @@
+# Hurricane Isaias, Yellow River FL (created by hidden_floods.sitegen). Held-out test of method v3.
+# Pair selection fixed in research/V3_YELLOW_PROTOCOL.md before any NISAR pixel of this corridor was read.
+
+name = "yellow"
+crs = "EPSG:32616"
+resolution_m = 50.0
+bbox = [-86.9836, 30.5096, -86.4994, 30.9852]
+
+[data]
+root = "yellow"
+dem = "dem/dem10m.tif"
+gauges = "gauges"
+operational = "ops"
+
+[gcov]
+"004A_20260813" = "NISAR_L2_PR_GCOV_028_004_A_017_4005_DHDH_A_20260813T111044_20260813T111118_P05023_N_F_J_001"
+"004A_20261012" = "NISAR_L2_PR_GCOV_033_004_A_017_4005_DHDH_A_20261012T111043_20261012T111118_P05023_N_F_J_001"
+"055D_20260922" = "NISAR_L2_PR_GCOV_031_055_D_073_4005_DHDH_A_20260922T003649_20260922T003724_P05023_N_F_J_001"
+"055D_20261016" = "NISAR_L2_PR_GCOV_033_055_D_073_4005_DHDH_A_20261016T003648_20261016T003724_P05023_N_F_J_001"
+
+[gunw]
+
+[pairs."004A_oct12"]
+wet = "004A_20261012"
+dry = "004A_20260813"
+wet_time = "2026-10-12T11:10:43Z"
+dry_time = "2026-08-13T11:10:44Z"
+
+[pairs."055D_oct16"]
+wet = "055D_20261016"
+dry = "055D_20260922"
+wet_time = "2026-10-16T00:36:48Z"
+dry_time = "2026-09-22T00:36:49Z"
+
+[[gauges]]
+name = "YELLOW RIVER NR OAK GROVE, FLA."
+id = "USGS-02367900"
+lon = -86.559397
+lat = 30.925183
+datum_ft = -0.6
+navd88_offset_ft = -0.194
+
+[[gauges]]
+name = "YELLOW RIVER AT MILLIGAN, FLA."
+id = "USGS-02368000"
+lon = -86.629121
+lat = 30.752966
+datum_ft = 45.0
+navd88_offset_ft = -0.256
+
+[[gauges]]
+name = "YELLOW RIVER NR MILTON, FLA."
+id = "USGS-02369600"
+lon = -86.923573
+lat = 30.569639
+datum_ft = -35.5
+navd88_offset_ft = -0.302
+
+[valley]
+line = [[-86.5594, 30.9252], [-86.6291, 30.7530], [-86.9236, 30.5696]]
+corridor_m = 4000.0
+
+[truth]
+margin_m = 0.5
+max_dry_height_m = 5.0
+
+[split]
+calibration_max_chainage_m = 0.0
+bootstrap_block_m = 2000.0
+
+[detector]
+forest_hv_db = -16.0
+thresholds_db = [2.0]

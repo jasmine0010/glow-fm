@@ -1,0 +1,220 @@
+{
+  "site": "st_marys",
+  "pair": "047A_oct15",
+  "protocol": "research/OVERBANK_PROTOCOL.md",
+  "git_head": "684bc80fe8e5b269b640e9a6731ba1f4206d13d8",
+  "rain": {
+    "rain_24h_mm": 0.0,
+    "rain_72h_mm": 0.0,
+    "half_hours": 144,
+    "rainy": false
+  },
+  "confident": true,
+  "trust_signal": "green",
+  "judgeable": false,
+  "v4_csi": 0.0,
+  "signal_right": null,
+  "truth_ha": {
+    "wet_primary": 0.0,
+    "dry_primary": 1671.5,
+    "wet_supported": 397.5,
+    "ambiguous_left_out": 0.0
+  },
+  "coverage": 0.0,
+  "primary_v4": {
+    "scores": {
+      "tp": 0,
+      "fn": 0,
+      "fp": 135,
+      "tn": 6551,
+      "recall": NaN,
+      "precision": 0.0,
+      "csi": 0.0,
+      "f1": 0.0,
+      "tp_ha": 0.0,
+      "fn_ha": 0.0,
+      "fp_ha": 33.75,
+      "tn_ha": 1637.75
+    },
+    "ci95": {
+      "recall": [
+        NaN,
+        NaN
+      ],
+      "precision": [
+        0.0,
+        0.0
+      ],
+      "csi": [
+        0.0,
+        0.0
+      ],
+      "f1": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "baseline_v3_same_pixels": {
+    "scores": {
+      "tp": 0,
+      "fn": 0,
+      "fp": 115,
+      "tn": 6571,
+      "recall": NaN,
+      "precision": 0.0,
+      "csi": 0.0,
+      "f1": 0.0,
+      "tp_ha": 0.0,
+      "fn_ha": 0.0,
+      "fp_ha": 28.75,
+      "tn_ha": 1642.75
+    },
+    "ci95": {
+      "recall": [
+        NaN,
+        NaN
+      ],
+      "precision": [
+        0.0,
+        0.0
+      ],
+      "csi": [
+        0.0,
+        0.0
+      ],
+      "f1": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "v4_minus_v3_csi": {
+    "difference": 0.0,
+    "ci95": [
+      0.0,
+      0.0
+    ]
+  },
+  "upland_warning": {
+    "upland_hh_db": 0.5032395124435425,
+    "upland_px": 194286,
+    "warned": true
+  },
+  "high_ground_db": 0.3665810823440552,
+  "low_minus_high_db": 0.9373784065246582,
+  "used_hh_minus_hv": false,
+  "lidar_2m_same_pixels": {
+    "scores": {
+      "tp": 0,
+      "fn": 0,
+      "fp": 929,
+      "tn": 5757,
+      "recall": NaN,
+      "precision": 0.0,
+      "csi": 0.0,
+      "f1": 0.0,
+      "tp_ha": 0.0,
+      "fn_ha": 0.0,
+      "fp_ha": 232.25,
+      "tn_ha": 1439.25
+    },
+    "ci95": {
+      "recall": [
+        NaN,
+        NaN
+      ],
+      "precision": [
+        0.0,
+        0.0
+      ],
+      "csi": [
+        0.0,
+        0.0
+      ],
+      "f1": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "v4_minus_lidar_csi": {
+    "difference": 0.0,
+    "ci95": [
+      0.0,
+      0.0
+    ]
+  },
+  "within_5km_of_gauge": {
+    "v4": {
+      "scores": {
+        "tp": 0,
+        "fn": 0,
+        "fp": 115,
+        "tn": 3797,
+        "recall": NaN,
+        "precision": 0.0,
+        "csi": 0.0,
+        "f1": 0.0,
+        "tp_ha": 0.0,
+        "fn_ha": 0.0,
+        "fp_ha": 28.75,
+        "tn_ha": 949.25
+      },
+      "ci95": {
+        "recall": [
+          NaN,
+          NaN
+        ],
+        "precision": [
+          0.0,
+          0.0
+        ],
+        "csi": [
+          0.0,
+          0.0
+        ],
+        "f1": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "lidar_2m": {
+      "scores": {
+        "tp": 0,
+        "fn": 0,
+        "fp": 188,
+        "tn": 3724,
+        "recall": NaN,
+        "precision": 0.0,
+        "csi": 0.0,
+        "f1": 0.0,
+        "tp_ha": 0.0,
+        "fn_ha": 0.0,
+        "fp_ha": 47.0,
+        "tn_ha": 931.0
+      },
+      "ci95": {
+        "recall": [
+          NaN,
+          NaN
+        ],
+        "precision": [
+          0.0,
+          0.0
+        ],
+        "csi": [
+          0.0,
+          0.0
+        ],
+        "f1": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "estimated_ha": 0.0
+  },
+  "wet_share_of_labelled": 0.0
+}

@@ -1,0 +1,642 @@
+{
+ "note": "Post-hoc. Doesn't replace the one-time results.",
+ "passes": [
+  {
+   "site": "satilla",
+   "pair": "047A_oct15",
+   "by_height_limit": {
+    "6.0": {
+     "csi": 0.4158268515387217,
+     "recall": 0.4242340601711289,
+     "precision": 0.9545101692283807,
+     "minus_global_map": {
+      "difference": 0.1311037287271538,
+      "ci95": [
+       0.0919605694263652,
+       0.19458928426882233
+      ]
+     },
+     "mapped_ha": 5221.75,
+     "labelled_share_of_map": 0.3083736295303299,
+     "ha_more_than_5m_above_water": 236.5
+    },
+    "10.0": {
+     "csi": 0.5829569606801275,
+     "recall": 0.6056444935136627,
+     "precision": 0.9396210255861257,
+     "minus_global_map": {
+      "difference": 0.2982338378685596,
+      "ci95": [
+       0.2640959542870212,
+       0.3382465085227629
+      ]
+     },
+     "mapped_ha": 8003.75,
+     "labelled_share_of_map": 0.29176948305481804,
+     "ha_more_than_5m_above_water": 451.75
+    },
+    "15.0": {
+     "csi": 0.6901746866679654,
+     "recall": 0.7333701352470329,
+     "precision": 0.9213697442566103,
+     "minus_global_map": {
+      "difference": 0.4054515638563976,
+      "ci95": [
+       0.35858098587494713,
+       0.4659376706181102
+      ]
+     },
+     "mapped_ha": 11188.25,
+     "labelled_share_of_map": 0.2577480839273345,
+     "ha_more_than_5m_above_water": 682.25
+    },
+    "20.0": {
+     "csi": 0.7451081359423275,
+     "recall": 0.7987855368479161,
+     "precision": 0.9172741679873218,
+     "minus_global_map": {
+      "difference": 0.46038501313075963,
+      "ci95": [
+       0.3912958486504406,
+       0.5600614100254749
+      ]
+     },
+     "mapped_ha": 13340.0,
+     "labelled_share_of_map": 0.23650674662668666,
+     "ha_more_than_5m_above_water": 867.25
+    },
+    "none": {
+     "csi": 0.7782764811490126,
+     "recall": 0.8375655534087773,
+     "precision": 0.9166289080199366,
+     "minus_global_map": {
+      "difference": 0.49355335833744474,
+      "ci95": [
+       0.4048189963409546,
+       0.6301734437655938
+      ]
+     },
+     "mapped_ha": 15264.75,
+     "labelled_share_of_map": 0.2168722055716602,
+     "ha_more_than_5m_above_water": 1030.25
+    }
+   },
+   "wet_ground_global_hand_m": {
+    "p10": -1.9,
+    "p50": 4.9,
+    "p90": 14.9
+   },
+   "wet_ground_lidar_hand_m": {
+    "p10": -4.0,
+    "p50": -0.4,
+    "p90": 0.6
+   }
+  },
+  {
+   "site": "satilla",
+   "pair": "098D_oct19",
+   "by_height_limit": {
+    "6.0": {
+     "csi": 0.418958639512912,
+     "recall": 0.44036191106697564,
+     "precision": 0.8960484957341716,
+     "minus_global_map": {
+      "difference": 0.1731020150155108,
+      "ci95": [
+       0.11234285115246903,
+       0.20353312541969568
+      ]
+     },
+     "mapped_ha": 5896.0,
+     "labelled_share_of_map": 0.18885685210312075,
+     "ha_more_than_5m_above_water": 155.5
+    },
+    "10.0": {
+     "csi": 0.5946601941747572,
+     "recall": 0.6487917907977491,
+     "precision": 0.8769574944071589,
+     "minus_global_map": {
+      "difference": 0.34880356967735604,
+      "ci95": [
+       0.17454592564179308,
+       0.4419986762435236
+      ]
+     },
+     "mapped_ha": 8472.25,
+     "labelled_share_of_map": 0.19785181032193336,
+     "ha_more_than_5m_above_water": 263.5
+    },
+    "15.0": {
+     "csi": 0.6643882433356118,
+     "recall": 0.7507447864945382,
+     "precision": 0.8524179403658231,
+     "minus_global_map": {
+      "difference": 0.41853161883821055,
+      "ci95": [
+       0.2062434020367086,
+       0.5170456909549777
+      ]
+     },
+     "mapped_ha": 10950.5,
+     "labelled_share_of_map": 0.18222912195790147,
+     "ha_more_than_5m_above_water": 349.5
+    },
+    "20.0": {
+     "csi": 0.7044188280499519,
+     "recall": 0.8091139799183493,
+     "precision": 0.844815668202765,
+     "minus_global_map": {
+      "difference": 0.45856220355255073,
+      "ci95": [
+       0.23150511731350487,
+       0.5627871264375591
+      ]
+     },
+     "mapped_ha": 12560.75,
+     "labelled_share_of_map": 0.17276038453117848,
+     "ha_more_than_5m_above_water": 413.25
+    },
+    "none": {
+     "csi": 0.7317096466093601,
+     "recall": 0.8453050866159109,
+     "precision": 0.8448389942655492,
+     "minus_global_map": {
+      "difference": 0.4858530221119589,
+      "ci95": [
+       0.25904252631825364,
+       0.6174636273544879
+      ]
+     },
+     "mapped_ha": 14210.5,
+     "labelled_share_of_map": 0.15952992505541677,
+     "ha_more_than_5m_above_water": 495.5
+    }
+   },
+   "wet_ground_global_hand_m": {
+    "p10": -1.4,
+    "p50": 5.1,
+    "p90": 14.8
+   },
+   "wet_ground_lidar_hand_m": {
+    "p10": -4.7,
+    "p50": -0.4,
+    "p90": 0.5
+   }
+  },
+  {
+   "site": "ochlockonee",
+   "pair": "026D_oct14",
+   "by_height_limit": {
+    "6.0": {
+     "csi": 0.31516133785177547,
+     "recall": 0.36803165863730214,
+     "precision": 0.6868978805394991,
+     "minus_global_map": {
+      "difference": 0.08899755043254826,
+      "ci95": [
+       0.025387978903344665,
+       0.15447359433770755
+      ]
+     },
+     "mapped_ha": 3888.25,
+     "labelled_share_of_map": 0.20021860734263486,
+     "ha_more_than_5m_above_water": 22.75
+    },
+    "10.0": {
+     "csi": 0.37955452555684305,
+     "recall": 0.5072264280798349,
+     "precision": 0.6012645319192331,
+     "minus_global_map": {
+      "difference": 0.15339073813761583,
+      "ci95": [
+       0.07257481645856258,
+       0.2332996077378832
+      ]
+     },
+     "mapped_ha": 6126.75,
+     "labelled_share_of_map": 0.20006528746888644,
+     "ha_more_than_5m_above_water": 150.25
+    },
+    "15.0": {
+     "csi": 0.4118375154720378,
+     "recall": 0.6297315898141775,
+     "precision": 0.5434298440979956,
+     "minus_global_map": {
+      "difference": 0.18567372805281057,
+      "ci95": [
+       0.07849921508924414,
+       0.28017932424471625
+      ]
+     },
+     "mapped_ha": 9537.0,
+     "labelled_share_of_map": 0.17654922931739542,
+     "ha_more_than_5m_above_water": 797.75
+    },
+    "20.0": {
+     "csi": 0.41705235009770647,
+     "recall": 0.6976944253269098,
+     "precision": 0.5090384132563395,
+     "minus_global_map": {
+      "difference": 0.19088856267847926,
+      "ci95": [
+       0.068017836292917,
+       0.30097598949390586
+      ]
+     },
+     "mapped_ha": 13202.5,
+     "labelled_share_of_map": 0.15084264343874265,
+     "ha_more_than_5m_above_water": 1738.0
+    },
+    "none": {
+     "csi": 0.3938555217270966,
+     "recall": 0.7345147969717826,
+     "precision": 0.45922977624784855,
+     "minus_global_map": {
+      "difference": 0.16769173430786938,
+      "ci95": [
+       0.05130746487548069,
+       0.2803262233015051
+      ]
+     },
+     "mapped_ha": 30930.5,
+     "labelled_share_of_map": 0.07513619243141882,
+     "ha_more_than_5m_above_water": 4707.0
+    }
+   },
+   "wet_ground_global_hand_m": {
+    "p10": -4.2,
+    "p50": 3.6,
+    "p90": 13.8
+   },
+   "wet_ground_lidar_hand_m": {
+    "p10": -2.3,
+    "p50": -0.7,
+    "p90": 0.4
+   }
+  },
+  {
+   "site": "st_marys",
+   "pair": "098D_oct07",
+   "by_height_limit": {
+    "6.0": {
+     "csi": 0.4748186086214255,
+     "recall": 0.5886243386243386,
+     "precision": 0.710635579687001,
+     "minus_global_map": {
+      "difference": 0.19198709036389827,
+      "ci95": [
+       0.06861648615785094,
+       0.310756361600418
+      ]
+     },
+     "mapped_ha": 3300.5,
+     "labelled_share_of_map": 0.23716103620663537,
+     "ha_more_than_5m_above_water": 151.5
+    },
+    "10.0": {
+     "csi": 0.5648854961832062,
+     "recall": 0.7439153439153439,
+     "precision": 0.7012468827930175,
+     "minus_global_map": {
+      "difference": 0.28205397792567893,
+      "ci95": [
+       0.14286129846623685,
+       0.41123940401486286
+      ]
+     },
+     "mapped_ha": 6601.75,
+     "labelled_share_of_map": 0.15185367516188888,
+     "ha_more_than_5m_above_water": 468.0
+    },
+    "15.0": {
+     "csi": 0.5665006456373363,
+     "recall": 0.8124338624338624,
+     "precision": 0.6517402376910016,
+     "minus_global_map": {
+      "difference": 0.28366912737980904,
+      "ci95": [
+       0.1805010973463972,
+       0.38190031472455543
+      ]
+     },
+     "mapped_ha": 9233.5,
+     "labelled_share_of_map": 0.1275789245681486,
+     "ha_more_than_5m_above_water": 912.5
+    },
+    "20.0": {
+     "csi": 0.565359477124183,
+     "recall": 0.8238095238095238,
+     "precision": 0.6431226765799256,
+     "minus_global_map": {
+      "difference": 0.28252795886665577,
+      "ci95": [
+       0.18260285969242113,
+       0.37292703875194616
+      ]
+     },
+     "mapped_ha": 10775.75,
+     "labelled_share_of_map": 0.11233556828991022,
+     "ha_more_than_5m_above_water": 1343.5
+    },
+    "none": {
+     "csi": 0.5649492017416545,
+     "recall": 0.8238095238095238,
+     "precision": 0.6425918283120099,
+     "minus_global_map": {
+      "difference": 0.2821176834841273,
+      "ci95": [
+       0.18207028421965502,
+       0.3725943672081317
+      ]
+     },
+     "mapped_ha": 14419.25,
+     "labelled_share_of_map": 0.08401962654090886,
+     "ha_more_than_5m_above_water": 2013.0
+    }
+   },
+   "wet_ground_global_hand_m": {
+    "p10": -4.6,
+    "p50": 2.4,
+    "p90": 9.3
+   },
+   "wet_ground_lidar_hand_m": {
+    "p10": -3.3,
+    "p50": -1.6,
+    "p90": -0.4
+   }
+  },
+  {
+   "site": "pee_dee",
+   "pair": "098D_jul27",
+   "by_height_limit": {
+    "6.0": {
+     "csi": 0.035693387946167346,
+     "recall": 0.041063614944463145,
+     "precision": 0.21441124780316345,
+     "minus_global_map": {
+      "difference": -0.25650219268382796,
+      "ci95": [
+       -0.36453896958920823,
+       -0.17989253804211774
+      ]
+     },
+     "mapped_ha": 568.5,
+     "labelled_share_of_map": 0.25021987686895336,
+     "ha_more_than_5m_above_water": 237.5
+    },
+    "10.0": {
+     "csi": 0.036790189282857905,
+     "recall": 0.046449007068327164,
+     "precision": 0.1503267973856209,
+     "minus_global_map": {
+      "difference": -0.25540539134713736,
+      "ci95": [
+       -0.3655889759190038,
+       -0.17852840245887264
+      ]
+     },
+     "mapped_ha": 1347.0,
+     "labelled_share_of_map": 0.17037861915367483,
+     "ha_more_than_5m_above_water": 638.25
+    },
+    "15.0": {
+     "csi": 0.06948145111703218,
+     "recall": 0.1141029956243689,
+     "precision": 0.15086782376502003,
+     "minus_global_map": {
+      "difference": -0.2227141295129631,
+      "ci95": [
+       -0.37011905820229796,
+       -0.10539303722395761
+      ]
+     },
+     "mapped_ha": 2951.0,
+     "labelled_share_of_map": 0.19035920027109454,
+     "ha_more_than_5m_above_water": 1274.25
+    },
+    "20.0": {
+     "csi": 0.09333951475815175,
+     "recall": 0.20329855267586672,
+     "precision": 0.14717348927875243,
+     "minus_global_map": {
+      "difference": -0.19885606587184354,
+      "ci95": [
+       -0.37820237700742676,
+       -0.047064977948607783
+      ]
+     },
+     "mapped_ha": 5662.0,
+     "labelled_share_of_map": 0.18120805369127516,
+     "ha_more_than_5m_above_water": 1903.75
+    },
+    "none": {
+     "csi": 0.0967741935483871,
+     "recall": 0.2625378660383709,
+     "precision": 0.13290168682910206,
+     "minus_global_map": {
+      "difference": -0.1954213870816082,
+      "ci95": [
+       -0.38205038178471473,
+       -0.03147529246097286
+      ]
+     },
+     "mapped_ha": 32789.0,
+     "labelled_share_of_map": 0.04474823873860136,
+     "ha_more_than_5m_above_water": 2932.25
+    }
+   },
+   "wet_ground_global_hand_m": {
+    "p10": -4.0,
+    "p50": 4.0,
+    "p90": 22.3
+   },
+   "wet_ground_lidar_hand_m": {
+    "p10": -1.5,
+    "p50": -0.3,
+    "p90": 0.6
+   }
+  },
+  {
+   "site": "neuse",
+   "pair": "090A_jul26",
+   "by_height_limit": {
+    "6.0": {
+     "csi": 0.06895247699483172,
+     "recall": 0.15369485810620961,
+     "precision": 0.1111562690510059,
+     "minus_global_map": {
+      "difference": -0.09519187690505186,
+      "ci95": [
+       -0.167374767815277,
+       -0.029787401139791093
+      ]
+     },
+     "mapped_ha": 2147.0,
+     "labelled_share_of_map": 0.5730088495575221,
+     "ha_more_than_5m_above_water": 207.0
+    },
+    "10.0": {
+     "csi": 0.06532047089601047,
+     "recall": 0.2245012644001124,
+     "precision": 0.08435388513513513,
+     "minus_global_map": {
+      "difference": -0.09882388300387311,
+      "ci95": [
+       -0.16782350414372568,
+       -0.040154223151308975
+      ]
+     },
+     "mapped_ha": 4717.25,
+     "labelled_share_of_map": 0.501987386718957,
+     "ha_more_than_5m_above_water": 587.5
+    },
+    "15.0": {
+     "csi": 0.06622821440315686,
+     "recall": 0.28294464737285757,
+     "precision": 0.07958586896388209,
+     "minus_global_map": {
+      "difference": -0.09791613949672671,
+      "ci95": [
+       -0.1670698520584724,
+       -0.04125294877818515
+      ]
+     },
+     "mapped_ha": 8043.75,
+     "labelled_share_of_map": 0.39325563325563323,
+     "ha_more_than_5m_above_water": 1233.5
+    },
+    "20.0": {
+     "csi": 0.06570279251442897,
+     "recall": 0.31666198370328746,
+     "precision": 0.07655729909652877,
+     "minus_global_map": {
+      "difference": -0.09844156138545461,
+      "ci95": [
+       -0.16683532859096364,
+       -0.04336876962666812
+      ]
+     },
+     "mapped_ha": 12715.0,
+     "labelled_share_of_map": 0.28944160440424693,
+     "ha_more_than_5m_above_water": 2005.0
+    },
+    "none": {
+     "csi": 0.06793066088840737,
+     "recall": 0.3523461646529924,
+     "precision": 0.0776230269266481,
+     "minus_global_map": {
+      "difference": -0.09621369301147621,
+      "ci95": [
+       -0.1632245631693189,
+       -0.04151025648209098
+      ]
+     },
+     "mapped_ha": 20974.5,
+     "labelled_share_of_map": 0.19255524565543874,
+     "ha_more_than_5m_above_water": 4096.75
+    }
+   },
+   "wet_ground_global_hand_m": {
+    "p10": -1.9,
+    "p50": 3.0,
+    "p90": 12.4
+   },
+   "wet_ground_lidar_hand_m": {
+    "p10": -1.7,
+    "p50": -0.5,
+    "p90": 0.5
+   }
+  },
+  {
+   "site": "lower_sabine",
+   "pair": "134A_jul17",
+   "by_height_limit": {
+    "6.0": {
+     "csi": 0.026516758591429785,
+     "recall": 0.03953194180898166,
+     "precision": 0.07453786523553965,
+     "minus_global_map": {
+      "difference": -0.005245803241426244,
+      "ci95": [
+       -0.00853851403928135,
+       0.0
+      ]
+     },
+     "mapped_ha": 3828.25,
+     "labelled_share_of_map": 0.10951479135375171,
+     "ha_more_than_5m_above_water": 0.5
+    },
+    "10.0": {
+     "csi": 0.07541392606033114,
+     "recall": 0.2103099304237824,
+     "precision": 0.10520487264673312,
+     "minus_global_map": {
+      "difference": 0.043651364227475106,
+      "ci95": [
+       -0.01445716621820096,
+       0.10276359695867998
+      ]
+     },
+     "mapped_ha": 10153.25,
+     "labelled_share_of_map": 0.15563981976214514,
+     "ha_more_than_5m_above_water": 237.5
+    },
+    "15.0": {
+     "csi": 0.07226497156239545,
+     "recall": 0.3415559772296015,
+     "precision": 0.08396175075798802,
+     "minus_global_map": {
+      "difference": 0.04050240972953942,
+      "ci95": [
+       -0.011997746534949727,
+       0.12734565996539085
+      ]
+     },
+     "mapped_ha": 18624.5,
+     "labelled_share_of_map": 0.17266235335176783,
+     "ha_more_than_5m_above_water": 1188.25
+    },
+    "20.0": {
+     "csi": 0.05994262418843425,
+     "recall": 0.3766603415559772,
+     "precision": 0.06654374790479384,
+     "minus_global_map": {
+      "difference": 0.02818006235557822,
+      "ci95": [
+       -0.014100020081570767,
+       0.10803270096935115
+      ]
+     },
+     "mapped_ha": 23758.0,
+     "labelled_share_of_map": 0.18833656031652496,
+     "ha_more_than_5m_above_water": 2303.75
+    },
+    "none": {
+     "csi": 0.05395057431256526,
+     "recall": 0.39215686274509803,
+     "precision": 0.05887380115848447,
+     "minus_global_map": {
+      "difference": 0.02218801247970923,
+      "ci95": [
+       -0.015269519512076266,
+       0.09839738940678075
+      ]
+     },
+     "mapped_ha": 48009.5,
+     "labelled_share_of_map": 0.1096762099167873,
+     "ha_more_than_5m_above_water": 3739.25
+    }
+   },
+   "wet_ground_global_hand_m": {
+    "p10": 6.1,
+    "p50": 9.5,
+    "p90": 15.5
+   },
+   "wet_ground_lidar_hand_m": {
+    "p10": -1.6,
+    "p50": -1.1,
+    "p90": -0.8
+   }
+  }
+ ]
+}

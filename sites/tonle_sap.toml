@@ -1,0 +1,35 @@
+# Tonle Sap, Cambodia: an unvalidated demonstration with no gauges or lidar. See research/TONLE_SAP_CASE.md.
+
+name = "tonle_sap"
+crs = "EPSG:32648"
+resolution_m = 60.0
+bbox = [103.35, 12.75, 104.35, 13.40]
+gauges = []
+
+[data]
+root = "tonle_sap"
+dem = "dem/unused.tif"
+gauges = "gauges"
+operational = "ops"
+
+[gcov]
+
+[gunw]
+
+[pairs]
+
+[valley]
+line = [[103.35, 13.40], [104.35, 12.75]]
+corridor_m = 4000.0
+
+[truth]
+margin_m = 0.5
+max_dry_height_m = 5.0
+
+[split]
+calibration_max_chainage_m = 0.0
+bootstrap_block_m = 2000.0
+
+[detector]
+forest_hv_db = -16.0
+thresholds_db = [2.0]

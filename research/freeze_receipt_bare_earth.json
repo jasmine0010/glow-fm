@@ -1,0 +1,11 @@
+{
+  "sha256": {
+    "research/BARE_EARTH_PROTOCOL.md": "895460c8add0d77d158a3e3370d6f33e5781f86ee43c97eca3f3458be3e3e7ae",
+    "research/bare_earth_tiles.json": "7d40bd31d29b0b477ba474ccc625ab1dfc954c680f9c95a055354bc2e3197599",
+    "scripts/run_frozen_bare_earth.py": "999fbd63f5795c9bc35e27e15304f318c26b94a65970078977fe89df4345db1e",
+    "src/hidden_floods/frozen_bare_earth.py": "2b8917a470e25b960991730d365c8075f1461674923e8170c36ec08d7e287935",
+    "research/freeze_receipt_v4.json": "e286873d04558a4b2fac17c524aa4def6adbb3f6c3d43be91aff9d54de46e3cf",
+    "research/freeze_receipt_overbank.json": "9f2d8fb70d510560ef462a4be09b41ace8eca1b2d197b2f3460c331e39f2fa8b",
+    "research/freeze_receipt_no_lidar.json": "4d10d8cd9e849958c42527372e6106e8c0f93132a8e8c5ddcda5da85904e622c"
+  }
+}

@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hidden-floods"
+version = "0.1.0"
+description = "Flooding under forest canopy from NISAR L-band radar, scored against hydraulic truth and compared with operational flood maps."
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.13",
+    "h5py>=3.11",
+    "rasterio>=1.4",
+    "pyproj>=3.6",
+    "pillow>=10",
+]
+
+[project.scripts]
+hidden-floods = "hidden_floods.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:cacheprovider --basetemp=.pytest_tmp"
+
+[tool.ruff]
+line-length = 120

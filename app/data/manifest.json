@@ -1,0 +1,3013 @@
+{
+ "sites": [
+  {
+   "id": "choctawhatchee",
+   "title": "Choctawhatchee River, FL (Hurricane Isaias)",
+   "role": "v4 development river",
+   "pairs": [
+    {
+     "id": "076A_oct17",
+     "label": "Oct 17, 2026 (crest at Bruce)",
+     "time": "2026-10-17T11:02:24Z",
+     "dry_time": "2026-09-23T11:02:24Z",
+     "threshold_db": 1.46,
+     "frozen": false,
+     "baseline_dates": [
+      "2026-08-18",
+      "2026-08-30",
+      "2026-09-11",
+      "2026-09-23",
+      "2026-10-05"
+     ],
+     "confident": true,
+     "low_minus_high_db": 2.441068608313799,
+     "used_hh_minus_hv": false,
+     "v3_csi": 0.8246321375650436,
+     "gfm_date": "20261022",
+     "gfm_time": "2026-10-22T23:44:52Z",
+     "score": {
+      "csi": 0.8512585022269793,
+      "recall": 0.9111234294161124,
+      "precision": 0.9283455079448754,
+      "coverage": 1.0,
+      "scorable": true
+     },
+     "drivers": {
+      "curve": [
+       {
+        "water_above_ground_m": -4.75,
+        "hh_db": 0.15951061248779297,
+        "hv_db": -0.09810829162597656,
+        "ha": 761.25
+       },
+       {
+        "water_above_ground_m": -4.25,
+        "hh_db": 0.13937902450561523,
+        "hv_db": -0.09022140502929688,
+        "ha": 738.75
+       },
+       {
+        "water_above_ground_m": -3.75,
+        "hh_db": 0.15189027786254883,
+        "hv_db": -0.08556127548217773,
+        "ha": 815.0
+       },
+       {
+        "water_above_ground_m": -3.25,
+        "hh_db": 0.13578319549560547,
+        "hv_db": -0.14364147186279297,
+        "ha": 1218.25
+       },
+       {
+        "water_above_ground_m": -2.75,
+        "hh_db": 0.030614614486694336,
+        "hv_db": -0.1856517791748047,
+        "ha": 1479.0
+       },
+       {
+        "water_above_ground_m": -2.25,
+        "hh_db": -0.0060727596282958984,
+        "hv_db": -0.23494911193847656,
+        "ha": 1258.5
+       },
+       {
+        "water_above_ground_m": -1.75,
+        "hh_db": 0.0562589168548584,
+        "hv_db": -0.1637563705444336,
+        "ha": 962.5
+       },
+       {
+        "water_above_ground_m": -1.25,
+        "hh_db": 0.24680185317993164,
+        "hv_db": -0.06523513793945312,
+        "ha": 796.75
+       },
+       {
+        "water_above_ground_m": -0.75,
+        "hh_db": 0.5558066368103027,
+        "hv_db": 0.06748485565185547,
+        "ha": 931.25
+       },
+       {
+        "water_above_ground_m": -0.25,
+        "hh_db": 1.2080461978912354,
+        "hv_db": 0.288238525390625,
+        "ha": 1183.75
+       },
+       {
+        "water_above_ground_m": 0.25,
+        "hh_db": 2.2535297870635986,
+        "hv_db": 0.4680595397949219,
+        "ha": 1393.75
+       },
+       {
+        "water_above_ground_m": 0.75,
+        "hh_db": 2.9843854904174805,
+        "hv_db": 0.6521167755126953,
+        "ha": 1776.25
+       },
+       {
+        "water_above_ground_m": 1.25,
+        "hh_db": 3.1968657970428467,
+        "hv_db": 0.6114869117736816,
+        "ha": 1948.5
+       },
+       {
+        "water_above_ground_m": 1.75,
+        "hh_db": 2.931785821914673,
+        "hv_db": 0.4881429672241211,
+        "ha": 1565.75
+       },
+       {
+        "water_above_ground_m": 2.25,
+        "hh_db": 2.611302375793457,
+        "hv_db": 0.40988826751708984,
+        "ha": 953.75
+       },
+       {
+        "water_above_ground_m": 2.75,
+        "hh_db": 2.2090229988098145,
+        "hv_db": 0.3009176254272461,
+        "ha": 176.25
+       }
+      ],
+      "contrast": {
+       "hh_above_water_db": 0.06596851348876953,
+       "hv_above_water_db": -0.1726207733154297,
+       "hh_below_water_db": 3.0439581871032715,
+       "hv_below_water_db": 0.5845370292663574
+      },
+      "flagged_ha": 8306.75,
+      "flagged_hh_db": 2.883864164352417,
+      "flagged_hv_db": 0.5743989944458008,
+      "share_flagged_below_water": 0.9283455079448754,
+      "flagged_on_dry_ha": 475.75,
+      "upland_hh_db": -0.3689393997192383,
+      "upland_hv_db": -0.35426998138427734,
+      "open_land_bright_ha": 15.25,
+      "largest_gauge_rise_m": 3.14,
+      "status": {
+       "river": "Best supported",
+       "vegetation": "Unlikely",
+       "ponding": "Little sign",
+       "farmland": "Filtered out",
+       "human": "Not assessed"
+      },
+      "gauges": [
+       {
+        "name": "Pittman",
+        "rise_m": 2.12,
+        "crest": "2026-10-13T06:45",
+        "timing": "receding"
+       },
+       {
+        "name": "Caryville",
+        "rise_m": 3.14,
+        "crest": "2026-10-14T13:00",
+        "timing": "receding"
+       },
+       {
+        "name": "Bruce",
+        "rise_m": 2.55,
+        "crest": "2026-10-17T09:15",
+        "timing": "near crest"
+       }
+      ],
+      "rain": {
+       "rain_24h_mm": 0.4,
+       "rain_72h_mm": 0.4,
+       "high_ground_db": 0.06016997620463371,
+       "usgs_gauges": []
+      }
+     },
+     "frame": {
+      "pair": "076A_oct17",
+      "time": "2026-10-17T11:02:24Z",
+      "frozen": false,
+      "confident": true,
+      "low_minus_high_db": 2.441068608313799,
+      "timing": [
+       "receding",
+       "receding",
+       "near crest"
+      ],
+      "stage_rise_m": [
+       2.12,
+       3.14,
+       2.55
+      ],
+      "flagged_ha": 8306.75,
+      "static_ha": 9654.75,
+      "static_csi": 0.8541046901702639,
+      "confirmed_ha": 6765.0,
+      "flagged_on_dry_ha": 475.75,
+      "csi": 0.8512585022269793,
+      "csi_ci95": [
+       0.803572021319363,
+       0.8919379631674583
+      ]
+     },
+     "stats": {
+      "nisar_flooded_ha": 12172.25,
+      "truth_wet_ha": 6765.0,
+      "median_incidence_deg": 38.864261627197266
+     },
+     "layers": {
+      "nisar": "nisar.png",
+      "gfm_excl": "gfm_excl.png"
+     }
+    },
+    {
+     "id": "127D_oct21",
+     "label": "Oct 21, 2026 (receding)",
+     "time": "2026-10-21T00:28:30Z",
+     "dry_time": "2026-09-27T00:28:30Z",
+     "threshold_db": 0.88,
+     "frozen": false,
+     "baseline_dates": [
+      "2026-08-22",
+      "2026-09-03",
+      "2026-09-15",
+      "2026-09-27",
+      "2026-10-09"
+     ],
+     "confident": true,
+     "low_minus_high_db": 1.4157636612653732,
+     "used_hh_minus_hv": false,
+     "v3_csi": 0.9014566428780917,
+     "gfm_date": "20261022",
+     "gfm_time": "2026-10-22T23:44:52Z",
+     "score": {
+      "csi": 0.9132495164410058,
+      "recall": 0.9680164018452075,
+      "precision": 0.9416633426406062,
+      "coverage": 0.9332249115086578,
+      "scorable": true
+     },
+     "drivers": {
+      "curve": [
+       {
+        "water_above_ground_m": -4.75,
+        "hh_db": 0.09698605537414551,
+        "hv_db": -0.2936220169067383,
+        "ha": 778.25
+       },
+       {
+        "water_above_ground_m": -4.25,
+        "hh_db": -0.06588435173034668,
+        "hv_db": -0.37641358375549316,
+        "ha": 854.0
+       },
+       {
+        "water_above_ground_m": -3.75,
+        "hh_db": -0.31374382972717285,
+        "hv_db": -0.5005607604980469,
+        "ha": 1259.25
+       },
+       {
+        "water_above_ground_m": -3.25,
+        "hh_db": -0.25147533416748047,
+        "hv_db": -0.5084209442138672,
+        "ha": 1455.0
+       },
+       {
+        "water_above_ground_m": -2.75,
+        "hh_db": -0.024541378021240234,
+        "hv_db": -0.3853445053100586,
+        "ha": 1227.75
+       },
+       {
+        "water_above_ground_m": -2.25,
+        "hh_db": 0.35973644256591797,
+        "hv_db": -0.19793081283569336,
+        "ha": 1125.5
+       },
+       {
+        "water_above_ground_m": -1.75,
+        "hh_db": 0.6910514831542969,
+        "hv_db": 0.010976791381835938,
+        "ha": 1285.0
+       },
+       {
+        "water_above_ground_m": -1.25,
+        "hh_db": 0.9342195987701416,
+        "hv_db": 0.133941650390625,
+        "ha": 1349.0
+       },
+       {
+        "water_above_ground_m": -0.75,
+        "hh_db": 1.054685115814209,
+        "hv_db": 0.23035430908203125,
+        "ha": 1451.0
+       },
+       {
+        "water_above_ground_m": -0.25,
+        "hh_db": 1.1339120864868164,
+        "hv_db": 0.2252941131591797,
+        "ha": 1288.75
+       },
+       {
+        "water_above_ground_m": 0.25,
+        "hh_db": 1.4593490362167358,
+        "hv_db": 0.19770526885986328,
+        "ha": 1101.5
+       },
+       {
+        "water_above_ground_m": 0.75,
+        "hh_db": 2.225243091583252,
+        "hv_db": 0.28054189682006836,
+        "ha": 1137.0
+       },
+       {
+        "water_above_ground_m": 1.25,
+        "hh_db": 2.353494644165039,
+        "hv_db": 0.2377004623413086,
+        "ha": 968.5
+       },
+       {
+        "water_above_ground_m": 1.75,
+        "hh_db": 2.435938835144043,
+        "hv_db": 0.216705322265625,
+        "ha": 293.0
+       },
+       {
+        "water_above_ground_m": 2.25,
+        "hh_db": 2.0511322021484375,
+        "hv_db": 0.21238279342651367,
+        "ha": 57.5
+       },
+       {
+        "water_above_ground_m": 2.75,
+        "hh_db": 1.7247576713562012,
+        "hv_db": 0.0354466438293457,
+        "ha": 10.5
+       }
+      ],
+      "contrast": {
+       "hh_above_water_db": 0.5025395750999451,
+       "hv_above_water_db": -0.10112380981445312,
+       "hh_below_water_db": 2.298887014389038,
+       "hv_below_water_db": 0.2569398880004883
+      },
+      "flagged_ha": 3208.5,
+      "flagged_hh_db": 2.1756062507629395,
+      "flagged_hv_db": 0.23237276077270508,
+      "share_flagged_below_water": 0.9416633426406062,
+      "flagged_on_dry_ha": 146.25,
+      "upland_hh_db": -0.4763460159301758,
+      "upland_hv_db": -0.5493621826171875,
+      "open_land_bright_ha": 393.5,
+      "largest_gauge_rise_m": 2.0,
+      "status": {
+       "river": "Best supported",
+       "vegetation": "Unlikely",
+       "ponding": "Little sign",
+       "farmland": "Filtered out",
+       "human": "Not assessed"
+      },
+      "gauges": [
+       {
+        "name": "Pittman",
+        "rise_m": 0.79,
+        "crest": "2026-10-13T06:45",
+        "timing": "late recession"
+       },
+       {
+        "name": "Caryville",
+        "rise_m": 1.34,
+        "crest": "2026-10-14T13:00",
+        "timing": "late recession"
+       },
+       {
+        "name": "Bruce",
+        "rise_m": 2.0,
+        "crest": "2026-10-17T09:15",
+        "timing": "receding"
+       }
+      ],
+      "rain": {
+       "rain_24h_mm": 0.0,
+       "rain_72h_mm": 0.0,
+       "high_ground_db": -0.12116102874279022,
+       "usgs_gauges": []
+      }
+     },
+     "frame": {
+      "pair": "127D_oct21",
+      "time": "2026-10-21T00:28:30Z",
+      "frozen": false,
+      "confident": true,
+      "low_minus_high_db": 1.4157636612653732,
+      "timing": [
+       "late recession",
+       "late recession",
+       "receding"
+      ],
+      "stage_rise_m": [
+       0.79,
+       1.34,
+       2.0
+      ],
+      "flagged_ha": 3208.5,
+      "static_ha": 9654.75,
+      "static_csi": 0.9964249233912156,
+      "confirmed_ha": 2613.25,
+      "flagged_on_dry_ha": 146.25,
+      "csi": 0.9132495164410058,
+      "csi_ci95": [
+       0.8756508692966198,
+       0.9550994895301594
+      ]
+     },
+     "stats": {
+      "nisar_flooded_ha": 5148.5,
+      "truth_wet_ha": 2613.25,
+      "median_incidence_deg": 40.82899856567383
+     },
+     "layers": {
+      "nisar": "nisar.png"
+     }
+    }
+   ],
+   "corners": [
+    [
+     -86.02042581907507,
+     30.860148102098897
+    ],
+    [
+     -85.73970229278773,
+     30.860148102098897
+    ],
+    [
+     -85.73970229278773,
+     30.399841676617527
+    ],
+    [
+     -86.02042581907507,
+     30.399841676617527
+    ]
+   ],
+   "gauges": "choctawhatchee/gauges.json",
+   "bounds": [
+    -86.02042581907507,
+    30.399841676617527,
+    -85.73970229278773,
+    30.860148102098897
+   ],
+   "gauge_points": [
+    {
+     "name": "Pittman",
+     "lon": -85.843,
+     "lat": 30.9499
+    },
+    {
+     "name": "Caryville",
+     "lon": -85.8277,
+     "lat": 30.7757
+    },
+    {
+     "name": "Bruce",
+     "lon": -85.8983,
+     "lat": 30.451
+    }
+   ]
+  },
+  {
+   "id": "pearl",
+   "title": "Pearl River, LA/MS (Tropical Storm Arthur)",
+   "role": "v4 development river (held out for v1)",
+   "pairs": [
+    {
+     "id": "105A_jul03",
+     "label": "Jul 3, 2026 (near crest upstream)",
+     "time": "2026-07-03T11:19:05Z",
+     "dry_time": "2026-08-20T11:19:03Z",
+     "threshold_db": 0.59,
+     "frozen": false,
+     "baseline_dates": [
+      "2026-06-21",
+      "2026-07-15",
+      "2026-07-27",
+      "2026-08-20",
+      "2026-09-01"
+     ],
+     "confident": true,
+     "low_minus_high_db": 0.8611267730593681,
+     "used_hh_minus_hv": false,
+     "v3_csi": 0.6804958975282286,
+     "gfm_date": "20260705",
+     "gfm_time": "2026-07-05T00:01:10Z",
+     "score": {
+      "csi": 0.7022476987231625,
+      "recall": 0.7109025799200146,
+      "precision": 0.9829589605508069,
+      "coverage": 1.0,
+      "scorable": true
+     },
+     "drivers": {
+      "curve": [
+       {
+        "water_above_ground_m": -4.75,
+        "hh_db": -0.23882770538330078,
+        "hv_db": -0.1707744598388672,
+        "ha": 520.5
+       },
+       {
+        "water_above_ground_m": -4.25,
+        "hh_db": -0.2303180694580078,
+        "hv_db": -0.1684703826904297,
+        "ha": 508.25
+       },
+       {
+        "water_above_ground_m": -3.75,
+        "hh_db": -0.26665210723876953,
+        "hv_db": -0.17178916931152344,
+        "ha": 499.0
+       },
+       {
+        "water_above_ground_m": -3.25,
+        "hh_db": -0.20949697494506836,
+        "hv_db": -0.11695671081542969,
+        "ha": 418.25
+       },
+       {
+        "water_above_ground_m": -2.75,
+        "hh_db": -0.1883763074874878,
+        "hv_db": -0.13883543014526367,
+        "ha": 452.5
+       },
+       {
+        "water_above_ground_m": -2.25,
+        "hh_db": -0.1499474048614502,
+        "hv_db": -0.14845800399780273,
+        "ha": 624.5
+       },
+       {
+        "water_above_ground_m": -1.75,
+        "hh_db": -0.15189743041992188,
+        "hv_db": -0.10636043548583984,
+        "ha": 688.75
+       },
+       {
+        "water_above_ground_m": -1.25,
+        "hh_db": -0.10324311256408691,
+        "hv_db": -0.0723419189453125,
+        "ha": 757.75
+       },
+       {
+        "water_above_ground_m": -0.75,
+        "hh_db": -0.015179634094238281,
+        "hv_db": -0.04467010498046875,
+        "ha": 948.75
+       },
+       {
+        "water_above_ground_m": -0.25,
+        "hh_db": 0.3975543975830078,
+        "hv_db": 0.07675004005432129,
+        "ha": 1436.5
+       },
+       {
+        "water_above_ground_m": 0.25,
+        "hh_db": 0.7639551162719727,
+        "hv_db": 0.0995473861694336,
+        "ha": 3601.5
+       },
+       {
+        "water_above_ground_m": 0.75,
+        "hh_db": 0.8442556858062744,
+        "hv_db": 0.10587596893310547,
+        "ha": 5693.75
+       },
+       {
+        "water_above_ground_m": 1.25,
+        "hh_db": 0.9266312122344971,
+        "hv_db": 0.11310529708862305,
+        "ha": 6612.5
+       },
+       {
+        "water_above_ground_m": 1.75,
+        "hh_db": 1.1717076301574707,
+        "hv_db": 0.105224609375,
+        "ha": 4710.5
+       },
+       {
+        "water_above_ground_m": 2.25,
+        "hh_db": 1.233996033668518,
+        "hv_db": 0.1413264274597168,
+        "ha": 1461.0
+       },
+       {
+        "water_above_ground_m": 2.75,
+        "hh_db": 0.976405143737793,
+        "hv_db": 0.13625860214233398,
+        "ha": 260.25
+       }
+      ],
+      "contrast": {
+       "hh_above_water_db": -0.14638900756835938,
+       "hv_above_water_db": -0.11419153213500977,
+       "hh_below_water_db": 0.9750180244445801,
+       "hv_below_water_db": 0.10804939270019531
+      },
+      "flagged_ha": 16765.0,
+      "flagged_hh_db": 1.3017258644104004,
+      "flagged_hv_db": 0.2187047004699707,
+      "share_flagged_below_water": 0.9829589605508069,
+      "flagged_on_dry_ha": 235.75,
+      "upland_hh_db": -0.1821528673171997,
+      "upland_hv_db": -0.06733846664428711,
+      "open_land_bright_ha": 91.75,
+      "largest_gauge_rise_m": 4.09,
+      "status": {
+       "river": "Best supported",
+       "vegetation": "Unlikely",
+       "ponding": "Little sign",
+       "farmland": "Filtered out",
+       "human": "Not assessed"
+      },
+      "gauges": [
+       {
+        "name": "Bogalusa",
+        "rise_m": 4.09,
+        "crest": "2026-07-01T11:45",
+        "timing": "near crest"
+       },
+       {
+        "name": "Pools Bluff",
+        "rise_m": 1.88,
+        "crest": "2026-07-02T20:30",
+        "timing": "near crest"
+       },
+       {
+        "name": "Pearl River LA",
+        "rise_m": 3.14,
+        "crest": "2026-07-04T06:30",
+        "timing": "rising"
+       },
+       {
+        "name": "I-10 Slidell",
+        "rise_m": 1.23,
+        "crest": "2026-07-04T03:30",
+        "timing": "rising"
+       }
+      ],
+      "rain": {
+       "rain_24h_mm": 4.9,
+       "rain_72h_mm": 6.9,
+       "high_ground_db": -0.20651691406965256,
+       "usgs_gauges": []
+      }
+     },
+     "frame": {
+      "pair": "105A_jul03",
+      "time": "2026-07-03T11:19:05Z",
+      "frozen": false,
+      "confident": true,
+      "low_minus_high_db": 0.8611267730593681,
+      "timing": [
+       "near crest",
+       "near crest",
+       "rising",
+       "rising"
+      ],
+      "stage_rise_m": [
+       4.09,
+       1.88,
+       3.14,
+       1.23
+      ],
+      "flagged_ha": 16765.0,
+      "static_ha": 25439.75,
+      "static_csi": 0.9294566720090045,
+      "confirmed_ha": 19128.5,
+      "flagged_on_dry_ha": 235.75,
+      "csi": 0.7022476987231625,
+      "csi_ci95": [
+       0.6006652376079924,
+       0.7972704267481127
+      ]
+     },
+     "stats": {
+      "nisar_flooded_ha": 17511.5,
+      "truth_wet_ha": 19128.5,
+      "median_incidence_deg": 37.80206298828125
+     },
+     "layers": {
+      "nisar": "nisar.png",
+      "truth": "truth.png",
+      "gfm_excl": "gfm_excl.png"
+     }
+    },
+    {
+     "id": "156D_jun25",
+     "label": "Jun 25, 2026",
+     "time": "2026-06-25T00:45:12Z",
+     "dry_time": "2026-08-24T00:45:09Z",
+     "threshold_db": 0.63,
+     "frozen": false,
+     "baseline_dates": [
+      "2026-07-07",
+      "2026-07-19",
+      "2026-08-12",
+      "2026-08-24"
+     ],
+     "confident": false,
+     "low_minus_high_db": 0.0979304164648056,
+     "used_hh_minus_hv": false,
+     "v3_csi": 0.5394230769230769,
+     "gfm_date": "20260628",
+     "gfm_time": "2026-06-28T00:01:50Z",
+     "score": {
+      "csi": 0.45944447865985094,
+      "recall": 0.5073909494876213,
+      "precision": 0.8294111106993292,
+      "coverage": 0.6439782167520769,
+      "scorable": true
+     },
+     "drivers": {
+      "curve": [
+       {
+        "water_above_ground_m": -4.75,
+        "hh_db": 0.40525054931640625,
+        "hv_db": 0.8155250549316406,
+        "ha": 472.75
+       },
+       {
+        "water_above_ground_m": -4.25,
+        "hh_db": 0.38132619857788086,
+        "hv_db": 0.7833404541015625,
+        "ha": 505.75
+       },
+       {
+        "water_above_ground_m": -3.75,
+        "hh_db": 0.33875131607055664,
+        "hv_db": 0.7630119323730469,
+        "ha": 469.25
+       },
+       {
+        "water_above_ground_m": -3.25,
+        "hh_db": 0.2724958658218384,
+        "hv_db": 0.7612428665161133,
+        "ha": 411.0
+       },
+       {
+        "water_above_ground_m": -2.75,
+        "hh_db": 0.24116551876068115,
+        "hv_db": 0.7190384864807129,
+        "ha": 494.5
+       },
+       {
+        "water_above_ground_m": -2.25,
+        "hh_db": 0.29096412658691406,
+        "hv_db": 0.7477397918701172,
+        "ha": 646.5
+       },
+       {
+        "water_above_ground_m": -1.75,
+        "hh_db": 0.2879917621612549,
+        "hv_db": 0.7445554733276367,
+        "ha": 674.5
+       },
+       {
+        "water_above_ground_m": -1.25,
+        "hh_db": 0.31418514251708984,
+        "hv_db": 0.7536544799804688,
+        "ha": 787.75
+       },
+       {
+        "water_above_ground_m": -0.75,
+        "hh_db": 0.3917829990386963,
+        "hv_db": 0.7404375076293945,
+        "ha": 1107.25
+       },
+       {
+        "water_above_ground_m": -0.25,
+        "hh_db": 0.47475719451904297,
+        "hv_db": 0.7179050445556641,
+        "ha": 1966.75
+       },
+       {
+        "water_above_ground_m": 0.25,
+        "hh_db": 0.5967940092086792,
+        "hv_db": 0.7222762107849121,
+        "ha": 4674.5
+       },
+       {
+        "water_above_ground_m": 0.75,
+        "hh_db": 0.5694546699523926,
+        "hv_db": 0.688990592956543,
+        "ha": 5682.25
+       },
+       {
+        "water_above_ground_m": 1.25,
+        "hh_db": 0.6435120105743408,
+        "hv_db": 0.7077083587646484,
+        "ha": 6341.75
+       },
+       {
+        "water_above_ground_m": 1.75,
+        "hh_db": 0.8868310451507568,
+        "hv_db": 0.7617549896240234,
+        "ha": 3682.25
+       },
+       {
+        "water_above_ground_m": 2.25,
+        "hh_db": 0.8195319175720215,
+        "hv_db": 0.7654790878295898,
+        "ha": 928.25
+       },
+       {
+        "water_above_ground_m": 2.75,
+        "hh_db": 0.7635831832885742,
+        "hv_db": 0.6758379936218262,
+        "ha": 144.0
+       }
+      ],
+      "contrast": {
+       "hh_above_water_db": 0.286468505859375,
+       "hv_above_water_db": 0.7445125579833984,
+       "hh_below_water_db": 0.6737973690032959,
+       "hv_below_water_db": 0.7151947021484375
+      },
+      "flagged_ha": 9323.5,
+      "flagged_hh_db": 1.110823631286621,
+      "flagged_hv_db": 0.8577089309692383,
+      "share_flagged_below_water": 0.8294111106993292,
+      "flagged_on_dry_ha": 1150.75,
+      "upland_hh_db": 0.29952311515808105,
+      "upland_hv_db": 0.7648138999938965,
+      "open_land_bright_ha": 998.75,
+      "largest_gauge_rise_m": 3.7,
+      "status": {
+       "river": "Best supported",
+       "vegetation": "Cannot rule out",
+       "ponding": "Possible",
+       "farmland": "Filtered out",
+       "human": "Not assessed"
+      },
+      "gauges": [
+       {
+        "name": "Bogalusa",
+        "rise_m": 3.7,
+        "crest": "2026-06-28T00:30",
+        "timing": "rising"
+       },
+       {
+        "name": "Pools Bluff",
+        "rise_m": 1.74,
+        "crest": "2026-06-18T20:00",
+        "timing": "late recession"
+       },
+       {
+        "name": "Pearl River LA",
+        "rise_m": 2.85,
+        "crest": "2026-06-20T09:00",
+        "timing": "receding"
+       },
+       {
+        "name": "I-10 Slidell",
+        "rise_m": 1.18,
+        "crest": "2026-06-20T22:15",
+        "timing": "receding"
+       }
+      ],
+      "rain": {
+       "rain_24h_mm": 7.7,
+       "rain_72h_mm": 8.4,
+       "high_ground_db": 0.3422396630048752,
+       "usgs_gauges": []
+      }
+     },
+     "frame": {
+      "pair": "156D_jun25",
+      "time": "2026-06-25T00:45:12Z",
+      "frozen": false,
+      "confident": false,
+      "low_minus_high_db": 0.0979304164648056,
+      "timing": [
+       "rising",
+       "late recession",
+       "receding",
+       "receding"
+      ],
+      "stage_rise_m": [
+       3.7,
+       1.74,
+       2.85,
+       1.18
+      ],
+      "flagged_ha": 9323.5,
+      "static_ha": 25439.75,
+      "static_csi": 0.8989366069962227,
+      "confirmed_ha": 17123.25,
+      "flagged_on_dry_ha": 1150.75,
+      "csi": 0.45944447865985094,
+      "csi_ci95": [
+       0.3728267603346846,
+       0.5557951785334212
+      ]
+     },
+     "stats": {
+      "nisar_flooded_ha": 9825.25,
+      "truth_wet_ha": 17123.25,
+      "median_incidence_deg": 42.06619644165039
+     },
+     "layers": {
+      "nisar": "nisar.png"
+     }
+    }
+   ],
+   "corners": [
+    [
+     -89.95010602945592,
+     30.83006917998592
+    ],
+    [
+     -89.61997516254199,
+     30.83006917998592
+    ],
+    [
+     -89.61997516254199,
+     30.25988833940258
+    ],
+    [
+     -89.95010602945592,
+     30.25988833940258
+    ]
+   ],
+   "gauges": "pearl/gauges.json",
+   "bounds": [
+    -89.95010602945592,
+    30.25988833940258,
+    -89.61997516254199,
+    30.83006917998592
+   ],
+   "gauge_points": [
+    {
+     "name": "Bogalusa",
+     "lon": -89.8209,
+     "lat": 30.7933
+    },
+    {
+     "name": "Pools Bluff",
+     "lon": -89.8464,
+     "lat": 30.7058
+    },
+    {
+     "name": "Pearl River LA",
+     "lon": -89.7367,
+     "lat": 30.3852
+    },
+    {
+     "name": "I-10 Slidell",
+     "lon": -89.7022,
+     "lat": 30.2979
+    }
+   ]
+  },
+  {
+   "id": "tangipahoa",
+   "title": "Tangipahoa River, LA (Tropical Storm Arthur)",
+   "role": "v4 development river (held out for v2)",
+   "pairs": [
+    {
+     "id": "105A_jun21",
+     "label": "Jun 21, 2026 (falling limb)",
+     "time": "2026-06-21T11:19:06Z",
+     "dry_time": "2026-08-20T11:19:03Z",
+     "threshold_db": 0.5,
+     "frozen": false,
+     "baseline_dates": [
+      "2026-07-03",
+      "2026-07-15",
+      "2026-07-27",
+      "2026-08-20"
+     ],
+     "confident": false,
+     "low_minus_high_db": -0.06937265396118164,
+     "used_hh_minus_hv": true,
+     "v3_csi": 0.2855474570128458,
+     "gfm_date": "20260628",
+     "gfm_time": "2026-06-28T00:01:50Z",
+     "score": {
+      "csi": 0.3140128938085391,
+      "recall": 0.5384294504119304,
+      "precision": 0.4296770972037284,
+      "coverage": 1.0,
+      "scorable": true
+     },
+     "drivers": {
+      "curve": [
+       {
+        "water_above_ground_m": -4.75,
+        "hh_db": 0.4866526126861572,
+        "hv_db": 0.42819881439208984,
+        "ha": 1046.5
+       },
+       {
+        "water_above_ground_m": -4.25,
+        "hh_db": 0.48302268981933594,
+        "hv_db": 0.41127920150756836,
+        "ha": 1573.5
+       },
+       {
+        "water_above_ground_m": -3.75,
+        "hh_db": 0.5132557153701782,
+        "hv_db": 0.4325079917907715,
+        "ha": 1842.5
+       },
+       {
+        "water_above_ground_m": -3.25,
+        "hh_db": 0.5020322799682617,
+        "hv_db": 0.4464573860168457,
+        "ha": 2053.0
+       },
+       {
+        "water_above_ground_m": -2.75,
+        "hh_db": 0.5111627578735352,
+        "hv_db": 0.4541740417480469,
+        "ha": 2041.75
+       },
+       {
+        "water_above_ground_m": -2.25,
+        "hh_db": 0.5505695343017578,
+        "hv_db": 0.4705982208251953,
+        "ha": 1386.25
+       },
+       {
+        "water_above_ground_m": -1.75,
+        "hh_db": 0.6080112457275391,
+        "hv_db": 0.5183291435241699,
+        "ha": 1121.5
+       },
+       {
+        "water_above_ground_m": -1.25,
+        "hh_db": 0.5363458395004272,
+        "hv_db": 0.47612428665161133,
+        "ha": 1041.5
+       },
+       {
+        "water_above_ground_m": -0.75,
+        "hh_db": 0.5438060760498047,
+        "hv_db": 0.4532194137573242,
+        "ha": 967.75
+       },
+       {
+        "water_above_ground_m": -0.25,
+        "hh_db": 0.5772452354431152,
+        "hv_db": 0.4628615379333496,
+        "ha": 847.5
+       },
+       {
+        "water_above_ground_m": 0.25,
+        "hh_db": 0.6998246908187866,
+        "hv_db": 0.541100025177002,
+        "ha": 747.0
+       },
+       {
+        "water_above_ground_m": 0.75,
+        "hh_db": 0.9472754001617432,
+        "hv_db": 0.5909090042114258,
+        "ha": 707.5
+       },
+       {
+        "water_above_ground_m": 1.25,
+        "hh_db": 1.1130738258361816,
+        "hv_db": 0.6198520660400391,
+        "ha": 618.25
+       },
+       {
+        "water_above_ground_m": 1.75,
+        "hh_db": 1.2731249332427979,
+        "hv_db": 0.5145840644836426,
+        "ha": 531.5
+       },
+       {
+        "water_above_ground_m": 2.25,
+        "hh_db": 1.3730788230895996,
+        "hv_db": 0.5088448524475098,
+        "ha": 340.0
+       },
+       {
+        "water_above_ground_m": 2.75,
+        "hh_db": 1.2300195693969727,
+        "hv_db": 0.4846181869506836,
+        "ha": 115.25
+       }
+      ],
+      "contrast": {
+       "hh_above_water_db": 0.5466917753219604,
+       "hv_above_water_db": 0.47573423385620117,
+       "hh_below_water_db": 1.0981848239898682,
+       "hv_below_water_db": 0.5774717330932617
+      },
+      "flagged_ha": 3770.0,
+      "flagged_hh_db": 1.204811692237854,
+      "flagged_hv_db": 0.4370698928833008,
+      "share_flagged_below_water": 0.4296770972037284,
+      "flagged_on_dry_ha": 1713.25,
+      "upland_hh_db": 0.5831518173217773,
+      "upland_hv_db": 0.5550165176391602,
+      "open_land_bright_ha": 1134.0,
+      "largest_gauge_rise_m": 2.43,
+      "status": {
+       "river": "Partly supported",
+       "vegetation": "Cannot rule out",
+       "ponding": "Likely contributor",
+       "farmland": "Filtered out",
+       "human": "Not assessed"
+      },
+      "gauges": [
+       {
+        "name": "Kentwood",
+        "rise_m": 0.55,
+        "crest": "2026-06-17T11:30",
+        "timing": "receding"
+       },
+       {
+        "name": "Amite",
+        "rise_m": 0.52,
+        "crest": "2026-06-17T07:45",
+        "timing": "receding"
+       },
+       {
+        "name": "Robert",
+        "rise_m": 2.04,
+        "crest": "2026-06-18T19:15",
+        "timing": "receding"
+       },
+       {
+        "name": "Ponchatoula",
+        "rise_m": 2.43,
+        "crest": "2026-06-19T10:45",
+        "timing": "receding"
+       }
+      ],
+      "rain": {
+       "rain_24h_mm": 12.6,
+       "rain_72h_mm": 29.6,
+       "high_ground_db": 0.6037792563438416,
+       "usgs_gauges": []
+      }
+     },
+     "frame": {
+      "pair": "105A_jun21",
+      "time": "2026-06-21T11:19:06Z",
+      "frozen": false,
+      "confident": false,
+      "low_minus_high_db": -0.06937265396118164,
+      "timing": [
+       "receding",
+       "receding",
+       "receding",
+       "receding"
+      ],
+      "stage_rise_m": [
+       0.55,
+       0.52,
+       2.04,
+       2.43
+      ],
+      "flagged_ha": 3770.0,
+      "static_ha": 7475.5,
+      "static_csi": 0.3795890188434048,
+      "confirmed_ha": 2397.25,
+      "flagged_on_dry_ha": 1713.25,
+      "csi": 0.3140128938085391,
+      "csi_ci95": [
+       0.11313785263215816,
+       0.3941860907216838
+      ]
+     },
+     "stats": {
+      "nisar_flooded_ha": 4029.75,
+      "truth_wet_ha": 2397.25,
+      "median_incidence_deg": 40.936092376708984
+     },
+     "layers": {
+      "nisar": "nisar.png",
+      "gfm_excl": "gfm_excl.png"
+     }
+    },
+    {
+     "id": "156D_jun25",
+     "label": "Jun 25, 2026 (late)",
+     "time": "2026-06-25T00:45:12Z",
+     "dry_time": "2026-08-12T00:45:10Z",
+     "threshold_db": 0.5,
+     "frozen": false,
+     "baseline_dates": [
+      "2026-07-07",
+      "2026-07-19",
+      "2026-08-12",
+      "2026-08-24"
+     ],
+     "confident": false,
+     "low_minus_high_db": 0.004077032208442688,
+     "used_hh_minus_hv": false,
+     "v3_csi": 0.0,
+     "gfm_date": "20260628",
+     "gfm_time": "2026-06-28T00:01:50Z",
+     "score": {
+      "csi": 0.0,
+      "recall": null,
+      "precision": 0.0,
+      "coverage": 0.0,
+      "scorable": false
+     },
+     "drivers": {
+      "curve": [
+       {
+        "water_above_ground_m": -4.75,
+        "hh_db": 0.17508196830749512,
+        "hv_db": 0.6681108474731445,
+        "ha": 2042.0
+       },
+       {
+        "water_above_ground_m": -4.25,
+        "hh_db": 0.2149524688720703,
+        "hv_db": 0.7044992446899414,
+        "ha": 2051.75
+       },
+       {
+        "water_above_ground_m": -3.75,
+        "hh_db": 0.15909266471862793,
+        "hv_db": 0.6665730476379395,
+        "ha": 1661.0
+       },
+       {
+        "water_above_ground_m": -3.25,
+        "hh_db": 0.2009141445159912,
+        "hv_db": 0.6567916870117188,
+        "ha": 1594.25
+       },
+       {
+        "water_above_ground_m": -2.75,
+        "hh_db": 0.15382623672485352,
+        "hv_db": 0.6659736633300781,
+        "ha": 1277.25
+       },
+       {
+        "water_above_ground_m": -2.25,
+        "hh_db": 0.16953468322753906,
+        "hv_db": 0.699397087097168,
+        "ha": 1116.25
+       },
+       {
+        "water_above_ground_m": -1.75,
+        "hh_db": 0.18014192581176758,
+        "hv_db": 0.6941099166870117,
+        "ha": 964.5
+       },
+       {
+        "water_above_ground_m": -1.25,
+        "hh_db": 0.2198009490966797,
+        "hv_db": 0.712188720703125,
+        "ha": 941.0
+       },
+       {
+        "water_above_ground_m": -0.75,
+        "hh_db": 0.25250065326690674,
+        "hv_db": 0.7114148139953613,
+        "ha": 859.5
+       },
+       {
+        "water_above_ground_m": -0.25,
+        "hh_db": 0.33071374893188477,
+        "hv_db": 0.7610788345336914,
+        "ha": 740.75
+       },
+       {
+        "water_above_ground_m": 0.25,
+        "hh_db": 0.4005885124206543,
+        "hv_db": 0.7855515480041504,
+        "ha": 597.25
+       },
+       {
+        "water_above_ground_m": 0.75,
+        "hh_db": 0.5643501281738281,
+        "hv_db": 0.8077611923217773,
+        "ha": 382.25
+       },
+       {
+        "water_above_ground_m": 1.25,
+        "hh_db": 0.5647842288017273,
+        "hv_db": 0.8150596618652344,
+        "ha": 80.75
+       },
+       {
+        "water_above_ground_m": 1.75,
+        "hh_db": 0.5085666179656982,
+        "hv_db": 0.9016671180725098,
+        "ha": 11.0
+       }
+      ],
+      "contrast": {
+       "hh_above_water_db": 0.18005704879760742,
+       "hv_above_water_db": 0.6903820037841797,
+       "hh_below_water_db": 0.562720537185669,
+       "hv_below_water_db": 0.8151350021362305
+      },
+      "flagged_ha": 1178.0,
+      "flagged_hh_db": 0.724461555480957,
+      "flagged_hv_db": 0.8604440689086914,
+      "share_flagged_below_water": 0.0,
+      "flagged_on_dry_ha": 613.5,
+      "upland_hh_db": 0.2801952362060547,
+      "upland_hv_db": 0.6537418365478516,
+      "open_land_bright_ha": 2190.75,
+      "largest_gauge_rise_m": 0.77,
+      "status": {
+       "river": "Weak here",
+       "vegetation": "Cannot rule out",
+       "ponding": "Little sign",
+       "farmland": "Filtered out",
+       "human": "Not assessed"
+      },
+      "gauges": [
+       {
+        "name": "Kentwood",
+        "rise_m": 0.17,
+        "crest": "2026-06-17T11:30",
+        "timing": "late recession"
+       },
+       {
+        "name": "Amite",
+        "rise_m": 0.19,
+        "crest": "2026-06-17T07:45",
+        "timing": "late recession"
+       },
+       {
+        "name": "Robert",
+        "rise_m": 0.68,
+        "crest": "2026-06-18T19:15",
+        "timing": "late recession"
+       },
+       {
+        "name": "Ponchatoula",
+        "rise_m": 0.77,
+        "crest": "2026-06-19T10:45",
+        "timing": "receding"
+       }
+      ],
+      "rain": {
+       "rain_24h_mm": 4.9,
+       "rain_72h_mm": 5.7,
+       "high_ground_db": 0.25281471014022827,
+       "usgs_gauges": []
+      }
+     },
+     "frame": {
+      "pair": "156D_jun25",
+      "time": "2026-06-25T00:45:12Z",
+      "frozen": false,
+      "confident": false,
+      "low_minus_high_db": 0.004077032208442688,
+      "timing": [
+       "late recession",
+       "late recession",
+       "late recession",
+       "receding"
+      ],
+      "stage_rise_m": [
+       0.17,
+       0.19,
+       0.68,
+       0.77
+      ],
+      "flagged_ha": 1178.0,
+      "static_ha": 7475.5,
+      "static_csi": 0.0,
+      "confirmed_ha": 81.0,
+      "flagged_on_dry_ha": 613.5,
+      "csi": null,
+      "csi_ci95": null
+     },
+     "stats": {
+      "nisar_flooded_ha": 1180.0,
+      "truth_wet_ha": 81.0,
+      "median_incidence_deg": 38.47616958618164
+     },
+     "layers": {
+      "nisar": "nisar.png"
+     }
+    }
+   ],
+   "corners": [
+    [
+     -90.58027420126575,
+     30.98036941059676
+    ],
+    [
+     -90.27978773872779,
+     30.98036941059676
+    ],
+    [
+     -90.27978773872779,
+     30.399841676617527
+    ],
+    [
+     -90.58027420126575,
+     30.399841676617527
+    ]
+   ],
+   "gauges": "tangipahoa/gauges.json",
+   "bounds": [
+    -90.58027420126575,
+    30.399841676617527,
+    -90.27978773872779,
+    30.98036941059676
+   ],
+   "gauge_points": [
+    {
+     "name": "Kentwood",
+     "lon": -90.4904,
+     "lat": 30.9377
+    },
+    {
+     "name": "Amite",
+     "lon": -90.4843,
+     "lat": 30.7291
+    },
+    {
+     "name": "Robert",
+     "lon": -90.3618,
+     "lat": 30.5066
+    },
+    {
+     "name": "Ponchatoula",
+     "lon": -90.3346,
+     "lat": 30.4437
+    }
+   ]
+  },
+  {
+   "id": "yellow",
+   "title": "Yellow River, FL (Hurricane Isaias)",
+   "role": "v4 development river (held out for v3)",
+   "pairs": [
+    {
+     "id": "055D_oct04",
+     "label": "Oct 4, 2026",
+     "time": "2026-10-04T00:36:48Z",
+     "dry_time": "2026-09-22T00:36:49Z",
+     "threshold_db": 0.5,
+     "frozen": false,
+     "baseline_dates": [
+      "2026-08-17",
+      "2026-08-29",
+      "2026-09-10",
+      "2026-09-22",
+      "2026-10-16"
+     ],
+     "confident": false,
+     "low_minus_high_db": -0.06559339910745621,
+     "used_hh_minus_hv": false,
+     "v3_csi": 0.0032822757111597373,
+     "gfm_date": "20261010",
+     "gfm_time": "2026-10-10T23:44:52Z",
+     "score": {
+      "csi": 0.006644518272425249,
+      "recall": 0.0625,
+      "precision": 0.007380073800738007,
+      "coverage": 1.0,
+      "scorable": true
+     },
+     "drivers": {
+      "curve": [
+       {
+        "water_above_ground_m": -4.75,
+        "hh_db": -0.045690298080444336,
+        "hv_db": -0.012395858764648438,
+        "ha": 402.75
+       },
+       {
+        "water_above_ground_m": -4.25,
+        "hh_db": -0.07729005813598633,
+        "hv_db": -0.08672809600830078,
+        "ha": 430.75
+       },
+       {
+        "water_above_ground_m": -3.75,
+        "hh_db": -0.1170358657836914,
+        "hv_db": -0.08513832092285156,
+        "ha": 537.75
+       },
+       {
+        "water_above_ground_m": -3.25,
+        "hh_db": -0.16936969757080078,
+        "hv_db": -0.10013675689697266,
+        "ha": 578.25
+       },
+       {
+        "water_above_ground_m": -2.75,
+        "hh_db": -0.15477442741394043,
+        "hv_db": -0.11291122436523438,
+        "ha": 620.5
+       },
+       {
+        "water_above_ground_m": -2.25,
+        "hh_db": -0.11031079292297363,
+        "hv_db": -0.04860210418701172,
+        "ha": 603.75
+       },
+       {
+        "water_above_ground_m": -1.75,
+        "hh_db": -0.14425432682037354,
+        "hv_db": -0.06046772003173828,
+        "ha": 687.5
+       },
+       {
+        "water_above_ground_m": -1.25,
+        "hh_db": -0.09170389175415039,
+        "hv_db": -0.07134723663330078,
+        "ha": 587.25
+       },
+       {
+        "water_above_ground_m": -0.75,
+        "hh_db": -0.27683138847351074,
+        "hv_db": -0.14607763290405273,
+        "ha": 337.5
+       },
+       {
+        "water_above_ground_m": -0.25,
+        "hh_db": -0.17157495021820068,
+        "hv_db": -0.11685657501220703,
+        "ha": 554.75
+       },
+       {
+        "water_above_ground_m": 0.25,
+        "hh_db": -0.06146132946014404,
+        "hv_db": -0.07700538635253906,
+        "ha": 492.0
+       },
+       {
+        "water_above_ground_m": 0.75,
+        "hh_db": -0.16517645120620728,
+        "hv_db": -0.1520681381225586,
+        "ha": 315.75
+       },
+       {
+        "water_above_ground_m": 1.25,
+        "hh_db": -0.1778278350830078,
+        "hv_db": -0.17835521697998047,
+        "ha": 381.75
+       },
+       {
+        "water_above_ground_m": 1.75,
+        "hh_db": 0.011977195739746094,
+        "hv_db": -0.22793102264404297,
+        "ha": 19.25
+       }
+      ],
+      "contrast": {
+       "hh_above_water_db": -0.12780487537384033,
+       "hv_above_water_db": -0.07282114028930664,
+       "hh_below_water_db": -0.16686391830444336,
+       "hv_below_water_db": -0.1730499267578125
+      },
+      "flagged_ha": 159.5,
+      "flagged_hh_db": 0.5836763381958008,
+      "flagged_hv_db": 0.21727204322814941,
+      "share_flagged_below_water": 0.007380073800738007,
+      "flagged_on_dry_ha": 67.25,
+      "upland_hh_db": 0.01931941509246826,
+      "upland_hv_db": -0.00460052490234375,
+      "open_land_bright_ha": 103.5,
+      "largest_gauge_rise_m": 0.1,
+      "status": {
+       "river": "Weak here",
+       "vegetation": "Cannot rule out",
+       "ponding": "Possible",
+       "farmland": "Filtered out",
+       "human": "Not assessed"
+      },
+      "gauges": [
+       {
+        "name": "Yellow River near Oak Grove, FL",
+        "rise_m": -0.03,
+        "crest": "2026-10-07T00:30",
+        "timing": "rising"
+       },
+       {
+        "name": "Yellow River at Milligan, FL",
+        "rise_m": -0.0,
+        "crest": "2026-10-06T04:15",
+        "timing": "rising"
+       },
+       {
+        "name": "Yellow River near Milton, FL",
+        "rise_m": 0.1,
+        "crest": "2026-10-05T15:00",
+        "timing": "rising"
+       }
+      ],
+      "rain": {
+       "rain_24h_mm": 5.1,
+       "rain_72h_mm": 14.7,
+       "high_ground_db": -0.06779186427593231,
+       "usgs_gauges": [
+        {
+         "id": "USGS-02369600",
+         "name": "YELLOW RIVER NR MILTON, FLA.",
+         "readings": 288,
+         "rain_24h_mm": 7.4,
+         "rain_72h_mm": 13.2,
+         "imerg_cell_24h_mm": 8.1,
+         "imerg_cell_72h_mm": 22.2
+        }
+       ]
+      }
+     },
+     "frame": {
+      "pair": "055D_oct04",
+      "time": "2026-10-04T00:36:48Z",
+      "frozen": false,
+      "confident": false,
+      "low_minus_high_db": -0.06559339910745621,
+      "timing": [
+       "rising",
+       "rising",
+       "rising"
+      ],
+      "stage_rise_m": [
+       -0.03,
+       -0.0,
+       0.1
+      ],
+      "flagged_ha": 159.5,
+      "static_ha": 6280.5,
+      "static_csi": 0.00201333836667925,
+      "confirmed_ha": 8.0,
+      "flagged_on_dry_ha": 67.25,
+      "csi": 0.006644518272425249,
+      "csi_ci95": [
+       0.0,
+       0.02231218364732317
+      ]
+     },
+     "stats": {
+      "nisar_flooded_ha": 177.0,
+      "truth_wet_ha": 8.0,
+      "median_incidence_deg": 46.49275207519531
+     },
+     "layers": {
+      "nisar": "nisar.png",
+      "dhh": "dhh.png",
+      "truth": "truth.png",
+      "gfm_excl": "gfm_excl.png"
+     }
+    },
+    {
+     "id": "076A_oct05",
+     "label": "Oct 5, 2026",
+     "time": "2026-10-05T11:02:24Z",
+     "dry_time": "2026-09-23T11:02:24Z",
+     "threshold_db": 0.5,
+     "frozen": false,
+     "baseline_dates": [
+      "2026-08-18",
+      "2026-08-30",
+      "2026-09-11",
+      "2026-09-23",
+      "2026-10-17"
+     ],
+     "confident": false,
+     "low_minus_high_db": -0.12391743063926697,
+     "used_hh_minus_hv": true,
+     "v3_csi": 0.08631831610044313,
+     "gfm_date": "20261010",
+     "gfm_time": "2026-10-10T23:44:52Z",
+     "score": {
+      "csi": 0.08076548816088226,
+      "recall": 0.12081513828238719,
+      "precision": 0.1959087332808812,
+      "coverage": 1.0,
+      "scorable": true
+     },
+     "drivers": {
+      "curve": [
+       {
+        "water_above_ground_m": -4.75,
+        "hh_db": 0.6865854263305664,
+        "hv_db": 0.8225922584533691,
+        "ha": 388.25
+       },
+       {
+        "water_above_ground_m": -4.25,
+        "hh_db": 0.7758257389068604,
+        "hv_db": 0.8567171096801758,
+        "ha": 390.75
+       },
+       {
+        "water_above_ground_m": -3.75,
+        "hh_db": 0.8256051540374756,
+        "hv_db": 0.9326415061950684,
+        "ha": 459.0
+       },
+       {
+        "water_above_ground_m": -3.25,
+        "hh_db": 0.8622901439666748,
+        "hv_db": 0.8711481094360352,
+        "ha": 563.75
+       },
+       {
+        "water_above_ground_m": -2.75,
+        "hh_db": 0.7328250408172607,
+        "hv_db": 0.7846298217773438,
+        "ha": 629.75
+       },
+       {
+        "water_above_ground_m": -2.25,
+        "hh_db": 0.7534053325653076,
+        "hv_db": 0.75494384765625,
+        "ha": 567.5
+       },
+       {
+        "water_above_ground_m": -1.75,
+        "hh_db": 0.7627180814743042,
+        "hv_db": 0.8022842407226562,
+        "ha": 653.0
+       },
+       {
+        "water_above_ground_m": -1.25,
+        "hh_db": 0.8666547536849976,
+        "hv_db": 0.8075830936431885,
+        "ha": 594.0
+       },
+       {
+        "water_above_ground_m": -0.75,
+        "hh_db": 0.8526898622512817,
+        "hv_db": 0.7700753211975098,
+        "ha": 480.0
+       },
+       {
+        "water_above_ground_m": -0.25,
+        "hh_db": 1.0212291479110718,
+        "hv_db": 0.7738571166992188,
+        "ha": 333.25
+       },
+       {
+        "water_above_ground_m": 0.25,
+        "hh_db": 0.7060941457748413,
+        "hv_db": 0.5276587009429932,
+        "ha": 661.0
+       },
+       {
+        "water_above_ground_m": 0.75,
+        "hh_db": 0.6695575714111328,
+        "hv_db": 0.5793352127075195,
+        "ha": 357.75
+       },
+       {
+        "water_above_ground_m": 1.25,
+        "hh_db": 0.48805922269821167,
+        "hv_db": 0.46977949142456055,
+        "ha": 350.0
+       },
+       {
+        "water_above_ground_m": 1.75,
+        "hh_db": 0.564091682434082,
+        "hv_db": 0.4485621452331543,
+        "ha": 302.0
+       }
+      ],
+      "contrast": {
+       "hh_above_water_db": 0.7789530754089355,
+       "hv_above_water_db": 0.7900052070617676,
+       "hh_below_water_db": 0.5683979988098145,
+       "hv_below_water_db": 0.5044717788696289
+      },
+      "flagged_ha": 958.25,
+      "flagged_hh_db": 1.5152329206466675,
+      "flagged_hv_db": 0.6663694381713867,
+      "share_flagged_below_water": 0.1959087332808812,
+      "flagged_on_dry_ha": 511.0,
+      "upland_hh_db": 0.9151351451873779,
+      "upland_hv_db": 1.1243810653686523,
+      "open_land_bright_ha": 132.5,
+      "largest_gauge_rise_m": 0.32,
+      "status": {
+       "river": "Weak here",
+       "vegetation": "Cannot rule out",
+       "ponding": "Likely contributor",
+       "farmland": "Filtered out",
+       "human": "Not assessed"
+      },
+      "gauges": [
+       {
+        "name": "Yellow River near Oak Grove, FL",
+        "rise_m": 0.08,
+        "crest": "2026-10-08T00:30",
+        "timing": "rising"
+       },
+       {
+        "name": "Yellow River at Milligan, FL",
+        "rise_m": 0.29,
+        "crest": "2026-10-06T04:15",
+        "timing": "rising"
+       },
+       {
+        "name": "Yellow River near Milton, FL",
+        "rise_m": 0.32,
+        "crest": "2026-10-05T15:00",
+        "timing": "near crest"
+       }
+      ],
+      "rain": {
+       "rain_24h_mm": 38.7,
+       "rain_72h_mm": 69.4,
+       "high_ground_db": 0.8672317266464233,
+       "usgs_gauges": [
+        {
+         "id": "USGS-02369600",
+         "name": "YELLOW RIVER NR MILTON, FLA.",
+         "readings": 288,
+         "rain_24h_mm": 74.7,
+         "rain_72h_mm": 149.9,
+         "imerg_cell_24h_mm": 46.2,
+         "imerg_cell_72h_mm": 99.4
+        }
+       ]
+      }
+     },
+     "frame": {
+      "pair": "076A_oct05",
+      "time": "2026-10-05T11:02:24Z",
+      "frozen": false,
+      "confident": false,
+      "low_minus_high_db": -0.12391743063926697,
+      "timing": [
+       "rising",
+       "rising",
+       "near crest"
+      ],
+      "stage_rise_m": [
+       0.08,
+       0.29,
+       0.32
+      ],
+      "flagged_ha": 958.25,
+      "static_ha": 6280.5,
+      "static_csi": 0.21314442318630747,
+      "confirmed_ha": 1030.5,
+      "flagged_on_dry_ha": 511.0,
+      "csi": 0.08076548816088226,
+      "csi_ci95": [
+       0.02888086642599278,
+       0.1112455765120286
+      ]
+     },
+     "stats": {
+      "nisar_flooded_ha": 1579.0,
+      "truth_wet_ha": 1030.5,
+      "median_incidence_deg": 42.87221908569336
+     },
+     "layers": {
+      "nisar": "nisar.png",
+      "dhh": "dhh.png",
+      "truth": "truth.png"
+     }
+    },
+    {
+     "id": "127D_oct09",
+     "label": "Oct 9, 2026",
+     "time": "2026-10-09T00:28:30Z",
+     "dry_time": "2026-09-27T00:28:30Z",
+     "threshold_db": 0.66,
+     "frozen": false,
+     "baseline_dates": [
+      "2026-08-22",
+      "2026-09-03",
+      "2026-09-15",
+      "2026-09-27",
+      "2026-10-21"
+     ],
+     "confident": false,
+     "low_minus_high_db": 0.24932674691081047,
+     "used_hh_minus_hv": false,
+     "v3_csi": 0.5803347280334729,
+     "gfm_date": "20261010",
+     "gfm_time": "2026-10-10T23:44:52Z",
+     "score": {
+      "csi": 0.6071506909409958,
+      "recall": 0.6899302093718843,
+      "precision": 0.8349924585218703,
+      "coverage": 1.0,
+      "scorable": true
+     },
+     "drivers": {
+      "curve": [
+       {
+        "water_above_ground_m": -4.75,
+        "hh_db": 0.08628439903259277,
+        "hv_db": -0.06576156616210938,
+        "ha": 393.0
+       },
+       {
+        "water_above_ground_m": -4.25,
+        "hh_db": 0.09571027755737305,
+        "hv_db": -0.038811683654785156,
+        "ha": 401.5
+       },
+       {
+        "water_above_ground_m": -3.75,
+        "hh_db": 0.0735940933227539,
+        "hv_db": -0.09773063659667969,
+        "ha": 456.25
+       },
+       {
+        "water_above_ground_m": -3.25,
+        "hh_db": 0.06352782249450684,
+        "hv_db": -0.09854412078857422,
+        "ha": 556.75
+       },
+       {
+        "water_above_ground_m": -2.75,
+        "hh_db": 0.044652462005615234,
+        "hv_db": -0.11916351318359375,
+        "ha": 589.75
+       },
+       {
+        "water_above_ground_m": -2.25,
+        "hh_db": 0.05738186836242676,
+        "hv_db": -0.10890817642211914,
+        "ha": 616.5
+       },
+       {
+        "water_above_ground_m": -1.75,
+        "hh_db": 0.08968210220336914,
+        "hv_db": -0.129913330078125,
+        "ha": 620.25
+       },
+       {
+        "water_above_ground_m": -1.25,
+        "hh_db": 0.13428020477294922,
+        "hv_db": -0.08508872985839844,
+        "ha": 665.75
+       },
+       {
+        "water_above_ground_m": -0.75,
+        "hh_db": 0.16967928409576416,
+        "hv_db": -0.08522796630859375,
+        "ha": 548.5
+       },
+       {
+        "water_above_ground_m": -0.25,
+        "hh_db": 0.2356663942337036,
+        "hv_db": -0.14246559143066406,
+        "ha": 342.5
+       },
+       {
+        "water_above_ground_m": 0.25,
+        "hh_db": 0.8508529663085938,
+        "hv_db": -0.06318950653076172,
+        "ha": 690.5
+       },
+       {
+        "water_above_ground_m": 0.75,
+        "hh_db": 0.8150370121002197,
+        "hv_db": -0.006141185760498047,
+        "ha": 326.0
+       },
+       {
+        "water_above_ground_m": 1.25,
+        "hh_db": 0.8118875026702881,
+        "hv_db": -0.046767234802246094,
+        "ha": 354.25
+       },
+       {
+        "water_above_ground_m": 1.75,
+        "hh_db": 1.32310152053833,
+        "hv_db": 0.057720184326171875,
+        "ha": 301.25
+       }
+      ],
+      "contrast": {
+       "hh_above_water_db": 0.08190751075744629,
+       "hv_above_water_db": -0.10903358459472656,
+       "hh_below_water_db": 0.9625272750854492,
+       "hv_below_water_db": 0.006847381591796875
+      },
+      "flagged_ha": 1346.75,
+      "flagged_hh_db": 1.1626322269439697,
+      "flagged_hv_db": -0.0036611557006835938,
+      "share_flagged_below_water": 0.8349924585218703,
+      "flagged_on_dry_ha": 136.75,
+      "upland_hh_db": 0.06368803977966309,
+      "upland_hv_db": -0.15881919860839844,
+      "open_land_bright_ha": 9.75,
+      "largest_gauge_rise_m": 0.43,
+      "status": {
+       "river": "Best supported",
+       "vegetation": "Unlikely",
+       "ponding": "Little sign",
+       "farmland": "Filtered out",
+       "human": "Not assessed"
+      },
+      "gauges": [
+       {
+        "name": "Yellow River near Oak Grove, FL",
+        "rise_m": 0.42,
+        "crest": "2026-10-11T03:45",
+        "timing": "rising"
+       },
+       {
+        "name": "Yellow River at Milligan, FL",
+        "rise_m": 0.43,
+        "crest": "2026-10-11T15:30",
+        "timing": "rising"
+       },
+       {
+        "name": "Yellow River near Milton, FL",
+        "rise_m": 0.39,
+        "crest": "2026-10-11T05:00",
+        "timing": "rising"
+       }
+      ],
+      "rain": {
+       "rain_24h_mm": 0.9,
+       "rain_72h_mm": 2.0,
+       "high_ground_db": 0.04005344584584236,
+       "usgs_gauges": [
+        {
+         "id": "USGS-02369600",
+         "name": "YELLOW RIVER NR MILTON, FLA.",
+         "readings": 288,
+         "rain_24h_mm": 0.0,
+         "rain_72h_mm": 0.3,
+         "imerg_cell_24h_mm": 0.5,
+         "imerg_cell_72h_mm": 1.2
+        }
+       ]
+      }
+     },
+     "frame": {
+      "pair": "127D_oct09",
+      "time": "2026-10-09T00:28:30Z",
+      "frozen": false,
+      "confident": false,
+      "low_minus_high_db": 0.24932674691081047,
+      "timing": [
+       "rising",
+       "rising",
+       "rising"
+      ],
+      "stage_rise_m": [
+       0.42,
+       0.43,
+       0.39
+      ],
+      "flagged_ha": 1346.75,
+      "static_ha": 6280.5,
+      "static_csi": 0.2063467571876768,
+      "confirmed_ha": 1003.0,
+      "flagged_on_dry_ha": 136.75,
+      "csi": 0.6071506909409958,
+      "csi_ci95": [
+       0.4742465677334543,
+       0.6492601027200529
+      ]
+     },
+     "stats": {
+      "nisar_flooded_ha": 3335.75,
+      "truth_wet_ha": 1003.0,
+      "median_incidence_deg": 36.33161163330078
+     },
+     "layers": {
+      "nisar": "nisar.png",
+      "dhh": "dhh.png",
+      "truth": "truth.png"
+     }
+    },
+    {
+     "id": "055D_oct16",
+     "label": "Oct 16, 2026 (v3 frozen test)",
+     "time": "2026-10-16T00:36:48Z",
+     "dry_time": "2026-09-22T00:36:49Z",
+     "threshold_db": 1.53,
+     "frozen": true,
+     "baseline_dates": [
+      "2026-08-17",
+      "2026-08-29",
+      "2026-09-10",
+      "2026-09-22",
+      "2026-10-04"
+     ],
+     "confident": true,
+     "low_minus_high_db": 1.1643542051315308,
+     "used_hh_minus_hv": false,
+     "v3_csi": 0.8822682032477737,
+     "gfm_date": "20261010",
+     "gfm_time": "2026-10-10T23:44:52Z",
+     "score": {
+      "csi": 0.8908446079075266,
+      "recall": 0.9074123628579074,
+      "precision": 0.9799161970813466,
+      "coverage": 1.0,
+      "scorable": true
+     },
+     "drivers": {
+      "curve": [
+       {
+        "water_above_ground_m": -4.75,
+        "hh_db": 0.2494668960571289,
+        "hv_db": -0.046128273010253906,
+        "ha": 322.25
+       },
+       {
+        "water_above_ground_m": -4.25,
+        "hh_db": 0.1967836618423462,
+        "hv_db": -0.053948402404785156,
+        "ha": 355.0
+       },
+       {
+        "water_above_ground_m": -3.75,
+        "hh_db": 0.2202293872833252,
+        "hv_db": -0.05586385726928711,
+        "ha": 367.75
+       },
+       {
+        "water_above_ground_m": -3.25,
+        "hh_db": 0.24200224876403809,
+        "hv_db": -0.03427696228027344,
+        "ha": 394.25
+       },
+       {
+        "water_above_ground_m": -2.75,
+        "hh_db": 0.2609410285949707,
+        "hv_db": -0.043166160583496094,
+        "ha": 458.75
+       },
+       {
+        "water_above_ground_m": -2.25,
+        "hh_db": 0.2928040027618408,
+        "hv_db": 0.009402275085449219,
+        "ha": 621.5
+       },
+       {
+        "water_above_ground_m": -1.75,
+        "hh_db": 0.4219449758529663,
+        "hv_db": 0.06971359252929688,
+        "ha": 607.5
+       },
+       {
+        "water_above_ground_m": -1.25,
+        "hh_db": 0.39484548568725586,
+        "hv_db": 0.06434822082519531,
+        "ha": 524.75
+       },
+       {
+        "water_above_ground_m": -0.75,
+        "hh_db": 0.5479130744934082,
+        "hv_db": 0.11883258819580078,
+        "ha": 612.75
+       },
+       {
+        "water_above_ground_m": -0.25,
+        "hh_db": 0.8824388980865479,
+        "hv_db": 0.18172931671142578,
+        "ha": 612.75
+       },
+       {
+        "water_above_ground_m": 0.25,
+        "hh_db": 1.4030890464782715,
+        "hv_db": 0.2672586441040039,
+        "ha": 508.5
+       },
+       {
+        "water_above_ground_m": 0.75,
+        "hh_db": 2.328611135482788,
+        "hv_db": 0.4460330009460449,
+        "ha": 418.75
+       },
+       {
+        "water_above_ground_m": 1.25,
+        "hh_db": 2.639354705810547,
+        "hv_db": 0.4081130027770996,
+        "ha": 741.5
+       },
+       {
+        "water_above_ground_m": 1.75,
+        "hh_db": 2.3602828979492188,
+        "hv_db": 0.4427614212036133,
+        "ha": 219.25
+       },
+       {
+        "water_above_ground_m": 2.25,
+        "hh_db": 2.96121883392334,
+        "hv_db": 0.5706310272216797,
+        "ha": 383.25
+       },
+       {
+        "water_above_ground_m": 2.75,
+        "hh_db": 3.293872356414795,
+        "hv_db": 0.6050729751586914,
+        "ha": 199.75
+       }
+      ],
+      "contrast": {
+       "hh_above_water_db": 0.34419941902160645,
+       "hv_above_water_db": 0.022603511810302734,
+       "hh_below_water_db": 2.5131640434265137,
+       "hv_below_water_db": 0.42779064178466797
+      },
+      "flagged_ha": 2156.75,
+      "flagged_hh_db": 2.7181360721588135,
+      "flagged_hv_db": 0.4881734848022461,
+      "share_flagged_below_water": 0.9799161970813466,
+      "flagged_on_dry_ha": 34.75,
+      "upland_hh_db": -0.24038827419281006,
+      "upland_hv_db": -0.2699751853942871,
+      "open_land_bright_ha": 12.5,
+      "largest_gauge_rise_m": 1.5,
+      "status": {
+       "river": "Best supported",
+       "vegetation": "Unlikely",
+       "ponding": "Little sign",
+       "farmland": "Filtered out",
+       "human": "Not assessed"
+      },
+      "gauges": [
+       {
+        "name": "Yellow River near Oak Grove, FL",
+        "rise_m": 0.71,
+        "crest": "2026-10-13T13:00",
+        "timing": "receding"
+       },
+       {
+        "name": "Yellow River at Milligan, FL",
+        "rise_m": 1.5,
+        "crest": "2026-10-11T15:30",
+        "timing": "receding"
+       },
+       {
+        "name": "Yellow River near Milton, FL",
+        "rise_m": 1.26,
+        "crest": "2026-10-14T03:30",
+        "timing": "near crest"
+       }
+      ],
+      "rain": {
+       "rain_24h_mm": 0.0,
+       "rain_72h_mm": 0.0,
+       "high_ground_db": 0.14588528871536255,
+       "usgs_gauges": [
+        {
+         "id": "USGS-02369600",
+         "name": "YELLOW RIVER NR MILTON, FLA.",
+         "readings": 288,
+         "rain_24h_mm": 0.0,
+         "rain_72h_mm": 0.0,
+         "imerg_cell_24h_mm": 0.0,
+         "imerg_cell_72h_mm": 0.0
+        }
+       ]
+      }
+     },
+     "frame": {
+      "pair": "055D_oct16",
+      "time": "2026-10-16T00:36:48Z",
+      "frozen": true,
+      "confident": true,
+      "low_minus_high_db": 1.1643542051315308,
+      "timing": [
+       "receding",
+       "receding",
+       "near crest"
+      ],
+      "stage_rise_m": [
+       0.71,
+       1.5,
+       1.26
+      ],
+      "flagged_ha": 2156.75,
+      "static_ha": 6280.5,
+      "static_csi": 0.38669083376488866,
+      "confirmed_ha": 1868.5,
+      "flagged_on_dry_ha": 34.75,
+      "csi": 0.8908446079075266,
+      "csi_ci95": [
+       0.8156272663093684,
+       0.9276869903572731
+      ]
+     },
+     "stats": {
+      "nisar_flooded_ha": 4633.75,
+      "truth_wet_ha": 1868.5,
+      "median_incidence_deg": 46.493141174316406
+     },
+     "layers": {
+      "nisar": "nisar.png",
+      "dhh": "dhh.png",
+      "truth": "truth.png"
+     }
+    },
+    {
+     "id": "076A_oct17",
+     "label": "Oct 17, 2026",
+     "time": "2026-10-17T11:02:24Z",
+     "dry_time": "2026-09-23T11:02:24Z",
+     "threshold_db": 1.01,
+     "frozen": false,
+     "baseline_dates": [
+      "2026-08-18",
+      "2026-08-30",
+      "2026-09-11",
+      "2026-09-23",
+      "2026-10-05"
+     ],
+     "confident": true,
+     "low_minus_high_db": 0.843215823173523,
+     "used_hh_minus_hv": false,
+     "v3_csi": 0.8318264014466547,
+     "gfm_date": "20261022",
+     "gfm_time": "2026-10-22T23:44:52Z",
+     "score": {
+      "csi": 0.8504829903401931,
+      "recall": 0.9040178571428571,
+      "precision": 0.9349030470914127,
+      "coverage": 1.0,
+      "scorable": true
+     },
+     "drivers": {
+      "curve": [
+       {
+        "water_above_ground_m": -4.75,
+        "hh_db": -0.10614466667175293,
+        "hv_db": -0.25923633575439453,
+        "ha": 366.5
+       },
+       {
+        "water_above_ground_m": -4.25,
+        "hh_db": -0.12177729606628418,
+        "hv_db": -0.2781410217285156,
+        "ha": 399.75
+       },
+       {
+        "water_above_ground_m": -3.75,
+        "hh_db": -0.09963130950927734,
+        "hv_db": -0.3666672706604004,
+        "ha": 396.0
+       },
+       {
+        "water_above_ground_m": -3.25,
+        "hh_db": -0.10853028297424316,
+        "hv_db": -0.33818817138671875,
+        "ha": 482.5
+       },
+       {
+        "water_above_ground_m": -2.75,
+        "hh_db": -0.06729245185852051,
+        "hv_db": -0.2692756652832031,
+        "ha": 564.75
+       },
+       {
+        "water_above_ground_m": -2.25,
+        "hh_db": 0.02738642692565918,
+        "hv_db": -0.18348312377929688,
+        "ha": 628.75
+       },
+       {
+        "water_above_ground_m": -1.75,
+        "hh_db": 0.06543135643005371,
+        "hv_db": -0.1009063720703125,
+        "ha": 575.0
+       },
+       {
+        "water_above_ground_m": -1.25,
+        "hh_db": 0.1881868839263916,
+        "hv_db": -0.10667037963867188,
+        "ha": 659.0
+       },
+       {
+        "water_above_ground_m": -0.75,
+        "hh_db": 0.3058267831802368,
+        "hv_db": -0.06283426284790039,
+        "ha": 615.0
+       },
+       {
+        "water_above_ground_m": -0.25,
+        "hh_db": 0.3592076301574707,
+        "hv_db": 0.032769203186035156,
+        "ha": 371.75
+       },
+       {
+        "water_above_ground_m": 0.25,
+        "hh_db": 0.6539620161056519,
+        "hv_db": 0.12101602554321289,
+        "ha": 313.0
+       },
+       {
+        "water_above_ground_m": 0.75,
+        "hh_db": 2.1606197357177734,
+        "hv_db": 0.27022600173950195,
+        "ha": 686.5
+       },
+       {
+        "water_above_ground_m": 1.25,
+        "hh_db": 1.8552696704864502,
+        "hv_db": 0.28424739837646484,
+        "ha": 342.0
+       },
+       {
+        "water_above_ground_m": 1.75,
+        "hh_db": 2.2857682704925537,
+        "hv_db": 0.3613405227661133,
+        "ha": 345.5
+       },
+       {
+        "water_above_ground_m": 2.25,
+        "hh_db": 2.6969847679138184,
+        "hv_db": 0.4627563953399658,
+        "ha": 261.0
+       }
+      ],
+      "contrast": {
+       "hh_above_water_db": 0.04928934574127197,
+       "hv_above_water_db": -0.1615142822265625,
+       "hh_below_water_db": 2.134945869445801,
+       "hv_below_water_db": 0.3007822036743164
+      },
+      "flagged_ha": 1775.75,
+      "flagged_hh_db": 2.2387092113494873,
+      "flagged_hv_db": 0.33252429962158203,
+      "share_flagged_below_water": 0.9349030470914127,
+      "flagged_on_dry_ha": 105.75,
+      "upland_hh_db": -0.6670540571212769,
+      "upland_hv_db": -0.5949759483337402,
+      "open_land_bright_ha": 6.0,
+      "largest_gauge_rise_m": 0.81,
+      "status": {
+       "river": "Best supported",
+       "vegetation": "Cannot rule out",
+       "ponding": "Little sign",
+       "farmland": "Filtered out",
+       "human": "Not assessed"
+      },
+      "gauges": [
+       {
+        "name": "Yellow River near Oak Grove, FL",
+        "rise_m": 0.51,
+        "crest": "2026-10-13T13:00",
+        "timing": "receding"
+       },
+       {
+        "name": "Yellow River at Milligan, FL",
+        "rise_m": 0.59,
+        "crest": "2026-10-11T15:30",
+        "timing": "receding"
+       },
+       {
+        "name": "Yellow River near Milton, FL",
+        "rise_m": 0.81,
+        "crest": "2026-10-14T03:30",
+        "timing": "receding"
+       }
+      ],
+      "rain": {
+       "rain_24h_mm": 1.8,
+       "rain_72h_mm": 1.8,
+       "high_ground_db": -0.27270686626434326,
+       "usgs_gauges": [
+        {
+         "id": "USGS-02369600",
+         "name": "YELLOW RIVER NR MILTON, FLA.",
+         "readings": 288,
+         "rain_24h_mm": 5.8,
+         "rain_72h_mm": 5.8,
+         "imerg_cell_24h_mm": 6.6,
+         "imerg_cell_72h_mm": 6.6
+        }
+       ]
+      }
+     },
+     "frame": {
+      "pair": "076A_oct17",
+      "time": "2026-10-17T11:02:24Z",
+      "frozen": false,
+      "confident": true,
+      "low_minus_high_db": 0.843215823173523,
+      "timing": [
+       "receding",
+       "receding",
+       "receding"
+      ],
+      "stage_rise_m": [
+       0.51,
+       0.59,
+       0.81
+      ],
+      "flagged_ha": 1775.75,
+      "static_ha": 6280.5,
+      "static_csi": 0.3174490615988276,
+      "confirmed_ha": 1680.0,
+      "flagged_on_dry_ha": 105.75,
+      "csi": 0.8504829903401931,
+      "csi_ci95": [
+       0.6913112832808473,
+       0.9074866790280155
+      ]
+     },
+     "stats": {
+      "nisar_flooded_ha": 3995.75,
+      "truth_wet_ha": 1680.0,
+      "median_incidence_deg": 42.87000274658203
+     },
+     "layers": {
+      "nisar": "nisar.png",
+      "dhh": "dhh.png",
+      "truth": "truth.png"
+     }
+    },
+    {
+     "id": "127D_oct21",
+     "label": "Oct 21, 2026",
+     "time": "2026-10-21T00:28:30Z",
+     "dry_time": "2026-09-27T00:28:30Z",
+     "threshold_db": 0.5,
+     "frozen": false,
+     "baseline_dates": [
+      "2026-08-22",
+      "2026-09-03",
+      "2026-09-15",
+      "2026-09-27",
+      "2026-10-09"
+     ],
+     "confident": true,
+     "low_minus_high_db": 0.5154673084616661,
+     "used_hh_minus_hv": false,
+     "v3_csi": null,
+     "gfm_date": "20261022",
+     "gfm_time": "2026-10-22T23:44:52Z",
+     "score": {
+      "csi": null,
+      "recall": null,
+      "precision": null,
+      "coverage": 0.0,
+      "scorable": false
+     },
+     "drivers": {
+      "curve": [
+       {
+        "water_above_ground_m": -4.75,
+        "hh_db": -0.15228593349456787,
+        "hv_db": -0.4193100929260254,
+        "ha": 394.5
+       },
+       {
+        "water_above_ground_m": -4.25,
+        "hh_db": -0.15909576416015625,
+        "hv_db": -0.3957481384277344,
+        "ha": 396.75
+       },
+       {
+        "water_above_ground_m": -3.75,
+        "hh_db": -0.23723995685577393,
+        "hv_db": -0.4585251808166504,
+        "ha": 471.5
+       },
+       {
+        "water_above_ground_m": -3.25,
+        "hh_db": -0.12969505786895752,
+        "hv_db": -0.38776206970214844,
+        "ha": 554.0
+       },
+       {
+        "water_above_ground_m": -2.75,
+        "hh_db": -0.06888031959533691,
+        "hv_db": -0.35070276260375977,
+        "ha": 612.5
+       },
+       {
+        "water_above_ground_m": -2.25,
+        "hh_db": 0.0598599910736084,
+        "hv_db": -0.28983020782470703,
+        "ha": 611.25
+       },
+       {
+        "water_above_ground_m": -1.75,
+        "hh_db": 0.07327044010162354,
+        "hv_db": -0.27287864685058594,
+        "ha": 661.75
+       },
+       {
+        "water_above_ground_m": -1.25,
+        "hh_db": 0.16471481323242188,
+        "hv_db": -0.20353031158447266,
+        "ha": 610.0
+       },
+       {
+        "water_above_ground_m": -0.75,
+        "hh_db": 0.3098205327987671,
+        "hv_db": -0.15526437759399414,
+        "ha": 487.5
+       },
+       {
+        "water_above_ground_m": -0.25,
+        "hh_db": 0.35825467109680176,
+        "hv_db": -0.16685009002685547,
+        "ha": 346.75
+       },
+       {
+        "water_above_ground_m": 0.25,
+        "hh_db": 1.0963786840438843,
+        "hv_db": 0.02568674087524414,
+        "ha": 729.5
+       },
+       {
+        "water_above_ground_m": 0.75,
+        "hh_db": 0.913409948348999,
+        "hv_db": -0.015178680419921875,
+        "ha": 281.25
+       },
+       {
+        "water_above_ground_m": 1.25,
+        "hh_db": 1.0250048637390137,
+        "hv_db": 0.05512523651123047,
+        "ha": 357.75
+       },
+       {
+        "water_above_ground_m": 1.75,
+        "hh_db": 1.2855812311172485,
+        "hv_db": 0.0992119312286377,
+        "ha": 259.5
+       }
+      ],
+      "contrast": {
+       "hh_above_water_db": 0.05906510353088379,
+       "hv_above_water_db": -0.2792325019836426,
+       "hh_below_water_db": 1.0894739627838135,
+       "hv_below_water_db": 0.05257558822631836
+      },
+      "flagged_ha": 0.0,
+      "flagged_hh_db": null,
+      "flagged_hv_db": null,
+      "share_flagged_below_water": null,
+      "flagged_on_dry_ha": 0.0,
+      "upland_hh_db": -0.7971668243408203,
+      "upland_hv_db": -0.628870964050293,
+      "open_land_bright_ha": 121.75,
+      "largest_gauge_rise_m": 0.34,
+      "status": {
+       "river": "Too little mapped",
+       "vegetation": "Not tested",
+       "ponding": "Little sign",
+       "farmland": "Filtered out",
+       "human": "Not assessed"
+      },
+      "gauges": [
+       {
+        "name": "Yellow River near Oak Grove, FL",
+        "rise_m": 0.29,
+        "crest": "2026-10-13T13:00",
+        "timing": "late recession"
+       },
+       {
+        "name": "Yellow River at Milligan, FL",
+        "rise_m": 0.32,
+        "crest": "2026-10-11T15:30",
+        "timing": "late recession"
+       },
+       {
+        "name": "Yellow River near Milton, FL",
+        "rise_m": 0.34,
+        "crest": "2026-10-14T03:30",
+        "timing": "late recession"
+       }
+      ],
+      "rain": {
+       "rain_24h_mm": 0.0,
+       "rain_72h_mm": 0.0,
+       "high_ground_db": -0.2663474380970001,
+       "usgs_gauges": [
+        {
+         "id": "USGS-02369600",
+         "name": "YELLOW RIVER NR MILTON, FLA.",
+         "readings": 288,
+         "rain_24h_mm": 0.0,
+         "rain_72h_mm": 0.0,
+         "imerg_cell_24h_mm": 0.0,
+         "imerg_cell_72h_mm": 0.0
+        }
+       ]
+      }
+     },
+     "frame": {
+      "pair": "127D_oct21",
+      "time": "2026-10-21T00:28:30Z",
+      "frozen": false,
+      "confident": true,
+      "low_minus_high_db": 0.5154673084616661,
+      "timing": [
+       "late recession",
+       "late recession",
+       "late recession"
+      ],
+      "stage_rise_m": [
+       0.29,
+       0.32,
+       0.34
+      ],
+      "flagged_ha": 0.0,
+      "static_ha": 6280.5,
+      "static_csi": null,
+      "confirmed_ha": 915.75,
+      "flagged_on_dry_ha": 0.0,
+      "csi": null,
+      "csi_ci95": null
+     },
+     "stats": {
+      "nisar_flooded_ha": 0.0,
+      "truth_wet_ha": 915.75,
+      "median_incidence_deg": 36.32948684692383
+     },
+     "layers": {
+      "nisar": "nisar.png",
+      "dhh": "dhh.png",
+      "not_mapped": "not_mapped.png",
+      "truth": "truth.png"
+     }
+    }
+   ],
+   "corners": [
+    [
+     -86.98386896129327,
+     30.985375351529648
+    ],
+    [
+     -86.49922786551078,
+     30.985375351529648
+    ],
+    [
+     -86.49922786551078,
+     30.509415773406225
+    ],
+    [
+     -86.98386896129327,
+     30.509415773406225
+    ]
+   ],
+   "gauges": "yellow/gauges.json",
+   "bounds": [
+    -86.98386896129327,
+    30.509415773406225,
+    -86.49922786551078,
+    30.985375351529648
+   ],
+   "gauge_points": [
+    {
+     "name": "Yellow River near Oak Grove, FL",
+     "lon": -86.559397,
+     "lat": 30.925183
+    },
+    {
+     "name": "Yellow River at Milligan, FL",
+     "lon": -86.629121,
+     "lat": 30.752966
+    },
+    {
+     "name": "Yellow River near Milton, FL",
+     "lon": -86.923573,
+     "lat": 30.569639
+    }
+   ],
+   "timeline": [
+    {
+     "pair": "055D_oct04",
+     "time": "2026-10-04T00:36:48Z",
+     "frozen": false,
+     "confident": false,
+     "low_minus_high_db": -0.06559339910745621,
+     "timing": [
+      "rising",
+      "rising",
+      "rising"
+     ],
+     "stage_rise_m": [
+      -0.03,
+      -0.0,
+      0.1
+     ],
+     "flagged_ha": 159.5,
+     "static_ha": 6280.5,
+     "static_csi": 0.00201333836667925,
+     "confirmed_ha": 8.0,
+     "flagged_on_dry_ha": 67.25,
+     "csi": 0.006644518272425249,
+     "csi_ci95": [
+      0.0,
+      0.02231218364732317
+     ]
+    },
+    {
+     "pair": "076A_oct05",
+     "time": "2026-10-05T11:02:24Z",
+     "frozen": false,
+     "confident": false,
+     "low_minus_high_db": -0.12391743063926697,
+     "timing": [
+      "rising",
+      "rising",
+      "near crest"
+     ],
+     "stage_rise_m": [
+      0.08,
+      0.29,
+      0.32
+     ],
+     "flagged_ha": 958.25,
+     "static_ha": 6280.5,
+     "static_csi": 0.21314442318630747,
+     "confirmed_ha": 1030.5,
+     "flagged_on_dry_ha": 511.0,
+     "csi": 0.08076548816088226,
+     "csi_ci95": [
+      0.02888086642599278,
+      0.1112455765120286
+     ]
+    },
+    {
+     "pair": "127D_oct09",
+     "time": "2026-10-09T00:28:30Z",
+     "frozen": false,
+     "confident": false,
+     "low_minus_high_db": 0.24932674691081047,
+     "timing": [
+      "rising",
+      "rising",
+      "rising"
+     ],
+     "stage_rise_m": [
+      0.42,
+      0.43,
+      0.39
+     ],
+     "flagged_ha": 1346.75,
+     "static_ha": 6280.5,
+     "static_csi": 0.2063467571876768,
+     "confirmed_ha": 1003.0,
+     "flagged_on_dry_ha": 136.75,
+     "csi": 0.6071506909409958,
+     "csi_ci95": [
+      0.4742465677334543,
+      0.6492601027200529
+     ]
+    },
+    {
+     "pair": "055D_oct16",
+     "time": "2026-10-16T00:36:48Z",
+     "frozen": true,
+     "confident": true,
+     "low_minus_high_db": 1.1643542051315308,
+     "timing": [
+      "receding",
+      "receding",
+      "near crest"
+     ],
+     "stage_rise_m": [
+      0.71,
+      1.5,
+      1.26
+     ],
+     "flagged_ha": 2156.75,
+     "static_ha": 6280.5,
+     "static_csi": 0.38669083376488866,
+     "confirmed_ha": 1868.5,
+     "flagged_on_dry_ha": 34.75,
+     "csi": 0.8908446079075266,
+     "csi_ci95": [
+      0.8156272663093684,
+      0.9276869903572731
+     ]
+    },
+    {
+     "pair": "076A_oct17",
+     "time": "2026-10-17T11:02:24Z",
+     "frozen": false,
+     "confident": true,
+     "low_minus_high_db": 0.843215823173523,
+     "timing": [
+      "receding",
+      "receding",
+      "receding"
+     ],
+     "stage_rise_m": [
+      0.51,
+      0.59,
+      0.81
+     ],
+     "flagged_ha": 1775.75,
+     "static_ha": 6280.5,
+     "static_csi": 0.3174490615988276,
+     "confirmed_ha": 1680.0,
+     "flagged_on_dry_ha": 105.75,
+     "csi": 0.8504829903401931,
+     "csi_ci95": [
+      0.6913112832808473,
+      0.9074866790280155
+     ]
+    },
+    {
+     "pair": "127D_oct21",
+     "time": "2026-10-21T00:28:30Z",
+     "frozen": false,
+     "confident": true,
+     "low_minus_high_db": 0.5154673084616661,
+     "timing": [
+      "late recession",
+      "late recession",
+      "late recession"
+     ],
+     "stage_rise_m": [
+      0.29,
+      0.32,
+      0.34
+     ],
+     "flagged_ha": 0.0,
+     "static_ha": 6280.5,
+     "static_csi": null,
+     "confirmed_ha": 915.75,
+     "flagged_on_dry_ha": 0.0,
+     "csi": null,
+     "csi_ci95": null
+    }
+   ],
+   "unusable": [
+    {
+     "pair": "004A_oct12",
+     "valid_share": 0.0,
+     "why": "no valid radar over this reach"
+    }
+   ]
+  }
+ ],
+ "legend": {
+  "landcover": {
+   "0": "other",
+   "1": "tree cover",
+   "2": "herbaceous wetland",
+   "3": "crop/grass/shrub"
+  },
+  "timing": {
+   "0": "unknown",
+   "1": "rising",
+   "2": "near crest",
+   "3": "receding",
+   "4": "late recession"
+  }
+ },
+ "hero": {
+  "site": "satilla",
+  "pass": "047A_oct15",
+  "corners": [
+   [
+    -82.62120078396681,
+    31.362755467995935
+   ],
+   [
+    -81.80597966362834,
+    31.362755467995935
+   ],
+   [
+    -81.80597966362834,
+    31.159264582637082
+   ],
+   [
+    -82.62120078396681,
+    31.159264582637082
+   ]
+  ],
+  "bounds": [
+   -82.6011,
+   31.1396,
+   -81.82639999999999,
+   31.3827
+  ],
+  "gauges": [
+   {
+    "name": "Satilla River at Ga 158, Near Waycross, Ga",
+    "lon": -82.561111,
+    "lat": 31.30275
+   },
+   {
+    "name": "Satilla River Near Waycross, Ga",
+    "lon": -82.322833,
+    "lat": 31.238444
+   },
+   {
+    "name": "Satilla River at Atkinson, Ga",
+    "lon": -81.866444,
+    "lat": 31.219583
+   }
+  ],
+  "time": "2026-10-15T10:45:42Z",
+  "layers": {
+   "nisar": "nisar.png",
+   "truth": "truth.png",
+   "gfm": "gfm.png",
+   "gfm_excl": "gfm_excl.png",
+   "gfm_none": "gfm_none.png"
+  }
+ }
+}

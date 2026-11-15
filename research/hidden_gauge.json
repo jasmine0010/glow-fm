@@ -1,0 +1,351 @@
+{
+ "all": {
+  "cases": 22,
+  "median_abs_error_m": 1.142,
+  "share_within_margin": 0.273,
+  "mean_signed_error_m": 1.287,
+  "worst_abs_error_m": 7.053,
+  "median_agreement": 0.718,
+  "agreement_cases": 21
+ },
+ "gap_at_most_40_km": {
+  "cases": 3,
+  "median_abs_error_m": 1.796,
+  "share_within_margin": 0.333,
+  "mean_signed_error_m": 1.056,
+  "worst_abs_error_m": 1.83,
+  "median_agreement": 0.616,
+  "agreement_cases": 3
+ },
+ "by_river": {
+  "choctawhatchee": {
+   "cases": 2,
+   "median_abs_error_m": 0.413,
+   "share_within_margin": 0.5,
+   "mean_signed_error_m": -0.413,
+   "worst_abs_error_m": 0.753,
+   "median_agreement": 0.621,
+   "agreement_cases": 2
+  },
+  "lower_sabine": {
+   "cases": 1,
+   "median_abs_error_m": 0.426,
+   "share_within_margin": 1.0,
+   "mean_signed_error_m": 0.426,
+   "worst_abs_error_m": 0.426,
+   "median_agreement": null,
+   "agreement_cases": 0
+  },
+  "neuse": {
+   "cases": 2,
+   "median_abs_error_m": 1.851,
+   "share_within_margin": 0.0,
+   "mean_signed_error_m": 1.851,
+   "worst_abs_error_m": 2.031,
+   "median_agreement": 0.115,
+   "agreement_cases": 2
+  },
+  "pearl": {
+   "cases": 4,
+   "median_abs_error_m": 0.765,
+   "share_within_margin": 0.5,
+   "mean_signed_error_m": 0.566,
+   "worst_abs_error_m": 1.436,
+   "median_agreement": 0.863,
+   "agreement_cases": 4
+  },
+  "pee_dee": {
+   "cases": 3,
+   "median_abs_error_m": 0.457,
+   "share_within_margin": 0.667,
+   "mean_signed_error_m": -0.252,
+   "worst_abs_error_m": 0.599,
+   "median_agreement": 0.695,
+   "agreement_cases": 3
+  },
+  "tangipahoa": {
+   "cases": 4,
+   "median_abs_error_m": 4.2,
+   "share_within_margin": 0.0,
+   "mean_signed_error_m": 4.312,
+   "worst_abs_error_m": 7.053,
+   "median_agreement": 0.034,
+   "agreement_cases": 4
+  },
+  "yellow": {
+   "cases": 6,
+   "median_abs_error_m": 1.142,
+   "share_within_margin": 0.0,
+   "mean_signed_error_m": 1.043,
+   "worst_abs_error_m": 1.209,
+   "median_agreement": 0.869,
+   "agreement_cases": 6
+  }
+ },
+ "cases": [
+  {
+   "river": "choctawhatchee",
+   "pair": "076A_oct17",
+   "gauge": "Caryville",
+   "neighbour_gap_km": 57.4,
+   "predicted_m": 14.494,
+   "measured_m": 15.247,
+   "error_m": -0.753,
+   "full_wet_ha": 3549.8,
+   "held_out_wet_ha": 1864.2,
+   "agreement": 0.525
+  },
+  {
+   "river": "choctawhatchee",
+   "pair": "127D_oct21",
+   "gauge": "Caryville",
+   "neighbour_gap_km": 57.4,
+   "predicted_m": 13.361,
+   "measured_m": 13.434,
+   "error_m": -0.073,
+   "full_wet_ha": 174.5,
+   "held_out_wet_ha": 125.2,
+   "agreement": 0.718
+  },
+  {
+   "river": "pearl",
+   "pair": "105A_jul03",
+   "gauge": "Pools Bluff",
+   "neighbour_gap_km": 48.8,
+   "predicted_m": 19.034,
+   "measured_m": 19.153,
+   "error_m": -0.119,
+   "full_wet_ha": 7831.5,
+   "held_out_wet_ha": 7670.5,
+   "agreement": 0.979
+  },
+  {
+   "river": "pearl",
+   "pair": "105A_jul03",
+   "gauge": "Pearl River LA",
+   "neighbour_gap_km": 49.1,
+   "predicted_m": 5.835,
+   "measured_m": 4.596,
+   "error_m": 1.239,
+   "full_wet_ha": 8987.5,
+   "held_out_wet_ha": 10929.5,
+   "agreement": 0.822
+  },
+  {
+   "river": "pearl",
+   "pair": "156D_jun25",
+   "gauge": "Pools Bluff",
+   "neighbour_gap_km": 48.8,
+   "predicted_m": 18.765,
+   "measured_m": 19.056,
+   "error_m": -0.291,
+   "full_wet_ha": 7368.5,
+   "held_out_wet_ha": 6655.8,
+   "agreement": 0.903
+  },
+  {
+   "river": "pearl",
+   "pair": "156D_jun25",
+   "gauge": "Pearl River LA",
+   "neighbour_gap_km": 49.1,
+   "predicted_m": 5.801,
+   "measured_m": 4.365,
+   "error_m": 1.436,
+   "full_wet_ha": 8003.5,
+   "held_out_wet_ha": 10896.8,
+   "agreement": 0.734
+  },
+  {
+   "river": "tangipahoa",
+   "pair": "105A_jun21",
+   "gauge": "Amite",
+   "neighbour_gap_km": 52.7,
+   "predicted_m": 33.544,
+   "measured_m": 26.49,
+   "error_m": 7.053,
+   "full_wet_ha": 157.2,
+   "held_out_wet_ha": 3853.8,
+   "agreement": 0.041
+  },
+  {
+   "river": "tangipahoa",
+   "pair": "105A_jun21",
+   "gauge": "Robert",
+   "neighbour_gap_km": 36.7,
+   "predicted_m": 7.935,
+   "measured_m": 6.138,
+   "error_m": 1.796,
+   "full_wet_ha": 2240.0,
+   "held_out_wet_ha": 3634.2,
+   "agreement": 0.616
+  },
+  {
+   "river": "tangipahoa",
+   "pair": "156D_jun25",
+   "gauge": "Amite",
+   "neighbour_gap_km": 52.7,
+   "predicted_m": 32.731,
+   "measured_m": 26.161,
+   "error_m": 6.57,
+   "full_wet_ha": 76.0,
+   "held_out_wet_ha": 2933.5,
+   "agreement": 0.026
+  },
+  {
+   "river": "tangipahoa",
+   "pair": "156D_jun25",
+   "gauge": "Robert",
+   "neighbour_gap_km": 36.7,
+   "predicted_m": 6.588,
+   "measured_m": 4.758,
+   "error_m": 1.83,
+   "full_wet_ha": 5.0,
+   "held_out_wet_ha": 1173.5,
+   "agreement": 0.004
+  },
+  {
+   "river": "yellow",
+   "pair": "055D_oct04",
+   "gauge": "YELLOW RIVER AT MILLIGAN, FLA.",
+   "neighbour_gap_km": 58.6,
+   "predicted_m": 15.041,
+   "measured_m": 13.909,
+   "error_m": 1.132,
+   "full_wet_ha": 0.0,
+   "held_out_wet_ha": 83.5,
+   "agreement": 0.0
+  },
+  {
+   "river": "yellow",
+   "pair": "076A_oct05",
+   "gauge": "YELLOW RIVER AT MILLIGAN, FLA.",
+   "neighbour_gap_km": 58.6,
+   "predicted_m": 15.265,
+   "measured_m": 14.2,
+   "error_m": 1.064,
+   "full_wet_ha": 75.2,
+   "held_out_wet_ha": 86.2,
+   "agreement": 0.872
+  },
+  {
+   "river": "yellow",
+   "pair": "127D_oct09",
+   "gauge": "YELLOW RIVER AT MILLIGAN, FLA.",
+   "neighbour_gap_km": 58.6,
+   "predicted_m": 15.451,
+   "measured_m": 14.3,
+   "error_m": 1.152,
+   "full_wet_ha": 76.2,
+   "held_out_wet_ha": 88.0,
+   "agreement": 0.866
+  },
+  {
+   "river": "yellow",
+   "pair": "055D_oct16",
+   "gauge": "YELLOW RIVER AT MILLIGAN, FLA.",
+   "neighbour_gap_km": 58.6,
+   "predicted_m": 15.942,
+   "measured_m": 15.408,
+   "error_m": 0.535,
+   "full_wet_ha": 90.0,
+   "held_out_wet_ha": 93.0,
+   "agreement": 0.968
+  },
+  {
+   "river": "yellow",
+   "pair": "076A_oct17",
+   "gauge": "YELLOW RIVER AT MILLIGAN, FLA.",
+   "neighbour_gap_km": 58.6,
+   "predicted_m": 15.713,
+   "measured_m": 14.504,
+   "error_m": 1.209,
+   "full_wet_ha": 81.0,
+   "held_out_wet_ha": 91.5,
+   "agreement": 0.885
+  },
+  {
+   "river": "yellow",
+   "pair": "127D_oct21",
+   "gauge": "YELLOW RIVER AT MILLIGAN, FLA.",
+   "neighbour_gap_km": 58.6,
+   "predicted_m": 15.352,
+   "measured_m": 14.187,
+   "error_m": 1.165,
+   "full_wet_ha": 73.8,
+   "held_out_wet_ha": 87.0,
+   "agreement": 0.848
+  },
+  {
+   "river": "pee_dee",
+   "pair": "098D_jul27",
+   "gauge": "PEE DEE RIVER NR BENNETTSVILLE, SC",
+   "neighbour_gap_km": 68.6,
+   "predicted_m": 18.84,
+   "measured_m": 19.439,
+   "error_m": -0.599,
+   "full_wet_ha": 89.0,
+   "held_out_wet_ha": 75.5,
+   "agreement": 0.848
+  },
+  {
+   "river": "pee_dee",
+   "pair": "098D_jul27",
+   "gauge": "PEE DEE RIVER AT PEEDEE, SC",
+   "neighbour_gap_km": 59.7,
+   "predicted_m": 12.052,
+   "measured_m": 11.752,
+   "error_m": 0.3,
+   "full_wet_ha": 200.2,
+   "held_out_wet_ha": 586.5,
+   "agreement": 0.341
+  },
+  {
+   "river": "pee_dee",
+   "pair": "098D_jul27",
+   "gauge": "PEE DEE RIVER BELOW PEE DEE, SC",
+   "neighbour_gap_km": 37.2,
+   "predicted_m": 10.841,
+   "measured_m": 11.298,
+   "error_m": -0.457,
+   "full_wet_ha": 461.2,
+   "held_out_wet_ha": 320.8,
+   "agreement": 0.695
+  },
+  {
+   "river": "neuse",
+   "pair": "090A_jul26",
+   "gauge": "NEUSE RIVER NEAR GOLDSBORO, NC",
+   "neighbour_gap_km": 59.8,
+   "predicted_m": 18.046,
+   "measured_m": 16.375,
+   "error_m": 1.67,
+   "full_wet_ha": 223.5,
+   "held_out_wet_ha": 977.2,
+   "agreement": 0.229
+  },
+  {
+   "river": "neuse",
+   "pair": "090A_jul26",
+   "gauge": "NEUSE RIVER AT KINSTON, NC",
+   "neighbour_gap_km": 70.0,
+   "predicted_m": 7.718,
+   "measured_m": 5.688,
+   "error_m": 2.031,
+   "full_wet_ha": 0.0,
+   "held_out_wet_ha": 1437.2,
+   "agreement": 0.0
+  },
+  {
+   "river": "lower_sabine",
+   "pair": "134A_jul17",
+   "gauge": "Sabine Rv nr Bon Wier, TX",
+   "neighbour_gap_km": 91.4,
+   "predicted_m": 15.577,
+   "measured_m": 15.151,
+   "error_m": 0.426,
+   "full_wet_ha": 0.0,
+   "held_out_wet_ha": 0.0,
+   "agreement": null
+  }
+ ]
+}

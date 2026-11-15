@@ -1,0 +1,73 @@
+# Isaias-period rise, alapaha. Held-out overbank test. (created by hidden_floods.sitegen)
+
+name = "alapaha"
+crs = "EPSG:32617"
+resolution_m = 50.0
+bbox = [-83.2535, 30.5383, -82.9727, 31.4453]
+
+[data]
+root = "alapaha"
+dem = "dem/dem10m.tif"
+gauges = "gauges"
+operational = "ops"
+
+[gcov]
+"wet_047A_20261015" = "NISAR_L2_PR_GCOV_033_047_A_017_4005_DHDH_A_20261015T104542_20261015T104620_P05023_N_F_J_001"
+"dry_047A_20261003" = "NISAR_L2_PR_GCOV_032_047_A_017_4005_DHDH_A_20261003T104542_20261003T104620_P05023_N_F_J_001"
+"wet_148A_20261022" = "NISAR_L2_PR_GCOV_033_148_A_017_4005_DHDH_A_20261022T105404_20261022T105439_P05023_N_F_J_001"
+"dry_148A_20260928" = "NISAR_L2_PR_GCOV_031_148_A_017_4005_DHDH_A_20260928T105404_20260928T105439_P05023_N_F_J_001"
+
+[gunw]
+
+[pairs."047A_oct15"]
+wet = "wet_047A_20261015"
+dry = "dry_047A_20261003"
+wet_time = "2026-10-15T10:45:42Z"
+dry_time = "2026-10-03T10:45:42Z"
+
+[pairs."148A_oct22"]
+wet = "wet_148A_20261022"
+dry = "dry_148A_20260928"
+wet_time = "2026-10-22T10:54:04Z"
+dry_time = "2026-09-28T10:54:04Z"
+
+
+[[gauges]]
+name = "ALAPAHA RIVER NEAR ALAPAHA, GA"
+id = "USGS-02316000"
+lon = -83.193500
+lat = 31.385278
+datum_ft = 207.81
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "ALAPAHA RIVER AT STATENVILLE, GA"
+id = "USGS-02317500"
+lon = -83.032667
+lat = 30.703833
+datum_ft = 75.96
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "ALAPAHA RIVER NEAR JENNINGS FLA"
+id = "USGS-02317620"
+lon = -83.073195
+lat = 30.598269
+datum_ft = 0.0
+navd88_offset_ft = -0.712
+
+[valley]
+line = [[-83.1935, 31.3853], [-83.0327, 30.7038], [-83.0732, 30.5983]]
+corridor_m = 4000.0
+
+[truth]
+margin_m = 0.5
+max_dry_height_m = 5.0
+
+[split]
+calibration_max_chainage_m = 0.0
+bootstrap_block_m = 2000.0
+
+[detector]
+forest_hv_db = -16.0
+thresholds_db = [2.0]

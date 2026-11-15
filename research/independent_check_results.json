@@ -1,0 +1,591 @@
+{
+ "protocol_sha256": "8ea6f964ef15a85ef55e1cee92b0fca33b62a0892b4c4cd4f9b9f238e12ae808",
+ "cases": {
+  "satilla": {
+   "points": 175,
+   "rated_by_both": 175,
+   "kappa": 0.749,
+   "agreement": 0.863,
+   "strata": {
+    "A": {
+     "n": 25,
+     "FLOOD": 0,
+     "PERMANENT": 1,
+     "DRY": 1,
+     "CANOPY": 20,
+     "CLOUD": 0,
+     "UNSURE": 3,
+     "decidable": 2,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.66
+     ],
+     "auto_new_water": 0
+    },
+    "B": {
+     "n": 25,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 4,
+     "CANOPY": 17,
+     "CLOUD": 0,
+     "UNSURE": 4,
+     "decidable": 4,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.49
+     ],
+     "auto_new_water": 0
+    },
+    "C": {
+     "n": 25,
+     "FLOOD": 2,
+     "PERMANENT": 1,
+     "DRY": 1,
+     "CANOPY": 19,
+     "CLOUD": 0,
+     "UNSURE": 2,
+     "decidable": 4,
+     "flood_share": 0.5,
+     "ci": [
+      0.15,
+      0.85
+     ],
+     "auto_new_water": 0
+    },
+    "D": {
+     "n": 25,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 1,
+     "CANOPY": 17,
+     "CLOUD": 0,
+     "UNSURE": 7,
+     "decidable": 1,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.79
+     ],
+     "auto_new_water": 0
+    },
+    "E": {
+     "n": 25,
+     "FLOOD": 9,
+     "PERMANENT": 3,
+     "DRY": 0,
+     "CANOPY": 6,
+     "CLOUD": 0,
+     "UNSURE": 7,
+     "decidable": 12,
+     "flood_share": 0.75,
+     "ci": [
+      0.47,
+      0.91
+     ],
+     "auto_new_water": 0
+    },
+    "F": {
+     "n": 25,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 7,
+     "CANOPY": 11,
+     "CLOUD": 0,
+     "UNSURE": 7,
+     "decidable": 7,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.35
+     ],
+     "auto_new_water": 0
+    },
+    "G": {
+     "n": 25,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 6,
+     "CANOPY": 16,
+     "CLOUD": 0,
+     "UNSURE": 3,
+     "decidable": 6,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.39
+     ],
+     "auto_new_water": 0
+    }
+   },
+   "readings": {
+    "1 estimate wet vs dry": {
+     "a": [
+      9,
+      14
+     ],
+     "b": [
+      0,
+      11
+     ],
+     "difference": 0.643,
+     "ci": [
+      0.279,
+      0.837
+     ],
+     "reading": "supported"
+    },
+    "2 flags beyond corridor vs control": {
+     "a": [
+      0,
+      1
+     ],
+     "b": [
+      0,
+      6
+     ],
+     "reading": "imagery can't decide (fewer than 10 decidable on a side)"
+    },
+    "3 within estimate wet, flagged vs not": {
+     "a": [
+      0,
+      2
+     ],
+     "b": [
+      9,
+      12
+     ],
+     "reading": "imagery can't decide (fewer than 10 decidable on a side)"
+    },
+    "extra flagged vs not, labelled": {
+     "a": [
+      0,
+      6
+     ],
+     "b": [
+      9,
+      19
+     ],
+     "reading": "imagery can't decide (fewer than 10 decidable on a side)"
+    },
+    "auto: estimate wet vs dry": {
+     "a": [
+      0,
+      50
+     ],
+     "b": [
+      0,
+      50
+     ],
+     "difference": 0.0,
+     "ci": [
+      -0.071,
+      0.071
+     ]
+    },
+    "auto: beyond corridor flags vs control": {
+     "a": [
+      0,
+      25
+     ],
+     "b": [
+      0,
+      25
+     ],
+     "difference": 0.0,
+     "ci": [
+      -0.133,
+      0.133
+     ]
+    },
+    "auto: flagged vs not, labelled wet": {
+     "a": [
+      0,
+      25
+     ],
+     "b": [
+      0,
+      25
+     ],
+     "difference": 0.0,
+     "ci": [
+      -0.133,
+      0.133
+     ]
+    }
+   }
+  },
+  "lower_sabine": {
+   "points": 175,
+   "rated_by_both": 175,
+   "kappa": 0.799,
+   "agreement": 0.874,
+   "strata": {
+    "A": {
+     "n": 25,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 1,
+     "CANOPY": 12,
+     "CLOUD": 9,
+     "UNSURE": 3,
+     "decidable": 1,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.79
+     ],
+     "auto_new_water": 0
+    },
+    "B": {
+     "n": 25,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 4,
+     "CANOPY": 7,
+     "CLOUD": 9,
+     "UNSURE": 5,
+     "decidable": 4,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.49
+     ],
+     "auto_new_water": 0
+    },
+    "C": {
+     "n": 25,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 0,
+     "CANOPY": 6,
+     "CLOUD": 16,
+     "UNSURE": 3,
+     "decidable": 0,
+     "flood_share": null,
+     "ci": null,
+     "auto_new_water": 0
+    },
+    "D": {
+     "n": 25,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 4,
+     "CANOPY": 13,
+     "CLOUD": 5,
+     "UNSURE": 3,
+     "decidable": 4,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.49
+     ],
+     "auto_new_water": 0
+    },
+    "E": {
+     "n": 25,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 2,
+     "CANOPY": 7,
+     "CLOUD": 12,
+     "UNSURE": 4,
+     "decidable": 2,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.66
+     ],
+     "auto_new_water": 0
+    },
+    "F": {
+     "n": 25,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 4,
+     "CANOPY": 9,
+     "CLOUD": 8,
+     "UNSURE": 4,
+     "decidable": 4,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.49
+     ],
+     "auto_new_water": 0
+    },
+    "G": {
+     "n": 25,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 4,
+     "CANOPY": 14,
+     "CLOUD": 6,
+     "UNSURE": 1,
+     "decidable": 4,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.49
+     ],
+     "auto_new_water": 0
+    }
+   },
+   "readings": {
+    "1 estimate wet vs dry": {
+     "a": [
+      0,
+      3
+     ],
+     "b": [
+      0,
+      8
+     ],
+     "reading": "imagery can't decide (fewer than 10 decidable on a side)"
+    },
+    "2 flags beyond corridor vs control": {
+     "a": [
+      0,
+      4
+     ],
+     "b": [
+      0,
+      4
+     ],
+     "reading": "imagery can't decide (fewer than 10 decidable on a side)"
+    },
+    "3 within estimate wet, flagged vs not": {
+     "a": [
+      0,
+      1
+     ],
+     "b": [
+      0,
+      2
+     ],
+     "reading": "imagery can't decide (fewer than 10 decidable on a side)"
+    },
+    "extra flagged vs not, labelled": {
+     "a": [
+      0,
+      5
+     ],
+     "b": [
+      0,
+      6
+     ],
+     "reading": "imagery can't decide (fewer than 10 decidable on a side)"
+    },
+    "auto: estimate wet vs dry": {
+     "a": [
+      0,
+      50
+     ],
+     "b": [
+      0,
+      50
+     ],
+     "difference": 0.0,
+     "ci": [
+      -0.071,
+      0.071
+     ]
+    },
+    "auto: beyond corridor flags vs control": {
+     "a": [
+      0,
+      25
+     ],
+     "b": [
+      0,
+      25
+     ],
+     "difference": 0.0,
+     "ci": [
+      -0.133,
+      0.133
+     ]
+    },
+    "auto: flagged vs not, labelled wet": {
+     "a": [
+      0,
+      25
+     ],
+     "b": [
+      0,
+      25
+     ],
+     "difference": 0.0,
+     "ci": [
+      -0.133,
+      0.133
+     ]
+    }
+   }
+  },
+  "yellow_aerial": {
+   "points": 137,
+   "rated_by_both": 137,
+   "kappa": 0.617,
+   "agreement": 0.832,
+   "strata": {
+    "A": {
+     "n": 20,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 0,
+     "CANOPY": 18,
+     "CLOUD": 0,
+     "UNSURE": 2,
+     "decidable": 0,
+     "flood_share": null,
+     "ci": null,
+     "auto_new_water": null
+    },
+    "B": {
+     "n": 17,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 1,
+     "CANOPY": 15,
+     "CLOUD": 0,
+     "UNSURE": 1,
+     "decidable": 1,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.79
+     ],
+     "auto_new_water": null
+    },
+    "C": {
+     "n": 20,
+     "FLOOD": 0,
+     "PERMANENT": 0,
+     "DRY": 0,
+     "CANOPY": 18,
+     "CLOUD": 0,
+     "UNSURE": 2,
+     "decidable": 0,
+     "flood_share": null,
+     "ci": null,
+     "auto_new_water": null
+    },
+    "D": {
+     "n": 20,
+     "FLOOD": 0,
+     "PERMANENT": 3,
+     "DRY": 0,
+     "CANOPY": 14,
+     "CLOUD": 0,
+     "UNSURE": 3,
+     "decidable": 3,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.56
+     ],
+     "auto_new_water": null
+    },
+    "E": {
+     "n": 20,
+     "FLOOD": 1,
+     "PERMANENT": 6,
+     "DRY": 0,
+     "CANOPY": 9,
+     "CLOUD": 0,
+     "UNSURE": 4,
+     "decidable": 7,
+     "flood_share": 0.143,
+     "ci": [
+      0.03,
+      0.51
+     ],
+     "auto_new_water": null
+    },
+    "F": {
+     "n": 20,
+     "FLOOD": 0,
+     "PERMANENT": 1,
+     "DRY": 2,
+     "CANOPY": 11,
+     "CLOUD": 0,
+     "UNSURE": 6,
+     "decidable": 3,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.56
+     ],
+     "auto_new_water": null
+    },
+    "G": {
+     "n": 20,
+     "FLOOD": 0,
+     "PERMANENT": 1,
+     "DRY": 0,
+     "CANOPY": 5,
+     "CLOUD": 0,
+     "UNSURE": 14,
+     "decidable": 1,
+     "flood_share": 0.0,
+     "ci": [
+      0,
+      0.79
+     ],
+     "auto_new_water": null
+    }
+   },
+   "readings": {
+    "1 estimate wet vs dry": {
+     "a": [
+      1,
+      7
+     ],
+     "b": [
+      0,
+      4
+     ],
+     "reading": "imagery can't decide (fewer than 10 decidable on a side)"
+    },
+    "2 flags beyond corridor vs control": {
+     "a": [
+      0,
+      3
+     ],
+     "b": [
+      0,
+      1
+     ],
+     "reading": "imagery can't decide (fewer than 10 decidable on a side)"
+    },
+    "3 within estimate wet, flagged vs not": {
+     "a": [
+      0,
+      0
+     ],
+     "b": [
+      1,
+      7
+     ],
+     "reading": "imagery can't decide (fewer than 10 decidable on a side)"
+    },
+    "extra flagged vs not, labelled": {
+     "a": [
+      0,
+      1
+     ],
+     "b": [
+      1,
+      10
+     ],
+     "reading": "imagery can't decide (fewer than 10 decidable on a side)"
+    }
+   }
+  }
+ },
+ "protocol_sha256_at_run": "df33ed1546568ea8559fcd1b68be75c1ecc84557d17f118f6afdc9a7eb14758c",
+ "note": "Dates were removed from the rules file after the run; nothing else changed. The *_at_run hash is the one the run used."
+}

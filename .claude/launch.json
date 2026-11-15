@@ -1,0 +1,24 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "glow-fm-app",
+      "runtimeExecutable": "C:/Users/Jasmi/.venvs/hidden-floods/Scripts/python.exe",
+      "runtimeArgs": [
+        "C:/Users/Jasmi/OneDrive/Documents/GitHub/glow-fm/scripts/serve_app.py",
+        "8765"
+      ],
+      "port": 8765
+    },
+    {
+      "name": "glow-fm-custom",
+      "runtimeExecutable": "C:/Users/Jasmi/.venvs/hidden-floods/Scripts/python.exe",
+      "runtimeArgs": [
+        "C:/Users/Jasmi/OneDrive/Documents/GitHub/glow-fm/scripts/custom_server.py",
+        "8767"
+      ],
+      "port": 8767,
+      "autoPort": false
+    }
+  ]
+}
