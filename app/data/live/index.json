@@ -13,6 +13,8 @@
       "gdacs": "1104121",
       "scope": {
         "tree_share": 0.174,
+        "readable_ha": 2107,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -29,6 +31,8 @@
       "gdacs": "1104099",
       "scope": {
         "tree_share": 0.145,
+        "readable_ha": 1970,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -45,6 +49,8 @@
       "gdacs": "1104141",
       "scope": {
         "tree_share": 0.296,
+        "readable_ha": 9714,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -61,6 +67,8 @@
       "gdacs": "1104122",
       "scope": {
         "tree_share": 0.393,
+        "readable_ha": 6004,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -77,6 +85,8 @@
       "gdacs": null,
       "scope": {
         "tree_share": 0.946,
+        "readable_ha": 19422,
+        "late_ha": 0,
         "in_scope": true
       },
       "pass_stage": {
@@ -102,6 +112,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.786,
+        "readable_ha": 13813,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -121,6 +133,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.651,
+        "readable_ha": 11917,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -140,6 +154,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.597,
+        "readable_ha": 11542,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -159,6 +175,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.114,
+        "readable_ha": 438,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -178,6 +196,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.336,
+        "readable_ha": 7065,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -197,6 +217,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.771,
+        "readable_ha": 16755,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -216,6 +238,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.229,
+        "readable_ha": 5482,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -235,6 +259,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.229,
+        "readable_ha": 4351,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -254,6 +280,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.707,
+        "readable_ha": 9897,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -273,6 +301,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.909,
+        "readable_ha": 26285,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -292,6 +322,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.677,
+        "readable_ha": 14406,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -311,7 +343,10 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.816,
-        "in_scope": true
+        "readable_ha": 421,
+        "late_ha": 0,
+        "in_scope": false,
+        "too_small": true
       }
     },
     {
@@ -330,6 +365,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.947,
+        "readable_ha": 16072,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -349,6 +386,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.516,
+        "readable_ha": 3849,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -368,6 +407,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.901,
+        "readable_ha": 19485,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -387,6 +428,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.771,
+        "readable_ha": 23266,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -406,6 +449,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.82,
+        "readable_ha": 4574,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -425,6 +470,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.934,
+        "readable_ha": 11484,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -444,6 +491,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.919,
+        "readable_ha": 12406,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -463,6 +512,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.478,
+        "readable_ha": 35762,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -482,6 +533,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.057,
+        "readable_ha": 17440,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -501,6 +554,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.034,
+        "readable_ha": 1297,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -520,6 +575,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.843,
+        "readable_ha": 17598,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -539,6 +596,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.611,
+        "readable_ha": 7585,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -558,6 +617,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.442,
+        "readable_ha": 1579,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -577,6 +638,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.549,
+        "readable_ha": 5192,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -596,6 +659,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.164,
+        "readable_ha": 7779,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -615,6 +680,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.561,
+        "readable_ha": 2644,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -634,6 +701,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.644,
+        "readable_ha": 7695,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -653,6 +722,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.325,
+        "readable_ha": 28942,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -672,6 +743,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.022,
+        "readable_ha": 4596,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -691,6 +764,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.627,
+        "readable_ha": 20759,
+        "late_ha": 0,
         "in_scope": true
       }
     },
@@ -710,6 +785,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.119,
+        "readable_ha": 6910,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -729,6 +806,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.384,
+        "readable_ha": 1718,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -748,6 +827,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.002,
+        "readable_ha": 18829,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -767,6 +848,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.429,
+        "readable_ha": 4407,
+        "late_ha": 0,
         "in_scope": false
       }
     },
@@ -786,6 +869,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.954,
+        "readable_ha": 33991,
+        "late_ha": 0,
         "in_scope": true
       },
       "pass_stage": {
@@ -811,6 +896,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.947,
+        "readable_ha": 7769,
+        "late_ha": 0,
         "in_scope": true
       },
       "pass_stage": {
@@ -837,6 +924,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.824,
+        "readable_ha": 6299,
+        "late_ha": 0,
         "in_scope": true
       },
       "pass_stage": {
@@ -862,6 +951,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.65,
+        "readable_ha": 13728,
+        "late_ha": 0,
         "in_scope": true
       },
       "pass_stage": {
@@ -887,6 +978,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.622,
+        "readable_ha": 12394,
+        "late_ha": 0,
         "in_scope": true
       },
       "pass_stage": {
@@ -912,6 +1005,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.752,
+        "readable_ha": 35451,
+        "late_ha": 0,
         "in_scope": true
       },
       "pass_stage": {
@@ -937,6 +1032,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.945,
+        "readable_ha": 6020,
+        "late_ha": 0,
         "in_scope": true
       },
       "pass_stage": {
@@ -962,7 +1059,10 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.881,
-        "in_scope": true
+        "readable_ha": 0,
+        "late_ha": 8052,
+        "in_scope": false,
+        "too_small": true
       },
       "pass_stage": {
         "ft": 9.3,
@@ -987,6 +1087,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.962,
+        "readable_ha": 20141,
+        "late_ha": 0,
         "in_scope": true
       },
       "pass_stage": {
@@ -1012,6 +1114,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.266,
+        "readable_ha": 6500,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1037,6 +1141,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.297,
+        "readable_ha": 790,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1062,6 +1168,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.229,
+        "readable_ha": 1069,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1087,6 +1195,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.162,
+        "readable_ha": 2902,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1112,6 +1222,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.163,
+        "readable_ha": 3019,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1137,6 +1249,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.168,
+        "readable_ha": 1335,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1162,6 +1276,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.132,
+        "readable_ha": 885,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1187,6 +1303,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.181,
+        "readable_ha": 2244,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1212,6 +1330,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.185,
+        "readable_ha": 2251,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1237,6 +1357,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.217,
+        "readable_ha": 1080,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1262,6 +1384,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.265,
+        "readable_ha": 1423,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1287,6 +1411,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.193,
+        "readable_ha": 1989,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1312,6 +1438,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.829,
+        "readable_ha": 2160,
+        "late_ha": 0,
         "in_scope": true
       },
       "pass_stage": {
@@ -1337,6 +1465,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.024,
+        "readable_ha": 83,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1362,6 +1492,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.477,
+        "readable_ha": 392,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1387,6 +1519,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.825,
+        "readable_ha": 8015,
+        "late_ha": 0,
         "in_scope": true
       },
       "pass_stage": {
@@ -1412,6 +1546,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.201,
+        "readable_ha": 1723,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1437,6 +1573,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.435,
+        "readable_ha": 545,
+        "late_ha": 0,
         "in_scope": false
       },
       "pass_stage": {
@@ -1462,6 +1600,8 @@
       "protocol": 2,
       "scope": {
         "tree_share": 0.909,
+        "readable_ha": 25005,
+        "late_ha": 0,
         "in_scope": true
       }
     }
@@ -2136,6 +2276,7 @@
   },
   "scope_rule": {
     "min_tree_share": 0.5,
+    "min_readable_ha": 1000,
     "added": "2026-11-15",
     "defined_in": "app/livescope.js"
   }

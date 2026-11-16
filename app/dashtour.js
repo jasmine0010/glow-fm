@@ -74,7 +74,8 @@ function tourKeys(e) {
 
 function tourStart() {
   if (tourState.k >= 0) return;
-  if (typeof setPanel === "function" && state.panel) setPanel(state.panel);
+  const sideColumn = typeof isTablet === "function" && isTablet() && (state.panel === "left" || state.panel === "right");   // the column beside the map stays
+  if (typeof setPanel === "function" && state.panel && !sideColumn) setPanel(state.panel);
   tourState.opener = document.activeElement;
   tourState.steps = TOUR_STEPS.filter((s) => tourTarget(s));
   if (!tourState.steps.length) return;

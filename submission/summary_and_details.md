@@ -25,16 +25,16 @@ It is built on open data:
 We made it for emergency managers, aid groups, insurers and anyone wondering whether their local flood map can see under trees.
 
 How it maps a flood:
-- It compares each pixel of NISAR's flood pass with the median of up to six earlier passes, and flooded forest shows up as a jump in brightness.
+- It compares each pixel of NISAR's flood pass with the median of earlier passes on the same track, and flooded forest shows up as a jump in brightness.
 - It keeps only low ground near the river (within 6 m of its height) and lets each scene set its own cut-off with Otsu's method, which never drops below 0.5 dB.
 - It grades every map with a trust light, and US maps are also scored against river gauges and lidar. On Georgia's Satilla River, GLOWfm found 79% of the flooded area with 92% precision where the official map's first scene showed none.
 
 ### 2. What gap does it fill?
 
 The global standard flood map, Copernicus Global Flood Monitoring (GFM), relies on C-band radar with a 5.6 cm wavelength. These short waves scatter in the leaves before they ever reach the water, so GFM leaves forest out by design. We measured how much it misses:
-- **Satilla River, GA:** On GFM's first scene of the flooded stretch (Oct 24, 2026), it mapped 0 ha, whereas gauges and lidar estimated 1,149 ha. 96% of the flooding sat inside GFM's own mask, and the missed water covered 8.2 km of road.
+- **Satilla River, GA:** On GFM's first scene of the flooded stretch (Oct 24, 2026), it mapped 0 ha, whereas gauges and lidar estimated 1,149 ha. 97% of the flooding sat inside GFM's own mask, and the missed water covered 8.2 km of road.
 - **Three more Gulf Coast rivers (six passes):** GFM mapped at most 0.75 ha where gauges and lidar estimated anywhere from 832 to 17,972 ha.
-- **Worldwide:** Our blind-spot atlas, which crosses Copernicus GloFAS 100-year flood-hazard maps with ESA WorldCover, finds 2.4 million km² of river floodplain under trees, beside 1,355 towns home to about 81.6 million people.
+- **Worldwide:** Our blind-spot atlas, which crosses Copernicus GloFAS 100-year flood-hazard maps with ESA WorldCover, finds 2.4 million km² of river floodplain under trees, beside about 1,900 towns home to about 80 million people.
 
 GLOWfm maps exactly that excluded ground, since NISAR's longer waves reach the water under the canopy. We tested it on US rivers against gauges and lidar after freezing the method, and every map reports how far it can be trusted.
 
@@ -50,10 +50,10 @@ GLOWfm maps exactly that excluded ground, since NISAR's longer waves reach the w
 **Interactive story.** The story takes you from orbit down to a single flooded tree, with an X-ray lens that reveals NISAR's map through the official map's blank one, a divider comparing Sentinel-1 and NISAR, and to-scale radar waves. Along the way you can replay a flood, play a game to find the hidden water and search for your own town.
 
 **Run it yourself.**
-- **What it runs:** GLOWfm's frozen method, ported to JavaScript and checked against the Python original on every case, runs right in the browser on 41 of this season's floods.
+- **What it runs:** GLOWfm's frozen method, ported to JavaScript and checked against the Python original on every case, runs right in the browser on 69 of this season's floods.
 - **Explained and shareable:** Users can change the settings, see figures that explain each run (including a map of hits, misses and false alarms for gauged floods) and download a one-page brief, the map and the run's data.
 
-**Results.** This page holds the full method and validation, with 12 downloadable figures.
+**Results.** This page holds the full method and validation, with nine downloadable figures.
 
 ### 4. The science: why L-band sees through trees
 
@@ -68,7 +68,7 @@ When the forest floor floods, the water and trunks form a corner reflector, so t
 
 GLOWfm reads NISAR's L2 GCOV backscatter (γ⁰) at 50 m resolution. Every step is a fixed rule, written and hashed before any test data was opened.
 
-1. **Change since before the flood.** Each pixel is compared with the median of up to six earlier passes on the same track from the 60 days before the flood.
+1. **Change since before the flood.** Each pixel is compared with the median of the earlier passes on the same track from the 60 days before the flood (at least three, and the newest six in the live runs).
    Δ = 10·log₁₀ γ⁰<sub>HH, flood</sub> − median<sub>k</sub> ( 10·log₁₀ γ⁰<sub>HH, k</sub> )
    If higher ground also brightened by more than 0.5 dB, which points to rain-soaked soil rather than flooding, GLOWfm switches to Δ<sub>HH</sub> − Δ<sub>HV</sub>. Cross-polarized HV comes mainly from volume scattering in the canopy, so subtracting it removes the scene-wide wetting while keeping most of the flood signal.
 2. **Where a flood is possible.** A pixel is kept only if it is:
@@ -122,10 +122,10 @@ Every score comes with a 95% interval from a block bootstrap (2 km blocks along 
   - the JavaScript site
   - the browser port of the method
 - **Every result was checked against the data:**
-  - 138 automated tests
-  - a check that the browser method matches the Python method on all 41 cases
+  - 139 automated tests
+  - a check that the browser method matches the Python method on all 69 cases
   - figures rebuilt from the saved outputs
-- **No AI-generated images or NASA branding** are used. The site's footer states the AI assistance.
+- **No AI-generated images or NASA branding** are used.
 
 ## NASA Data
 
@@ -155,5 +155,5 @@ Every score comes with a 95% interval from a block bootstrap (2 km blocks along 
 
 ## Tools
 
-- **Python:** NumPy, SciPy, rasterio, pyproj, h5py and Pillow, plus pytest with 138 tests
+- **Python:** NumPy, SciPy, rasterio, pyproj, h5py and Pillow, plus pytest with 139 tests
 - **JavaScript:** MapLibre GL, Canvas and SVG for the maps and figures, and the Web Audio API for sound, with no framework

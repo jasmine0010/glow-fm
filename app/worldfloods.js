@@ -162,7 +162,7 @@ let liveCases = [], liveSkips = new Map(), liveOutside = new Map();
 fetch("data/live/index.json").then((r) => (r.ok ? r.json() : { cases: [] })).then((x) => {
   liveCases = x.cases || [];
   liveSkips = new Map(((x.coverage || {}).skipped || []).filter((s) => s.gdacs).map((s) => [String(s.gdacs), s.skip]));
-  liveOutside = new Map(liveCases.filter((c) => c.kind === "world" && c.gdacs && c.scope && c.scope.in_scope === false).map((c) => [String(c.gdacs), c.scope.tree_share]));
+  liveOutside = new Map(liveCases.filter((c) => c.kind === "world" && c.gdacs && c.scope && c.scope.in_scope === false).map((c) => [String(c.gdacs), c.scope]));
   if (atlas.event) renderAtlasPick();
   if (world.events.length) { sortEvents(world.events); renderWorld(); }
 }).catch(() => {});
@@ -170,8 +170,11 @@ const liveInScope = (c) => !(c.scope && c.scope.in_scope === false);
 const liveCaseFor = (e) => liveCases.find((c) => c.kind === "world" && String(c.gdacs) === String(e.id) && !c.superseded_by && liveInScope(c))
   || liveCases.find((c) => c.kind === "world" && String(c.gdacs) === String(e.id) && liveInScope(c));
 function whyNotRun(e) {
-  const share = liveOutside.get(String(e.id));
-  if (share !== undefined) return `Outside GLOWfm's scope here. Only ${Math.round(100 * (share || 0))}% of the valley floor is forest or wetland, and GLOWfm reads flooding under trees. Open water on fields is what existing flood maps already catch.`;
+  const scope = liveOutside.get(String(e.id)), share = scope && scope.tree_share;
+  if (scope && scope.too_small) return scope.readable_ha === 0 && scope.late_ha > 0
+    ? "Too late to map here. The river was long past its crest when NISAR passed, and GLOWfm holds back on ground like that."
+    : `Too little ground to map here. Only ${scope.readable_ha.toLocaleString("en-US")} ha of this valley is ground GLOWfm can read at this pass, and it needs at least 1,000 ha.`;
+  if (scope) return `Outside GLOWfm's scope here. Only ${Math.round(100 * (share || 0))}% of the valley floor is forest or wetland, and GLOWfm reads flooding under trees. Open water on fields is what existing flood maps already catch.`;
   const why = liveSkips.get(String(e.id));
   if (!why) return null;
   const few = why.match(/^Only (\d+) earlier pass/);

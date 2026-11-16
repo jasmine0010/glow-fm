@@ -4,7 +4,8 @@ const figJson = (path) => (FIG_CACHE[path] ??= fetch(`data/${path}`).then((r) =>
 const FIG_SHORT = (site) => siteTitle(site).split(",")[0];
 const figDb = (x) => `${x >= 0 ? "+" : "−"}${Math.abs(x).toFixed(1)} dB`;
 const passDay = (pair) => passDate(pair);
-const wide = (W) => W >= 760;
+const wide = (W) => W >= 600;                // two panels side by side
+const roomy = (W) => W >= 760;               // for figures whose side-by-side panels need more room (images in a row, long labels)
 const PCT = (x) => `${Math.round(100 * x)}%`;
 const n0f = (x) => Math.round(x).toLocaleString("en-US");
 const refLine = (g, x1, y1, x2, y2) => fkEl(g, "line", { x1, y1, x2, y2, class: "fk-ref" });
@@ -16,10 +17,10 @@ async function figStudy(box, only) {
   const bh = 40 + rivers.length * 24 + 56;
   fkFigure(box, {
     name: "fig1-study-design", label: `Map and observation timeline of the ${rivers.length} test rivers`,
-    height: (W) => (only === "b" ? bh : only === "a" ? 330 : wide(W) ? bh : 330 + 16 + bh),
+    height: (W) => (only === "b" ? bh : only === "a" ? 330 : roomy(W) ? bh : 330 + 16 + bh),
     csv: () => [["river", "role", "pass", "wet_time", "frozen_test"], ...rivers.flatMap((r) => r.passes.map((p) => [r.id, r.role, p.pair, p.time, p.tested]))],
     draw(svg, W, H, tip) {
-      const showA = only !== "b", showB = only !== "a", side = wide(W) && showA && showB;
+      const showA = only !== "b", showB = only !== "a", side = roomy(W) && showA && showB;
       if (showA) {
         const pw = side ? W * 0.4 : W, ph = side ? H : 330;
         const p = fkPanel(svg, { x: 0, y: 0, w: pw, h: ph, letter: only ? null : "a", title: "Study rivers", m: { t: 30, r: 10, b: side ? 56 : 30, l: 44 } });
@@ -49,14 +50,14 @@ async function figStudy(box, only) {
       }
       if (showB) {
         const top = showA && !side ? 346 : 0, x0 = side ? W * 0.4 + 14 : 0, pw = W - x0, ph = H - top;
-        const p = fkPanel(svg, { x: x0, y: top, w: pw, h: ph, letter: only ? null : "b", title: "Observation timeline, 2026", m: { t: 30, r: 10, b: 56, l: wide(W) ? 112 : 96 } });
+        const p = fkPanel(svg, { x: x0, y: top, w: pw, h: ph, letter: only ? null : "b", title: "Observation timeline, 2026", m: { t: 30, r: 10, b: 56, l: roomy(W) ? 112 : 96 } });
         const sx = fkTime(start, end, 0, p.w), row = p.h / rivers.length;
         fkAxes(p, sx, fkLinear(0, 1, p.h, 0), { yticks: [], xfmt: fkDay });
         const pts = [];
         rivers.forEach((r, k) => {
           const y = k * row, mid = y + row / 2;
           fkEl(p.g, "line", { x1: -FK_TICK, x2: 0, y1: mid, y2: mid, class: "fk-spine" });
-          fkEl(p.g, "text", { x: -FK_TICK - 3, y: mid + 4, class: "fk-tick", "text-anchor": "end" }, wide(W) ? FIG_SHORT(r.id) : FIG_SHORT(r.id).replace(/ River$/, ""));
+          fkEl(p.g, "text", { x: -FK_TICK - 3, y: mid + 4, class: "fk-tick", "text-anchor": "end" }, roomy(W) ? FIG_SHORT(r.id) : FIG_SHORT(r.id).replace(/ River$/, ""));
           if (r.hydro) {
             const base = y + row - 2, line = r.hydro.times.map((t, i) => [sx(Date.parse(`${t}Z`)), base - (r.hydro.rel[i] ?? NaN) * (row - 6)]).filter((q) => q[0] >= 0 && q[0] <= p.w);
             if (line.length > 2) fkEl(p.g, "path", { d: fkPath(line) + `L${line[line.length - 1][0]} ${base}L${line[0][0]} ${base}Z`, class: "f-water", "fill-opacity": 0.3 });
@@ -297,14 +298,14 @@ async function figBlind(box, only) {
   const ah = 30 + rows.length * 30 + 64;
   fkFigure(box, {
     name: "fig8-official-map-blind-spot", label: "Flooding estimated from the gauges against what the official flood map mapped, the official map's forest mask, and its revisits",
-    height: (W) => (only === "a" ? ah : wide(W) && !only ? Math.max(ah, 380) + 16 + 320 : ah + 16 + 330 + 16 + 340),
+    height: (W) => (only === "a" ? ah : roomy(W) && !only ? Math.max(ah, 380) + 16 + 320 : ah + 16 + 330 + 16 + 340),
     csv: () => [["river", "date", "estimated_ha", "gfm_mapped_ha"], ...rows.map((r) => [r.site, r.date, r.est, r.gfm])],
     draw(svg, W, H, tip) {
-      const side = wide(W) && !only, top = side ? Math.max(ah, 380) : ah;
+      const side = roomy(W) && !only, top = side ? Math.max(ah, 380) : ah;
       {
-        const rowLabel = (r) => `${wide(W) ? FIG_SHORT(r.site) : FIG_SHORT(r.site).replace(/ River$/, "")}, ${day(r.date)}`;
+        const rowLabel = (r) => `${roomy(W) ? FIG_SHORT(r.site) : FIG_SHORT(r.site).replace(/ River$/, "")}, ${day(r.date)}`;
         const labelW = Math.max(...rows.map((r) => fkTextWidth(svg, rowLabel(r))));
-        const p = fkPanel(svg, { x: 0, y: 0, w: side ? W * 0.55 : W, h: top, letter: only ? null : "a", title: "Flooded area: estimate against GFM", m: { t: 30, r: wide(W) ? 46 : 60, b: 46, l: Math.ceil(labelW + FK_TICK + 10) } });
+        const p = fkPanel(svg, { x: 0, y: 0, w: side ? W * 0.55 : W, h: top, letter: only ? null : "a", title: "Flooded area: estimate against GFM", m: { t: 30, r: roomy(W) ? 46 : 60, b: 46, l: Math.ceil(labelW + FK_TICK + 10) } });
         const room = Math.max(...rows.map((r) => fkTextWidth(svg, n0f(r.est)))) + 22, largest = Math.max(...rows.map((r) => r.est));
         const reach = Math.max(Math.log10(30000), Math.log10(0.1) + (Math.log10(largest) - Math.log10(0.1)) / Math.max(0.3, 1 - room / p.w));
         const sx = fkLog(0.1, 10 ** reach, 0, p.w), rh = p.h / rows.length;
@@ -474,7 +475,7 @@ async function figFringes(box) {
   const kmPerDeg = 111.32 * Math.cos((d.bunker[1] * Math.PI) / 180), km = (lon) => (lon - d.bunker[0]) * kmPerDeg;
   const [iw0, ih0] = P[0].image_px, aspect = ih0 / iw0, cmCycle = Math.round(100 * P[1].m_per_cycle);
   const layout = (W) => {
-    const across = wide(W), gap = 12, iw = across ? (W - 2 * gap) / 3 : W, ih = iw * aspect, cell = 20 + ih;
+    const across = roomy(W), gap = 12, iw = across ? (W - 2 * gap) / 3 : W, ih = iw * aspect, cell = 20 + ih;
     const aH = 30 + (across ? cell : 3 * cell + 2 * gap) + (across ? 34 : 50);
     return { across, gap, iw, ih, cell, aH, bH: 300 };
   };
@@ -535,7 +536,7 @@ async function figMaps(box) {
   const urls = await Promise.all(P.map((p) => Promise.all([p.overview.image, p.window.change, p.window.classes].map(figDataUrl))));
   const kindWord = { strong: "a strong pass", typical: "a typical pass", failed: "a failed pass" };
   const layout = (W) => {
-    const across = wide(W), gap = 14;
+    const across = roomy(W), gap = 14;
     if (across) {
       const ow = Math.round(W * 0.27), ww = Math.floor((W - ow - 2 * gap) / 2), wh = Math.round((ww * P[0].window.px[1]) / P[0].window.px[0]);
       return { across, gap, ow, ww, wh, oh: wh, head: 0, row: 40 + 16 + wh + 26 };
@@ -598,7 +599,7 @@ async function figMaps(box) {
       fkEl(grad, "stop", { offset: "0", "stop-color": "rgb(40,40,40)" }); fkEl(grad, "stop", { offset: "1", "stop-color": "rgb(255,255,255)" });
       fkEl(g, "rect", { x: 0, y: ry, width: 120, height: 10, fill: `url(#${gradId})`, stroke: "#8a969e", "stroke-width": 0.5 });
       const rampText = [`Radar change ${fkMinus(String(d.db_range[0]))} to +${d.db_range[1]} dB; brighter is a bigger rise.`, "The yellow box shows where the window sits."];
-      if (wide(W)) fkEl(g, "text", { x: 128, y: ry + 9, class: "fk-tick" }, rampText.join(" "));
+      if (roomy(W)) fkEl(g, "text", { x: 128, y: ry + 9, class: "fk-tick" }, rampText.join(" "));
       else { fkEl(g, "text", { x: 128, y: ry + 9, class: "fk-tick" }, `${fkMinus(String(d.db_range[0]))} to +${d.db_range[1]} dB, brighter is a bigger rise`); fkEl(g, "text", { x: 0, y: ry + 28, class: "fk-tick" }, rampText[1]); }
     },
   });

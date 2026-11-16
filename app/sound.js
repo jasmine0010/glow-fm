@@ -1,8 +1,6 @@
 
 const Sound = { on: false, ac: null, waiting: false };
 
-function soundStored(fallback = false) { try { const v = localStorage.getItem("hf.sound"); return v ? v === "on" : fallback; } catch { return fallback; } }
-function soundStore(on) { try { localStorage.setItem("hf.sound", on ? "on" : "off"); } catch {  } }
 
 function soundContext() {
   if (!Sound.ac) {
@@ -54,11 +52,12 @@ function soundReturn({ gain, ring = 0, at = 0, force = false }) {
   if ((!Sound.on || Sound.waiting) && !force) return;
   const ac = soundContext();
   if (!ac) return;
-  const t = ac.currentTime + 0.03 + at, n = Math.round(ac.sampleRate * 0.45), buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0);
-  for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ac.sampleRate * 0.09)) * (Math.random() < 0.08 ? 2.2 : 1);
+  // A soft hiss for scattered echo: eased in over 25 ms and fading over about a second, so it reads as scatter rather than a clap
+  const sr = ac.sampleRate, t = ac.currentTime + 0.03 + at, n = Math.round(sr * 0.9), buf = ac.createBuffer(1, n, sr), d = buf.getChannelData(0);
+  for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * (1 - Math.exp(-i / (sr * 0.025))) * Math.exp(-i / (sr * 0.3));
   const src = ac.createBufferSource(), bp = ac.createBiquadFilter(), g = ac.createGain();
-  src.buffer = buf; bp.type = "bandpass"; bp.frequency.value = 1300; bp.Q.value = 1.4;
-  g.gain.value = 2.4 * gain * (1 - 0.65 * ring);
+  src.buffer = buf; bp.type = "bandpass"; bp.frequency.value = 850; bp.Q.value = 0.6;
+  g.gain.value = 1.3 * gain;   // the echo itself, at the measured power ratio; the ring is added on top as a separate cue
   src.connect(bp).connect(g).connect(ac.destination);
   src.start(t);
   if (ring > 0.02) {
@@ -101,7 +100,7 @@ function riverSound(owner, level) {
 function setupSoundToggle(btn) {
   if (!btn) return;
   const render = () => {
-    const playing = Sound.on && !Sound.waiting;
+    const playing = Sound.on;
     btn.setAttribute("aria-pressed", String(playing));
     btn.querySelector(".sound-word").textContent = playing ? "Sound on" : "Sound off";
     btn.classList.toggle("on", playing);
@@ -110,21 +109,22 @@ function setupSoundToggle(btn) {
     const ac = soundContext();
     if (!ac) return Promise.resolve();
     return ac.resume().then(() => {
-      if (ac.state !== "running" || !Sound.waiting) return;
-      Sound.waiting = false;
-      if (typeof ambienceSwitch === "function") ambienceSwitch(true);
-      render();
+      if (ac.state === "running" && typeof ambienceSwitch === "function") ambienceSwitch(Sound.on);
     });
   };
-  Sound.on = soundStored(btn.dataset.default === "on");
-  Sound.waiting = Sound.on;
+  // Off on every visit: browsers won't play sound until the reader clicks, so the switch is the click that starts it.
+  // For the first 10 seconds it pulses gently so readers notice it's there.
+  Sound.on = false;
+  Sound.waiting = false;
   render();
+  btn.classList.add("hint");
+  const unhint = () => btn.classList.remove("hint");
+  setTimeout(unhint, 10000);
   btn.addEventListener("click", () => {
-    if (Sound.waiting) { start().then(() => soundPing({ gain: 0.07 })); return; }
+    unhint();
     Sound.on = !Sound.on;
-    soundStore(Sound.on);
     render();
-    if (Sound.on) soundPing({ gain: 0.07 }); else riverFade(0, 0.1);
+    if (Sound.on) start().then(() => soundPing({ gain: 0.07 })); else riverFade(0, 0.1);
     if (typeof ambienceSwitch === "function") ambienceSwitch(Sound.on);
   });
 }

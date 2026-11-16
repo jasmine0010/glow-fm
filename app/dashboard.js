@@ -34,6 +34,8 @@ const inBounds = (b, p) => { const { lng, lat } = p.wrap(); return lng >= b[0] &
 const storeOf = (r) => (state.stores[r.id] ??= { radarUrl: null, loading: null, pack: null, gfmLoaded: false });
 const isPhone = () => innerWidth <= PHONE_MAX;
 const railsShown = () => !isPhone();
+const isTablet = () => isPhone() && innerWidth > 640;   // one panel at a time, as a column beside the map
+const sideRail = () => (isTablet() && document.body.dataset.sheet ? $(`rail-${document.body.dataset.sheet}`) : null);
 const activeBounds = () => state.river.bounds;
 function showSel(kind) {
   state.sel = kind;
@@ -622,8 +624,9 @@ async function loadCatalog(r) {
 
 function viewPadding() {
   const shown = railsShown(), phone = isPhone();
-  const left = shown ? $("rail-left").getBoundingClientRect().right + 20 : 20, right = shown ? innerWidth - $("rail-right").getBoundingClientRect().left + 20 : 20;
-  const wanted = { top: phone ? 190 : 76, bottom: innerHeight - document.querySelector(".dock-stack").getBoundingClientRect().top + 12 };
+  const side = sideRail(), left = shown ? $("rail-left").getBoundingClientRect().right + 20 : 20;
+  const right = shown ? innerWidth - $("rail-right").getBoundingClientRect().left + 20 : side ? innerWidth - side.getBoundingClientRect().left + 20 : 20;
+  const wanted = { top: phone && !side ? 190 : 76, bottom: innerHeight - document.querySelector(".dock-stack").getBoundingClientRect().top + 12 };
   const room = innerHeight - 100, fit = Math.min(1, room / (wanted.top + wanted.bottom));
   return { left, right, top: wanted.top * fit, bottom: wanted.bottom * fit };
 }
@@ -962,7 +965,9 @@ function setPanel(name) {
   if (wasOpen !== nowOpen && !state.overview && state.mapReady && state.sel === "river") flyToBounds(activeBounds(), { duration: 500 });
   if (nowOpen && !wasOpen) { state.panelOpener = document.activeElement; $("drawer").focus({ preventScroll: true }); }
   if (wasOpen && !nowOpen && state.panelOpener && state.panelOpener.isConnected) state.panelOpener.focus({ preventScroll: true });
+  const sheetWas = body.dataset.sheet || "";
   body.dataset.sheet = state.panel === "left" || state.panel === "right" ? state.panel : "";
+  if (isTablet() && !!sheetWas !== !!body.dataset.sheet && !state.overview && state.mapReady && state.sel === "river") flyToBounds(activeBounds(), { duration: 500 });
   DRAWER_PANELS.forEach((p) => { $(`pane-${p}`).hidden = state.panel !== p; });
   document.querySelectorAll("button[data-panel]").forEach((b) => { const on = b.dataset.panel === state.panel; b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); });
   if (state.panel === "graphs") {
@@ -991,7 +996,7 @@ function wireControls() {
   $("t-play").addEventListener("click", () => { if (state.timer) stopPlay(); else startPlay(); });
   $("t-prev").addEventListener("click", () => { stopPlay(); jumpPass(-1); });
   $("t-next").addEventListener("click", () => { stopPlay(); jumpPass(1); });
-  $("events").addEventListener("click", (e) => { const b = e.target.closest("[data-river]"); if (!b) return; activate(b.dataset.river); if (isPhone()) setPanel("left"); });
+  $("events").addEventListener("click", (e) => { const b = e.target.closest("[data-river]"); if (!b) return; activate(b.dataset.river); if (isPhone() && !isTablet()) setPanel("left"); });
   $("fly-back").addEventListener("click", () => flyToBounds(activeBounds()));
   $("zoom-in").addEventListener("click", () => map.zoomIn());
   $("zoom-out").addEventListener("click", () => map.zoomOut());
@@ -1078,6 +1083,7 @@ function setupMap(startBounds) {
   renderEvents();
   clearPanels(state.river);
   const first = state.river, deepLink = !!wanted, t = q.get("t");
+  if (isTablet()) setPanel(deepLink ? "right" : "left");
   setShow(q.get("show"));
   const atlasLink = q.get("view") === "atlas" || q.get("view") === "place", at = (q.get("at") || "").split(",").map(Number);
   if (q.get("blind") === "off" && !atlasLink) atlasSetEnabled(false);

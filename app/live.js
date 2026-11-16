@@ -112,10 +112,11 @@ async function showCase(summary, base) {
   live.map.getSource("gauge").setData({ type: "Feature", geometry: { type: "Point", coordinates: [rec.lon, rec.lat] }, properties: {} });
   drawLayer(null);
   drawRoads(null);
-  const ps = summary.pass_stage, share = LiveScope.share(live.data, rec.rule);
+  const ps = summary.pass_stage, share = LiveScope.share(live.data, rec.rule), area = LiveScope.readable(live.data, rec.rule, rec.pixel_ha);
   const why = ps && ps.in_flood === false && !ps.exempt
     ?`<b>Not in flood when NISAR passed.</b> The river read ${ps.ft.toFixed(1)} ft at the pass, below its ${escHtml(ps.flood_ft)} ft flood stage, so there was no flood for GLOWfm to map.`
-    : !LiveScope.inScope(share) ? `<b>Outside GLOWfm's scope.</b> ${escHtml(LiveScope.why(share))}` : "";
+    : !LiveScope.inScope(share) ? `<b>Outside GLOWfm's scope.</b> ${escHtml(LiveScope.why(share))}`
+    : !LiveScope.bigEnough(area) ? `<b>Too little ground to map.</b> ${escHtml(LiveScope.whyArea(area))}` : "";
   if (why) {
     live.outOfScope = true;
     $("run").hidden = true;

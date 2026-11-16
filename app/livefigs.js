@@ -136,7 +136,8 @@ const LiveFigs = (() => {
         if (t.lowMed !== null) fkEl(p.g, "line", { x1: sx(t.lowMed), x2: sx(t.lowMed), y1: 0, y2: p.h, class: "s-water", "stroke-dasharray": "4 3" });
         if (t.highMed !== null) fkEl(p.g, "line", { x1: sx(t.highMed), x2: sx(t.highMed), y1: 0, y2: p.h, class: "s-veil", "stroke-dasharray": "4 3" });
         const gap = S.res.lowMinusHigh, verdict = gap === null ? `too few forest pixels to compare (needs ${t.min} in each)` : `gap ${sdb(gap)}: ${gap > t.rule ? "above" : "not above"} the ${t.rule} dB rule, so ${gap > t.rule ? "green" : "red"}`;
-        fkEl(p.g, "text", { x: 6, y: 16, class: "fk-tick" }, verdict);
+        const lines = fkTextWidth(svg, verdict) <= p.w - 12 ? [verdict] : verdict.replace(/: /, ":\n").replace(/ \(needs/, "\n(needs").split("\n");   // wrap on a narrow chart
+        lines.forEach((line, k) => fkEl(p.g, "text", { x: 6, y: 16 + 14 * k, class: "fk-tick" }, line));
         fkKey(p, [["line", "s-water", "Forest under 2 m above water"], ["line", "s-veil", "Forest 4–8 m above water"]], "br");
       },
     });

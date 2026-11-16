@@ -76,6 +76,7 @@ function floodPicker(cases, sub, scores = null) {
 
 const notOffered = (c) => (c.pass_stage && c.pass_stage.in_flood === false && !c.pass_stage.exempt
   ? `${c.pass_stage.ft.toFixed(1)} ft when NISAR passed, below its ${c.pass_stage.flood_ft} ft flood stage`
+  : c.scope && c.scope.too_small ? (c.scope.readable_ha === 0 && c.scope.late_ha > 0 ? "Long past its crest when NISAR passed, so GLOWfm holds back on all of it" : `Only ${c.scope.readable_ha.toLocaleString("en-US")} ha of ground GLOWfm can read at the pass`)
   : c.scope && c.scope.in_scope === false ? `${Math.round(100 * (c.scope.tree_share || 0))}% of the valley floor is forest or wetland` : null);
 const LISTED_NOT = new Set(["us_elff1_20261010", "us_mkhf1_20261103", "tested_neuse_090A_jul26", "tested_lower_sabine_134A_jul17"]);
 const currentCases = (index) => index.cases.filter((c) => !c.superseded_by && !notOffered(c) && !LISTED_NOT.has(c.id));
