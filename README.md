@@ -113,6 +113,10 @@ Results:
 * GLOWfm only needs NISAR and open global data. Of the 132 floods reported worldwide in the last 60 days, NISAR captured 79 while they were still being reported, and 43 of those in scenes GLOWfm can read.
 * Every test was fixed in advance and run once, failures included, with confidence intervals and downloadable data.
 
+# AI Disclosure
+
+We used Claude (Anthropic), through Claude Code, to help write the code and edit the text. We chose the problem, data and method, fixed each test in advance and checked every result. No AI-generated images, video or audio are used; every number and figure comes from the real data cited above.
+
 # NASA Data
 
 * [NASA Earthdata (NISAR, OPERA DSWx-S1, GPM IMERG)](https://www.earthdata.nasa.gov/)
