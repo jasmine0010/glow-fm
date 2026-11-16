@@ -1460,6 +1460,15 @@ body.night::before, body.night::after { display: none; }
 .topbar-tool:hover { background: none; text-decoration: underline; text-underline-offset: 6px; }
 .topbar-tool.here, .topbar-plain.here { color: var(--ink); text-decoration: none; box-shadow: inset 0 -2px 0 var(--accent); }
 .topbar-pages { gap: var(--s5); }
+.topbar-pages .topbar-gh.topbar-plain { display: inline-flex; color: var(--soft); }   /* stays on narrow screens too */
+.topbar-gh svg { width: 18px; height: 18px; fill: currentColor; }
+.topbar-pages .topbar-gh.topbar-plain:hover { color: var(--ink); }
+@media (max-width: 900px) { .topbar-pages { gap: var(--s4); } }
+@media (max-width: 860px) { .topbar-links { display: none; } }   /* Results' section links would clip; the page's own headings remain */
+@media (max-width: 700px) {   /* the story's bar also holds Sections and Sound, so its page links take a second row sooner */
+  .story-page .topbar-in { flex-wrap: wrap; row-gap: 2px; }
+  .story-page .topbar-pages { order: 10; flex-basis: 100%; margin: 0 0 8px; justify-content: flex-end; }
+}
 .btn-line { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 22px; border: 1px solid var(--accent); border-radius: var(--r-small); background: none; color: var(--accent); font: 600 var(--fs-body)/1.2 var(--sans); text-decoration: none; white-space: nowrap; }
 .btn-line:hover { background: rgba(255, 209, 102, .1); color: var(--accent); }
 .night .story { padding-top: clamp(80px, 12vh, 136px); padding-bottom: clamp(40px, 6vh, 72px); }
