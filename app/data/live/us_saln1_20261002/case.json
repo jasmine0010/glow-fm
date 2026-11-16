@@ -1,0 +1,268 @@
+{
+  "id": "us_saln1_20261002",
+  "kind": "us",
+  "name": "Salt Creek at Innovation Campus at Lincoln",
+  "place": "Salt Creek at Innovation Campus at Lincoln, NE",
+  "category": "minor",
+  "lat": 40.83861,
+  "lon": -96.6914,
+  "flood_from": "2026-10-01T00:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": null,
+  "usgs": "06803495",
+  "noaa": "SALN1",
+  "wet": {
+    "time": "2026-10-02T11:30:11Z",
+    "name": "NISAR_L2_PR_GCOV_032_033_A_022_4005_DHDH_A_20261002T113011_20261002T113046_P05023_N_F_J_001",
+    "stack": "033A_022_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_033_A_022_4005_DHDH_A_20261002T113011_20261002T113046_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_033_A_022_4005_DHDH_A_20261002T113011_20261002T113046_P05023_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          -94.42564,
+          39.86922
+        ],
+        [
+          -95.2938,
+          41.96978
+        ],
+        [
+          -98.20659,
+          41.22804
+        ],
+        [
+          -97.2569,
+          39.15008
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-08-15T11:30:11Z",
+      "name": "NISAR_L2_PR_GCOV_028_033_A_022_4005_DHDH_A_20260815T113011_20260815T113046_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-08-27T11:30:11Z",
+      "name": "NISAR_L2_PR_GCOV_029_033_A_022_4005_DHDH_A_20260827T113011_20260827T113046_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-08T11:30:11Z",
+      "name": "NISAR_L2_PR_GCOV_030_033_A_022_4005_DHDH_A_20260908T113011_20260908T113046_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-20T11:30:11Z",
+      "name": "NISAR_L2_PR_GCOV_031_033_A_022_4005_DHDH_A_20260920T113011_20260920T113046_P05023_F_F_J_001"
+    }
+  ],
+  "passes_during": 1,
+  "corners": [
+    [
+      -96.846563,
+      40.946077
+    ],
+    [
+      -96.548957,
+      40.955635
+    ],
+    [
+      -96.536972,
+      40.730854
+    ],
+    [
+      -96.833578,
+      40.721371
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 502,
+    "height": 500,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      },
+      {
+        "name": "estimate",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32615",
+    "gauges": [
+      {
+        "usgs": "06803486",
+        "name": "Oak Creek at Air Park Road at Lincoln, Nebr.",
+        "lat": 40.855392,
+        "lon": -96.779256,
+        "datum_ft": 1143.42,
+        "datum": "NAVD88",
+        "level_source": "stage + gauge datum (NAVD88)",
+        "reading_ft": 6.209633333333334,
+        "wse_m": 350.40711224000006,
+        "timing": 2
+      },
+      {
+        "usgs": "06803495",
+        "name": "Salt Creek at Innovation Campus at Lincoln, Nebr.",
+        "lat": 40.838611,
+        "lon": -96.691389,
+        "datum_ft": 1109.5,
+        "datum": "NAVD88",
+        "level_source": "stage + gauge datum (NAVD88)",
+        "reading_ft": 17.329266666666665,
+        "wse_m": 343.45756048,
+        "timing": 2
+      },
+      {
+        "usgs": "06803500",
+        "name": "Salt Creek at 27th Street at Lincoln, Nebr.",
+        "lat": 40.846517,
+        "lon": -96.681983,
+        "datum_ft": 1114.48,
+        "datum": "NAVD88",
+        "level_source": "stage + gauge datum (NAVD88)",
+        "reading_ft": 10.459633333333334,
+        "wse_m": 342.88160024,
+        "timing": 2
+      },
+      {
+        "usgs": "06803513",
+        "name": "Salt Creek at 70th Street at Lincoln, Nebr.",
+        "lat": 40.885925,
+        "lon": -96.624264,
+        "datum_ft": 1097.44,
+        "datum": "NAVD88",
+        "level_source": "stage + gauge datum (NAVD88)",
+        "reading_ft": 13.6189,
+        "wse_m": 338.65075272,
+        "timing": 2
+      }
+    ],
+    "heights": "3DEP lidar (bare earth)",
+    "river": "USGS river line through the gauge",
+    "protocol": "research/LIVE_PROTOCOL_V2.md"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.5,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": 0.3421684503555298,
+    "flagged_ha": 620.75,
+    "mapped_ha": 62750.0
+  },
+  "reference_run": {
+    "threshold_db": 0.5,
+    "flagged_px": 3082,
+    "flagged_land_px": 2478,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": 0.34222206473350525
+  },
+  "score": {
+    "scores": {
+      "tp": 0,
+      "fn": 39,
+      "fp": 559,
+      "tn": 5420,
+      "recall": 0.0,
+      "precision": 0.0,
+      "csi": 0.0,
+      "f1": 0.0,
+      "tp_ha": 0.0,
+      "fn_ha": 9.75,
+      "fp_ha": 139.75,
+      "tn_ha": 1355.0
+    },
+    "ci95": {
+      "recall": [
+        0.0,
+        0.0
+      ],
+      "precision": [
+        0.0,
+        0.0
+      ],
+      "csi": [
+        0.0,
+        0.0
+      ],
+      "f1": [
+        0.0,
+        0.0
+      ]
+    },
+    "estimate_wet_ha": 9.75,
+    "estimate_dry_ha": 1494.75
+  },
+  "attempt": {
+    "case": "us_saln1_20261002",
+    "dev": false,
+    "git_head": "eef8bde2ac18bbce9be9b862a2f19a5e3a3fff57"
+  },
+  "dev": false,
+  "selection": "coverage",
+  "flood_to": "2026-10-02T23:59:59Z"
+}

@@ -1,26 +1,23 @@
-// Floods reported worldwide right now, from GDACS, with NISAR's passes over each from NASA's catalog and the blind-spot level there.
-// Nothing here is a NISAR flood map: a pass means NISAR's radar flew over during the flood, so it could show it.
-const WORLD_SHOWN = 5;   // GDACS_URL, WORLD_DAYS, fetchGdacs and the catalog helpers live in livefloods.js
+const WORLD_SHOWN = 5;
 const ALERT_RANK = { Red: 0, Orange: 1, Green: 2 };
 const LEVEL_WORD = { red: "likely blind", amber: "may miss some", green: "trees a small problem", grey: "no large floodplain" };
 const world = { events: [], live: null, saved: null, error: false, showAll: false, nisar: new Map(), level: new Map(), busy: 0, queue: [] };
 
 const shortDay = (t) => new Date(t).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
-const dayRange = (a, b) => `${shortDay(a)} – ${shortDay(b)}`;   // one range format everywhere: "Oct 1 – Nov 14"
+const dayRange = (a, b) => `${shortDay(a)} – ${shortDay(b)}`;
 
 
-const sortEvents = (list) => list.sort((a, b) => (ALERT_RANK[a.alert] ?? 3) - (ALERT_RANK[b.alert] ?? 3) || b.current - a.current || b.to - a.to);
+const canRun = (e) => (liveCaseFor(e) ? 0 : 1);
+const sortEvents = (list) => list.sort((a, b) => canRun(a) - canRun(b) || (ALERT_RANK[a.alert] ?? 3) - (ALERT_RANK[b.alert] ?? 3) || b.current - a.current || b.to - a.to);
 
 const WORLD_REFRESH_MS = 15 * 60 * 1000;
 setInterval(() => {
   if (document.hidden || !world.live) return;
-  // Ongoing floods are asked again, at most once an hour thanks to the cache; finished ones keep their counts.
   world.events.filter((e) => e.current).forEach((e) => { if (!cachedNisar(e)) world.nisar.delete(e.id); });
   world.catalogDown = false;
   loadWorld();
 }, WORLD_REFRESH_MS);
 
-// Read when the page loads: the dashboard rewrites its address (?river=…&mode=…) as it starts.
 const WANT_FLOOD = new URLSearchParams(location.search).get("flood");
 
 async function loadWorld() {
@@ -33,17 +30,15 @@ async function loadWorld() {
       const snap = await fetch("data/dashboard/world_floods.json").then((r) => r.json());
       world.events = sortEvents(snap.events);
       world.saved = true;
-      world.savedAt = Date.parse(snap.saved);   // older copies carried a save date; current ones don't
+      world.savedAt = Date.parse(snap.saved);
       snap.events.forEach((x) => { if (x.nisar) world.nisar.set(x.id, x.nisar); });
     } catch { world.error = true; }
   }
   renderWorld();
-  // dashboard.html?flood=<GDACS id> opens on that flood (the Run it yourself page links here).
-  // A flood no longer listed opens the dashboard as usual, and the address returns to the river.
   const hit = WANT_FLOOD && world.events.find((x) => String(x.id) === WANT_FLOOD);
   if (WANT_FLOOD && !world.opened) {
     world.opened = true;
-    if (hit) {   // after the dashboard's own start-up settles, or it clears the choice
+    if (hit) {
       const go = () => { if (map.isMoving() || !map.loaded()) { setTimeout(go, 300); return; } setFloodTab("world"); chooseWorld(hit); };
       setTimeout(go, 400);
     } else if (state.pack && state.sel === "river") { syncUrl(); flyToBounds(state.river.bounds); }
@@ -51,15 +46,12 @@ async function loadWorld() {
   setWorldLayer();
 }
 
-// NISAR scenes over a small box around the reported point, from the flood's start to its last report.
-// Answers are kept in this browser for a few hours, so repeat visits don't ask NASA again.
 const NISAR_CACHE_MS = 3600 * 1000;
 const cacheKey = (e) => `hf-nisar4-${e.id}-${e.to}`;
 function cachedNisar(e) {
   try { const c = JSON.parse(localStorage.getItem(cacheKey(e))); return c && Date.now() - c.at < NISAR_CACHE_MS ? c : null; } catch { return null; }
 }
 
-// The saved list's counts, read only if NASA's catalog doesn't answer.
 let savedCounts = null;
 async function savedNisar(e) {
   savedCounts ??= fetch("data/dashboard/world_floods.json").then((r) => r.json()).then((snap) => ({ saved: Date.parse(snap.saved) || true, byId: new Map(snap.events.map((x) => [x.id, x.nisar])) })).catch(() => null);
@@ -71,7 +63,6 @@ async function nisarOver(e) {
   if (world.nisar.has(e.id)) return world.nisar.get(e.id);
   const kept = cachedNisar(e);
   if (kept) { world.nisar.set(e.id, kept); return kept; }
-  // After one failure NASA's catalog isn't asked again this visit, so a slow catalog can't pile up hanging requests.
   try { if (world.catalogDown) throw new Error("NASA's catalog didn't answer earlier"); return await nisarLive(e); } catch (err) {
     world.catalogDown = true;
     const saved = await savedNisar(e);
@@ -81,7 +72,6 @@ async function nisarOver(e) {
   }
 }
 
-// NASA publishes a ready-made picture with every NISAR scene. The _LATLON one is on a plain latitude-longitude grid.
 function quickOf(umm) {
   const link = (umm.RelatedUrls || []).find((u) => u.Type === "GET RELATED VISUALIZATION" && /^https:/.test(u.URL) && /_LATLON\.png$/.test(u.URL));
   const poly = umm.SpatialExtent?.HorizontalSpatialDomain?.Geometry?.GPolygons?.[0]?.Boundary?.Points;
@@ -90,7 +80,6 @@ function quickOf(umm) {
 
 
 async function cmrScenes(short, e, from, to) {
-  // Scenes that cover the reported point itself, so the count and the picture are both about that spot.
   const q = new URLSearchParams({ short_name: short, point: `${e.lon.toFixed(4)},${e.lat.toFixed(4)}`, temporal: `${new Date(from).toISOString()},${new Date(to).toISOString()}`, sort_key: "-start_date", page_size: "1" });
   const j = await (await withTimeout(`${CMR_URL}?${q}`)).json();
   return { hits: j.hits, item: j.items[0] ? j.items[0].umm : null };
@@ -115,7 +104,6 @@ async function levelAt(e) {
   return v;
 }
 
-// A few catalog requests at a time, only for rows on screen.
 function lookUp(e) {
   if ((world.nisar.has(e.id) && world.level.has(e.id)) || world.queue.includes(e)) return;
   world.queue.push(e);
@@ -148,13 +136,14 @@ function renderWorld() {
   box.innerHTML = `<div class="events-head" aria-hidden="true"><span>Flood</span><span>NISAR passes · flood maps</span></div>` + shown.map((e) => {
     const n = world.nisar.get(e.id), v = world.level.get(e.id), dates = `${dayRange(e.from, e.to)}${e.current ? ", ongoing" : ""}`;
     const label = `${e.name}, ${e.alert.toLowerCase()} alert, ${dates}. NISAR: ${nisarText(n)}. Flood maps: ${v ? LEVEL_WORD[v.cls] : "checking"}.`;
-    return `<button type="button" class="event-row world-row${e.id === active ? " on" : ""}" data-world="${esc(e.id)}" aria-label="${esc(label)}"><span class="event-main"><i class="status-dot ${v ? v.cls : "grey"}"></i><span class="event-name">${esc(e.country)}</span><span class="event-value">${nisarText(n)}</span></span><span class="event-sub" title="Flood maps here: ${v ? LEVEL_WORD[v.cls] : "checking"}">${dates} · ${esc(e.alert.toLowerCase())} alert</span></button>`;
+    const run = !canRun(e);
+    return `<button type="button" class="event-row world-row${e.id === active ? " on" : ""}" data-world="${esc(e.id)}" aria-label="${esc(label + (run ? " You can run GLOWfm on it." : ""))}"><span class="event-main"><i class="status-dot ${v ? v.cls : "grey"}"></i><span class="event-name">${esc(e.country)}</span><span class="event-value">${nisarText(n)}</span></span><span class="event-sub" title="Flood maps here: ${v ? LEVEL_WORD[v.cls] : "checking"}">${dates}</span></button>`;
   }).join("") + (world.events.length > WORLD_SHOWN ? `<button type="button" class="link-btn world-more" id="world-more">${world.showAll ? "Show fewer" : `Show all ${world.events.length}`}</button>` : "");
   if (focusId) { const again = box.querySelector(`[data-world="${focusId}"]`); if (again) again.focus(); }
   const starred = shown.some((e) => (world.nisar.get(e.id) || {}).saved) ? " * A saved count, because NASA's catalog didn't answer just now." : "";
   $("world-source").textContent = (world.live ? `GDACS alerts, last ${WORLD_DAYS} days · passes from NASA's catalog` : `${Number.isFinite(world.savedAt) ? `GDACS list saved ${shortDay(world.savedAt)}` : "A saved GDACS list"}, because the live feed didn't answer. NISAR passes as of then.`) + starred;
   shown.forEach(lookUp);
-  if (typeof state === "object" && state.mapReady) renderKey();   // the legend lists reported floods once there are some
+  if (typeof state === "object" && state.mapReady) renderKey();
 }
 
 function chooseWorld(e) {
@@ -169,18 +158,20 @@ function chooseWorld(e) {
   renderWorld();
 }
 
-// Floods the live-runs page has prepared (scripts/live_cases.py), so a card can offer to run the method on them.
-let liveCases = [], liveSkips = new Map();
+let liveCases = [], liveSkips = new Map(), liveOutside = new Map();
 fetch("data/live/index.json").then((r) => (r.ok ? r.json() : { cases: [] })).then((x) => {
   liveCases = x.cases || [];
-  // scripts/prepare_all_floods.py records why a dashboard flood couldn't be prepared
   liveSkips = new Map(((x.coverage || {}).skipped || []).filter((s) => s.gdacs).map((s) => [String(s.gdacs), s.skip]));
+  liveOutside = new Map(liveCases.filter((c) => c.kind === "world" && c.gdacs && c.scope && c.scope.in_scope === false).map((c) => [String(c.gdacs), c.scope.tree_share]));
   if (atlas.event) renderAtlasPick();
+  if (world.events.length) { sortEvents(world.events); renderWorld(); }
 }).catch(() => {});
-const liveCaseFor = (e) => liveCases.find((c) => c.kind === "world" && String(c.gdacs) === String(e.id) && !c.superseded_by)
-  || liveCases.find((c) => c.kind === "world" && String(c.gdacs) === String(e.id));
-// The job's reason, in a visitor's words.
+const liveInScope = (c) => !(c.scope && c.scope.in_scope === false);
+const liveCaseFor = (e) => liveCases.find((c) => c.kind === "world" && String(c.gdacs) === String(e.id) && !c.superseded_by && liveInScope(c))
+  || liveCases.find((c) => c.kind === "world" && String(c.gdacs) === String(e.id) && liveInScope(c));
 function whyNotRun(e) {
+  const share = liveOutside.get(String(e.id));
+  if (share !== undefined) return `Outside GLOWfm's scope here. Only ${Math.round(100 * (share || 0))}% of the valley floor is forest or wetland, and GLOWfm reads flooding under trees. Open water on fields is what existing flood maps already catch.`;
   const why = liveSkips.get(String(e.id));
   if (!why) return null;
   const few = why.match(/^Only (\d+) earlier pass/);
@@ -188,21 +179,16 @@ function whyNotRun(e) {
   if (/^No NISAR pass/.test(why)) return "Can't run here yet. None of NISAR's passes during this flood are the kind GLOWfm reads (40 MHz, HH and HV).";
   return "GLOWfm couldn't be prepared for this flood.";
 }
-// A flood nobody prepared can only run where the local box reader (scripts/custom_server.py) is serving the site, so its
-// button shows only when that reader answers. A static copy of the site has none, and offers only prepared floods.
 let hasReader = false;
-if (document.querySelector('meta[name="glowfm-reader"]')) {   // only scripts/custom_server.py adds this
+if (document.querySelector('meta[name="glowfm-reader"]')) {
   fetch("/api/health").then((r) => (r.ok ? r.json() : null)).then((x) => { hasReader = !!(x && x.ok); if (hasReader && atlas.event) renderAtlasPick(); }).catch(() => {});
 }
-// Run it yourself on a reported flood: a 24 km box on its reported point, over its reported dates.
 function tryHere(e) {
   const dy = 12 / 111.32, dx = dy / Math.max(0.1, Math.cos((e.lat * Math.PI) / 180)), day = (ms) => new Date(ms).toISOString().slice(0, 10);
   const box = [e.lon - dx, e.lat - dy, e.lon + dx, e.lat + dy].map((v) => v.toFixed(4)).join(",");
   return `live.html?box=${box}&from=${day(e.from)}&to=${day(Math.min(e.to, Date.now()))}&flood=${encodeURIComponent(e.id)}&name=${encodeURIComponent(e.name)}`;
 }
 
-// A reported flood, in the Selected card's template (atlas.js renderAtlasPick): a title, one status sentence, one number,
-// the foot's actions and the details. The blind-spot reading for its point follows in the details.
 let waitDays = null;
 catalogWait().then((w) => { waitDays = w; });
 function worldCard() {
@@ -222,12 +208,9 @@ function worldCard() {
   return { title: e.name, status: `GDACS ${esc(e.alert.toLowerCase())} alert · ${dayRange(e.from, e.to)}, ${new Date(e.to).getUTCFullYear()}${e.current ? ", still reported" : ""}`, number, numberSub, foot, details };
 }
 
-// ---------- NISAR's picture ----------
 const QUICK_FIT_KM = 1, QUICK_TIMEOUT_MS = 45000;
 const quick = { id: null, state: null, url: null, blob: null };
 
-// The scene's four extreme pixels (top, bottom, left, right) matched to the catalog's four corners, then a
-// least-squares fit of lon = W + x * dLon and lat = N - y * dLat. Returns null when the corners don't agree.
 function fitExtent(data, w, h, corners) {
   let top = null, bottom = null, left = null, right = null;
   const row = (y) => { let s = 0, n = 0; for (let x = 0; x < w; x++) if (data[(y * w + x) * 4 + 3]) { s += x; n++; } return n ? s / n : null; };
@@ -290,7 +273,6 @@ function quickLine(n) {
   return "";
 }
 
-// ---------- map points ----------
 const worldGeo = () => ({ type: "FeatureCollection", features: world.events.map((e) => ({ type: "Feature", geometry: { type: "Point", coordinates: [e.lon, e.lat] }, properties: { id: e.id } })) });
 
 function addWorldLayer(m) {
@@ -310,7 +292,6 @@ function worldAt(m, point) {
   return f ? world.events.find((x) => x.id === f.properties.id) : null;
 }
 
-// The Choose panel's three lists. The Blind spots tab also turns the blind-spot map on, since that's what it's about.
 function setFloodTab(name) {
   document.querySelectorAll(".flood-tabs button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.tab === name)));
   ["world", "tested", "blind"].forEach((k) => { $(`tab-${k}`).hidden = name !== k; });

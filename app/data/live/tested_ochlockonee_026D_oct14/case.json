@@ -1,0 +1,206 @@
+{
+ "id": "tested_ochlockonee_026D_oct14",
+ "kind": "us",
+ "tested": "held-out",
+ "site": "ochlockonee",
+ "pair": "026D_oct14",
+ "name": "Ochlockonee River, GA/FL",
+ "place": "Ochlockonee River, GA/FL",
+ "category": "tested",
+ "lat": 31.002417,
+ "lon": -83.939028,
+ "wet": {
+  "time": "2026-10-14T00:20:08Z",
+  "name": "NISAR_L2_PR_GCOV_033_026_D_073_4005_DHDH_A_20261014T002008_20261014T002045_P05023_N_F_J_001"
+ },
+ "baseline": [
+  {
+   "time": "2026-08-15T00:20:08Z",
+   "name": "NISAR_L2_PR_GCOV_028_026_D_073_4005_DHDH_A_20260815T002008_20260815T002045_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-08-27T00:20:08Z",
+   "name": "NISAR_L2_PR_GCOV_029_026_D_073_4005_DHDH_A_20260827T002008_20260827T002045_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-09-08T00:20:07Z",
+   "name": "NISAR_L2_PR_GCOV_030_026_D_073_4005_DHDH_A_20260908T002007_20260908T002045_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-09-20T00:20:07Z",
+   "name": "NISAR_L2_PR_GCOV_031_026_D_073_4005_DHDH_A_20260920T002007_20260920T002045_P05023_F_F_J_001"
+  },
+  {
+   "time": "2026-10-02T00:20:08Z",
+   "name": "NISAR_L2_PR_GCOV_032_026_D_073_4005_DHDH_A_20261002T002008_20261002T002045_P05023_N_F_J_001"
+  }
+ ],
+ "corners": [
+  [
+   -84.444079,
+   31.075249
+  ],
+  [
+   -83.860407,
+   31.062351
+  ],
+  [
+   -83.879223,
+   30.481654
+  ],
+  [
+   -84.459407,
+   30.49426
+  ]
+ ],
+ "pixel_ha": 0.25,
+ "layout": {
+  "width": 1115,
+  "height": 1289,
+  "arrays": [
+   {
+    "name": "wet_hh",
+    "type": "int16"
+   },
+   {
+    "name": "wet_hv",
+    "type": "int16"
+   },
+   {
+    "name": "median_hh",
+    "type": "int16"
+   },
+   {
+    "name": "median_hv",
+    "type": "int16"
+   },
+   {
+    "name": "one_hh",
+    "type": "int16"
+   },
+   {
+    "name": "one_hv",
+    "type": "int16"
+   },
+   {
+    "name": "hand",
+    "type": "int16"
+   },
+   {
+    "name": "dist",
+    "type": "uint16"
+   },
+   {
+    "name": "landcover",
+    "type": "uint8"
+   },
+   {
+    "name": "timing",
+    "type": "uint8"
+   },
+   {
+    "name": "water",
+    "type": "uint8"
+   },
+   {
+    "name": "estimate",
+    "type": "uint8"
+   }
+  ]
+ },
+ "inputs": {
+  "epsg": "EPSG:32616",
+  "heights": "3DEP lidar (bare earth)",
+  "river": "the river's centre line, as in the published test",
+  "gauges": [
+   {
+    "usgs": "02327355",
+    "name": "OCHLOCKONEE RIVER AT GA 188, NEAR COOLIDGE, GA"
+   },
+   {
+    "usgs": "02327500",
+    "name": "OCHLOCKONEE RIVER NEAR THOMASVILLE, GA"
+   },
+   {
+    "usgs": "02328522",
+    "name": "OCHLOCKONEE RIVER NR CONCORD, FLA."
+   },
+   {
+    "usgs": "02329000",
+    "name": "OCHLOCKONEE RIVER NR HAVANA, FLA."
+   }
+  ],
+  "test": "method 4, October",
+  "protocol": "research/OVERBANK_PROTOCOL.md"
+ },
+ "rule": {
+  "type": "v4",
+  "baseline": "median",
+  "signal": "adaptive",
+  "flood_check_db": null,
+  "confidence_db": 0.5,
+  "wet_scene_db": 0.5,
+  "smooth_px": 3,
+  "hand_max_m": 6.0,
+  "valley_m": 4000.0,
+  "min_threshold_db": 0.5,
+  "landcover": [
+   1,
+   2,
+   0
+  ],
+  "abstain_timing": [
+   4
+  ]
+ },
+ "frozen_run": {
+  "threshold_db": 1.0094385355920532,
+  "used_hh_minus_hv": true,
+  "confident": true,
+  "low_minus_high_db": 0.6618731915950775,
+  "flagged_ha": 10314.25,
+  "mapped_ha": 324381.5
+ },
+ "reference_run": {
+  "threshold_db": 1.0093009973800438,
+  "flagged_px": 41248,
+  "flagged_land_px": 40896,
+  "used_hh_minus_hv": true,
+  "confident": true,
+  "low_minus_high_db": 0.6622222065925598
+ },
+ "score": {
+  "scores": {
+   "tp": 3748,
+   "fn": 2064,
+   "fp": 2816,
+   "tn": 14667,
+   "recall": 0.6448726772195458,
+   "precision": 0.570993296770262,
+   "csi": 0.4343996291145109,
+   "f1": 0.6056884292178409,
+   "tp_ha": 937.0,
+   "fn_ha": 516.0,
+   "fp_ha": 704.0,
+   "tn_ha": 3666.75
+  },
+  "ci95": {
+   "recall": [
+    0.4965864663679093,
+    0.7673135755305371
+   ],
+   "precision": [
+    0.3782911212584093,
+    0.7246363054289884
+   ],
+   "csi": [
+    0.2881659205478048,
+    0.5522508725202058
+   ],
+   "f1": [
+    0.44740494290961463,
+    0.7115484763944702
+   ]
+  }
+ }
+}

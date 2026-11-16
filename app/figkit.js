@@ -1,11 +1,6 @@
-// figkit: a small SVG plotting kit for the site's scientific figures (figures.js), styled like a journal figure made
-// with matplotlib: boxed axes with outward ticks, minor ticks on log and date axes, no gridlines, one sans-serif face,
-// thin lines, small markers, capped error bars and framed legends inside the axes. No library. Figures are drawn at the
-// container's real width, so text stays readable on a phone, and redraw when it changes. Colours come from CSS tokens,
-// so a figure follows the night theme or, inside .paper, the white print theme. Downloads: SVG, PNG (2x) and CSV.
 
 const FK_NS = "http://www.w3.org/2000/svg";
-const FK_TICK = 4;     // major tick length, px (outward)
+const FK_TICK = 4;
 
 function fkEl(parent, tag, attrs = {}, text) {
   const el = document.createElementNS(FK_NS, tag);
@@ -15,7 +10,6 @@ function fkEl(parent, tag, attrs = {}, text) {
   return el;
 }
 
-// ---------- scales ----------
 function fkNice(lo, hi, n = 5) {
   const span = hi - lo || 1, step0 = span / n, mag = 10 ** Math.floor(Math.log10(step0)), err = step0 / mag;
   const step = (err >= 7.5 ? 10 : err >= 3.5 ? 5 : err >= 1.5 ? 2 : 1) * mag;
@@ -50,28 +44,38 @@ function fkTime(t0, t1, r0, r1) {
 }
 const fkFmt = (v) => (Math.abs(v) >= 1e6 ? `${+(v / 1e6).toFixed(1)}M` : Math.abs(v) >= 1e4 ? `${+(v / 1e3).toFixed(0)}k` : Math.abs(v) >= 1000 ? v.toLocaleString("en-US") : +v.toFixed(Math.abs(v) < 1 && v !== 0 ? 2 : 1) + "");
 const fkDay = (t) => new Date(t).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
-const fkMinus = (s) => String(s).replace(/^-/, "−");   // a true minus sign, as typeset
+const fkMinus = (s) => String(s).replace(/^-/, "−");
 
-// ---------- a figure and its panels ----------
-// fkFigure(box, { name, height(W) -> px, draw(svg, W, H, tip), csv() -> rows }) draws now and on resize, and adds the downloads.
 function fkFigure(box, spec) {
   box.classList.add("fk");
   const stage = box.querySelector(".fk-stage") || fkMount(box, spec);
-  const render = () => {
+  const render = (again = false) => {
     const W = Math.max(300, Math.round(stage.clientWidth)), H = Math.round(spec.height(W));
     stage.querySelector("svg")?.remove();
     const svg = fkEl(null, "svg", { width: W, height: H, viewBox: `0 0 ${W} ${H}`, class: "fk-svg", role: "img", "aria-label": spec.label || spec.name });
     fkEl(svg, "rect", { x: 0, y: 0, width: W, height: H, class: "fk-bg" });
     stage.prepend(svg);
+    svg.fk = { keys: ((spec.keysAbove ||= {})[W] ||= {}), panels: 0, jobs: [], reflow: false };
     spec.draw(svg, W, H, box.querySelector(".fk-tip"));
-    // a legend that wrapped onto another row can reach past the planned height: grow to fit what was drawn
-    const bb = svg.getBBox(), need = Math.ceil(bb.y + bb.height + 6);
-    if (need > H) { svg.setAttribute("height", need); svg.setAttribute("viewBox", `0 0 ${W} ${need}`); svg.querySelector(".fk-bg").setAttribute("height", need); }
+    svg.fk.jobs.forEach((job) => job());
+    if (svg.fk.reflow && !again) { render(true); return; }
+    fkFit(svg, W, H);
   };
   render();
   let again, lastW = stage.clientWidth;
   addEventListener("resize", () => { clearTimeout(again); again = setTimeout(() => { if (Math.abs(stage.clientWidth - lastW) > 4) { lastW = stage.clientWidth; render(); } }, 160); });
-  return { render };
+  return { render: () => { spec.keysAbove = {}; render(); } };
+}
+
+function fkFit(svg, W, H) {
+  const bb = svg.getBBox(), pad = 2;
+  const x0 = Math.min(0, Math.floor(bb.x) - (bb.x < 0 ? pad : 0)), y0 = Math.min(0, Math.floor(bb.y) - (bb.y < 0 ? pad : 0));
+  const x1 = Math.max(W, Math.ceil(bb.x + bb.width) + (bb.x + bb.width > W ? pad : 0)), y1 = Math.max(H, Math.ceil(bb.y + bb.height + 6));
+  if (x0 === 0 && y0 === 0 && x1 === W && y1 === H) return;
+  const vw = x1 - x0, vh = y1 - y0, bg = svg.querySelector(".fk-bg");
+  svg.setAttribute("viewBox", `${x0} ${y0} ${vw} ${vh}`);
+  svg.setAttribute("height", Math.round((vh * W) / vw));
+  Object.entries({ x: x0, y: y0, width: vw, height: vh }).forEach(([k, v]) => bg.setAttribute(k, v));
 }
 
 function fkMount(box, spec) {
@@ -92,21 +96,26 @@ function fkMount(box, spec) {
   return stage;
 }
 
-// A panel: an inner plotting area, with a bold panel letter and a short title above it.
 function fkPanel(svg, { x, y, w, h, letter, title, m = { t: 30, r: 18, b: 42, l: 56 } }) {
+  const st = svg.fk, id = st ? ++st.panels : 0, above = st && st.keys[id];
+  if (above) m = { ...m, t: m.t + above.h + FK_KEY_GAP };
   const g = fkEl(svg, "g", { transform: `translate(${x},${y})` });
-  if (letter) fkEl(g, "text", { x: 0, y: 13, class: "fk-letter" }, letter);
+  let tx = 0;
+  if (letter) tx = fkEl(g, "text", { x: 0, y: 15, class: "fk-letter" }, `${letter})`).getComputedTextLength() + 6;
   if (title) {
-    // a title wider than its panel (on a phone) is set smaller rather than cut off
-    const t = fkEl(g, "text", { x: letter ? 16 : 0, y: 13, class: "fk-ptitle" }, title), room = w - (letter ? 16 : 0) - 2, len = t.getComputedTextLength();
+    const t = fkEl(g, "text", { x: tx, y: 15, class: "fk-ptitle" }, title), room = w - tx - 2, len = t.getComputedTextLength();
     if (len > room) t.style.fontSize = `${Math.max(9, (12 * room) / len).toFixed(1)}px`;
   }
   const inner = fkEl(g, "g", { transform: `translate(${m.l},${m.t})` });
-  return { g: inner, w: w - m.l - m.r, h: h - m.t - m.b, x: x + m.l, y: y + m.t };
+  return { g: inner, w: w - m.l - m.r, h: h - m.t - m.b, x: x + m.l, y: y + m.t, svg, id, above };
 }
 
-// Axes as matplotlib draws them: a box, outward major ticks with labels on the left and bottom, minor ticks on log and
-// date axes, gridlines off unless asked for. xticks/yticks: [] hides that axis's ticks.
+function fkTextWidth(svg, text, cls = "fk-tick") {
+  const t = fkEl(svg, "text", { x: 0, y: -100, class: cls }, text), w = t.getComputedTextLength();
+  t.remove();
+  return w;
+}
+
 function fkAxes(p, sx, sy, { xlabel, ylabel, xticks, yticks, xfmt = fkFmt, yfmt = fkFmt, grid = false, ylabelX = -42 } = {}) {
   const inX = (v) => sx(v) >= -0.5 && sx(v) <= p.w + 0.5, inY = (v) => sy(v) >= -0.5 && sy(v) <= p.h + 0.5;
   const xs = (xticks || sx.ticks(Math.max(3, Math.round(p.w / 80)))).filter(inX), ys = (yticks || sy.ticks(Math.max(3, Math.round(p.h / 45)))).filter(inY);
@@ -120,9 +129,31 @@ function fkAxes(p, sx, sy, { xlabel, ylabel, xticks, yticks, xfmt = fkFmt, yfmt 
   if (ylabel) fkEl(p.g, "text", { x: -p.h / 2, y: ylabelX, class: "fk-label", "text-anchor": "middle", transform: "rotate(-90)" }, ylabel);
 }
 
+function fkShade(p, x0, x1, label, cls = "f-ink", { y0 = 0, y1 = p.h, opacity = 0.09 } = {}) {
+  const L = Math.max(0, Math.min(x0, x1)), R = Math.min(p.w, Math.max(x0, x1)), T = Math.max(0, Math.min(y0, y1)), B = Math.min(p.h, Math.max(y0, y1));
+  if (R - L < 1 || B - T < 1) return null;
+  const r = fkEl(null, "rect", { x: L, y: T, width: R - L, height: B - T, class: `fk-shade ${cls}`, "fill-opacity": opacity });
+  p.g.insertBefore(r, p.g.firstChild);
+  if (label) {
+    const t = fkEl(p.g, "text", { class: "fk-tick fk-shade-label" }, label), len = t.getComputedTextLength(), cx = (L + R) / 2 + 3.5;
+    const spots = [
+      len + 10 <= R - L && { x: L + 5, y: T + 13 },
+      len + 10 <= R - L && { x: L + 5, y: B - 6 },
+      R - L >= 14 && len + 12 <= B - T && { x: cx, y: T + 6, "text-anchor": "end", transform: `rotate(-90 ${cx} ${T + 6})` },
+      R - L >= 14 && len + 12 <= B - T && { x: cx, y: B - 6, transform: `rotate(-90 ${cx} ${B - 6})` },
+    ].filter(Boolean);
+    const set = (a) => { ["x", "y", "text-anchor", "transform"].forEach((k) => t.removeAttribute(k)); Object.entries(a).forEach(([k, v]) => t.setAttribute(k, v)); };
+    const place = () => {
+      const free = spots.find((a) => { set(a); const [x, y, w, h] = fkRectIn(p, t); return !fkOccupied(p, t, x, y, w, h); });
+      if (free) set(free); else t.remove();
+    };
+    if (p.svg && p.svg.fk) p.svg.fk.jobs.unshift(place);
+  }
+  return r;
+}
+
 const fkPath = (pts) => pts.filter((p) => p && Number.isFinite(p[0]) && Number.isFinite(p[1])).map((p, k) => `${k ? "L" : "M"}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
 
-// Markers, named as in matplotlib: o circle, s square, ^ triangle, D diamond. r is the half-size in px.
 function fkMark(g, shape, x, y, cls, r = 3.5, extra = {}) {
   if (shape === "s") return fkEl(g, "rect", { x: x - r * 0.9, y: y - r * 0.9, width: r * 1.8, height: r * 1.8, class: cls, ...extra });
   if (shape === "^") return fkEl(g, "path", { d: `M${x} ${y - r * 1.15}L${x + r * 1.1} ${y + r * 0.8}L${x - r * 1.1} ${y + r * 0.8}Z`, class: cls, ...extra });
@@ -130,14 +161,12 @@ function fkMark(g, shape, x, y, cls, r = 3.5, extra = {}) {
   return fkEl(g, "circle", { cx: x, cy: y, r, class: cls, ...extra });
 }
 
-// An error bar from (x1, y1) to (x2, y2) with short end caps.
 function fkErr(g, x1, y1, x2, y2, cls, cap = 3) {
   fkEl(g, "line", { x1, y1, x2, y2, class: cls, "stroke-width": 1 });
   const vertical = Math.abs(x2 - x1) < Math.abs(y2 - y1);
   [[x1, y1], [x2, y2]].forEach(([x, y]) => fkEl(g, "line", vertical ? { x1: x - cap, x2: x + cap, y1: y, y2: y, class: cls, "stroke-width": 1 } : { x1: x, x2: x, y1: y - cap, y2: y + cap, class: cls, "stroke-width": 1 }));
 }
 
-// One legend glyph. Item: [kind, class, text, dash]; kind is "line", "patch", "errbar" or a marker shape (o s ^ D).
 function fkGlyph(g, kind, cls, dash) {
   if (kind === "line") fkEl(g, "line", { x1: 0, x2: 18, y1: -4, y2: -4, class: cls, "stroke-width": 1.5, "stroke-dasharray": dash });
   else if (kind === "patch") fkEl(g, "rect", { x: 1, y: -9, width: 16, height: 9, class: cls, "fill-opacity": 0.55 });
@@ -145,40 +174,88 @@ function fkGlyph(g, kind, cls, dash) {
   else fkMark(g, kind, 9, -4, cls);
 }
 
-// A framed legend inside the axes, one entry per row, like matplotlib's ax.legend(loc=...). corner: tl tr bl br cl cr.
+const FK_KEY_PAD = 7, FK_KEY_ROW = 17, FK_KEY_GAP = 8;
 function fkKey(p, items, corner = "tr") {
-  const g = fkEl(p.g, "g", { class: "fk-legend" }), frame = fkEl(g, "rect", { class: "fk-legend-box", rx: 2 });
-  let wmax = 0;
+  const g = fkEl(p.g, "g", { class: "fk-legend" });
+  if (p.above) {
+    fkKeyRows(g, items, p.w);
+    const bb = g.getBBox();
+    g.setAttribute("transform", `translate(0,${(-FK_KEY_GAP - bb.height - bb.y).toFixed(1)})`);
+    return g;
+  }
+  const frame = fkEl(g, "rect", { class: "fk-legend-box", rx: 2 }), body = fkEl(g, "g");
   items.forEach(([kind, cls, text, dash], k) => {
-    const it = fkEl(g, "g", { transform: `translate(8,${18 + k * 17})` });
+    const it = fkEl(body, "g", { transform: `translate(0,${k * FK_KEY_ROW})` });
     fkGlyph(it, kind, cls, dash);
-    const t = fkEl(it, "text", { x: 24, y: 0, class: "fk-tick" }, text);
-    wmax = Math.max(wmax, 24 + (t.getComputedTextLength() || text.length * 6));
+    fkEl(it, "text", { x: 24, y: 0, class: "fk-tick" }, text);
   });
-  const bw = wmax + 16, bh = items.length * 17 + 9, pad = 7;
-  frame.setAttribute("width", bw); frame.setAttribute("height", bh);
-  const x = corner.endsWith("l") ? pad : p.w - bw - pad, y = corner.startsWith("t") ? pad : corner.startsWith("c") ? (p.h - bh) / 2 : p.h - bh - pad;
-  g.setAttribute("transform", `translate(${x.toFixed(1)},${y.toFixed(1)})`);
+  const cb = body.getBBox(), bw = cb.width + 2 * FK_KEY_PAD, bh = cb.height + 2 * FK_KEY_PAD, gap = 7;
+  Object.entries({ x: cb.x - FK_KEY_PAD, y: cb.y - FK_KEY_PAD, width: bw, height: bh }).forEach(([k, v]) => frame.setAttribute(k, v.toFixed(1)));
+  const at = (c) => [c.endsWith("l") ? gap : p.w - bw - gap, c.startsWith("t") ? gap : c.startsWith("c") ? (p.h - bh) / 2 : p.h - bh - gap];
+  const place = (c) => { const [x, y] = at(c); g.setAttribute("transform", `translate(${(x - cb.x + FK_KEY_PAD).toFixed(1)},${(y - cb.y + FK_KEY_PAD).toFixed(1)})`); };
+  place(corner);
+  const st = p.svg && p.svg.fk;
+  if (st) st.jobs.push(() => {
+    const free = [corner, ...["tr", "tl", "br", "bl"].filter((c) => c !== corner)].find((c) => !fkOccupied(p, g, ...at(c), bw, bh));
+    p.g.appendChild(g);
+    if (free) place(free);
+    else if (bh < p.h) { st.keys[p.id] = { h: fkKeyRowsHeight(p, items) }; st.reflow = true; }
+  });
   return g;
 }
 
-// A frameless legend row from (x, y) in figure coordinates, for a legend outside the axes. It wraps onto further rows.
-function fkLegend(svg, x, y, items, maxW) {
-  const g = fkEl(svg, "g", { transform: `translate(${x},${y})`, class: "fk-legend" }), limit = maxW || +svg.getAttribute("width") - x - 4;
+function fkKeyRows(g, items, maxW) {
   let dx = 0, dy = 0;
   items.forEach(([kind, cls, text, dash]) => {
     const it = fkEl(g, "g");
     fkGlyph(it, kind, cls, dash);
-    const t = fkEl(it, "text", { x: 24, y: 0, class: "fk-tick" }, text), w = 24 + (t.getComputedTextLength() || text.length * 6);
-    if (dx > 0 && dx + w > limit) { dx = 0; dy += 17; }
+    const w = 24 + fkEl(it, "text", { x: 24, y: 0, class: "fk-tick" }, text).getComputedTextLength();
+    if (dx > 0 && dx + w > maxW) { dx = 0; dy += FK_KEY_ROW; }
     it.setAttribute("transform", `translate(${dx},${dy})`);
     dx += w + 18;
   });
-  return g;
+}
+function fkKeyRowsHeight(p, items) {
+  const g = fkEl(p.g, "g");
+  fkKeyRows(g, items, p.w);
+  const h = g.getBBox().height;
+  g.remove();
+  return Math.ceil(h);
 }
 
-// ---------- hover ----------
-// Calls find(px, py) on pointer moves inside a panel; it returns { html, x, y } in panel coordinates, or null.
+function fkRectIn(p, el) {
+  const b = el.getBBox(), toP = p.g.getScreenCTM().inverse().multiply(el.getScreenCTM());
+  const c = [[b.x, b.y], [b.x + b.width, b.y], [b.x, b.y + b.height], [b.x + b.width, b.y + b.height]].map(([u, v]) => new DOMPoint(u, v).matrixTransform(toP));
+  const xs = c.map((q) => q.x), ys = c.map((q) => q.y), x = Math.min(...xs), y = Math.min(...ys);
+  return [x, y, Math.max(...xs) - x, Math.max(...ys) - y];
+}
+
+function fkOccupied(p, key, x, y, w, h) {
+  const inv = p.g.getScreenCTM().inverse(), m = 2;
+  const inBox = (q) => q.x > x - m && q.x < x + w + m && q.y > y - m && q.y < y + h + m;
+  const grid = [];
+  for (let i = 0; i <= 4; i++) for (let j = 0; j <= 3; j++) grid.push(new DOMPoint(x + (w * i) / 4, y + (h * j) / 3));
+  for (const e of p.g.querySelectorAll("path, line, polyline, polygon, circle, ellipse, rect, image, text")) {
+    if (key.contains(e) || e.closest(".fk-legend") || /(^|\s)fk-(spine|grid|bg|legend-box|hit|mark|ref|shade)(\s|$)/.test(e.getAttribute("class") || "") || e.getAttribute("visibility") === "hidden") continue;
+    const ctm = e.getScreenCTM();
+    if (!ctm) continue;
+    const toP = inv.multiply(ctm);
+    if (["path", "line", "polyline", "polygon"].includes(e.tagName) && e.getTotalLength) {
+      const len = e.getTotalLength();
+      for (let d = 0; d <= len; d += Math.max(2, len / 800)) if (inBox(e.getPointAtLength(d).matrixTransform(toP))) return true;
+      if (e.tagName !== "line" && getComputedStyle(e).fill !== "none" && e.isPointInFill) {
+        const back = toP.inverse();
+        if (grid.some((q) => e.isPointInFill(q.matrixTransform(back)))) return true;
+      }
+      continue;
+    }
+    const b = e.getBBox(), c = [[b.x, b.y], [b.x + b.width, b.y + b.height]].map(([u, v]) => new DOMPoint(u, v).matrixTransform(toP));
+    const L = Math.min(c[0].x, c[1].x), R = Math.max(c[0].x, c[1].x), T = Math.min(c[0].y, c[1].y), B = Math.max(c[0].y, c[1].y);
+    if (R > x - m && L < x + w + m && B > y - m && T < y + h + m && R > 0 && L < p.w && B > 0 && T < p.h) return true;
+  }
+  return false;
+}
+
 function fkHover(p, tip, find) {
   const hit = fkEl(p.g, "rect", { x: 0, y: 0, width: Math.max(0, p.w), height: Math.max(0, p.h), class: "fk-hit" });
   const mark = fkEl(p.g, "circle", { r: 5, class: "fk-mark", visibility: "hidden" });
@@ -204,12 +281,10 @@ const fkNearest = (pts, px, py, max = 40) => {
   return best;
 };
 
-// ---------- downloads ----------
 const FK_STYLE_PROPS = ["fill", "fill-opacity", "stroke", "stroke-width", "stroke-dasharray", "stroke-opacity", "opacity", "font-family", "font-size", "font-weight", "font-style", "letter-spacing", "visibility"];
 function fkSerialize(svg) {
   const clone = svg.cloneNode(true), src = svg.querySelectorAll("*"), dst = clone.querySelectorAll("*"), drop = [];
   src.forEach((el, k) => {
-    // the hover target and marker are interface, not figure
     if (el.classList.contains("fk-hit") || el.classList.contains("fk-mark")) { drop.push(dst[k]); return; }
     const cs = getComputedStyle(el);
     dst[k].setAttribute("style", FK_STYLE_PROPS.map((p) => `${p}:${cs.getPropertyValue(p)}`).join(";"));

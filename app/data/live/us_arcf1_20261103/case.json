@@ -1,0 +1,236 @@
+{
+  "id": "us_arcf1_20261103",
+  "kind": "us",
+  "name": "Peace River at SR 70 Arcadia",
+  "place": "Peace River at SR 70 Arcadia, FL",
+  "category": "major",
+  "lat": 27.221944444444,
+  "lon": -81.876111111111,
+  "flood_from": "2026-11-03T00:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": null,
+  "usgs": "02296750",
+  "noaa": "ARCF1",
+  "wet": {
+    "time": "2026-11-03T10:52:58Z",
+    "name": "NISAR_L2_PR_GCOV_034_148_A_015_4005_DHDH_A_20261103T105258_20261103T105332_P05036_N_F_J_001",
+    "stack": "148A_015_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_148_A_015_4005_DHDH_A_20261103T105258_20261103T105332_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_148_A_015_4005_DHDH_A_20261103T105258_20261103T105332_P05036_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          -81.38091,
+          25.96723
+        ],
+        [
+          -81.99349,
+          28.03854
+        ],
+        [
+          -84.46559,
+          27.42268
+        ],
+        [
+          -83.81175,
+          25.36436
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-09-04T10:52:57Z",
+      "name": "NISAR_L2_PR_GCOV_029_148_A_015_4005_DHDH_A_20260904T105257_20260904T105332_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-16T10:52:57Z",
+      "name": "NISAR_L2_PR_GCOV_030_148_A_015_4005_DHDH_A_20260916T105257_20260916T105332_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-28T10:52:57Z",
+      "name": "NISAR_L2_PR_GCOV_031_148_A_015_4005_DHDH_A_20260928T105257_20260928T105332_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-10-10T10:52:57Z",
+      "name": "NISAR_L2_PR_GCOV_032_148_A_015_4005_DHDH_A_20261010T105257_20261010T105332_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-10-22T10:52:57Z",
+      "name": "NISAR_L2_PR_GCOV_033_148_A_015_4005_DHDH_A_20261022T105257_20261022T105332_P05036_N_F_J_001"
+    }
+  ],
+  "passes_during": 1,
+  "corners": [
+    [
+      -81.99973,
+      27.330155
+    ],
+    [
+      -81.754619,
+      27.331694
+    ],
+    [
+      -81.753154,
+      27.114131
+    ],
+    [
+      -81.997789,
+      27.112606
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 485,
+    "height": 482,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      },
+      {
+        "name": "estimate",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32617",
+    "gauges": [
+      {
+        "usgs": "02296750",
+        "name": "PEACE RIVER AT SR 70 AT ARCADIA, FL",
+        "lat": 27.22088245,
+        "lon": -81.8761946,
+        "datum_ft": 6.0,
+        "datum": "NGVD29",
+        "level_source": "water elevation above NAVD88",
+        "reading_ft": 17.32468888888889,
+        "wse_m": 5.280565173333334,
+        "timing": 1
+      }
+    ],
+    "heights": "3DEP lidar (bare earth)",
+    "river": "USGS river line through the gauge",
+    "protocol": "research/LIVE_PROTOCOL_V2.md"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.8121757711074441,
+    "used_hh_minus_hv": false,
+    "confident": true,
+    "low_minus_high_db": 0.8307903856039047,
+    "flagged_ha": 2009.5,
+    "mapped_ha": 58442.5
+  },
+  "reference_run": {
+    "threshold_db": 0.8120505592448044,
+    "flagged_px": 9167,
+    "flagged_land_px": 8037,
+    "used_hh_minus_hv": false,
+    "confident": true,
+    "low_minus_high_db": 0.8322222381830215
+  },
+  "score": {
+    "scores": {
+      "tp": 176,
+      "fn": 200,
+      "fp": 80,
+      "tn": 1016,
+      "recall": 0.46808510638297873,
+      "precision": 0.6875,
+      "csi": 0.38596491228070173,
+      "f1": 0.5569620253164557,
+      "tp_ha": 44.0,
+      "fn_ha": 50.0,
+      "fp_ha": 20.0,
+      "tn_ha": 254.0
+    },
+    "ci95": {
+      "recall": [
+        0.296875,
+        0.5714285714285714
+      ],
+      "precision": [
+        0.3392857142857143,
+        0.8909090909090909
+      ],
+      "csi": [
+        0.18811881188118812,
+        0.4778761061946903
+      ],
+      "f1": [
+        0.31666666666666665,
+        0.6467065868263473
+      ]
+    },
+    "estimate_wet_ha": 94.0,
+    "estimate_dry_ha": 274.0
+  },
+  "attempt": {
+    "case": "us_arcf1_20261103",
+    "dev": false,
+    "git_head": "eef8bde2ac18bbce9be9b862a2f19a5e3a3fff57"
+  },
+  "dev": false,
+  "selection": "coverage",
+  "flood_to": "2026-11-13T23:59:59Z"
+}

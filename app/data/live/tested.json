@@ -1,0 +1,103 @@
+{
+ "about": "Held-out tested rivers, packed by scripts/package_tested_rivers.py",
+ "cases": [
+  {
+   "id": "tested_satilla_047A_oct15",
+   "kind": "us",
+   "tested": "held-out",
+   "place": "Satilla River, GA",
+   "name": "Satilla River, GA",
+   "category": "tested",
+   "wet": "2026-10-15T10:45:42Z",
+   "scored": true,
+   "lat": 31.30275,
+   "lon": -82.561111,
+   "pack": "gz",
+   "site": "satilla"
+  },
+  {
+   "id": "tested_satilla_098D_oct19",
+   "kind": "us",
+   "tested": "held-out",
+   "place": "Satilla River, GA",
+   "name": "Satilla River, GA",
+   "category": "tested",
+   "wet": "2026-10-19T00:11:51Z",
+   "scored": true,
+   "lat": 31.30275,
+   "lon": -82.561111,
+   "pack": "gz",
+   "site": "satilla"
+  },
+  {
+   "id": "tested_st_marys_098D_oct07",
+   "kind": "us",
+   "tested": "held-out",
+   "place": "St Marys River, GA/FL",
+   "name": "St Marys River, GA/FL",
+   "category": "tested",
+   "wet": "2026-10-07T00:11:51Z",
+   "scored": true,
+   "lat": 30.358847,
+   "lon": -82.081501,
+   "pack": "gz",
+   "site": "st_marys"
+  },
+  {
+   "id": "tested_ochlockonee_026D_oct14",
+   "kind": "us",
+   "tested": "held-out",
+   "place": "Ochlockonee River, GA/FL",
+   "name": "Ochlockonee River, GA/FL",
+   "category": "tested",
+   "wet": "2026-10-14T00:20:08Z",
+   "scored": true,
+   "lat": 31.002417,
+   "lon": -83.939028,
+   "pack": "gz",
+   "site": "ochlockonee"
+  },
+  {
+   "id": "tested_pee_dee_098D_jul27",
+   "kind": "us",
+   "tested": "held-out",
+   "place": "Pee Dee River, SC",
+   "name": "Pee Dee River, SC",
+   "category": "tested",
+   "wet": "2026-07-27T00:10:45Z",
+   "scored": true,
+   "lat": 34.708489,
+   "lon": -79.876175,
+   "pack": "gz",
+   "site": "pee_dee"
+  },
+  {
+   "id": "tested_neuse_090A_jul26",
+   "kind": "us",
+   "tested": "held-out",
+   "place": "Neuse River, NC",
+   "name": "Neuse River, NC",
+   "category": "tested",
+   "wet": "2026-07-26T10:21:53Z",
+   "scored": true,
+   "lat": 35.374125,
+   "lon": -78.196153,
+   "pack": "gz",
+   "site": "neuse"
+  },
+  {
+   "id": "tested_lower_sabine_134A_jul17",
+   "kind": "us",
+   "tested": "held-out",
+   "place": "Lower Sabine River, TX/LA",
+   "name": "Lower Sabine River, TX/LA",
+   "category": "tested",
+   "wet": "2026-07-17T11:35:44Z",
+   "scored": true,
+   "lat": 31.06408,
+   "lon": -93.519616,
+   "pack": "gz",
+   "site": "lower_sabine"
+  }
+ ]
+}

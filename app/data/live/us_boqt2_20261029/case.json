@@ -1,0 +1,181 @@
+{
+  "id": "us_boqt2_20261029",
+  "kind": "us",
+  "name": "Rio Grande at Boquillas Crossing",
+  "place": "Rio Grande at Boquillas Crossing, TX",
+  "category": "moderate",
+  "lat": 29.1835386,
+  "lon": -102.9754409,
+  "flood_from": "2026-09-29T00:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": null,
+  "usgs": "08375300",
+  "noaa": "BOQT2",
+  "wet": {
+    "time": "2026-10-29T01:35:39Z",
+    "name": "NISAR_L2_PR_GCOV_034_070_D_074_4005_DHDH_A_20261029T013539_20261029T013614_P05036_N_F_J_001",
+    "stack": "070D_074_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_070_D_074_4005_DHDH_A_20261029T013539_20261029T013614_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_070_D_074_4005_DHDH_A_20261029T013539_20261029T013614_P05036_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          -104.03972,
+          30.17756
+        ],
+        [
+          -104.69208,
+          28.04954
+        ],
+        [
+          -102.09931,
+          27.40284
+        ],
+        [
+          -101.40203,
+          29.51701
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-08-18T01:35:39Z",
+      "name": "NISAR_L2_PR_GCOV_028_070_D_074_4005_DHDH_A_20260818T013539_20260818T013614_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-08-30T01:35:39Z",
+      "name": "NISAR_L2_PR_GCOV_029_070_D_074_4005_DHDH_A_20260830T013539_20260830T013614_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-11T01:35:39Z",
+      "name": "NISAR_L2_PR_GCOV_030_070_D_074_4005_DHDH_A_20260911T013539_20260911T013614_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-23T01:35:39Z",
+      "name": "NISAR_L2_PR_GCOV_031_070_D_074_4005_DHDH_A_20260923T013539_20260923T013614_P05023_N_F_J_001"
+    }
+  ],
+  "passes_during": 6,
+  "corners": [
+    [
+      -103.098963,
+      29.295279
+    ],
+    [
+      -102.84738,
+      29.291461
+    ],
+    [
+      -102.851962,
+      29.07184
+    ],
+    [
+      -103.10301,
+      29.075624
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 489,
+    "height": 487,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32613",
+    "gauges": [],
+    "heights": "3DEP lidar (bare earth)",
+    "river": "USGS river line through the gauge",
+    "protocol": "research/LIVE_PROTOCOL_V2.md"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.5,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": -0.05600735545158386,
+    "flagged_ha": 74.25,
+    "mapped_ha": 59535.75
+  },
+  "reference_run": {
+    "threshold_db": 0.5,
+    "flagged_px": 406,
+    "flagged_land_px": 289,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": -0.05888870358467102
+  },
+  "score": null,
+  "attempt": {
+    "case": "us_boqt2_20261029",
+    "dev": false,
+    "git_head": "eef8bde2ac18bbce9be9b862a2f19a5e3a3fff57"
+  },
+  "dev": false,
+  "score_skipped": "No usable USGS gauge with a known height reference in the box.",
+  "selection": "coverage",
+  "flood_to": "2026-10-31T23:59:59Z"
+}

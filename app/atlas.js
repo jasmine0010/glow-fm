@@ -1,14 +1,9 @@
-// The blind-spot map: where river floodplains sit under trees, worldwide. It shows where a flood could be hidden, not where one is.
-// On the dashboard it is one map layer plus the Blind spots tab, and a checked place fills the Selected card; it never switches panels.
-// Tiles and numbers come from scripts/build_atlas.py. The search box and lookups run in the browser, so nothing typed leaves the page.
 
 const CLEAR_TILE = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
-// Strong zoomed out, a faint trace over a tested flood, so the flood's own layers stay easy to read.
 const ATLAS_FADE = ["interpolate", ["linear"], ["zoom"], 6, 0.92, 7.5, 0.09];
 const ATLAS_RADIUS_KM = 25, ATLAS_WORLD = [-170, -56, 179, 74], ATLAS_NEARBY_KM = 300;
 const atlas = { enabled: true, summary: null, tiles: null, loading: null, places: null, placesLoading: null, cells: new Map(), pick: null, hits: [], token: 0 };
 const km2 = (x) => `${Math.round(x).toLocaleString("en-US")} km²`;
-const millionKm2 = (x) => `${(x / 1e6).toFixed(1)} million km²`;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const fold = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
@@ -21,7 +16,6 @@ function loadAtlas() {
   return atlas.loading;
 }
 
-// Most of the world has no tile, so the map asks here first instead of collecting failed requests.
 maplibregl.addProtocol("atlas", async (params, abort) => {
   await loadAtlas();
   const key = params.url.replace("atlas://", "");
@@ -46,7 +40,6 @@ function addAtlasPick(m) {
   m.addLayer({ id: "atlas-pick", type: "line", source: "atlas-pick", layout: { visibility: atlas.enabled ? "visible" : "none" }, paint: { "line-color": "#e8eef2", "line-width": 1.5 } });
 }
 
-// The address names what's selected, so a copied link opens the same card: a reported flood, or a checked place.
 function atlasUrl() {
   if (atlas.event) { history.replaceState(null, "", `?flood=${encodeURIComponent(atlas.event.id)}`); return; }
   const q = new URLSearchParams({ view: "place" });
@@ -58,7 +51,6 @@ function atlasUrl() {
   history.replaceState(null, "", `?${q}`);
 }
 
-// The layer's switch, in Map layers. It changes the map and its legend, nothing else.
 function atlasSetEnabled(on) {
   atlas.enabled = on;
   $("lyr-atlas").checked = on;
@@ -71,19 +63,15 @@ function atlasSetEnabled(on) {
   $("announce").textContent = `Blind-spot map ${on ? "on" : "off"}.`;
 }
 
-// The legend's blind-spot entry: one ramp from the least to the most floodplain under trees.
 function atlasKey() {
   const s = atlas.summary;
   if (!s) return "";
   return `${100 * s.breaks[0]}% <span class="ramp">${s.colors.map((c) => `<i style="background:${c}"></i>`).join("")}</span> ${100 * s.breaks[3]}%+ under trees`;
 }
 
-// Who lives in these towns, not who is at risk: rounded to 5 million, city districts skipped, towns within 10 km merged
-// (scripts/build_atlas.py count_people, research/BLIND_SPOT_ATLAS.md).
 const atlasPeople = (s) => `about ${Math.round(s.towns.people.total / 5e6) * 5} million people`;
 const atlasTownsText = (s) => `About ${(Math.round(s.towns.high / 100) * 100).toLocaleString("en-US")} towns, home to ${atlasPeople(s)}, sit beside large forested floodplains where satellite flood maps are likely blind`;
 
-// The cutoffs come from the build, so the town count and this label always follow one rule.
 function atlasVerdict(share, floodplain) {
   const rule = atlas.summary.towns.rule, tree = share * floodplain;
   if (floodplain < rule.min_floodplain_km2) return { cls: "grey", level: "No large floodplain mapped", label: "No large river floodplain is mapped", text: "Small streams can still flood, and this map doesn't cover them." };
@@ -92,7 +80,6 @@ function atlasVerdict(share, floodplain) {
   return { cls: "green", level: "Trees hide little of this floodplain", label: "Flood map blank? Trees are a smaller problem", text: "Little of this floodplain is under trees, so trees are less likely to hide a flood. Flood maps can still miss water for other reasons." };
 }
 
-// The Blind spots tab: the search's examples, the countries with most floodplain under trees, and one line on what it all means.
 function renderAtlas() {
   const s = atlas.summary;
   if (!s) return;
@@ -109,14 +96,11 @@ function atlasLabelText(p, v) {
   return v.cls === "grey" ? `${v.label} ${who ? `${where} ${who}` : "here"}.` : `${v.label.replace("Flood map blank?", `Flood map blank ${who ? `${where} ${who}` : "here"}?`)}${v.cls === "green" ? " here." : "."}`;
 }
 
-// The Selected card for a reported flood or a checked place, in the same template as a river's card: a title, one status
-// sentence, one number, a foot with at most two actions, and the rest folded under Details.
 function renderAtlasPick() {
   const box = $("atlas-pick"), p = atlas.pick, ev = typeof worldCard === "function" ? worldCard() : null;
   if (!p && !ev) { box.innerHTML = '<p class="muted">Choose a flood, or check a place.</p>'; return; }
   const v = p && !p.loading && !p.failed ? atlasVerdict(p.share, p.floodplain) : null, big = v && p.floodplain >= atlas.summary.towns.rule.min_floodplain_km2;
   const near = p && p.at && !ev ? nearestTested(p.at) : null, label = v ? atlasLabelText(p, v) : "";
-  // The reading for this spot, as a block like the river card's estimate: its verdict, then two numbers side by side.
   const reading = !p ? "" : p.failed ? `<div class="estimate"><p class="muted">Couldn't check the floodplain here just now. <button type="button" class="link-btn" id="atlas-retry">Try again</button></p></div>`
     : p.loading ? '<div class="estimate"><p class="muted">Checking the floodplain here…</p></div>'
       : `<div class="estimate"><p class="atlas-level"><i class="status-dot ${v.cls}"></i>${v.level}</p>` +
@@ -144,12 +128,10 @@ function nearestTested(at) {
   return rows[0] && rows[0].km <= ATLAS_NEARBY_KM ? rows[0] : null;
 }
 
-// Each 10-degree file holds 100 by 100 cells of floodplain, then 100 by 100 of the part under trees, in hundredths of a square kilometre.
 async function atlasCells(lat0, lon0) {
   const name = `${lat0}_${lon0}`;
   if (!atlas.summary.cell_files.includes(name)) return null;
   if (!atlas.cells.has(name)) {
-    // A dropped connection gets two more tries, and a file that still fails is forgotten so a later check can try again.
     const load = async () => {
       for (let attempt = 1; ; attempt++) {
         try { const r = await fetch(`data/atlas/cells/${name}.bin`); if (!r.ok) throw new Error(`${r.status}`); return new Uint16Array(await r.arrayBuffer()); } catch (err) {
@@ -222,7 +204,6 @@ function atlasPickCountry(name) {
   if (c.bbox) map.fitBounds(c.bbox, { padding: viewPadding(), maxZoom: 6, duration: document.hidden ? 0 : 1600 });
 }
 
-// ---------- the search box ----------
 function loadPlaces() {
   atlas.placesLoading ??= fetch("data/atlas/places.json").then((r) => r.json()).then((d) => {
     atlas.places = [...d.places, ...d.rivers].map((p) => ({ name: p[0], where: p[1], lat: p[2], lon: p[3], key: fold(p[0]) }));

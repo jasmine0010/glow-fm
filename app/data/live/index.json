@@ -10,7 +10,11 @@
       "scored": false,
       "lat": 11.3324,
       "lon": 78.6099,
-      "gdacs": "1104121"
+      "gdacs": "1104121",
+      "scope": {
+        "tree_share": 0.174,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104099_20261019",
@@ -22,7 +26,11 @@
       "scored": false,
       "lat": 23.0598,
       "lon": -109.7025,
-      "gdacs": "1104099"
+      "gdacs": "1104099",
+      "scope": {
+        "tree_share": 0.145,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104141_20261003",
@@ -34,7 +42,11 @@
       "scored": false,
       "lat": 16.0685,
       "lon": 108.224,
-      "gdacs": "1104141"
+      "gdacs": "1104141",
+      "scope": {
+        "tree_share": 0.296,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104122_20260925",
@@ -46,7 +58,11 @@
       "scored": false,
       "lat": 17.1054,
       "lon": 98.9954,
-      "gdacs": "1104122"
+      "gdacs": "1104122",
+      "scope": {
+        "tree_share": 0.393,
+        "in_scope": false
+      }
     },
     {
       "id": "us_astf1_20261031",
@@ -58,7 +74,17 @@
       "scored": true,
       "lat": 29.166666666667,
       "lon": -81.522222222222,
-      "gdacs": null
+      "gdacs": null,
+      "scope": {
+        "tree_share": 0.946,
+        "in_scope": true
+      },
+      "pass_stage": {
+        "ft": 3.61,
+        "flood_ft": 2.3,
+        "read_utc": "2026-10-31T00:15Z",
+        "in_flood": true
+      }
     },
     {
       "id": "world_1104177_20260917",
@@ -73,7 +99,11 @@
       "gdacs": "1104177",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.786,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104187_20260921",
@@ -88,7 +118,11 @@
       "gdacs": "1104187",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.651,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104216_20261101",
@@ -103,7 +137,11 @@
       "gdacs": "1104216",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.597,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104259_20261031",
@@ -118,7 +156,11 @@
       "gdacs": "1104259",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.114,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104262_20261019",
@@ -133,7 +175,11 @@
       "gdacs": "1104262",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.336,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104224_20261010",
@@ -148,7 +194,11 @@
       "gdacs": "1104224",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.771,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104255_20261025",
@@ -163,7 +213,11 @@
       "gdacs": "1104255",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.229,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104185_20260921",
@@ -178,7 +232,11 @@
       "gdacs": "1104185",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.229,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104168_20260923",
@@ -193,7 +251,11 @@
       "gdacs": "1104168",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.707,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104239_20261031",
@@ -208,7 +270,11 @@
       "gdacs": "1104239",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.909,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104200_20261027",
@@ -223,7 +289,11 @@
       "gdacs": "1104200",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.677,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104253_20261031",
@@ -238,7 +308,11 @@
       "gdacs": "1104253",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.816,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104186_20261023",
@@ -253,7 +327,11 @@
       "gdacs": "1104186",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.947,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104204_20260927",
@@ -268,7 +346,11 @@
       "gdacs": "1104204",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.516,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104208_20260920",
@@ -283,7 +365,11 @@
       "gdacs": "1104208",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.901,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104227_20261019",
@@ -298,7 +384,11 @@
       "gdacs": "1104227",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.771,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104197_20260925",
@@ -313,7 +403,11 @@
       "gdacs": "1104197",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.82,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104219_20261008",
@@ -328,7 +422,11 @@
       "gdacs": "1104219",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.934,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104283_20261107",
@@ -343,7 +441,11 @@
       "gdacs": "1104283",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.919,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104214_20260928",
@@ -358,7 +460,11 @@
       "gdacs": "1104214",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.478,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104205_20260929",
@@ -373,7 +479,11 @@
       "gdacs": "1104205",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.057,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104174_20260918",
@@ -388,7 +498,11 @@
       "gdacs": "1104174",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.034,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104176_20261002",
@@ -403,7 +517,11 @@
       "gdacs": "1104176",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.843,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104173_20260920",
@@ -418,7 +536,11 @@
       "gdacs": "1104173",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.611,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104209_20261002",
@@ -433,7 +555,11 @@
       "gdacs": "1104209",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.442,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104203_20261004",
@@ -448,7 +574,11 @@
       "gdacs": "1104203",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.549,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104248_20261104",
@@ -463,7 +593,11 @@
       "gdacs": "1104248",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.164,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104249_20261020",
@@ -478,7 +612,11 @@
       "gdacs": "1104249",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.561,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104169_20261007",
@@ -493,7 +631,11 @@
       "gdacs": "1104169",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.644,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104099_20261104",
@@ -508,7 +650,11 @@
       "gdacs": "1104099",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.325,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104180_20260918",
@@ -523,7 +669,11 @@
       "gdacs": "1104180",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.022,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104182_20260920",
@@ -538,7 +688,11 @@
       "gdacs": "1104182",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.627,
+        "in_scope": true
+      }
     },
     {
       "id": "world_1104151_20260917",
@@ -553,7 +707,11 @@
       "gdacs": "1104151",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.119,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104221_20261008",
@@ -568,7 +726,11 @@
       "gdacs": "1104221",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.384,
+        "in_scope": false
+      }
     },
     {
       "id": "world_1104211_20260930",
@@ -583,7 +745,725 @@
       "gdacs": "1104211",
       "selection": "coverage",
       "pack": "gz",
-      "protocol": 2
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.002,
+        "in_scope": false
+      }
+    },
+    {
+      "id": "us_mnrc2_20261113",
+      "kind": "us",
+      "place": "Mancos River near Mancos, CO",
+      "name": "Mancos River near Mancos",
+      "category": "minor",
+      "wet": "2026-11-13T12:19:34Z",
+      "scored": false,
+      "lat": 37.3572184,
+      "lon": -108.254803,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.429,
+        "in_scope": false
+      }
+    },
+    {
+      "id": "us_sara1_20261105",
+      "kind": "us",
+      "place": "Bayou Sara at Saraland, AL",
+      "name": "Bayou Sara at Saraland",
+      "category": "minor",
+      "wet": "2026-11-05T11:10:44Z",
+      "scored": true,
+      "lat": 30.824999,
+      "lon": -88.0699,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.954,
+        "in_scope": true
+      },
+      "pass_stage": {
+        "ft": 3.57,
+        "flood_ft": 4,
+        "read_utc": "2026-11-05T11:15Z",
+        "in_flood": false
+      }
+    },
+    {
+      "id": "us_macf1_20261007",
+      "kind": "us",
+      "place": "St. Marys River near Macclenny, FL",
+      "name": "St. Marys River near Macclenny",
+      "category": "minor",
+      "wet": "2026-10-07T00:11:51Z",
+      "scored": true,
+      "lat": 30.358611111111,
+      "lon": -82.081666666667,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.947,
+        "in_scope": true
+      },
+      "pass_stage": {
+        "ft": 11.82,
+        "flood_ft": 12,
+        "read_utc": "2026-10-07T00:15Z",
+        "in_flood": false,
+        "exempt": "0.2 ft under flood stage, but 4 to 9 ft above the river at the earlier passes. Offered by exception, chosen by hand after seeing its score"
+      }
+    },
+    {
+      "id": "us_arcf1_20261103",
+      "kind": "us",
+      "place": "Peace River at SR 70 Arcadia, FL",
+      "name": "Peace River at SR 70 Arcadia",
+      "category": "major",
+      "wet": "2026-11-03T10:52:58Z",
+      "scored": true,
+      "lat": 27.221944444444,
+      "lon": -81.876111111111,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.824,
+        "in_scope": true
+      },
+      "pass_stage": {
+        "ft": 12.57,
+        "flood_ft": 11,
+        "read_utc": "2026-11-03T11:00Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_arhf1_20261103",
+      "kind": "us",
+      "place": "Horse Creek near Arcadia at SR 72, FL",
+      "name": "Horse Creek near Arcadia at SR 72",
+      "category": "minor",
+      "wet": "2026-11-03T10:52:58Z",
+      "scored": true,
+      "lat": 27.199166666667,
+      "lon": -81.988611111111,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.65,
+        "in_scope": true
+      },
+      "pass_stage": {
+        "ft": 13.7,
+        "flood_ft": 12,
+        "read_utc": "2026-11-03T11:00Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_mkhf1_20261103",
+      "kind": "us",
+      "place": "Manatee River near Myakka Head at SR 64, FL",
+      "name": "Manatee River near Myakka Head at SR 64",
+      "category": "minor",
+      "wet": "2026-11-03T10:52:58Z",
+      "scored": true,
+      "lat": 27.473333333333,
+      "lon": -82.211388888889,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.622,
+        "in_scope": true
+      },
+      "pass_stage": {
+        "ft": 12.67,
+        "flood_ft": 11,
+        "read_utc": "2026-11-03T11:00Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_elff1_20261010",
+      "kind": "us",
+      "place": "Anclote River near Elfers at Little Road, FL",
+      "name": "Anclote River near Elfers at Little Road",
+      "category": "minor",
+      "wet": "2026-10-10T10:53:31Z",
+      "scored": true,
+      "lat": 28.213888888889,
+      "lon": -82.666666666667,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.752,
+        "in_scope": true
+      },
+      "pass_stage": {
+        "ft": 20.41,
+        "flood_ft": 20,
+        "read_utc": "2026-10-10T11:00Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_tmog1_20261015",
+      "kind": "us",
+      "place": "Satilla River at GA-158 above Millwood, GA",
+      "name": "Satilla River at GA-158 above Millwood",
+      "category": "minor",
+      "wet": "2026-10-15T10:45:42Z",
+      "scored": true,
+      "lat": 31.3025,
+      "lon": -82.561388888889,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.945,
+        "in_scope": true
+      },
+      "pass_stage": {
+        "ft": 14.7,
+        "flood_ft": 14,
+        "read_utc": "2026-10-15T10:45Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_abag1_20261015",
+      "kind": "us",
+      "place": "Alabaha River at GA Highway 203 near Blackshear, GA",
+      "name": "Alabaha River at GA Highway 203 near Blackshear",
+      "category": "minor",
+      "wet": "2026-10-15T10:45:42Z",
+      "scored": false,
+      "lat": 31.375277777778,
+      "lon": -82.288888888889,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.881,
+        "in_scope": true
+      },
+      "pass_stage": {
+        "ft": 9.3,
+        "flood_ft": 9,
+        "read_utc": "2026-10-15T10:45Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_atkg1_20261019",
+      "kind": "us",
+      "place": "Satilla River at Atkinson, GA",
+      "name": "Satilla River at Atkinson",
+      "category": "minor",
+      "wet": "2026-10-19T00:11:51Z",
+      "scored": true,
+      "lat": 31.2205555555556,
+      "lon": -81.8675,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.962,
+        "in_scope": true
+      },
+      "pass_stage": {
+        "ft": 14.12,
+        "flood_ft": 13,
+        "read_utc": "2026-10-19T00:15Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_nwbi2_20260930",
+      "kind": "us",
+      "place": "Edwards River near New Boston, IL",
+      "name": "Edwards River near New Boston",
+      "category": "minor",
+      "wet": "2026-09-30T11:13:52Z",
+      "scored": true,
+      "lat": 41.186947738,
+      "lon": -90.9673663,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.266,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 14.02,
+        "flood_ft": 17,
+        "read_utc": "2026-09-30T11:00Z",
+        "in_flood": false
+      }
+    },
+    {
+      "id": "us_blrk1_20261002",
+      "kind": "us",
+      "place": "Big Blue River at Blue Rapids, KS",
+      "name": "Big Blue River at Blue Rapids",
+      "category": "minor",
+      "wet": "2026-10-02T11:30:11Z",
+      "scored": true,
+      "lat": 39.6872222222222,
+      "lon": -96.6397222222222,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.297,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 31.03,
+        "flood_ft": 26,
+        "read_utc": "2026-10-02T11:30Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_fkfk1_20261002",
+      "kind": "us",
+      "place": "Black Vermillion River at Frankfort, KS",
+      "name": "Black Vermillion River at Frankfort",
+      "category": "minor",
+      "wet": "2026-10-02T11:30:11Z",
+      "scored": true,
+      "lat": 39.681944444444,
+      "lon": -96.4425,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.229,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 21.51,
+        "flood_ft": 19,
+        "read_utc": "2026-10-02T11:30Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_saln1_20261002",
+      "kind": "us",
+      "place": "Salt Creek at Innovation Campus at Lincoln, NE",
+      "name": "Salt Creek at Innovation Campus at Lincoln",
+      "category": "minor",
+      "wet": "2026-10-02T11:30:11Z",
+      "scored": true,
+      "lat": 40.83861,
+      "lon": -96.6914,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.162,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 17.33,
+        "flood_ft": 26.5,
+        "read_utc": "2026-10-02T11:30Z",
+        "in_flood": false
+      }
+    },
+    {
+      "id": "us_lcnn1_20261002",
+      "kind": "us",
+      "place": "Salt Creek at Lincoln (27th Street), NE",
+      "name": "Salt Creek at Lincoln (27th Street)",
+      "category": "minor",
+      "wet": "2026-10-02T11:30:11Z",
+      "scored": true,
+      "lat": 40.84676,
+      "lon": -96.6816,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.163,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 10.46,
+        "flood_ft": 20.5,
+        "read_utc": "2026-10-02T11:30Z",
+        "in_flood": false
+      }
+    },
+    {
+      "id": "us_grnn1_20261002",
+      "kind": "us",
+      "place": "Salt Creek near Greenwood, NE",
+      "name": "Salt Creek near Greenwood",
+      "category": "moderate",
+      "wet": "2026-10-02T11:30:11Z",
+      "scored": false,
+      "lat": 40.965348,
+      "lon": -96.454379,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.168,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 17.25,
+        "flood_ft": 20,
+        "read_utc": "2026-10-02T11:30Z",
+        "in_flood": false
+      }
+    },
+    {
+      "id": "us_ithn1_20261002",
+      "kind": "us",
+      "place": "Wahoo Creek at Ithaca, NE",
+      "name": "Wahoo Creek at Ithaca",
+      "category": "minor",
+      "wet": "2026-10-02T11:30:11Z",
+      "scored": false,
+      "lat": 41.147614,
+      "lon": -96.538255,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.132,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 13.9,
+        "flood_ft": 19,
+        "read_utc": "2026-10-02T11:30Z",
+        "in_flood": false
+      }
+    },
+    {
+      "id": "us_asnn1_20261002",
+      "kind": "us",
+      "place": "Wahoo Creek at Ashland, NE",
+      "name": "Wahoo Creek at Ashland",
+      "category": "moderate",
+      "wet": "2026-10-02T11:30:11Z",
+      "scored": false,
+      "lat": 41.053468,
+      "lon": -96.367835,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.181,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 20.66,
+        "flood_ft": 19,
+        "read_utc": "2026-10-02T11:30Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_astn1_20261002",
+      "kind": "us",
+      "place": "Salt Creek near Ashland, NE",
+      "name": "Salt Creek near Ashland",
+      "category": "minor",
+      "wet": "2026-10-02T11:30:11Z",
+      "scored": false,
+      "lat": 41.051745,
+      "lon": -96.338285,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.185,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 21.05,
+        "flood_ft": 20,
+        "read_utc": "2026-10-02T11:30Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_drgn1_20261002",
+      "kind": "us",
+      "place": "West Fork Big Blue River near Dorchester, NE",
+      "name": "West Fork Big Blue River near Dorchester",
+      "category": "minor",
+      "wet": "2026-10-02T11:30:11Z",
+      "scored": false,
+      "lat": 40.7308,
+      "lon": -97.177922,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.217,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 18.75,
+        "flood_ft": 15,
+        "read_utc": "2026-10-02T11:30Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_crtn1_20261002",
+      "kind": "us",
+      "place": "Big Blue River near Crete, NE",
+      "name": "Big Blue River near Crete",
+      "category": "moderate",
+      "wet": "2026-10-02T11:30:11Z",
+      "scored": true,
+      "lat": 40.5965,
+      "lon": -96.96072,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.265,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 26.68,
+        "flood_ft": 21,
+        "read_utc": "2026-10-02T11:30Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_dewn1_20261002",
+      "kind": "us",
+      "place": "Turkey Creek near DeWitt, NE",
+      "name": "Turkey Creek near DeWitt",
+      "category": "moderate",
+      "wet": "2026-10-02T11:30:11Z",
+      "scored": false,
+      "lat": 40.36718,
+      "lon": -96.8896,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.193,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 25.71,
+        "flood_ft": 23.5,
+        "read_utc": "2026-10-02T11:30Z",
+        "in_flood": true
+      }
+    },
+    {
+      "id": "us_gtnn4_20261012",
+      "kind": "us",
+      "place": "Millstone River at Griggstown, NJ",
+      "name": "Millstone River at Griggstown",
+      "category": "minor",
+      "wet": "2026-10-12T00:00:43Z",
+      "scored": false,
+      "lat": 40.44,
+      "lon": -74.6175,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.829,
+        "in_scope": true
+      },
+      "pass_stage": {
+        "ft": 7.2,
+        "flood_ft": 10,
+        "read_utc": "2026-10-12T00:00Z",
+        "in_flood": false
+      }
+    },
+    {
+      "id": "us_amat2_20260930",
+      "kind": "us",
+      "place": "Canadian River at Amarillo, TX",
+      "name": "Canadian River at Amarillo",
+      "category": "minor",
+      "wet": "2026-09-30T01:42:17Z",
+      "scored": false,
+      "lat": 35.470277777778,
+      "lon": -101.87916666667,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.024,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 2.33,
+        "flood_ft": 7,
+        "read_utc": "2026-09-30T01:45Z",
+        "in_flood": false
+      }
+    },
+    {
+      "id": "us_llat2_20261104",
+      "kind": "us",
+      "place": "Llano River at Llano, TX",
+      "name": "Llano River at Llano",
+      "category": "moderate",
+      "wet": "2026-11-04T11:52:21Z",
+      "scored": true,
+      "lat": 30.751111111111,
+      "lon": -98.669444444444,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.477,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 2.45,
+        "flood_ft": 10,
+        "read_utc": "2026-11-04T11:50Z",
+        "in_flood": false
+      }
+    },
+    {
+      "id": "us_ahot2_20261104",
+      "kind": "us",
+      "place": "Shoal Creek at West 12th Street, TX",
+      "name": "Shoal Creek at West 12th Street",
+      "category": "minor",
+      "wet": "2026-11-04T11:52:21Z",
+      "scored": false,
+      "lat": 30.276388888889,
+      "lon": -97.75,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.825,
+        "in_scope": true
+      },
+      "pass_stage": {
+        "ft": 2.11,
+        "flood_ft": 7,
+        "read_utc": "2026-11-04T11:50Z",
+        "in_flood": false
+      }
+    },
+    {
+      "id": "us_cstt2_20261025",
+      "kind": "us",
+      "place": "Rio Grande at Castolon, TX",
+      "name": "Rio Grande at Castolon",
+      "category": "minor",
+      "wet": "2026-10-25T12:08:26Z",
+      "scored": true,
+      "lat": 29.13798,
+      "lon": -103.5249033,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.201,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 2.35,
+        "flood_ft": 15,
+        "read_utc": "2026-10-25T12:15Z",
+        "in_flood": false
+      }
+    },
+    {
+      "id": "us_boqt2_20261029",
+      "kind": "us",
+      "place": "Rio Grande at Boquillas Crossing, TX",
+      "name": "Rio Grande at Boquillas Crossing",
+      "category": "moderate",
+      "wet": "2026-10-29T01:35:39Z",
+      "scored": false,
+      "lat": 29.1835386,
+      "lon": -102.9754409,
+      "gdacs": null,
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.435,
+        "in_scope": false
+      },
+      "pass_stage": {
+        "ft": 6.17,
+        "flood_ft": 13,
+        "read_utc": "2026-10-29T01:30Z",
+        "in_flood": false
+      }
+    },
+    {
+      "id": "world_1104239_20261103",
+      "kind": "world",
+      "place": "Malaysia",
+      "name": "Flood in Malaysia",
+      "category": "green",
+      "wet": "2026-11-03T11:33:54Z",
+      "scored": false,
+      "lat": 3.2083,
+      "lon": 101.3041,
+      "gdacs": "1104239",
+      "selection": "coverage",
+      "pack": "gz",
+      "protocol": 2,
+      "scope": {
+        "tree_share": 0.909,
+        "in_scope": true
+      }
     }
   ],
   "considered": [
@@ -665,9 +1545,16 @@
       },
       {
         "kind": "us",
-        "key": "CCSA2",
-        "name": "Campbell Creek near Spenard",
-        "place": "Campbell Creek near Spenard, AK",
+        "key": "KCYC1",
+        "name": "San Lorenzo Creek (Monterey) below Bitterwater Creek NR King City",
+        "place": "San Lorenzo Creek (Monterey) below Bitterwater Creek NR King City, CA",
+        "skip": "NOAA's record doesn't show when this flood began."
+      },
+      {
+        "kind": "us",
+        "key": "TILT2",
+        "name": "Nueces River near Tilden",
+        "place": "Nueces River near Tilden, TX",
         "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
       },
       {
@@ -679,16 +1566,163 @@
       },
       {
         "kind": "us",
-        "key": "MNRC2",
-        "name": "Mancos River near Mancos",
-        "place": "Mancos River near Mancos, CO",
+        "key": "SRPW1",
+        "name": "Skokomish River near Potlatch",
+        "place": "Skokomish River near Potlatch, WA",
         "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
       },
       {
         "kind": "us",
-        "key": "TILT2",
-        "name": "Nueces River near Tilden",
-        "place": "Nueces River near Tilden, TX",
+        "key": "ZFSF1",
+        "name": "Peace River at Zolfo Springs",
+        "place": "Peace River at Zolfo Springs, FL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "LITF1",
+        "name": "Alafia River at Lithia Pinecrest Road at Lithia",
+        "place": "Alafia River at Lithia Pinecrest Road at Lithia, FL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "BREF1",
+        "name": "Bruce Creek near Redbay",
+        "place": "Bruce Creek near Redbay, FL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "MHDF1",
+        "name": "Shoal River near Mossy Head (CR 1087)",
+        "place": "Shoal River near Mossy Head (CR 1087), FL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "CRVF1",
+        "name": "Shoal River near Crestview",
+        "place": "Shoal River near Crestview, FL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "PCKI2",
+        "name": "Pope Creek near Keithsburg",
+        "place": "Pope Creek near Keithsburg, IL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "RUSI2",
+        "name": "Des Plaines River near Russell",
+        "place": "Des Plaines River near Russell, IL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "GUNI2",
+        "name": "Des Plaines River near Gurnee",
+        "place": "Des Plaines River near Gurnee, IL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "DMPI2",
+        "name": "Des Plaines River at Des Plaines (Algonquin Road)",
+        "place": "Des Plaines River at Des Plaines (Algonquin Road), IL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "DAYI2",
+        "name": "Fox River at Dayton",
+        "place": "Fox River at Dayton, IL",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "GELK1",
+        "name": "Solomon River near Glen Elder",
+        "place": "Solomon River near Glen Elder, KS",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "BANK1",
+        "name": "Little Blue River near Barnes",
+        "place": "Little Blue River near Barnes, KS",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "MNLM6",
+        "name": "West Hobolochitto Creek near McNeill",
+        "place": "West Hobolochitto Creek near McNeill, MS",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "SILN1",
+        "name": "Silver Creek near Silver Creek",
+        "place": "Silver Creek near Silver Creek, NE",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "DWEN1",
+        "name": "Little Blue River near Deweese",
+        "place": "Little Blue River near Deweese, NE",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "JOHN7",
+        "name": "Johns River at Corpening Bridge Rd, 6 NNW Morganton",
+        "place": "Johns River at Corpening Bridge Rd, 6 NNW Morganton, NC",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "BLAN7",
+        "name": "French Broad River at Grove Bridge Rd, in Blantyre",
+        "place": "French Broad River at Grove Bridge Rd, in Blantyre, NC",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "SGWN7",
+        "name": "Watauga River near Sugar Grove",
+        "place": "Watauga River near Sugar Grove, NC",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "SUNO1",
+        "name": "Sunday Creek at Glouster",
+        "place": "Sunday Creek at Glouster, OH",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "PROS1",
+        "name": "Bush River near Prosperity",
+        "place": "Bush River near Prosperity, SC",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "GADS1",
+        "name": "Congaree River at Congaree National Park",
+        "place": "Congaree River at Congaree National Park, SC",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "us",
+        "key": "DWRT2",
+        "name": "White Rock Creek at Dallas",
+        "place": "White Rock Creek at Dallas, TX",
         "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
       },
       {
@@ -757,14 +1791,6 @@
       },
       {
         "kind": "world",
-        "gdacs": "1104252",
-        "key": "1104252",
-        "name": "Flood in Democratic Republic of Congo",
-        "place": "Democratic Republic of Congo",
-        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
-      },
-      {
-        "kind": "world",
         "gdacs": "1104167",
         "key": "1104167",
         "name": "Flood in Ecuador",
@@ -773,10 +1799,26 @@
       },
       {
         "kind": "world",
+        "gdacs": "1104252",
+        "key": "1104252",
+        "name": "Flood in Democratic Republic of Congo",
+        "place": "Democratic Republic of Congo",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
         "gdacs": "1104251",
         "key": "1104251",
         "name": "Flood in Ecuador",
         "place": "Ecuador",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
+      },
+      {
+        "kind": "world",
+        "gdacs": "1104269",
+        "key": "1104269",
+        "name": "Flood in Democratic Republic of Congo",
+        "place": "Democratic Republic of Congo",
         "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
       },
       {
@@ -877,17 +1919,18 @@
       },
       {
         "kind": "world",
-        "gdacs": "1104264",
-        "key": "1104264",
-        "name": "Flood in Egypt",
-        "place": "Egypt",
+        "gdacs": "1104268",
+        "key": "1104268",
+        "name": "Flood in Spain",
+        "place": "Spain",
         "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
       },
       {
         "kind": "world",
-        "key": "EDPF1",
-        "name": "Eldredge Park (In MHHW)",
-        "place": "Eldredge Park (In MHHW), FL",
+        "gdacs": "1104264",
+        "key": "1104264",
+        "name": "Flood in Egypt",
+        "place": "Egypt",
         "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
       },
       {
@@ -937,6 +1980,13 @@
         "name": "Flood in United States",
         "place": "United States",
         "skip": "Only 0 earlier passes on the same track before the flood; the method needs 3."
+      },
+      {
+        "kind": "world",
+        "key": "RGIV2",
+        "name": "Ragged Island Creek at US 17",
+        "place": "Ragged Island Creek at US 17, VA",
+        "skip": "No NISAR pass of the kind the method uses (40 MHz, HH and HV) over this point during the flood is in NASA's catalog yet."
       },
       {
         "kind": "world",
@@ -1083,5 +2133,10 @@
         "skip": "The method couldn't run here: too few valley-floor pixels (0)"
       }
     ]
+  },
+  "scope_rule": {
+    "min_tree_share": 0.5,
+    "added": "2026-11-15",
+    "defined_in": "app/livescope.js"
   }
 }

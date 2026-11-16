@@ -20,7 +20,6 @@
     <p><a id="home" href="index.html">Back to GLOWfm</a></p>
   </main>
   <script>
-    // On a project site (GitHub Pages) the home page sits one folder down; on a root host it's at the top. Use whichever exists.
     const first = location.pathname.split("/").filter(Boolean)[0], home = document.getElementById("home");
     home.href = "/index.html";
     if (first && !first.includes(".")) fetch(`/${first}/index.html`, { method: "HEAD" }).then((r) => { if (r.ok) home.href = `/${first}/index.html`; }).catch(() => {});

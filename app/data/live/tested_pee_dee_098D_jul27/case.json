@@ -1,0 +1,218 @@
+{
+ "id": "tested_pee_dee_098D_jul27",
+ "kind": "us",
+ "tested": "held-out",
+ "site": "pee_dee",
+ "pair": "098D_jul27",
+ "name": "Pee Dee River, SC",
+ "place": "Pee Dee River, SC",
+ "category": "tested",
+ "lat": 34.708489,
+ "lon": -79.876175,
+ "wet": {
+  "time": "2026-07-27T00:10:45Z",
+  "name": "NISAR_L2_PR_GCOV_026_098_D_071_4005_DHDH_A_20260727T001045_20260727T001120_P05023_N_F_J_001"
+ },
+ "baseline": [
+  {
+   "time": "2026-06-21T00:10:47Z",
+   "name": "NISAR_L2_PR_GCOV_023_098_D_071_4005_DHDH_A_20260621T001047_20260621T001122_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-07-03T00:10:46Z",
+   "name": "NISAR_L2_PR_GCOV_024_098_D_071_4005_DHDH_A_20260703T001046_20260703T001121_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-07-15T00:10:46Z",
+   "name": "NISAR_L2_PR_GCOV_025_098_D_071_4005_DHDH_A_20260715T001046_20260715T001121_P05023_F_F_J_001"
+  },
+  {
+   "time": "2026-08-20T00:10:44Z",
+   "name": "NISAR_L2_PR_GCOV_028_098_D_071_4005_DHDH_A_20260820T001044_20260820T001119_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-09-01T00:10:44Z",
+   "name": "NISAR_L2_PR_GCOV_029_098_D_071_4005_DHDH_A_20260901T001044_20260901T001118_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-09-13T00:10:44Z",
+   "name": "NISAR_L2_PR_GCOV_030_098_D_071_4005_DHDH_A_20260913T001044_20260913T001118_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-09-25T00:10:44Z",
+   "name": "NISAR_L2_PR_GCOV_031_098_D_071_4005_DHDH_A_20260925T001044_20260925T001118_P05023_N_F_J_001"
+  }
+ ],
+ "corners": [
+  [
+   -79.936643,
+   34.774938
+  ],
+  [
+   -79.357598,
+   34.768502
+  ],
+  [
+   -79.375632,
+   33.837274
+  ],
+  [
+   -79.948322,
+   33.84349
+  ]
+ ],
+ "pixel_ha": 0.25,
+ "layout": {
+  "width": 1060,
+  "height": 2066,
+  "arrays": [
+   {
+    "name": "wet_hh",
+    "type": "int16"
+   },
+   {
+    "name": "wet_hv",
+    "type": "int16"
+   },
+   {
+    "name": "median_hh",
+    "type": "int16"
+   },
+   {
+    "name": "median_hv",
+    "type": "int16"
+   },
+   {
+    "name": "one_hh",
+    "type": "int16"
+   },
+   {
+    "name": "one_hv",
+    "type": "int16"
+   },
+   {
+    "name": "hand",
+    "type": "int16"
+   },
+   {
+    "name": "dist",
+    "type": "uint16"
+   },
+   {
+    "name": "landcover",
+    "type": "uint8"
+   },
+   {
+    "name": "timing",
+    "type": "uint8"
+   },
+   {
+    "name": "water",
+    "type": "uint8"
+   },
+   {
+    "name": "estimate",
+    "type": "uint8"
+   }
+  ]
+ },
+ "inputs": {
+  "epsg": "EPSG:32617",
+  "heights": "3DEP lidar (bare earth)",
+  "river": "the river's centre line, as in the published test",
+  "gauges": [
+   {
+    "usgs": "02130000",
+    "name": "PEE DEE RIVER AT CHERAW, SC"
+   },
+   {
+    "usgs": "02130561",
+    "name": "PEE DEE RIVER NR BENNETTSVILLE, SC"
+   },
+   {
+    "usgs": "02131000",
+    "name": "PEE DEE RIVER AT PEEDEE, SC"
+   },
+   {
+    "usgs": "02131010",
+    "name": "PEE DEE RIVER BELOW PEE DEE, SC"
+   },
+   {
+    "usgs": "02131210",
+    "name": "PEE DEE RIVER AT US378 ABOVE POSTON, SC"
+   }
+  ],
+  "test": "method 4, July",
+  "protocol": "research/V4_PROTOCOL.md"
+ },
+ "rule": {
+  "type": "v4",
+  "baseline": "median",
+  "signal": "adaptive",
+  "flood_check_db": null,
+  "confidence_db": 0.5,
+  "wet_scene_db": 0.5,
+  "smooth_px": 3,
+  "hand_max_m": 6.0,
+  "valley_m": 4000.0,
+  "min_threshold_db": 0.5,
+  "landcover": [
+   1,
+   2,
+   0
+  ],
+  "abstain_timing": [
+   4
+  ]
+ },
+ "frozen_run": {
+  "threshold_db": 0.5,
+  "used_hh_minus_hv": false,
+  "confident": false,
+  "low_minus_high_db": -0.24963168613612652,
+  "flagged_ha": 8751.75,
+  "mapped_ha": 547490.0
+ },
+ "reference_run": {
+  "threshold_db": 0.5,
+  "flagged_px": 34954,
+  "flagged_land_px": 34496,
+  "used_hh_minus_hv": false,
+  "confident": false,
+  "low_minus_high_db": -0.24999999441206455
+ },
+ "score": {
+  "scores": {
+   "tp": 780,
+   "fn": 2191,
+   "fp": 4633,
+   "tn": 68352,
+   "recall": 0.2625378660383709,
+   "precision": 0.1440975429521522,
+   "csi": 0.10257759074171488,
+   "f1": 0.18606870229007633,
+   "tp_ha": 195.0,
+   "fn_ha": 547.75,
+   "fp_ha": 1158.25,
+   "tn_ha": 17088.0
+  },
+  "ci95": {
+   "recall": [
+    0.056123703769534086,
+    0.4151549058716494
+   ],
+   "precision": [
+    0.022966575673451225,
+    0.28138778660878017
+   ],
+   "csi": [
+    0.017004767153974656,
+    0.19678550804026346
+   ],
+   "f1": [
+    0.033440879459721747,
+    0.32885676754760446
+   ]
+  }
+ }
+}

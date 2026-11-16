@@ -55,8 +55,22 @@ def build(case_id):
 
 
 def main():
+    # Overpass times out now and then: a failed box is skipped, the rest carry on, and the failures get one more try.
+    failed = []
     for c in json.loads((LIVE / "index.json").read_text(encoding="utf-8"))["cases"]:
-        build(c["id"])
+        try:
+            build(c["id"])
+        except RuntimeError as e:
+            print(f"{c['id']:28} skipped for now: {e}", flush=True)
+            failed.append(c["id"])
+    still = []
+    for case_id in failed:
+        try:
+            build(case_id)
+        except RuntimeError as e:
+            print(f"{case_id:28} failed again: {e}", flush=True)
+            still.append(case_id)
+    print(f"ROADS DONE: {len(still)} without roads" + (f" ({', '.join(still)})" if still else ""), flush=True)
 
 
 if __name__ == "__main__":

@@ -1,23 +1,16 @@
-// "Your town": back to orbit. The night globe from the journey returns (its own instance of globe.js), with the towns
-// beside large forested floodplains as amber lights. Search for a place, or click a light, and the globe turns and closes
-// in on it: the forest nearby lights up, a pin marks the place, and a dashed ring shows the 25 km the check covers, drawn
-// to scale. The verdict comes from atlas.js (atlasLookup, atlasVerdict). The lights are half-degree summaries; the
-// number comes from the 25 km check. Nothing typed leaves the page.
 
 const TOWN = { g: null, rows: null, xy: null, picked: null, fly: null, loop: null };
-const TOWN_ZOOM_KM = 3200;                        // how much ground the view shows when it arrives at a town
+const TOWN_ZOOM_KM = 3200;
 
-// On a wide screen the globe sits left of centre, clear of the panel on the right.
 const townCx = () => (small() ? TOWN.g.w / 2 : TOWN.g.w * 0.4);
 function townHome() {
   const g = TOWN.g;
   return { lon: TOWN.g.view.lon, lat: 12, R: Math.min(g.w * 0.36, g.h * 0.42), cx: townCx(), cy: g.h / 2 };
 }
 
-// Fly the globe to a view: the turn and the zoom together, the zoom on a log scale so it feels steady.
-function townFlyTo(to, ms = 1700) {
+function townFlyTo(to, ms = 2700) {
   const g = TOWN.g, from = { ...g.view };
-  let dl = ((to.lon - from.lon + 540) % 360) - 180;          // the short way round
+  let dl = ((to.lon - from.lon + 540) % 360) - 180;
   TOWN.fly = { from, to: { ...to, lon: from.lon + dl }, t: reducedMotion() ? 1 : 0, ms };
   TOWN.loop.kick();
 }
@@ -29,7 +22,6 @@ function townDraw() {
     focus: p ? { lon: p.lon, lat: p.lat, km: p.country ? 400 : 260, glow: 0.9 * ease(arrived) } : null,
     ring: place && arrived > 0.6 ? { lon: place.lon, lat: place.lat, km: ATLAS_RADIUS_KM } : null,
     pin: place ? { lon: place.lon, lat: place.lat } : null }, g);
-  // The towns: small amber lights, remembered on screen so a click can find the nearest.
   const rows = TOWN.rows;
   if (!rows) return;
   const ctx = g.ctx, out = [0, 0, 0], xy = TOWN.xy, [pr, pg, pb] = GLOBE_RGB.people, r = Math.max(1.1, Math.min(2.6, g.view.R / 500));
@@ -56,7 +48,6 @@ function townFrame(dt) {
     if (f.t >= 1) { TOWN.fly = null; if (TOWN.picked) return false; }
     return true;
   }
-  // Idle on the whole Earth: it turns slowly. Arrived at a place: it holds still and the loop sleeps.
   if (TOWN.picked || reducedMotion()) { townDraw(); return false; }
   g.view.lon = ((g.view.lon + dt * 0.004 + 540) % 360) - 180;
   townDraw();
@@ -70,7 +61,7 @@ function renderTownLabel(p) {
     (enough ? `<div class="qn" style="--c: var(--forest-ink)"><span class="qn-k">Floodplain under trees</span><b class="qn-n" id="tl-share">${pct(p.share, 0)}</b><span class="qn-u">of ${km2(p.floodplain)} of river floodplain within about ${ATLAS_RADIUS_KM} km</span></div>` : "") +
     `<p class="atlas-label atlas-label-${v.cls}">${esc(label)}</p><p class="atlas-level"><i class="status-dot ${v.cls}"></i>${v.level}</p><p class="atlas-why">${v.text}</p>${v.act ? `<p class="atlas-act"><b>What to do:</b> ${v.act}</p>` : ""}` +
     `<p class="atlas-not">Not a flood forecast: it says how well flood maps can see the ground here.</p><a class="more-link" href="dashboard.html?${esc(q.toString())}">Open on the blind-spot map</a>`;
-  if (enough) countUp($("tl-share"), 100 * p.share, (x) => `${Math.round(x)}%`, 900);
+  if (enough) countUp($("tl-share"), 100 * p.share, (x) => `${Math.round(x)}%`, 1500);
   $("town-announce").textContent = label;
   soundPing({ gain: 0.08 });
 }
@@ -132,7 +123,6 @@ function setupTownGlobe(summary) {
     globeResize(canvas, $("tg-glow"), g);
     Object.assign(g.view, { lon: -60 }, townHome());
     TOWN.loop = visibleLoop($("town-globe"), townFrame);
-    // Picked before the globe was ready (the hero's search): go straight there.
     if (TOWN.picked) { const p = TOWN.picked; townFlyTo({ lon: p.lon, lat: p.lat, R: g.w / ((p.country ? 3000 : TOWN_ZOOM_KM) / EARTH_KM), cx: townCx(), cy: g.h / 2 }, 1); }
     townDraw();
     let again;
@@ -140,7 +130,6 @@ function setupTownGlobe(summary) {
       clearTimeout(again);
       again = setTimeout(() => { const fov = g.w / g.view.R; globeResize(canvas, $("tg-glow"), g); Object.assign(g.view, { R: g.w / fov, cx: townCx(), cy: g.h / 2 }); townDraw(); }, 120);
     });
-    // Hover a town light to see its name; click it to check it.
     const tip = $("town-tip");
     const nearest = (e) => {
       const r = canvas.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;

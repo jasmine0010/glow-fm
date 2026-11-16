@@ -1,0 +1,202 @@
+{
+ "id": "tested_satilla_098D_oct19",
+ "kind": "us",
+ "tested": "held-out",
+ "site": "satilla",
+ "pair": "098D_oct19",
+ "name": "Satilla River, GA",
+ "place": "Satilla River, GA",
+ "category": "tested",
+ "lat": 31.30275,
+ "lon": -82.561111,
+ "wet": {
+  "time": "2026-10-19T00:11:51Z",
+  "name": "NISAR_L2_PR_GCOV_033_098_D_073_4005_DHDH_A_20261019T001151_20261019T001226_P05023_N_F_J_001"
+ },
+ "baseline": [
+  {
+   "time": "2026-08-20T00:11:51Z",
+   "name": "NISAR_L2_PR_GCOV_028_098_D_073_4005_DHDH_A_20260820T001151_20260820T001226_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-09-01T00:11:51Z",
+   "name": "NISAR_L2_PR_GCOV_029_098_D_073_4005_DHDH_A_20260901T001151_20260901T001226_P05023_N_F_J_002"
+  },
+  {
+   "time": "2026-09-13T00:11:51Z",
+   "name": "NISAR_L2_PR_GCOV_030_098_D_073_4005_DHDH_A_20260913T001151_20260913T001226_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-09-25T00:11:51Z",
+   "name": "NISAR_L2_PR_GCOV_031_098_D_073_4005_DHDH_A_20260925T001151_20260925T001226_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-10-07T00:11:51Z",
+   "name": "NISAR_L2_PR_GCOV_032_098_D_073_4005_DHDH_A_20261007T001151_20261007T001226_P05023_N_F_J_001"
+  }
+ ],
+ "corners": [
+  [
+   -82.624984,
+   31.362789
+  ],
+  [
+   -81.806024,
+   31.37055
+  ],
+  [
+   -81.804232,
+   31.159436
+  ],
+  [
+   -82.621372,
+   31.151739
+  ]
+ ],
+ "pixel_ha": 0.25,
+ "layout": {
+  "width": 1558,
+  "height": 468,
+  "arrays": [
+   {
+    "name": "wet_hh",
+    "type": "int16"
+   },
+   {
+    "name": "wet_hv",
+    "type": "int16"
+   },
+   {
+    "name": "median_hh",
+    "type": "int16"
+   },
+   {
+    "name": "median_hv",
+    "type": "int16"
+   },
+   {
+    "name": "one_hh",
+    "type": "int16"
+   },
+   {
+    "name": "one_hv",
+    "type": "int16"
+   },
+   {
+    "name": "hand",
+    "type": "int16"
+   },
+   {
+    "name": "dist",
+    "type": "uint16"
+   },
+   {
+    "name": "landcover",
+    "type": "uint8"
+   },
+   {
+    "name": "timing",
+    "type": "uint8"
+   },
+   {
+    "name": "water",
+    "type": "uint8"
+   },
+   {
+    "name": "estimate",
+    "type": "uint8"
+   }
+  ]
+ },
+ "inputs": {
+  "epsg": "EPSG:32617",
+  "heights": "3DEP lidar (bare earth)",
+  "river": "the river's centre line, as in the published test",
+  "gauges": [
+   {
+    "usgs": "02226362",
+    "name": "SATILLA RIVER AT GA 158, NEAR WAYCROSS, GA"
+   },
+   {
+    "usgs": "02226500",
+    "name": "SATILLA RIVER NEAR WAYCROSS, GA"
+   },
+   {
+    "usgs": "02228000",
+    "name": "SATILLA RIVER AT ATKINSON, GA"
+   }
+  ],
+  "test": "method 4, October",
+  "protocol": "research/OVERBANK_PROTOCOL.md"
+ },
+ "rule": {
+  "type": "v4",
+  "baseline": "median",
+  "signal": "adaptive",
+  "flood_check_db": null,
+  "confidence_db": 0.5,
+  "wet_scene_db": 0.5,
+  "smooth_px": 3,
+  "hand_max_m": 6.0,
+  "valley_m": 4000.0,
+  "min_threshold_db": 0.5,
+  "landcover": [
+   1,
+   2,
+   0
+  ],
+  "abstain_timing": [
+   4
+  ]
+ },
+ "frozen_run": {
+  "threshold_db": 1.4301649279426776,
+  "used_hh_minus_hv": false,
+  "confident": true,
+  "low_minus_high_db": 1.3607670068740845,
+  "flagged_ha": 18749.25,
+  "mapped_ha": 182286.0
+ },
+ "reference_run": {
+  "threshold_db": 1.430970155883115,
+  "flagged_px": 74994,
+  "flagged_land_px": 74912,
+  "used_hh_minus_hv": false,
+  "confident": true,
+  "low_minus_high_db": 1.3633332699537277
+ },
+ "score": {
+  "scores": {
+   "tp": 7466,
+   "fn": 1597,
+   "fp": 1253,
+   "tn": 10621,
+   "recall": 0.8237890323292508,
+   "precision": 0.8562908590434682,
+   "csi": 0.7237301279565723,
+   "f1": 0.8397255651782701,
+   "tp_ha": 1866.5,
+   "fn_ha": 399.25,
+   "fp_ha": 313.25,
+   "tn_ha": 2655.25
+  },
+  "ci95": {
+   "recall": [
+    0.7691223202485915,
+    0.8838438098405571
+   ],
+   "precision": [
+    0.5488106933986797,
+    0.9718880459072637
+   ],
+   "csi": [
+    0.49014351461486017,
+    0.8175046156730883
+   ],
+   "f1": [
+    0.6578473434276685,
+    0.8995901382428451
+   ]
+  }
+ }
+}

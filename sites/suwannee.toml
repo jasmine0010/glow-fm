@@ -1,0 +1,113 @@
+# Unread river, suwannee. Held-out expansion test. (created by hidden_floods.sitegen)
+
+name = "suwannee"
+crs = "EPSG:32617"
+resolution_m = 50.0
+bbox = [-83.3097, 29.5297, -82.5001, 30.741]
+
+[data]
+root = "suwannee"
+dem = "dem/dem10m.tif"
+gauges = "gauges"
+operational = "ops"
+
+[gcov]
+"wet_047A_20261015" = "NISAR_L2_PR_GCOV_033_047_A_017_4005_DHDH_A_20261015T104542_20261015T104620_P05023_N_F_J_001"
+"dry_047A_20261003" = "NISAR_L2_PR_GCOV_032_047_A_017_4005_DHDH_A_20261003T104542_20261003T104620_P05023_N_F_J_001"
+
+[gunw]
+
+[pairs."047A_oct15"]
+wet = "wet_047A_20261015"
+dry = "dry_047A_20261003"
+wet_time = "2026-10-15T10:45:42Z"
+dry_time = "2026-10-03T10:45:42Z"
+
+
+[[gauges]]
+name = "SUWANNEE RIVER AT US 441, AT FARGO, GA"
+id = "USGS-02314500"
+lon = -82.560139
+lat = 30.681028
+datum_ft = 91.0
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "SUWANNEE RIVER AT WHITE SPRINGS, FLA."
+id = "USGS-02315500"
+lon = -82.738183
+lat = 30.325781
+datum_ft = 0.0
+navd88_offset_ft = -0.873
+
+[[gauges]]
+name = "SUWANNEE RIVER AT SUWANNEE SPRINGS FLA"
+id = "USGS-02315550"
+lon = -82.933187
+lat = 30.392999
+datum_ft = 0.0
+navd88_offset_ft = -0.715
+
+[[gauges]]
+name = "SUWANNEE RIVER AT ELLAVILLE, FLA"
+id = "USGS-02319500"
+lon = -83.171806
+lat = 30.384662
+datum_ft = 27.22
+navd88_offset_ft = -0.722
+
+[[gauges]]
+name = "SUWANNEE RIVER AT DOWLING PARK, FLORIDA"
+id = "USGS-02319800"
+lon = -83.249722
+lat = 30.244722
+datum_ft = 0.0
+navd88_offset_ft = -0.696
+
+[[gauges]]
+name = "SUWANNEE RIVER AT LURAVILLE, FLA."
+id = "USGS-02320000"
+lon = -83.171525
+lat = 30.099945
+datum_ft = 0.0
+navd88_offset_ft = -0.896
+
+[[gauges]]
+name = "SUWANNEE RIVER AT BRANFORD, FLA."
+id = "USGS-02320500"
+lon = -82.927628
+lat = 29.955785
+datum_ft = 4.81
+navd88_offset_ft = -0.764
+
+[[gauges]]
+name = "SUWANNEE RIVER NEAR BELL, FLORIDA"
+id = "USGS-02323000"
+lon = -82.924293
+lat = 29.791344
+datum_ft = 0.0
+navd88_offset_ft = -0.925
+
+[[gauges]]
+name = "SUWANNEE RIVER NEAR WILCOX, FLA."
+id = "USGS-02323500"
+lon = -82.936513
+lat = 29.589680
+datum_ft = -0.53
+navd88_offset_ft = -0.676
+
+[valley]
+line = [[-82.5601, 30.6810], [-82.7382, 30.3258], [-82.9332, 30.3930], [-83.1718, 30.3847], [-83.2497, 30.2447], [-83.1715, 30.0999], [-82.9276, 29.9558], [-82.9243, 29.7913], [-82.9365, 29.5897]]
+corridor_m = 4000.0
+
+[truth]
+margin_m = 0.5
+max_dry_height_m = 5.0
+
+[split]
+calibration_max_chainage_m = 0.0
+bootstrap_block_m = 2000.0
+
+[detector]
+forest_hv_db = -16.0
+thresholds_db = [2.0]

@@ -1,0 +1,236 @@
+{
+  "id": "us_llat2_20261104",
+  "kind": "us",
+  "name": "Llano River at Llano",
+  "place": "Llano River at Llano, TX",
+  "category": "moderate",
+  "lat": 30.751111111111,
+  "lon": -98.669444444444,
+  "flood_from": "2026-10-01T00:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": null,
+  "usgs": "08151500",
+  "noaa": "LLAT2",
+  "wet": {
+    "time": "2026-11-04T11:52:21Z",
+    "name": "NISAR_L2_PR_GCOV_034_163_A_017_4005_DHDH_A_20261104T115221_20261104T115255_P05036_N_F_J_001",
+    "stack": "163A_017_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_163_A_017_4005_DHDH_A_20261104T115221_20261104T115255_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_163_A_017_4005_DHDH_A_20261104T115221_20261104T115255_P05036_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          -97.13891,
+          29.93232
+        ],
+        [
+          -97.80079,
+          31.99733
+        ],
+        [
+          -100.44209,
+          31.33367
+        ],
+        [
+          -99.7275,
+          29.2843
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-08-12T11:52:21Z",
+      "name": "NISAR_L2_PR_GCOV_027_163_A_017_4005_DHDH_A_20260812T115221_20260812T115256_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-08-24T11:52:21Z",
+      "name": "NISAR_L2_PR_GCOV_028_163_A_017_4005_DHDH_A_20260824T115221_20260824T115255_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-05T11:52:20Z",
+      "name": "NISAR_L2_PR_GCOV_029_163_A_017_4005_DHDH_A_20260905T115220_20260905T115255_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-17T11:52:20Z",
+      "name": "NISAR_L2_PR_GCOV_030_163_A_017_4005_DHDH_A_20260917T115220_20260917T115255_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-29T11:52:20Z",
+      "name": "NISAR_L2_PR_GCOV_031_163_A_017_4005_DHDH_A_20260929T115220_20260929T115255_P05023_N_F_J_001"
+    }
+  ],
+  "passes_during": 6,
+  "corners": [
+    [
+      -98.794991,
+      30.859959
+    ],
+    [
+      -98.542918,
+      30.859314
+    ],
+    [
+      -98.543941,
+      30.642304
+    ],
+    [
+      -98.79545,
+      30.642943
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 482,
+    "height": 481,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      },
+      {
+        "name": "estimate",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32614",
+    "gauges": [
+      {
+        "usgs": "08151500",
+        "name": "Llano Rv at Llano, TX",
+        "lat": 30.7513041,
+        "lon": -98.6697773,
+        "datum_ft": 970.08,
+        "datum": "NAVD88",
+        "level_source": "stage + gauge datum (NAVD88)",
+        "reading_ft": 2.4547,
+        "wse_m": 296.42857656,
+        "timing": 2
+      }
+    ],
+    "heights": "3DEP lidar (bare earth)",
+    "river": "USGS river line through the gauge",
+    "protocol": "research/LIVE_PROTOCOL_V2.md"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.5,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": -0.4954012632369995,
+    "flagged_ha": 116.5,
+    "mapped_ha": 57960.5
+  },
+  "reference_run": {
+    "threshold_db": 0.5,
+    "flagged_px": 673,
+    "flagged_land_px": 465,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": -0.4955557584762573
+  },
+  "score": {
+    "scores": {
+      "tp": 0,
+      "fn": 9,
+      "fp": 16,
+      "tn": 55,
+      "recall": 0.0,
+      "precision": 0.0,
+      "csi": 0.0,
+      "f1": 0.0,
+      "tp_ha": 0.0,
+      "fn_ha": 2.25,
+      "fp_ha": 4.0,
+      "tn_ha": 13.75
+    },
+    "ci95": {
+      "recall": [
+        0.0,
+        0.0
+      ],
+      "precision": [
+        0.0,
+        0.0
+      ],
+      "csi": [
+        0.0,
+        0.0
+      ],
+      "f1": [
+        0.0,
+        0.0
+      ]
+    },
+    "estimate_wet_ha": 2.25,
+    "estimate_dry_ha": 17.75
+  },
+  "attempt": {
+    "case": "us_llat2_20261104",
+    "dev": false,
+    "git_head": "eef8bde2ac18bbce9be9b862a2f19a5e3a3fff57"
+  },
+  "dev": false,
+  "selection": "coverage",
+  "flood_to": "2026-11-12T23:59:59Z"
+}

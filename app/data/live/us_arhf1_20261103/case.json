@@ -1,0 +1,228 @@
+{
+  "id": "us_arhf1_20261103",
+  "kind": "us",
+  "name": "Horse Creek near Arcadia at SR 72",
+  "place": "Horse Creek near Arcadia at SR 72, FL",
+  "category": "minor",
+  "lat": 27.199166666667,
+  "lon": -81.988611111111,
+  "flood_from": "2026-09-20T00:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": null,
+  "usgs": "02297310",
+  "noaa": "ARHF1",
+  "wet": {
+    "time": "2026-11-03T10:52:58Z",
+    "name": "NISAR_L2_PR_GCOV_034_148_A_015_4005_DHDH_A_20261103T105258_20261103T105332_P05036_N_F_J_001",
+    "stack": "148A_015_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_148_A_015_4005_DHDH_A_20261103T105258_20261103T105332_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_148_A_015_4005_DHDH_A_20261103T105258_20261103T105332_P05036_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          -81.38091,
+          25.96723
+        ],
+        [
+          -81.99349,
+          28.03854
+        ],
+        [
+          -84.46559,
+          27.42268
+        ],
+        [
+          -83.81175,
+          25.36436
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-08-11T10:52:58Z",
+      "name": "NISAR_L2_PR_GCOV_027_148_A_015_4005_DHDH_A_20260811T105258_20260811T105333_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-04T10:52:57Z",
+      "name": "NISAR_L2_PR_GCOV_029_148_A_015_4005_DHDH_A_20260904T105257_20260904T105332_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-16T10:52:57Z",
+      "name": "NISAR_L2_PR_GCOV_030_148_A_015_4005_DHDH_A_20260916T105257_20260916T105332_P05023_N_F_J_001"
+    }
+  ],
+  "passes_during": 15,
+  "corners": [
+    [
+      -82.112203,
+      27.307189
+    ],
+    [
+      -81.86715,
+      27.308923
+    ],
+    [
+      -81.865468,
+      27.091365
+    ],
+    [
+      -82.110046,
+      27.089647
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 485,
+    "height": 482,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      },
+      {
+        "name": "estimate",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32617",
+    "gauges": [
+      {
+        "usgs": "02297310",
+        "name": "HORSE CREEK AT SR 72 NEAR ARCADIA, FL",
+        "lat": 27.19949477,
+        "lon": -81.9884193,
+        "datum_ft": 10.96,
+        "datum": "NGVD29",
+        "level_source": "water elevation above NAVD88",
+        "reading_ft": 23.615933333333334,
+        "wse_m": 7.1981364800000005,
+        "timing": 1
+      }
+    ],
+    "heights": "3DEP lidar (bare earth)",
+    "river": "USGS river line through the gauge",
+    "protocol": "research/LIVE_PROTOCOL_V2.md"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.5,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": 0.43532148748636246,
+    "flagged_ha": 4810.0,
+    "mapped_ha": 58442.5
+  },
+  "reference_run": {
+    "threshold_db": 0.5,
+    "flagged_px": 20712,
+    "flagged_land_px": 19211,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": 0.4350001811981201
+  },
+  "score": {
+    "scores": {
+      "tp": 509,
+      "fn": 313,
+      "fp": 710,
+      "tn": 4614,
+      "recall": 0.6192214111922141,
+      "precision": 0.41755537325676784,
+      "csi": 0.3322454308093995,
+      "f1": 0.49877511024007837,
+      "tp_ha": 127.25,
+      "fn_ha": 78.25,
+      "fp_ha": 177.5,
+      "tn_ha": 1153.5
+    },
+    "ci95": {
+      "recall": [
+        0.4603174603174603,
+        0.9354838709677419
+      ],
+      "precision": [
+        0.1483375959079284,
+        0.9666666666666667
+      ],
+      "csi": [
+        0.1468354430379747,
+        0.453125
+      ],
+      "f1": [
+        0.2560706401766004,
+        0.6236559139784946
+      ]
+    },
+    "estimate_wet_ha": 205.5,
+    "estimate_dry_ha": 1331.0
+  },
+  "attempt": {
+    "case": "us_arhf1_20261103",
+    "dev": false,
+    "git_head": "eef8bde2ac18bbce9be9b862a2f19a5e3a3fff57"
+  },
+  "dev": false,
+  "selection": "coverage",
+  "flood_to": "2026-11-07T23:59:59Z"
+}

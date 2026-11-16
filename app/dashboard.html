@@ -19,16 +19,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=47">
+  <link rel="stylesheet" href="style.css?v=103">
 </head>
 <body class="dash-page night">
   <nav class="dash-bar" aria-label="Pages and mode">
     <a class="brand" href="index.html" aria-label="GLOWfm"><span aria-hidden="true">GLOW<span class="brand-fm">fm</span></span></a>
     <h1 class="sr-only">NISAR flood dashboard</h1>
-    <div class="seg" role="group" aria-label="Mode">
-      <button type="button" data-mode="live" class="on" aria-pressed="true"><i class="live-dot"></i>Live now</button>
-      <button type="button" data-mode="history" aria-pressed="false">Past flood</button>
-    </div>
     <span class="bar-gap"></span>
     <details class="bar-more" id="bar-more">
       <summary class="btn-quiet">More</summary>
@@ -93,21 +89,19 @@
     </section>
   </aside>
 
-  <aside class="rail rail-right" id="rail-right" aria-label="Selected" tabindex="0">
-    <section class="glass glass-primary sel-card river-card" id="sel-river">
+  <aside class="rail rail-right" id="rail-right" aria-label="Selected">
+    <section class="glass glass-primary sel-card river-card" id="sel-river" tabindex="0">
       <h2 class="river-title" id="river-title"></h2>
       <p class="dash-sub" id="dash-sub"></p>
       <p class="card-note" id="card-note" hidden></p>
-      <div class="readouts" aria-label="NISAR's flood map">
+      <div class="readouts headline" aria-label="NISAR's flood map and the gauge-and-lidar estimate">
         <div class="kpi kpi-lead"><span class="kpi-label" id="k-radar-label">NISAR flood map</span><span class="kpi-num" id="k-radar">—</span><span class="kpi-sub" id="k-radar-sub"></span><span class="kpi-trust" id="k-trust"></span></div>
+        <div class="kpi kpi-lead kpi-est"><span class="kpi-label" id="k-ha-label">Estimated flooding now</span><span class="kpi-num" id="k-ha">—</span><span class="kpi-sub" id="k-ha-sub"></span></div>
       </div>
-      <div class="estimate" aria-label="The gauge-and-lidar estimate, and what if the river rose">
-        <div class="est-pair">
-          <div class="est"><span class="kpi-label">Estimated flooding</span><span class="est-num" id="k-ha">—</span><span class="kpi-sub" id="k-ha-sub"></span></div>
-          <div class="est"><span class="kpi-label">Road under water</span><span class="est-num" id="k-road">—</span><span class="kpi-sub" id="k-road-sub"></span></div>
-        </div>
+      <div class="estimate" aria-label="What if the river rose">
         <label class="what-if"><span class="what-if-label">What if the river rose?</span><input type="range" id="rise" min="0" max="5" step="0.25" value="0" aria-label="Rise added to every gauge"><output id="rise-out">+0 m</output></label>
       </div>
+      <div class="facts" id="facts" aria-label="The river, NISAR and this valley in figures"></div>
       <div class="card-foot">
         <div class="freshness" id="freshness"></div>
         <p class="flood-tools" aria-label="More about this flood"><button type="button" class="link-btn" data-panel="gauges">Gauge table</button> <button type="button" class="link-btn" data-panel="graphs">Graphs</button> <button type="button" class="link-btn" id="fly-back"></button></p>
@@ -116,18 +110,15 @@
         <summary>Details</summary>
         <h3 class="panel-title">This spot</h3>
         <div id="spot" class="card"><p class="muted">Click the map.</p></div>
-        <div class="details-part" id="record"></div>
-        <h3 class="panel-title details-part">More detail</h3>
-        <p class="pass-line" id="pass-line"></p>
         <div id="insights" class="insights"></div>
       </details>
     </section>
-    <section class="glass glass-primary sel-card" id="atlas-pick" aria-label="The flood or place you chose" hidden></section>
+    <section class="glass glass-primary sel-card" id="atlas-pick" aria-label="The flood or place you chose" tabindex="0" hidden></section>
   </aside>
 
   <div class="dock-stack" role="region" aria-label="Time controls and details">
     <div class="time-bar" id="time-bar" hidden>
-      <button type="button" class="btn" id="t-play">Play</button>
+      <button type="button" class="btn t-play" id="t-play" aria-label="Play, one day at a time" title="Play, one day at a time"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.8v10.4a.6.6 0 0 0 .9.5l8.2-5.2a.6.6 0 0 0 0-1L5.4 2.3a.6.6 0 0 0-.9.5z"/></svg></button>
       <button type="button" class="btn" id="t-prev" aria-label="Previous NISAR pass" title="Previous NISAR pass">‹ Pass</button>
       <div class="time-track time-strip" id="t-strip"></div>
       <button type="button" class="btn" id="t-next" aria-label="Next NISAR pass" title="Next NISAR pass">Pass ›</button>
@@ -174,23 +165,22 @@
         <li><b>"What if" isn't a forecast.</b> It adds the same rise to every gauge on every river. Real floods don't rise evenly.</li>
         <li><b>How scores work.</b> The match score runs from 0 to 1 and compares NISAR's map with the estimate at the same moment. It only counts ground the estimate can clearly call flooded or dry, so the two areas shown can differ even when the score is high. In a fair test, GLOWfm was fixed before the flood's data was opened, and the results page calls these frozen tests. Development scores come from rivers that helped build GLOWfm, so they flatter it. A river's fair test may have used an earlier method, so it can differ from the current method's score.</li>
         <li><b>The switch on the map picks what it shows.</b> NISAR shows NISAR's flood map; Estimate shows the gauge-and-lidar estimate; Both lays the estimate in see-through cyan over NISAR's magenta, so blue is where they agree, magenta where only NISAR mapped flooding and cyan where only the estimate did.</li>
-        <li><b>The blind-spot map is a layer.</b> It's strongest zoomed out and fades to a faint trace over a tested flood; the switch in Map layers turns it off. The Blind spots tab checks any town, river or country. It shows where river floodplains sit under trees, using a modelled 100-year flood map and land cover. It marks where a flood could be hidden, not where one is. A place reads as high risk when at least half of its mapped floodplain within about 25 km is under trees and that covers at least 100 km², and moderate from a fifth and 25 km². Those cutoffs are our own.</li>
+        <li><b>The blind-spot map is a layer.</b> It's strongest zoomed out and fades to a faint trace over a tested flood; the switch in Map layers turns it off. The Blind spots tab checks any town, river or country. It shows where river floodplains sit under trees, using a modeled 100-year flood map and land cover. It marks where a flood could be hidden, not where one is. A place reads as high risk when at least half of its mapped floodplain within about 25 km is under trees and that covers at least 100 km², and moderate from a fifth and 25 km². Those cutoffs are our own.</li>
         <li><b>Roads under water.</b> The card counts drivable roads from OpenStreetMap on the ground the estimate floods, leaving out bridges and footpaths, and how much of it lies where Copernicus GFM's mask says today's flood map doesn't map. Mapped roads can be incomplete, and a raised road can stay dry where the ground beside it floods.</li>
         <li><b>Don't use this for emergency decisions.</b> Follow official warnings. See <a href="evidence.html">the results page</a> for how well each part has held up.</li>
       </ul>
       <p class="note">Data: USGS water data and 3DEP lidar · NISAR L2 PROVISIONAL GCOV (NASA/ISRO) via NASA Earthdata · Copernicus Emergency Management Service Global Flood Monitoring · NOAA National Water Prediction Service flood levels · OpenStreetMap roads, © OpenStreetMap contributors (ODbL) · ESA WorldCover 2021 (CC BY 4.0) · Copernicus CEMS GloFAS flood hazard maps, © European Union (CC BY 4.0) · GeoNames place names (CC BY 4.0) · Natural Earth · Imagery © Esri.</p>
-      <p class="note">Provisional data; not an operational product. Much of the code was written with AI assistance (Claude).</p>
     </div>
   </section>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-  <script src="shared.js?v=33"></script>
-  <script src="estimator.js?v=33"></script>
-  <script src="atlas.js?v=37"></script>
-  <script src="livefloods.js?v=31"></script>
-  <script src="worldfloods.js?v=40"></script>
-  <script src="strip.js?v=31"></script>
-  <script src="dashboard.js?v=39"></script>
-  <script src="dashtour.js?v=3"></script>
+  <script src="shared.js?v=47"></script>
+  <script src="estimator.js?v=35"></script>
+  <script src="atlas.js?v=40"></script>
+  <script src="livefloods.js?v=33"></script>
+  <script src="worldfloods.js?v=47"></script>
+  <script src="strip.js?v=33"></script>
+  <script src="dashboard.js?v=64"></script>
+  <script src="dashtour.js?v=10"></script>
 </body>
 </html>

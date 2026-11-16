@@ -1,13 +1,7 @@
-// The orbit rail: NISAR's ground track down the right edge of the page. A satellite travels it as you scroll, through
-// a major station at the opening and at each act, and a smaller one per section (the journey's parts too); each jumps
-// there when clicked.
-// The track is a smooth wave, an illustration of an orbit swinging pole to pole, not NISAR's position. (Its real
-// latitude at 98.4° inclination is nearly a triangle wave, which drew as straight runs with sharp corners.) On phones it becomes a thin progress line under the top bar, with a sections menu.
 
 const ORBIT = { stops: [], nav: null, sat: null, done: null, line: null, active: -1, queued: false, pts: [] };
 const ORBIT_W = 28;
 
-// The track: a sine wave, so it swings side to side and back with no corners.
 function orbitTrack(n = 400, waves = 1.5) {
   const pts = [];
   for (let i = 0; i <= n; i++) {
@@ -19,7 +13,6 @@ function orbitTrack(n = 400, waves = 1.5) {
 
 function orbitStops() {
   const stops = [];
-  // Pages without acts keep one major station per section.
   const acts = document.querySelector("[data-act-card]") !== null;
   document.querySelectorAll("[data-station]").forEach((el) => {
     const major = !acts || "actCard" in el.dataset || el.id === "finding" || el.tagName === "FOOTER";
@@ -33,8 +26,6 @@ function orbitStops() {
   return stops;
 }
 
-// Where on the page each station is reached: a section when its top passes 40% of the screen; a journey part where
-// lanternJump would put it.
 function orbitMeasure() {
   const top = (el) => el.getBoundingClientRect().top + scrollY;
   ORBIT.stops.forEach((s, k) => {
@@ -70,9 +61,24 @@ function orbitUpdate() {
     ORBIT.active = k;
     ORBIT.nav.querySelectorAll(".orbit-stop").forEach((b, i) => { b.classList.toggle("on", i === k); b.classList.toggle("past", i < k); if (i === k) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
     if (was >= 0) {
-      const b = ORBIT.nav.querySelectorAll(".orbit-stop")[k];
-      b.classList.remove("flare"); void b.offsetWidth; b.classList.add("flare");
-      if (typeof soundTick === "function") soundTick(S[k].sub ? 0.012 : 0.022);
+      const all = ORBIT.nav.querySelectorAll(".orbit-stop");
+      all.forEach((x) => {
+        if (!x.classList.contains("flare")) return;
+        const label = x.querySelector(".orbit-label"), cs = getComputedStyle(label);
+        Object.assign(label.style, { transition: "none", opacity: cs.opacity, transform: cs.transform });
+        x.classList.remove("flare");
+        void label.offsetWidth;
+        Object.assign(label.style, { transition: "opacity .45s ease-out, transform .45s ease-out", opacity: "0" });
+        setTimeout(() => Object.assign(label.style, { transition: "", opacity: "", transform: "" }), 500);
+      });
+      clearTimeout(ORBIT.flareTimer);
+      ORBIT.flareTimer = setTimeout(() => {
+        if (ORBIT.active !== k) return;
+        const b = all[k];
+        Object.assign(b.querySelector(".orbit-label").style, { transition: "", opacity: "", transform: "" });
+        void b.offsetWidth; b.classList.add("flare");
+        if (typeof soundTick === "function") soundTick(S[k].sub ? 0.012 : 0.022);
+      }, 260);
     }
   }
 }
@@ -100,7 +106,6 @@ function setupOrbit() {
   ORBIT.done = nav.querySelector(".orbit-done");
   nav.addEventListener("click", (e) => { const b = e.target.closest("[data-k]"); if (b) orbitGo(ORBIT.stops[Number(b.dataset.k)]); });
 
-  // Phones: a progress line under the top bar, with a tick per section, and a menu of the sections.
   const line = document.createElement("div");
   line.className = "orbit-line";
   line.setAttribute("aria-hidden", "true");
@@ -109,7 +114,6 @@ function setupOrbit() {
   ORBIT.line = line;
   const menu = document.getElementById("sections-menu");
   if (menu) {
-    // Acts as headings, their sections under them; the journey's parts stay on the rail only.
     menu.querySelector(".menu-list").innerHTML = ORBIT.stops.map((s, k) => (s.part ? "" : `<button type="button" data-k="${k}"${s.sub ? ' class="menu-sub"' : ""}>${s.el.dataset.station}</button>`)).join("") + '<a class="menu-page" href="evidence.html">Results: figures and tables</a>';
     menu.addEventListener("click", (e) => { const b = e.target.closest("[data-k]"); if (b) { menu.open = false; orbitGo(ORBIT.stops[Number(b.dataset.k)]); } });
   }

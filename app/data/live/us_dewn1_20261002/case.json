@@ -1,0 +1,181 @@
+{
+  "id": "us_dewn1_20261002",
+  "kind": "us",
+  "name": "Turkey Creek near DeWitt",
+  "place": "Turkey Creek near DeWitt, NE",
+  "category": "moderate",
+  "lat": 40.36718,
+  "lon": -96.8896,
+  "flood_from": "2026-10-02T00:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": null,
+  "usgs": "06881380",
+  "noaa": "DEWN1",
+  "wet": {
+    "time": "2026-10-02T11:30:11Z",
+    "name": "NISAR_L2_PR_GCOV_032_033_A_022_4005_DHDH_A_20261002T113011_20261002T113046_P05023_N_F_J_001",
+    "stack": "033A_022_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_033_A_022_4005_DHDH_A_20261002T113011_20261002T113046_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_033_A_022_4005_DHDH_A_20261002T113011_20261002T113046_P05023_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          -94.42564,
+          39.86922
+        ],
+        [
+          -95.2938,
+          41.96978
+        ],
+        [
+          -98.20659,
+          41.22804
+        ],
+        [
+          -97.2569,
+          39.15008
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-08-15T11:30:11Z",
+      "name": "NISAR_L2_PR_GCOV_028_033_A_022_4005_DHDH_A_20260815T113011_20260815T113046_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-08-27T11:30:11Z",
+      "name": "NISAR_L2_PR_GCOV_029_033_A_022_4005_DHDH_A_20260827T113011_20260827T113046_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-08T11:30:11Z",
+      "name": "NISAR_L2_PR_GCOV_030_033_A_022_4005_DHDH_A_20260908T113011_20260908T113046_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-20T11:30:11Z",
+      "name": "NISAR_L2_PR_GCOV_031_033_A_022_4005_DHDH_A_20260920T113011_20260920T113046_P05023_F_F_J_001"
+    }
+  ],
+  "passes_during": 1,
+  "corners": [
+    [
+      -97.044142,
+      40.474631
+    ],
+    [
+      -96.748107,
+      40.484626
+    ],
+    [
+      -96.735633,
+      40.259427
+    ],
+    [
+      -97.030689,
+      40.249511
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 503,
+    "height": 501,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32615",
+    "gauges": [],
+    "heights": "3DEP lidar (bare earth)",
+    "river": "USGS river line through the gauge",
+    "protocol": "research/LIVE_PROTOCOL_V2.md"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.7633089233189818,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": 0.13182246685028076,
+    "flagged_ha": 783.0,
+    "mapped_ha": 63000.75
+  },
+  "reference_run": {
+    "threshold_db": 0.7630364332313189,
+    "flagged_px": 4411,
+    "flagged_land_px": 3130,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": 0.12888884544372559
+  },
+  "score": null,
+  "attempt": {
+    "case": "us_dewn1_20261002",
+    "dev": false,
+    "git_head": "eef8bde2ac18bbce9be9b862a2f19a5e3a3fff57"
+  },
+  "dev": false,
+  "score_skipped": "No usable USGS gauge with a known height reference in the box.",
+  "selection": "coverage",
+  "flood_to": "2026-10-06T23:59:59Z"
+}

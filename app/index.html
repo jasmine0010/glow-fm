@@ -19,15 +19,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=43">
+  <link rel="stylesheet" href="style.css?v=103">
 </head>
 <body class="night">
+  <div class="stage" id="stage" aria-hidden="true"><canvas class="stage-glow" id="stage-glow"></canvas><canvas class="stage-canvas" id="stage-canvas"></canvas></div>
   <nav class="topbar" aria-label="GLOWfm">
     <div class="wrap topbar-in">
       <a class="brand" href="#finding" aria-label="GLOWfm"><span aria-hidden="true">GLOW<span class="brand-fm">fm</span></span></a>
       <span class="topbar-space"></span>
       <details class="sections-menu" id="sections-menu"><summary>Sections</summary><div class="menu-list"></div></details>
-      <button type="button" class="sound-btn" id="sound-btn" aria-pressed="false" title="Radar pings at key moments. Off unless you switch it on."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="sound-wave" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg><span class="sound-word">Sound off</span></button>
+      <button type="button" class="sound-btn" id="sound-btn" data-default="on" aria-pressed="false" title="A night soundscape that follows your scroll, with radar pings at key moments. Press to start it, and again to turn it off."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path class="sound-wave" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg><span class="sound-word">Sound off</span></button>
       <span class="topbar-pages"><a class="topbar-plain here" href="index.html" aria-current="page">Story</a><a class="topbar-tool" href="dashboard.html">Dashboard</a><a class="topbar-tool" href="live.html">Run it yourself</a><a class="topbar-plain" href="evidence.html">Results</a></span>
     </div>
   </nav>
@@ -35,13 +36,14 @@
   <header class="finding wrap" id="finding" data-station="The finding">
     <div class="finding-text">
       <p class="eyebrow"><span class="eyebrow-name">Gauge-checked L-band Observation of Woodland flood maps</span> NASA Space Apps 2026 · Dancing with the SARs</p>
-      <h1>The flood map said dry. The river said flooded.</h1>
+      <h1>GLOWfm<span class="h1-motto">Seeing floods through the canopy.</span></h1>
       <p class="lede" id="finding-lede"></p>
       <div class="finding-stats qn-row">
-        <div class="qn" style="--c: var(--official-ink)"><span class="qn-k">Official flood map</span><b class="qn-n" id="fact-gfm"></b><span class="qn-u" id="fact-gfm-label"></span></div>
-        <div class="qn" style="--c: var(--nisar-ink)"><span class="qn-k">NISAR radar</span><b class="qn-n" id="fact-nisar"></b><span class="qn-u" id="fact-nisar-label"></span></div>
+        <p class="finding-stats-q">How much flooding each map caught</p>
+        <div class="qn" style="--c: var(--official-ink)"><span class="qn-k">Official map (GFM)</span><b class="qn-n" id="fact-gfm"></b><span class="qn-u" id="fact-gfm-label"></span></div>
+        <div class="qn" style="--c: var(--nisar-ink)"><span class="qn-k">GLOWfm (NISAR radar)</span><b class="qn-n" id="fact-nisar"></b><span class="qn-u" id="fact-nisar-label"></span></div>
       </div>
-      <p class="tour-cta"><a class="btn-primary" href="dashboard.html">Open the live dashboard</a> <a class="btn-line" href="live.html">Run it yourself</a></p>
+      <p class="tour-cta"><a class="btn-primary" href="#act-1">Start the story ↓</a> <a class="btn-line" href="dashboard.html">Open the live dashboard</a></p>
       <p class="hero-status" id="hero-status"></p>
       <details class="fine">
         <summary>The fine print</summary>
@@ -53,6 +55,7 @@
           <p>The town check isn't a flood forecast. It checks how much nearby river floodplain is under trees, where satellite flood maps struggle.</p>
         </div>
       </details>
+      <a class="story-cue" id="story-cue" href="#act-1">Scroll for the story <span aria-hidden="true">↓</span></a>
     </div>
     <figure class="finding-map">
       <div class="view-switch" role="group" aria-label="What to show outside the lens">
@@ -68,25 +71,15 @@
         <div class="swipe-tag swipe-tag-right" id="tag-right">Inside the lens: NISAR radar<small>Oct 15</small></div>
         <button type="button" class="lens-ring" id="lens-ring" aria-label="X-ray lens. Inside it is NISAR's flood map. Arrow keys move it."></button>
         <p class="lens-hint" id="lens-hint" aria-hidden="true">Move the lens along the dark band of trees</p>
-        <button type="button" class="btn lens-all" id="lens-all" aria-pressed="false">Show all of NISAR's map</button>
       </div>
       <figcaption class="legend-row" id="hero-legend"></figcaption>
     </figure>
   </header>
 
   <main>
-    <div class="act-card" id="act-1" data-station="Act 1: What the map misses" data-act-card="1">
-      <div class="wrap act-in"><div class="act-text"><p class="act-kicker">Act 1 of 3</p><h2 class="act-name">What the map misses</h2><p class="act-q">Why can't the flood map see this flood?</p></div><figure class="act-instr" id="instr-1"><canvas role="img" aria-label="Flooding by the river's gauges against the official flood map, Satilla River, Oct 24"></canvas><figcaption class="act-legend"></figcaption></figure></div>
-    </div>
-    <section class="wrap story who reveal" id="who" data-station="Who it fails" data-story-act="1">
-      <p class="eyebrow">Why it matters</p>
-      <h2 class="who-title">Who acts on a blank flood map?</h2>
-      <div class="who-cards">
-        <div class="who-card"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 30h36l-5 9H11z" /><path d="M24 30V9l12 16H24" /><path d="M4 43c4 0 4-2 8-2s4 2 8 2 4-2 8-2 4 2 8 2 4-2 8-2" /></svg><b>Emergency managers</b><span>where to send boats and supplies</span></div>
-        <div class="who-card"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 17l16-8 16 8v20l-16 8-16-8z" /><path d="M8 17l16 8 16-8M24 25v20" /></svg><b>Aid groups</b><span>where to plan relief</span></div>
-        <div class="who-card"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 5h18l8 8v30H12z" /><path d="M30 5v8h8M18 22h14M18 29h14M18 36h9" /></svg><b>Flood insurance</b><span>payouts based on satellite maps</span></div>
-      </div>
-      <p class="plain who-line">Under trees, a blank map can look like an all-clear. GLOWfm tells them when it isn't.</p>
+    <section class="chapter chapter-pair" id="act-1" data-station="Act 1: What the map misses" data-act-card="1" aria-labelledby="act1-h">
+      <div class="chapter-text"><p class="act-kicker">Act 1 of 3</p><h2 class="act-name" id="act1-h">What the map misses</h2><p class="act-q">Why can't the flood map see this flood?</p><p class="chapter-num" id="act1-num"></p><p class="act-q chapter-then">Emergency managers, aid groups and flood insurers act on that blank map. Under trees, it can look like an all-clear.</p></div>
+      <div class="chapter-who" id="who" data-station="Who it fails" data-story-act="1" aria-hidden="true"></div>
     </section>
     <section class="lantern" id="journey" data-station="The journey" aria-label="A journey from orbit to one flooded tree" data-story-act="1">
       <div class="lantern-stage" id="lantern-stage" data-act="orbit">
@@ -98,7 +91,6 @@
         <div class="lantern-tree" id="lantern-tree"></div>
         <div class="lantern-top">
           <p class="lantern-brand">The night shift <span>Fly with NISAR</span></p>
-          <a class="lantern-skip" href="#act-2">Skip the journey ↓</a>
         </div>
         <div class="lantern-scale" aria-hidden="true"><span id="lantern-pow">10⁷ m</span><span id="lantern-fov"></span></div>
         <div class="lantern-copy" id="lantern-copy">
@@ -107,27 +99,25 @@
           <p class="lantern-unit" id="lantern-unit"></p>
           <p class="lantern-line" id="lantern-line" aria-live="polite"></p>
           <div class="lantern-extra" id="lantern-extra"></div>
+          <details class="fine lantern-fine" id="lantern-fine" hidden>
+            <summary>The fine print for the journey</summary>
+            <div class="fine-body">
+              <p id="jf-1"></p>
+              <p id="jf-2"></p>
+              <p id="jf-3"></p>
+              <p id="jf-4"></p>
+              <p id="jf-5"></p>
+            </div>
+          </details>
         </div>
         <div class="lantern-strip" id="lantern-strip-wrap"><p class="lantern-when" id="lantern-when"></p><div id="lantern-strip"></div></div>
         <p class="lantern-hint" id="lantern-hint" aria-hidden="true">Scroll to fly ↓</p>
       </div>
     </section>
-    <div class="wrap lantern-fine">
-      <details class="fine">
-        <summary>The fine print for the journey</summary>
-        <div class="fine-body">
-          <p id="jf-1"></p>
-          <p id="jf-2"></p>
-          <p id="jf-3"></p>
-          <p id="jf-4"></p>
-          <p id="jf-5"></p>
-        </div>
-      </details>
-    </div>
 
-    <div class="act-card" id="act-2" data-station="Act 2: How NISAR sees it" data-act-card="2">
-      <div class="wrap act-in"><div class="act-text"><p class="act-kicker">Act 2 of 3</p><h2 class="act-name">How NISAR sees it</h2><p class="act-q">How does a radar see water through trees?</p></div><figure class="act-instr" id="instr-2"><canvas role="img" aria-label="Radar brightening of forest pixels as the water rises"></canvas><figcaption class="act-legend"></figcaption></figure></div>
-    </div>
+    <section class="chapter" id="act-2" data-station="Act 2: How NISAR sees it" data-act-card="2" aria-labelledby="act2-h">
+      <div class="chapter-text"><p class="act-kicker">Act 2 of 3</p><h2 class="act-name" id="act2-h">How NISAR sees it</h2><p class="act-q">How does a radar see water through trees?</p><p class="chapter-num" id="act2-num"></p></div>
+    </section>
     <section class="wrap story reveal" id="why" data-station="Why NISAR" data-story-act="2">
       <p class="eyebrow">Why NISAR</p>
       <h2>Same forest, same week, two radars</h2>
@@ -143,7 +133,7 @@
         <div class="qn waves-num waves-l" style="--c: var(--nisar-ink)"><span class="qn-k">NISAR · L-band · 24 cm</span><b class="qn-n" id="band-l-num"></b><span class="qn-u" id="band-l-label"></span></div>
       </div>
       <p class="bands-controls"><label><input type="checkbox" id="bands-truth"> Show where the river says it flooded</label> <button type="button" class="btn-quiet" id="bands-hear">▶ Hear the difference</button></p>
-      <p class="story-fig-link"><a href="evidence.html#fig2">Every pass's signature, and C-band against L-band, in Fig. 2 of the results</a></p>
+      <p class="story-fig-link"><a href="evidence.html#fig-signature">Every pass's signature, and C-band against L-band, in the results</a></p>
       <details class="fine">
         <summary>The fine print</summary>
         <div class="fine-body">
@@ -151,7 +141,7 @@
           <p id="bands-read"></p>
           <p id="bands-note"></p>
           <p id="why-caveat"></p>
-          <p>Open water is smooth, so radar waves bounce away from the satellite and it looks dark. Under trees, the same water bounces waves into the trunks and straight back, so a flooded forest looks brighter. To check the radar, we take the water level from river gauges and the ground height from lidar, estimate where the water is, and compare the two maps. "Hear the difference" plays each radar's dry-forest echo, then its flooded-forest echo, at the measured power ratios.</p>
+          <p>Open water is smooth, so radar waves bounce away from the satellite and it looks dark. Under trees, the same water bounces waves into the trunks and straight back, so a flooded forest looks brighter. To check the radar, we take the water level from river gauges and the ground height from lidar, estimate where the water is, and compare the two maps. "Hear the difference" plays each radar's dry-forest echo, then its flooded-forest echo, at the measured power ratios. The dry echo is a soft scatter; the flooded one rings in proportion to how much it brightened, standing in for the double bounce, so a radar that barely changed sounds the same twice.</p>
         </div>
       </details>
     </section>
@@ -164,6 +154,7 @@
           <p class="eyebrow">Watch it move</p>
           <h2>Watch a hidden flood rise and fall</h2>
           <p class="plain">Scroll to move through the flood. NISAR passes again and again, so you can watch water spread through the forest and drain away.</p>
+          <p class="plain tl-cause" id="time-cause" hidden></p>
         </div>
         <div class="tl-tools">
           <div class="seg time-view" id="time-view" role="group" aria-label="What to show">
@@ -195,7 +186,7 @@
           <p id="time-sound-note"></p>
           <p id="time-area-note"></p>
           <p id="time-note"></p>
-          <p><a href="evidence.html#fig7">Fig. 7 in the results</a> plots the river levels, the mapped areas and the score for every pass on one time axis.</p>
+          <p><a href="evidence.html#fig-time">A figure in the results</a> plots the river levels, the mapped areas and the score for every pass on one time axis.</p>
         </div>
       </details>
     </div>
@@ -231,9 +222,9 @@
       </details>
     </section>
 
-    <div class="act-card" id="act-3" data-station="Act 3: Your turn" data-act-card="3">
-      <div class="wrap act-in"><div class="act-text"><p class="act-kicker">Act 3 of 3</p><h2 class="act-name">Your turn</h2><p class="act-q">What about where you live?</p></div><figure class="act-instr" id="instr-3"><canvas role="img" aria-label="This season's floods, in the order NISAR passed them"></canvas><figcaption class="act-legend"></figcaption></figure></div>
-    </div>
+    <section class="chapter" id="act-3" data-station="Act 3: Your turn" data-act-card="3" aria-labelledby="act3-h">
+      <div class="chapter-text"><p class="act-kicker">Act 3 of 3</p><h2 class="act-name" id="act3-h">Your turn</h2><p class="act-q">What about where you live?</p></div>
+    </section>
     <section class="wrap story reveal" id="where" data-station="Your town" data-story-act="3">
       <p class="eyebrow">Check your town</p>
       <h2>Is the flood map near you blind?</h2>
@@ -268,29 +259,18 @@
       <p class="eyebrow">The tools</p>
       <h2>See every flood now. Then run GLOWfm yourself.</h2>
       <p class="plain" id="run-coverage"></p>
-      <div class="tool-cards">
-        <article class="tool-card">
-          <h3>Every flood reported now, and whether NISAR saw it</h3>
-          <p class="tool-line">With US river levels live from USGS, and the map of where flood maps can't see under trees.</p>
-          <figure class="tool-map"><canvas id="tool-dash-map" role="img" aria-label="Floods reported worldwide in the last 60 days, marked by whether NISAR passed over them"></canvas><figcaption class="act-legend" id="tool-dash-key"></figcaption></figure>
-          <p class="tool-go"><a class="btn-primary" href="dashboard.html">Open the live dashboard</a></p>
-        </article>
-        <article class="tool-card">
-          <h3>Run GLOWfm on this season's floods</h3>
-          <p class="tool-line">In your browser. It grades itself against the river's gauges and says when not to trust it.</p>
-          <table class="departures" id="run-board"><caption class="sr-only">Floods ready to run</caption></table>
-          <p class="tool-go"><a class="btn-line" href="live.html">Run it yourself</a></p>
-        </article>
-      </div>
+      <div class="run-world" id="run-world" role="img" aria-label="Floods reported worldwide in the last 60 days, lit where NISAR passed with a scene GLOWfm can read"></div>
+      <p class="run-key">Lit where NISAR passed with a scene GLOWfm can read; rings where it hasn't yet.</p>
+      <p class="tool-go"><a class="btn-primary" href="dashboard.html">Open the live dashboard</a> <a class="btn-line" href="live.html">Run it yourself</a></p>
       <details class="fine">
         <summary>The fine print</summary>
         <div class="fine-body"><p id="run-coverage-more"></p></div>
       </details>
     </section>
 
-    <div class="act-card" id="act-4" data-station="The proof" data-act-card="4">
-      <div class="wrap act-in"><div class="act-text"><p class="act-kicker">After the story</p><h2 class="act-name">The proof</h2><p class="act-q">How do we know it works, and where doesn't it?</p></div><figure class="act-instr" id="instr-4"><canvas role="img" aria-label="Every judged test's score, in the order the methods were tested"></canvas><figcaption class="act-legend"></figcaption></figure></div>
-    </div>
+    <section class="chapter" id="act-4" data-station="The proof" data-act-card="4" aria-labelledby="act4-h">
+      <div class="chapter-text"><p class="act-kicker">After the story</p><h2 class="act-name" id="act4-h">The proof</h2><p class="act-q">How do we know it works, and where doesn't it?</p><p class="chapter-num" id="act4-num"></p></div>
+    </section>
     <section class="wrap story deeper reveal" id="deeper" data-station="Go deeper" data-story-act="4">
       <p class="eyebrow">Go deeper</p>
       <h2>Every test, including the failures</h2>
@@ -304,8 +284,8 @@
       <details class="deep">
         <summary>What's next</summary>
         <div class="deep-body">
-          <p class="plain">Use NISAR's phase to measure water level under trees. In one Florida swamp during Hurricane Isaias, it showed the water rising; each band of colour is about 16 cm. It's an early demonstration, checked against a dry-season control.</p>
-          <figure class="next-fig"><img src="data/figures/fringes_flood.jpg" width="549" height="392" loading="lazy" alt="Rainbow bands across the Choctawhatchee delta swamp in a NISAR interferogram from Oct 9 to Oct 21, each band about 16 cm of water rising under the trees"><figcaption>NISAR, Oct 9 to Oct 21, Choctawhatchee River delta. Colour shows the change in the radar's phase, and brightness how clearly it could read it. <a href="evidence.html#fig12">See Fig. 12</a></figcaption></figure>
+          <p class="plain">Use NISAR's phase to measure water level under trees. In one Florida swamp during Hurricane Isaias, it showed the water rising; each band of color is about 16 cm. It's an early demonstration, checked against a dry-season control.</p>
+          <figure class="next-fig"><img src="data/figures/fringes_flood.jpg" width="549" height="392" loading="lazy" alt="Rainbow bands across the Choctawhatchee delta swamp in a NISAR interferogram from Oct 9 to Oct 21, each band about 16 cm of water rising under the trees"><figcaption>NISAR, Oct 9 to Oct 21, Choctawhatchee River delta. Color shows the change in the radar's phase, and brightness how clearly it could read it. <a href="evidence.html#fig-fringes">See the results</a></figcaption></figure>
         </div>
       </details>
       <p class="story-actions"><a class="btn-primary" href="evidence.html">See every test</a></p>
@@ -316,26 +296,27 @@
   <footer class="wrap foot" data-station="End of shift">
     <p class="foot-shift" id="foot-shift"></p>
     <p>Data: NISAR L2 PROVISIONAL GCOV/GUNW (NASA/ISRO, CRID P05023) · Contains modified Copernicus Sentinel data 2026, including Sentinel-1 RTC by Catalyst via Microsoft Planetary Computer (CC BY 4.0) · Copernicus Emergency Management Service Global Flood Monitoring · OPERA DSWx-S1 (NASA JPL) · USGS water data and 3DEP lidar · NASA GPM IMERG · NOAA VDatum · ESA WorldCover 2021 · Copernicus DEM GLO-30 (© DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018, provided under COPERNICUS by the European Union and ESA) · FABDEM V1-2 (University of Bristol; Hawker et al. 2022, CC BY-NC-SA 4.0; produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved) · © OpenStreetMap contributors · Imagery © Esri.</p>
-    <p>Provisional data; not an operational product. Much of the code was written with AI assistance (Claude).</p>
   </footer>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-  <script src="shared.js?v=31"></script>
-  <script src="sound.js?v=29"></script>
-  <script src="atlas.js?v=30"></script>
-  <script src="charts.js?v=29"></script>
-  <script src="game.js?v=30"></script>
-  <script src="estimator.js?v=29"></script>
-  <script src="globe.js?v=32"></script>
-  <script src="strip.js?v=29"></script>
-  <script src="lantern.js?v=30"></script>
-  <script src="where.js?v=29"></script>
-  <script src="orbit.js?v=30"></script>
-  <script src="figkit.js?v=29"></script>
-  <script src="figures.js?v=32"></script>
-  <script src="motion.js?v=29"></script>
-  <script src="acts.js?v=30"></script>
-  <script src="livefloods.js?v=29"></script>
-  <script src="story.js?v=34"></script>
+  <script src="shared.js?v=47"></script>
+  <script src="sound.js?v=34"></script>
+  <script src="ambience.js?v=8"></script>
+  <script src="atlas.js?v=33"></script>
+  <script src="charts.js?v=30"></script>
+  <script src="game.js?v=36"></script>
+  <script src="estimator.js?v=31"></script>
+  <script src="globe.js?v=35"></script>
+  <script src="strip.js?v=33"></script>
+  <script src="lantern.js?v=44"></script>
+  <script src="where.js?v=34"></script>
+  <script src="orbit.js?v=34"></script>
+  <script src="figkit.js?v=37"></script>
+  <script src="figures.js?v=48"></script>
+  <script src="motion.js?v=33"></script>
+  <script src="acts.js?v=40"></script>
+  <script src="stage.js?v=19"></script>
+  <script src="livefloods.js?v=31"></script>
+  <script src="story.js?v=56"></script>
 </body>
 </html>

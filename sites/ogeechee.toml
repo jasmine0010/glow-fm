@@ -1,0 +1,97 @@
+# Unread river, ogeechee. Held-out expansion test. (created by hidden_floods.sitegen)
+
+name = "ogeechee"
+crs = "EPSG:32617"
+resolution_m = 50.0
+bbox = [-82.6637, 32.1301, -81.3559, 33.1046]
+
+[data]
+root = "ogeechee"
+dem = "dem/dem10m.tif"
+gauges = "gauges"
+operational = "ops"
+
+[gcov]
+"wet_026D_20260628" = "NISAR_L2_PR_GCOV_024_026_D_072_4005_DHDH_A_20260628T001940_20260628T002014_P05023_N_F_J_001"
+"dry_026D_20260827" = "NISAR_L2_PR_GCOV_029_026_D_072_4005_DHDH_A_20260827T001937_20260827T002012_P05023_N_F_J_001"
+"wet_047A_20260629" = "NISAR_L2_PR_GCOV_024_047_A_018_4005_DHDH_A_20260629T104621_20260629T104656_P05023_N_F_J_001"
+"dry_047A_20260711" = "NISAR_L2_PR_GCOV_025_047_A_018_4005_DHDH_A_20260711T104621_20260711T104656_P05023_N_F_J_001"
+"wet_098D_20260621" = "NISAR_L2_PR_GCOV_023_098_D_072_4005_DHDH_A_20260621T001121_20260621T001156_P05023_N_F_J_001"
+"dry_098D_20260715" = "NISAR_L2_PR_GCOV_025_098_D_072_4005_DHDH_A_20260715T001120_20260715T001154_P05023_F_F_J_001"
+
+[gunw]
+
+[pairs."026D_jun28"]
+wet = "wet_026D_20260628"
+dry = "dry_026D_20260827"
+wet_time = "2026-06-28T00:19:40Z"
+dry_time = "2026-08-27T00:19:37Z"
+
+[pairs."047A_jun29"]
+wet = "wet_047A_20260629"
+dry = "dry_047A_20260711"
+wet_time = "2026-06-29T10:46:21Z"
+dry_time = "2026-07-11T10:46:21Z"
+
+[pairs."098D_jun21"]
+wet = "wet_098D_20260621"
+dry = "dry_098D_20260715"
+wet_time = "2026-06-21T00:11:21Z"
+dry_time = "2026-07-15T00:11:20Z"
+
+
+[[gauges]]
+name = "OGEECHEE RIVER AT GA 88, NEAR GRANGE, GA"
+id = "USGS-02200120"
+lon = -82.603667
+lat = 33.044583
+datum_ft = 233.4
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "OGEECHEE RIVER AT MIDVILLE, GA"
+id = "USGS-02201230"
+lon = -82.235000
+lat = 32.814694
+datum_ft = 168.13
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "OGEECHEE RIVER AT ROCKY FORD RD, NR ROCKY FORD, GA"
+id = "USGS-02202040"
+lon = -81.840778
+lat = 32.649278
+datum_ft = 104.14
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "OGEECHEE RIVER AT GA 24, NEAR OLIVER, GA"
+id = "USGS-02202190"
+lon = -81.555500
+lat = 32.494806
+datum_ft = 59.82
+navd88_offset_ft = 0.000
+
+[[gauges]]
+name = "OGEECHEE RIVER NEAR EDEN, GA"
+id = "USGS-02202500"
+lon = -81.415861
+lat = 32.190111
+datum_ft = 17.06
+navd88_offset_ft = 0.000
+
+[valley]
+line = [[-82.6037, 33.0446], [-82.2350, 32.8147], [-81.8408, 32.6493], [-81.5555, 32.4948], [-81.4159, 32.1901]]
+corridor_m = 4000.0
+
+[truth]
+margin_m = 0.5
+max_dry_height_m = 5.0
+
+[split]
+calibration_max_chainage_m = 0.0
+bootstrap_block_m = 2000.0
+
+[detector]
+forest_hv_db = -16.0
+thresholds_db = [2.0]

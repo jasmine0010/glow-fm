@@ -1,0 +1,236 @@
+{
+  "id": "us_atkg1_20261019",
+  "kind": "us",
+  "name": "Satilla River at Atkinson",
+  "place": "Satilla River at Atkinson, GA",
+  "category": "minor",
+  "lat": 31.2205555555556,
+  "lon": -81.8675,
+  "flood_from": "2026-10-09T00:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": null,
+  "usgs": "02228000",
+  "noaa": "ATKG1",
+  "wet": {
+    "time": "2026-10-19T00:11:51Z",
+    "name": "NISAR_L2_PR_GCOV_033_098_D_073_4005_DHDH_A_20261019T001151_20261019T001226_P05023_N_F_J_001",
+    "stack": "098D_073_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_098_D_073_4005_DHDH_A_20261019T001151_20261019T001226_P05023_N_F_J_001/NISAR_L2_PR_GCOV_033_098_D_073_4005_DHDH_A_20261019T001151_20261019T001226_P05023_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          -82.55876,
+          32.1364
+        ],
+        [
+          -83.23992,
+          30.01231
+        ],
+        [
+          -80.69435,
+          29.37513
+        ],
+        [
+          -79.96068,
+          31.48368
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-08-20T00:11:51Z",
+      "name": "NISAR_L2_PR_GCOV_028_098_D_073_4005_DHDH_A_20260820T001151_20260820T001226_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-01T00:11:51Z",
+      "name": "NISAR_L2_PR_GCOV_029_098_D_073_4005_DHDH_A_20260901T001151_20260901T001226_P05023_N_F_J_002"
+    },
+    {
+      "time": "2026-09-13T00:11:51Z",
+      "name": "NISAR_L2_PR_GCOV_030_098_D_073_4005_DHDH_A_20260913T001151_20260913T001226_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-25T00:11:51Z",
+      "name": "NISAR_L2_PR_GCOV_031_098_D_073_4005_DHDH_A_20260925T001151_20260925T001226_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-10-07T00:11:51Z",
+      "name": "NISAR_L2_PR_GCOV_032_098_D_073_4005_DHDH_A_20261007T001151_20261007T001226_P05023_N_F_J_001"
+    }
+  ],
+  "passes_during": 2,
+  "corners": [
+    [
+      -81.995908,
+      31.328616
+    ],
+    [
+      -81.74104,
+      31.330341
+    ],
+    [
+      -81.739342,
+      31.112456
+    ],
+    [
+      -81.993626,
+      31.110746
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 485,
+    "height": 483,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      },
+      {
+        "name": "estimate",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32617",
+    "gauges": [
+      {
+        "usgs": "02228000",
+        "name": "SATILLA RIVER AT ATKINSON, GA",
+        "lat": 31.21958333,
+        "lon": -81.8664444,
+        "datum_ft": 13.63,
+        "datum": "NAVD88",
+        "level_source": "stage + gauge datum (NAVD88)",
+        "reading_ft": 14.1221,
+        "wse_m": 8.45884008,
+        "timing": 1
+      }
+    ],
+    "heights": "3DEP lidar (bare earth)",
+    "river": "USGS river line through the gauge",
+    "protocol": "research/LIVE_PROTOCOL_V2.md"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 1.5538955321302603,
+    "used_hh_minus_hv": false,
+    "confident": true,
+    "low_minus_high_db": 2.597995415329933,
+    "flagged_ha": 6938.0,
+    "mapped_ha": 58563.75
+  },
+  "reference_run": {
+    "threshold_db": 1.5528543852874988,
+    "flagged_px": 29937,
+    "flagged_land_px": 27764,
+    "used_hh_minus_hv": false,
+    "confident": true,
+    "low_minus_high_db": 2.598888874053955
+  },
+  "score": {
+    "scores": {
+      "tp": 1309,
+      "fn": 350,
+      "fp": 35,
+      "tn": 670,
+      "recall": 0.7890295358649789,
+      "precision": 0.9739583333333334,
+      "csi": 0.7727272727272727,
+      "f1": 0.8717948717948718,
+      "tp_ha": 327.25,
+      "fn_ha": 87.5,
+      "fp_ha": 8.75,
+      "tn_ha": 167.5
+    },
+    "ci95": {
+      "recall": [
+        0.7405940594059406,
+        0.9354838709677419
+      ],
+      "precision": [
+        0.90625,
+        1.0
+      ],
+      "csi": [
+        0.7405940594059406,
+        0.8529411764705882
+      ],
+      "f1": [
+        0.850967007963595,
+        0.9206349206349206
+      ]
+    },
+    "estimate_wet_ha": 414.75,
+    "estimate_dry_ha": 176.25
+  },
+  "attempt": {
+    "case": "us_atkg1_20261019",
+    "dev": false,
+    "git_head": "eef8bde2ac18bbce9be9b862a2f19a5e3a3fff57"
+  },
+  "dev": false,
+  "selection": "coverage",
+  "flood_to": "2026-10-25T23:59:59Z"
+}

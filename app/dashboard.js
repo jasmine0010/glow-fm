@@ -1,5 +1,3 @@
-// GLOWfm dashboard: one full-screen map holding every flood event. Choosing an event flies the camera there.
-// River levels are fetched directly from USGS, and the newest scene dates from NASA's catalog. Everything else comes from data/.
 
 const STYLE = BASEMAP;
 const IV = "https://waterservices.usgs.gov/nwis/iv/";
@@ -8,8 +6,6 @@ const FT = 0.3048, HOUR = 36e5, DAY = 864e5, REPEAT_DAYS = 12, STALE_H = 3, UNUS
 const FLY_MS = 2600, PHONE_MAX = 1024;
 const PIN_SIDE = { tangipahoa: "left", yellow: "left" };
 const BLANK = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==";
-// What the map shows is one choice (the Show switch on the map: NISAR, Estimate or Both); these are the extra layers.
-// "after" rows sit under the blind-spot switch.
 const LAYER_ROWS = [
   { key: "roads", label: "Road under water", color: "#ff8c42", on: true },
   { key: "gauges", label: "River gauges", color: "#ffffff", on: true },
@@ -21,8 +17,6 @@ const DRAWER_PANELS = ["gauges", "graphs", "about"];
 const SCORE_KIND = { frozen: "fair test", development: "development test", live: "Run it yourself run", auto: "added automatically" };
 const hasScore = (p) => p && p.score !== null && p.score !== undefined;
 const gapText = (ms) => ageText(ms).replace(" ago", "");
-const methodName = (f) => f.method.split(",")[0].replace("v", "method ");
-// The same bands as the story page's scoreboard: weak, moderate and strong.
 const matchPhrase = (score) => (score >= 0.6 ? "they matched well" : score >= 0.4 ? "they partly matched" : "they matched poorly");
 const GRID_STEPS = [20, 10, 5, 2, 1, 0.5, 0.25, 0.1, 0.05, 0.025, 0.01];
 
@@ -31,7 +25,6 @@ const state = { sel: "river", mode: "live", river: null, pack: null, series: {},
 
 const round = (x, d = 2) => (x === null || x === undefined ? "—" : x.toFixed(d));
 const ageText = (ms) => { const h = ms / HOUR; if (h < 1) return `${Math.max(1, Math.round(h * 60))} min ago`; const n = Math.round(h); if (h < 48) return `${n} hour${n === 1 ? "" : "s"} ago`; return `${Math.round(h / 24)} days ago`; };
-// Every date and time here is UTC, matching the rest of the site: days as "Oct 14", times as "Nov 14, 3:05 PM UTC".
 const dayText = (t) => new Date(t).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
 const utcText = (t) => `${new Date(t).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZone: "UTC" })} UTC`;
 const shortGauge = (r, name) => name.replace(/^(.*River|.*Creek|.*Bayou)\s+/i, "").replace(/,\s*(FL|GA|LA|MS|TX|FLA\.?)$/i, "").replace(/^(near|at|nr)\s+/i, "").replace(/^(Ga|Us|La|Fl)\s/, (m) => m.toUpperCase());
@@ -42,7 +35,6 @@ const storeOf = (r) => (state.stores[r.id] ??= { radarUrl: null, loading: null, 
 const isPhone = () => innerWidth <= PHONE_MAX;
 const railsShown = () => !isPhone();
 const activeBounds = () => state.river.bounds;
-// The right rail holds one card: the selected tested river, or the flood or place picked in the Choose panel.
 function showSel(kind) {
   state.sel = kind;
   document.body.dataset.sel = kind;
@@ -57,7 +49,6 @@ function showSel(kind) {
   }
 }
 
-// ---------- reading gauges ----------
 async function fetchLevels(ids, period) {
   const ctrl = new AbortController(), stop = setTimeout(() => ctrl.abort(), 30000);
   try {
@@ -104,13 +95,11 @@ const currentTime = () => (state.mode === "live" ? state.now : state.grid[state.
 const trend = (x) => (x === null ? "—" : x > 0.03 ? `rising ${x.toFixed(2)} m` : x < -0.03 ? `falling ${(-x).toFixed(2)} m` : "steady");
 const headlinePass = (r) => r.passes.find((p) => p.score_type === "frozen") || [...r.passes].sort((a, b) => (b.score ?? -1) - (a.score ?? -1))[0];
 
-// ---------- one store per river ----------
 function buildGrid(r, hist) {
   const seriesList = r.gauges.map((g) => hist[g.id]).filter(Boolean);
   const a = Math.min(...seriesList.map((s) => s.times[0])), b = Math.max(...seriesList.map((s) => s.times[s.times.length - 1]));
   const out = [];
   for (let t = Math.ceil(a / HOUR) * HOUR; t <= b; t += HOUR) out.push(t);
-  // Exact pass times are stops too, so a replayed pass shows the same numbers as the rest of the site.
   r.passes.forEach((p) => out.push(Date.parse(p.time)));
   return [...new Set(out)].sort((x, y) => x - y);
 }
@@ -120,6 +109,7 @@ function ensureStore(r) {
   st.loading ??= Promise.all([fetch(`data/dashboard/${r.id}.bin`).then((x) => x.arrayBuffer()), fetch(`data/dashboard/${r.id}_gauges.json`).then((x) => x.json())]).then(([buffer, hist]) => {
     st.buffer = buffer;
     st.pack = packFromBuffer(r.grid, buffer);
+    st.valley = valleyStats(st.pack);
     st.histSeries = Object.fromEntries(hist.map((g) => [g.id.replace("USGS-", ""), { times: g.times.map((x) => Date.parse(`${x}Z`)), ft: g.stage_ft }]));
     st.grid = buildGrid(r, st.histSeries);
     st.i = Math.max(0, st.grid.findIndex((t) => t >= Date.parse(headlinePass(r).time)));
@@ -131,8 +121,33 @@ function ensureStore(r) {
   return st.loading;
 }
 
-// The roads load only for the river on screen (about half a megabyte each). They're an extra: if they can't load, the
-// card leaves the road count out and the map draws none.
+function valleyStats(pack) {
+  const { n, flags, chain } = pack;
+  let tree = 0, covered = 0, excluded = 0, lo = Infinity, hi = -Infinity;
+  for (let i = 0; i < n; i++) {
+    const f = flags[i];
+    if (((f & FLAG.LC_MASK) >> FLAG.LC_SHIFT) === 1) tree++;
+    if (f & FLAG.GFM_COVERED) { covered++; if (f & FLAG.GFM_EXCLUDED) excluded++; }
+    if (chain[i] < lo) lo = chain[i];
+    if (chain[i] > hi) hi = chain[i];
+  }
+  return { ha: n * pack.meta.pixel_ha, km: (hi - lo) / 1000, treeShare: n ? tree / n : null, maskShare: covered ? excluded / covered : null };
+}
+
+function crestOf(t) {
+  let best = null;
+  for (const g of state.river.gauges) {
+    const s = state.series[g.id];
+    if (!s || !g.flood_ft) continue;
+    for (let k = 0; k < s.times.length; k++) {
+      if (s.times[k] > t || s.times[k] < t - 8 * DAY) continue;
+      const m = (s.ft[k] - g.flood_ft) * FT;
+      if (!best || m > best.margin) best = { g, margin: m, t: s.times[k] };
+    }
+  }
+  return best;
+}
+
 function ensureRoads(r) {
   const st = storeOf(r);
   st.roadsLoading ??= fetch(`data/dashboard/${r.id}_roads.bin`).then((x) => (x.ok ? x.arrayBuffer() : null))
@@ -148,10 +163,6 @@ function attachCanvas(r, st) {
   map.addLayer({ id, type: "raster", source: id, paint: { "raster-resampling": "nearest", "raster-fade-duration": 0 } });
 }
 
-// ---------- drawing ----------
-// Estimate: the estimated water, deeper darker. Both: the estimate as see-through cyan over NISAR's magenta, so where they
-// agree it reads blue, NISAR alone stays magenta and the estimate alone is cyan; panning never changes what a pixel
-// shows. NISAR: nothing.
 function drawEstimate(r, st, hasResult) {
   const { pack, canvas } = st;
   if (!pack || !canvas) return;
@@ -172,8 +183,6 @@ function drawEstimate(r, st, hasResult) {
   repaintCanvas(r);
 }
 
-// Roads under the estimated flooding, for the river on screen. Each road with any flooded
-// stretch is drawn whole in white, and its flooded stretches over it in orange, so a road reads as one line.
 const NO_ROADS = { type: "FeatureCollection", features: [] };
 function addRoadLayers(m) {
   m.addSource("roads-wet", { type: "geojson", data: NO_ROADS });
@@ -185,20 +194,19 @@ function addRoadLayers(m) {
   line("roads-wet", "wet", "#ff8c42", 2.8);
 }
 const ROAD_LAYERS = ["roads-full-casing", "roads-full", "roads-wet-casing", "roads-wet"];
-function drawRoads() {
+function drawRoads(res = state.result) {
   if (!state.mapReady) return;
-  const r = state.river, st = r && storeOf(r), show = state.layers.roads && state.sel === "river" && state.result && st && st.roads;
+  const r = state.river, st = r && storeOf(r), show = state.layers.roads && state.sel === "river" && res && st && st.roads;
   let data = NO_ROADS;
   if (show) {
     const { full, wet } = roadFeatures(state.pack, st.roads);
     data = { type: "FeatureCollection", features: [{ type: "Feature", properties: { kind: "full" }, geometry: { type: "MultiLineString", coordinates: full } }, { type: "Feature", properties: { kind: "wet" }, geometry: { type: "MultiLineString", coordinates: wet } }] };
   }
   if (!map.getSource("roads-wet")) addRoadLayers(map);
-  ROAD_LAYERS.forEach((id) => map.moveLayer(id));   // above the estimate and NISAR images, which are added as rivers load
+  ROAD_LAYERS.forEach((id) => map.moveLayer(id));
   map.getSource("roads-wet").setData(data);
 }
 
-// The flooded stretches, joined where their ends touch, and the whole of every road they lie on.
 function roadFeatures(pack, roads) {
   const { pts, off, t, seg, way, pix } = roads, wet = [], hit = new Set();
   const point = (s, q) => (q === 0 ? [pts[2 * s], pts[2 * s + 1]] : q === 65535 ? [pts[2 * s + 2], pts[2 * s + 3]]
@@ -216,18 +224,32 @@ function roadFeatures(pack, roads) {
   return { full, wet };
 }
 
-// A canvas source only uploads while it's on screen, so this runs again once the camera lands.
 function repaintCanvas(r) {
   const src = state.mapReady && map.getSource(`est:${r.id}`);
   if (src) { src.play(); src.pause(); }
 }
 const repaintCanvases = () => rivers.forEach(repaintCanvas);
 
-// Rivers other than the selected one keep their layers, using current levels (live) or their headline moment (past flood).
+function bothAt(r, t) {
+  if (state.mode !== "live" || state.show === "estimate") return null;
+  const p = r.passes[r.passes.length - 1];
+  return p && t - Date.parse(p.time) > DAY ? Date.parse(p.time) : null;
+}
+function estimateAt(r, st, when) {
+  const pts = [];
+  for (const g of r.gauges) {
+    const ft = stageAt(st.histSeries[g.id], when);
+    if (ft !== null) pts.push({ chain: g.chain_m, wse: waterSurface(g, ft) });
+  }
+  return pts.length >= 2 ? estimateFlood(st.pack, pts, state.rise) : null;
+}
+
 function drawBackground() {
   for (const r of rivers) {
     const st = state.stores[r.id];
     if (!st || !st.pack || r === state.river) continue;
+    const tb = bothAt(r, state.now);
+    if (tb !== null) { drawEstimate(r, st, !!estimateAt(r, st, tb)); continue; }
     const pts = [];
     for (const g of r.gauges) {
       let ft = null;
@@ -268,7 +290,6 @@ function syncLayers() {
     map.setLayoutProperty(gfm, "visibility", state.layers.gfm && r.gfm_layer ? "visible" : "none");
   }
   ["world-floods", "world-floods-halo"].forEach((id) => { if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", state.layers.world ? "visible" : "none"); });
-  // The Show switch and its label belong to a tested river.
   $("show-switch").hidden = state.sel !== "river";
   $("map-tag").hidden = state.sel !== "river";
   map.setLayoutProperty("grid", "visibility", state.flying ? "none" : "visible");
@@ -291,32 +312,35 @@ function drawMarkers() {
     const el = document.createElement("div"), popup = new maplibregl.Popup({ offset: 10 }).setText(label);
     el.className = cls; el.title = row.g.name;
     state.markers.push({ k, el, popup, marker: new maplibregl.Marker({ element: el }).setLngLat([row.g.lon, row.g.lat]).setPopup(popup).addTo(map) });
-    // The gauge table holds the same readings in a form keyboards and screen readers can use.
     el.tabIndex = -1; el.removeAttribute("aria-label"); el.setAttribute("aria-hidden", "true");
   });
   state.markerRiver = state.river.id;
 }
 
-// ---------- the main update ----------
 function update() {
   const r = state.river, t = currentTime(), st = storeOf(r);
   if (!r || !state.pack) return;
   st.i = state.i;
   state.rows = gaugeRows(t);
+  const tb = bothAt(r, t);
+  state.bothAt = tb === null ? null : { t: tb, ok: false };
+  if (tb !== null) { const rb = estimateAt(r, st, tb); state.bothAt.ok = !!rb; drawEstimate(r, st, !!rb); if (!st.roadsLoading) ensureRoads(r); drawRoads(rb); }
   const pts = state.rows.filter((x) => x.ft !== null).map((x) => ({ chain: x.g.chain_m, wse: waterSurface(x.g, x.ft) }));
   state.result = pts.length >= 2 ? estimateFlood(state.pack, pts, state.rise) : null;
   if (!st.roadsLoading) ensureRoads(r);
   if (state.result && st.roads) state.result.roads = roadsUnder(state.pack, st.roads);
   state.points = pts;
-  drawEstimate(r, st, !!state.result); drawRoads(); syncLayers(); drawMarkers();
-  renderKpis(t); renderVerdict(t); renderGauges(); renderInsights(t); renderTag(t); renderFreshness(); renderRecord();
+  if (tb === null) { drawEstimate(r, st, !!state.result); drawRoads(); }
+  syncLayers(); drawMarkers();
+  renderKpis(t); renderVerdict(t); renderGauges(); renderInsights(); renderTag(t); renderFacts(t); renderFreshness();
   drawProfile(); moveCursors(t);
   if (state.lastSpot) showSpot(state.lastSpot);
-  if (state.mode === "history") {
-    $("t-out").textContent = utcText(t);
-    $("t-strip").setAttribute("aria-valuenow", String(state.i));
-    $("t-strip").setAttribute("aria-valuetext", utcText(t));
-    if (state.strip) { state.strip.head(t); state.strip.select(state.river.passes.findIndex((p) => Math.abs(Date.parse(p.time) - t) < 60000)); }
+  {
+    const now = state.mode === "live";
+    $("t-out").innerHTML = now ? `<i class="live-dot"></i>${utcText(t)} · live` : utcText(t);
+    $("t-strip").setAttribute("aria-valuenow", String(now ? state.grid.length : state.i));
+    $("t-strip").setAttribute("aria-valuetext", now ? `Live river levels, ${utcText(t)}` : utcText(t));
+    if (state.strip) { state.strip.head(t); state.strip.select(now ? -1 : state.river.passes.findIndex((p) => Math.abs(Date.parse(p.time) - t) < 60000)); }
   }
   $("card-note").hidden = !state.liveFailed;
   $("card-note").textContent = "Live river levels couldn't be reached, so this shows the recorded flood. They're tried again every 5 minutes.";
@@ -324,14 +348,13 @@ function update() {
 }
 
 function clearPanels(r) {
-  ["k-radar", "k-ha", "k-road"].forEach((id) => { $(id).textContent = "…"; });
-  ["k-radar-sub", "k-ha-sub", "k-trust", "k-road-sub"].forEach((id) => { $(id).textContent = ""; });
-  $("insights").innerHTML = '<p class="muted">Loading…</p>';
+  ["k-radar", "k-ha"].forEach((id) => { $(id).textContent = "…"; });
+  ["k-radar-sub", "k-ha-sub", "k-trust"].forEach((id) => { $(id).textContent = ""; });
+  $("facts").innerHTML = ""; $("facts").style.minHeight = "";
   $("spot").innerHTML = '<p class="muted">Click the map.</p>';
   $("river-title").textContent = r.title;
   $("dash-sub").textContent = "Loading…";
   $("freshness").innerHTML = "";
-  $("pass-line").textContent = "";
   $("mini").textContent = r.title;
   state.lastSpot = null;
 }
@@ -339,27 +362,21 @@ function clearPanels(r) {
 function renderKpis(t) {
   const { result, rows } = state;
   const reading = rows.filter((x) => x.ft !== null), listed = reading.filter((x) => x.margin !== null), above = listed.filter((x) => x.margin > 0);
-  $("k-ha").textContent = result ? `${ha(result.ha)} ha` : "—";
-  $("k-ha-sub").textContent = !result ? "needs two gauges reading" : result.ha > 0 ? `${pct(result.treeShare, 0)} under trees` : "none near the gauges";
-  const road = result && result.roads;
-  $("k-road").textContent = !road ? "—" : road.km < 0.05 ? "0 km" : kmText(road.km);
-  $("k-road-sub").textContent = road && road.hiddenKm >= 0.05 ? `${hiddenRoad(road, " of it")} off today's flood map` : "";
+  const big = (x) => `${ha(x)}<small> ha</small>`;
+  $("k-ha-label").textContent = state.mode === "live" ? "Estimate now" : `Estimate, ${dayText(t)}`;
+  $("k-ha").innerHTML = result ? big(result.ha) : "—";
+  $("k-ha-sub").textContent = (state.rise ? `river +${state.rise} m · ` : "") + (!result ? "needs two gauges reading" : result.ha > 0 ? `${pct(result.treeShare, 0)} under trees` : "none near the gauges");
   const p = currentPass(t), gap = p ? t - Date.parse(p.time) : null, samePass = p && gap < 60000;
-  $("k-radar-label").textContent = p ? `NISAR flood map, ${dayText(p.time)}${p.box ? ", one box" : ""}` : "NISAR flood map";
-  $("k-radar").textContent = !p ? "no pass yet" : p.flagged_ha === undefined ? "—" : `${ha(p.flagged_ha)} ha`;
-  // A score belongs to one pass and one estimate, so it only shows when both are on screen.
-  // The trust light belongs to the map itself, so it shows whenever a NISAR map is on screen, scored or not.
+  $("k-radar-label").textContent = p ? `NISAR map, ${dayText(p.time)}${p.box ? ", one box" : ""}` : "NISAR map";
+  $("k-radar").innerHTML = !p ? "—" : p.flagged_ha === undefined ? "—" : big(p.flagged_ha);
   $("k-trust").innerHTML = p && p.confident !== undefined ? trustChip(trustLight({ mapped: p.flagged_ha !== 0, confident: p.confident, rainy: p.rainy })) : "";
-  $("k-radar-sub").textContent = !p || gap > DAY ? "" : !samePass ? `mapped ${gapText(gap)} before this estimate` : state.rise ? "no match score in a what-if view" : hasScore(p) ? `match ${p.score.toFixed(2)} of 1 · ${SCORE_KIND[p.score_type] || p.score_type}` : "no match score";
-  // A pass from a Run it yourself case maps only its box, so its area is about that box, not the river.
+  $("k-radar-sub").textContent = !p ? "no pass yet" : gap > DAY ? "" : !samePass ? `mapped ${gapText(gap)} before this estimate` : state.rise ? "no match score in a what-if view" : hasScore(p) ? `match ${p.score.toFixed(2)} of 1 · ${SCORE_KIND[p.score_type] || p.score_type}` : "no match score";
   if (p && p.box && (samePass || gap <= DAY)) $("k-radar-sub").textContent = `only ${p.box}`;
   $("mini").textContent = state.river.title;
 }
 
-// How much of the flooded road lies where today's flood map doesn't map: a share in words once it's nearly all of it.
 const hiddenRoad = (road, ofIt = "") => (road.hiddenKm >= 0.995 * road.km ? `all${ofIt}` : road.hiddenKm >= 0.95 * road.km ? `nearly all${ofIt}` : kmText(road.hiddenKm));
 
-// One plain sentence that says what the screen shows, and a warning when the two maps show different dates.
 function renderVerdict(t) {
   const { result, rows } = state, p = currentPass(t), gap = p ? t - Date.parse(p.time) : null;
   let text;
@@ -378,8 +395,6 @@ function renderVerdict(t) {
   $("dash-sub").textContent = text;
 }
 
-// Map layers is the legend: each switch carries its colour, and the blind-spot switch its ramp. The strip under the map
-// keeps only the scale.
 function renderKey() {
   if (atlas.summary) $("atlas-ramp").innerHTML = atlasKey();
 }
@@ -387,14 +402,14 @@ function renderKey() {
 function renderTag(t) {
   renderKey();
   const p = currentPass(t), est = `estimate ${utcText(t)}${state.rise ? `, +${state.rise} m` : ""}`, radar = p ? `NISAR ${dayText(p.time)}` : "No NISAR pass yet";
+  const rise = state.rise ? `, +${state.rise} m` : "", onPass = p && state.mode === "history" && Math.abs(t - Date.parse(p.time)) < 60000;
+  const same = state.bothAt ? (state.bothAt.ok ? `${utcText(Date.parse(p.time))}${rise}` : `NISAR ${dayText(p.time)} · no recorded river levels for that day`)
+    : onPass ? `${utcText(t)}${rise}` : `${radar} · ${est}`;
   $("map-tag").innerHTML = state.show === "nisar" ? radar : state.show === "estimate" ? `${est[0].toUpperCase()}${est.slice(1)}`
-    : `${radar} · ${est}<span class="tag-key"><i class="k-both"></i>both <i class="k-nisar"></i>NISAR only <i class="k-est"></i>estimate only</span>`;
-  const track = p && p.layer.match(/(\d{3})([AD])_/);
-  $("pass-line").textContent = p ? `NISAR passed ${track ? `on track ${track[1]}, ${track[2] === "A" ? "ascending" : "descending"}, ` : ""}at ${new Date(p.time).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "UTC" })} UTC` : "No pass yet";
-  $("map-note").textContent = `The switch on the map picks what it shows. NISAR shows NISAR's flood map in magenta. Estimate shows flooding estimated from gauges and lidar in blue, computed in your browser, deeper water darker. Both lays the estimate in see-through cyan over NISAR's magenta, so blue is where they agree, magenta where only NISAR mapped flooding and cyan where only the estimate did.${state.layers.roads && state.result && state.result.roads && state.result.roads.km >= 0.05 ? " Orange lines are drivable roads on the estimated flooding; the rest of each of those roads is drawn in white." : ""}${atlas.enabled ? " Green-teal blocks are the blind-spot map, which shows where floodplain is under trees, a risk rather than flooding." : ""}`;
+    : same;
+  $("map-note").textContent = `The switch on the map picks what it shows. NISAR shows NISAR's flood map in magenta. Estimate shows flooding estimated from gauges and lidar in blue, computed in your browser, deeper water darker. Both lays the estimate in see-through cyan over NISAR's magenta, so blue is where they agree, magenta where only NISAR mapped flooding and cyan where only the estimate did. In Live mode, when NISAR's map is more than a day old, Both compares it with the estimate for that same pass, from the river's recorded levels, so the colors never compare two different days; Estimate and the card show today.${state.layers.roads && state.result && state.result.roads && state.result.roads.km >= 0.05 ? " Orange lines are drivable roads on the estimated flooding; the rest of each of those roads is drawn in white." : ""}${atlas.enabled ? " Green-teal blocks are the blind-spot map, which shows where floodplain is under trees, a risk rather than flooding." : ""}`;
 }
 
-// The open part of the map, between the side panels.
 function freeArea() {
   const left = railsShown() ? $("rail-left").getBoundingClientRect().right : 0, right = railsShown() ? $("rail-right").getBoundingClientRect().left : innerWidth;
   return [left, right];
@@ -421,44 +436,63 @@ function renderGauges() {
     }).join("");
 }
 
-// ---------- insights ----------
-function renderInsights(t) {
-  const { result, rows, river: r } = state, items = [];
+function renderInsights() {
+  $("insights").innerHTML = `<div class="insight"><b>How far to trust this</b><p>The estimate is a model, not a sighting of water. In our hidden-gauge test it was often off by more than a meter across long gaps between gauges.</p></div>`;
+}
+
+function renderFacts(t) {
+  const r = state.river, { rows, result } = state, st = storeOf(r), p = currentPass(t), live = state.mode === "live";
+  const row = (k, v) => (v === null || v === undefined || v === "" ? "" : `<dt>${k}</dt><dd>${v}</dd>`);
+  const group = (head, items) => { const body = items.join(""); return body ? `<p class="facts-head">${head}</p><dl class="facts-list">${body}</dl>` : ""; };
+  const val = (fig, rest = "", cls = "") => `<b${cls ? ` class="${cls}"` : ""}>${fig}</b>${rest ? ` <span>${rest}</span>` : ""}`;
+  const vs = (m) => val(`${Math.abs(m).toFixed(1)} m ${m > 0 ? "above" : "below"}`, "", m > 0 ? "f-red" : "");
+  const where = (g) => shortGauge(r, g.name);
+
   const reading = rows.filter((x) => x.ft !== null), listed = reading.filter((x) => x.margin !== null), above = listed.filter((x) => x.margin > 0);
-  const p = currentPass(t);
-  if (state.mode === "live") {
-    const c = state.catalog;
-    const cat = !c || !c.newest ? "" : `NASA's catalog has a scene from ${dayText(c.newest)} here${Date.parse(p.time) < c.newest - HOUR ? ", newer than the map on this site" : ""}.${c.next ? ` The next pass is expected around ${dayText(c.next)}.` : ""}`;
-    if (cat) items.push(["Next NISAR data", cat]);
-  }
-  const closest = [...listed].sort((a, b) => b.margin - a.margin)[0];
-  const moving = reading.filter((x) => x.rise6h !== null), up = moving.filter((x) => x.rise6h > 0.03).length, down = moving.filter((x) => x.rise6h < -0.03).length;
-  const half = moving.length / 2;
-  const dir = !moving.length ? "" : up > half ? ` Levels are mostly rising (${up} of ${moving.length} gauges over 6 hours).` : down > half ? ` Levels are mostly falling (${down} of ${moving.length} gauges over 6 hours).` : !up && !down ? " Levels have been steady for 6 hours." : ` Over 6 hours, ${up} of ${moving.length} gauges rose and ${down} fell.`;
-  items.push(["River", !reading.length ? "No gauge is reporting right now." : closest ? `${above.length ? "The highest is" : "Closest to flood level is"} ${shortGauge(r, closest.g.name)}, ${Math.abs(closest.margin).toFixed(1)} m ${closest.margin > 0 ? "above" : "below"}.${dir}` : `No flood levels are listed for these gauges.${dir}`]);
-  if (result) {
-    if (result.ha > 0) items.push(["Depth", `The estimate reaches about ${result.maxDepth.toFixed(1)} m deep.`]);
-    if (result.ha > 0 && result.maskShare !== null) items.push(["Today's flood maps", `${pct(result.maskShare, 0)} of this flooding falls where Copernicus GFM says it doesn't map (mask from ${fmtDate(r.gfm_date)}), so a map like GFM is unlikely to show it.`]);
-  }
-  const lidar = p && Math.abs(t - Date.parse(p.time)) < 60000 && p.lidar_score !== null && p.lidar_score !== undefined ? p.lidar_score : null;
-  if (lidar !== null) items.push(["Without radar", `A map from lidar alone, with no radar, scored ${lidar.toFixed(2)} on this pass.`]);
-  items.push(["How far to trust this", `The estimate is a model, not a sighting of water. In our hidden-gauge test it was often off by more than a metre across long gaps between gauges.`]);
-  $("insights").innerHTML = items.map(([a, b]) => `<div class="insight"><b>${a}</b><p>${b}</p></div>`).join("");
+  const top = [...listed].sort((a, b) => b.margin - a.margin)[0];
+  const moving = reading.filter((x) => x.rise6h !== null), mean6 = moving.length ? moving.reduce((s, x) => s + x.rise6h, 0) / moving.length : null;
+  const crest = crestOf(t), road = result && result.roads;
+  const sixHours = mean6 === null ? null : Math.abs(mean6) <= 0.03 ? val("steady") : val(`${mean6 > 0 ? "↑" : "↓"} ${Math.abs(mean6).toFixed(2)} m`, mean6 > 0 ? "rising" : "falling");
+  const river = [
+    row("Above flood level", listed.length ? val(`${above.length} of ${listed.length}`, "gauges", above.length ? "f-red" : "") : reading.length ? val("—", "no flood levels listed") : val("—", "no gauge reporting")),
+    top ? row(above.length ? "Highest gauge" : "Closest to flood", `${vs(top.margin)} <span>${where(top.g)}</span>`) : "",
+    row("Past 6 hours", sixHours),
+    row("Peak, 8 days", crest ? `${vs(crest.margin)} <span>${dayText(crest.t)}, ${where(crest.g)}</span>` : null),
+    row("Road under water", !road ? null : road.km < 0.05 ? val("none") : val(kmText(road.km), road.hiddenKm >= 0.05 ? `${hiddenRoad(road)} off the official map` : "", "f-road")),
+    row("Deepest water", !result ? null : result.ha > 0 ? val(`${result.maxDepth.toFixed(1)} m`, "", "f-water") : val("—")),
+    row("Official map misses", !result ? null : result.ha > 0 && result.maskShare !== null ? val(pct(result.maskShare, 0), "of this flooding, in its mask", "f-official") : val("—")),
+  ];
+
+  const track = p && p.layer.match(/(\d{3})([AD])_/), c = live ? state.catalog : null;
+  const utc = (x) => new Date(x).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "UTC" });
+  const newer = c && c.newest && p && c.newest > Date.parse(p.time) + HOUR ? c.newest : null;
+  const nisar = [
+    row("Map shown", p ? val(dayText(p.time), `${utc(p.time)} UTC${track ? `, track ${track[1]} ${track[2] === "A" ? "ascending" : "descending"}` : ""}`, "f-nisar") : val("—", "no pass yet")),
+    row("Next pass", c && c.next ? val(`~${dayText(c.next)}`, newer ? `a newer scene from ${dayText(newer)} isn't mapped yet` : "", "f-nisar") : null),
+  ];
+
+  const v = st.valley, a = r.audit, f = r.frozen, held = r.role === "held-out" || r.role === "sealed";
+  const aDay = a ? dayText(`${a.date.slice(0, 4)}-${a.date.slice(4, 6)}-${a.date.slice(6, 8)}T12:00Z`) : "";
+  const valley = [
+    row("Under trees", v && v.treeShare !== null ? val(pct(v.treeShare, 0), "of the valley", "f-forest") : null),
+    row("Official map skips", v && v.maskShare !== null ? val(pct(v.maskShare, 0), "of the valley it covers", "f-official") : null),
+    row("Size", v ? val(kmText(v.km), `${ha(v.ha)} ha, ${r.gauges.length} gauges`) : null),
+  ];
+  const fp = f && r.passes.find((x) => x.id === f.pair);
+  const rc = rainCause(state.rain && state.rain.rivers[r.id]);
+  const record = [
+    row("Likely cause", !rc ? null : rc.little
+      ? val(`${rc.mm} mm`, `of rain on its catchment in the two weeks to the ${rc.crest} crest, little, so it was likely high from earlier rain (NASA GPM IMERG)`)
+      : val(`${rc.mm} mm`, `of rain on its catchment in the two weeks to the ${rc.crest} crest, ${rc.spellMm} mm of it on ${rc.spell} (NASA GPM IMERG)`, "f-water")),
+    row("Fair test", !f ? null : f.csi === null || f.csi === undefined ? val("—", "too little flooding to score") : val(f.csi.toFixed(2), `of 1, ${passDate(f.pair)}${held ? ", held out" : r.role === "development" ? ", a river that helped build GLOWfm" : ""}`)),
+    row("Lidar-only map", fp && fp.lidar_score !== null && fp.lidar_score !== undefined ? val(fp.lidar_score.toFixed(2), `of 1, ${passDate(f.pair)}, the same map every day`) : null),
+    a ? row("Official map", val(`${ha(a.gfm_ha)} ha`, `mapped on ${aDay}, of ${ha(a.estimated_ha)} ha estimated`, "f-official")) : "",
+  ];
+
+  const html = group("NISAR", nisar) + group(live ? "River now" : `River, ${dayText(t)}`, river) + group("This valley", valley) + group(`On record${r.event ? ` <span>${r.event}</span>` : ""}`, record);
+  if ($("facts").dataset.html !== html) { $("facts").innerHTML = html; $("facts").dataset.html = html; }
 }
 
-// The flood on record for the selected river.
-const isDry = () => state.mode === "live" && !state.rise && (!state.result || state.result.ha < 1);
-
-function renderRecord() {
-  const r = state.river, a = r.audit, f = r.frozen, best = r.passes.filter((p) => p.score !== null && p.score !== undefined).sort((x, y) => y.score - x.score)[0];
-  const flood = a ? `<li>On ${fmtDate(a.date)}, GFM mapped <b>${a.gfm_ha} of ${ha(a.estimated_ha)} ha</b> estimated.</li>` : "";
-  const test = f && f.csi !== null && f.csi !== undefined ? `<li>The fair test, fixed in advance, scored <b>${f.csi.toFixed(2)}</b> on ${passDate(f.pair)} with ${methodName(f)}.</li>` : "";
-  const dev = r.role === "development" && best ? `<li>The current method scores up to <b>${best.score.toFixed(2)}</b> here, on a river that helped build it.</li>` : "";
-  const html = `<h3 class="panel-title">On record</h3><p class="case-event">${r.event} · ${r.role === "held-out" ? "not used to build GLOWfm" : "helped build GLOWfm"}</p><ul class="record-list">${flood}${test}${dev}<li>${r.passes.length} NISAR passes.</li></ul>`;
-  if ($("record").dataset.html !== html) { $("record").innerHTML = html; $("record").dataset.html = html; }
-}
-
-// ---------- spot card ----------
 function quadToPixel(lng, lat) {
   const { quad, rows, cols } = state.pack.meta;
   const [[x0, y0], [x1, y1], , [x3, y3]] = quad;
@@ -468,7 +502,7 @@ function quadToPixel(lng, lat) {
 }
 
 function showSpot(lngLat) {
-  if (state.lastSpot !== lngLat) $("details-box").open = true;   // a click on the map opens the details it fills
+  if (state.lastSpot !== lngLat) $("details-box").open = true;
   state.lastSpot = lngLat;
   const { pack } = state;
   if (!pack) return;
@@ -498,7 +532,6 @@ function onMapClick(e) {
   if (isPhone() && state.panel !== "right") setPanel("right");
 }
 
-// ---------- graphs ----------
 const graphsOpen = () => plotsReady && state.panel === "graphs";
 
 function moveCursors(t) {
@@ -569,16 +602,13 @@ function drawCharts() {
   drawLevels(); drawArea(); drawProfile(); moveCursors(currentTime());
 }
 
-// ---------- catalog ----------
 async function loadCatalog(r) {
   state.catalog = null;
   if (typeof world === "object" && world.catalogDown) return;
   const lons = r.gauges.map((g) => g.lon), lats = r.gauges.map((g) => g.lat);
   try {
-    // NASA's newer collection holds scenes from Oct 21, 2026 on; the provisional one holds the earlier ones.
     const q = new URLSearchParams({ short_name: "NISAR_L2_GCOV_V1", bounding_box: `${Math.min(...lons)},${Math.min(...lats)},${Math.max(...lons)},${Math.max(...lats)}`, sort_key: "-start_date", page_size: "20" });
     q.append("short_name", "NISAR_L2_GCOV_PROVISIONAL_V1");
-    // Same limit and cancel-on-leave as the worldwide list, so a slow NASA catalog never holds the page.
     const j = await (await withTimeout(`${CMR_URL}?${q}`)).json();
     const scenes = j.items.map((i) => ({ t: Date.parse(i.umm.TemporalExtent.RangeDateTime.BeginningDateTime), track: i.umm.GranuleUR.split("_")[6] + i.umm.GranuleUR.split("_")[7] }));
     if (!scenes.length) return;
@@ -590,18 +620,14 @@ async function loadCatalog(r) {
   } catch (e) { console.warn("NASA catalog unavailable", e); if (typeof world === "object") world.catalogDown = true; }
 }
 
-// ---------- the camera ----------
 function viewPadding() {
   const shown = railsShown(), phone = isPhone();
   const left = shown ? $("rail-left").getBoundingClientRect().right + 20 : 20, right = shown ? innerWidth - $("rail-right").getBoundingClientRect().left + 20 : 20;
-  // The bottom margin is measured, because the stack of controls grows when the time bar wraps or the drawer opens.
   const wanted = { top: phone ? 190 : 76, bottom: innerHeight - document.querySelector(".dock-stack").getBoundingClientRect().top + 12 };
-  // On a short screen, shrink the margins so the flood always fits.
   const room = innerHeight - 100, fit = Math.min(1, room / (wanted.top + wanted.bottom));
   return { left, right, top: wanted.top * fit, bottom: wanted.bottom * fit };
 }
 
-// ---------- map instruments ----------
 function updateScale() {
   const metersPerPx = 40075016.686 * Math.cos(map.getCenter().lat * Math.PI / 180) / (512 * 2 ** map.getZoom());
   const target = metersPerPx * 60, power = 10 ** Math.floor(Math.log10(target)), nice = [5, 2, 1].map((n) => n * power).find((n) => n <= target) || power;
@@ -618,7 +644,6 @@ function updateGrid() {
   if (!state.mapReady) return;
   const step = GRID_STEPS.find((s) => s * 512 * 2 ** map.getZoom() / 360 <= 300) || 0.01, b = map.getBounds();
   const w = b.getWest(), e = b.getEast(), s = b.getSouth(), n = b.getNorth(), lines = [];
-  // The lines reach well past the screen so dragging doesn't show their ends before the map settles.
   const dx = e - w, dy = n - s, x0 = Math.floor((w - dx) / step), x1 = Math.ceil((e + dx) / step), y0 = Math.floor(Math.max(-85, s - dy) / step), y1 = Math.ceil(Math.min(85, n + dy) / step);
   for (let i = x0; i <= x1 && x1 - x0 < 400; i++) lines.push([[i * step, y0 * step], [i * step, y1 * step]]);
   for (let i = y0; i <= y1 && y1 - y0 < 400; i++) lines.push([[x0 * step, i * step], [x1 * step, i * step]]);
@@ -633,7 +658,6 @@ function placeGridLabels() {
   if (!step || !state.mapReady || isPhone() || state.flying) return;
   const [a, c] = freeArea(), top = 66, bottom = document.querySelector(".dock-stack").getBoundingClientRect().top - 12, d = step < 0.1 ? 3 : step < 1 ? 2 : 0;
   const leftX = a + 8, topY = 94, b = map.getBounds(), out = [];
-  // Longitude labels keep clear of the Show switch and the date under it.
   const boxes = ["show-switch", "map-tag"].map((id) => $(id)).filter((el) => !el.hidden).map((el) => el.getBoundingClientRect());
   const clearA = boxes.length ? Math.min(...boxes.map((r) => r.left)) : 0, clearB = boxes.length ? Math.max(...boxes.map((r) => r.right)) : 0;
   for (let i = Math.ceil(b.getWest() / step); i * step <= b.getEast(); i++) {
@@ -647,12 +671,7 @@ function placeGridLabels() {
   $("grid-labels").innerHTML = out.join("");
 }
 
-// Flying to a searched place or a reported flood is a flight like flyToBounds: it replaces any flight still running,
-// counts as flying until it lands, and
-// lands anyway if the animation is paused.
 function flyToPlace(lon, lat, zoom) {
-  // An offset, not padding: MapLibre keeps a flight's padding on the map, and every later fit would then add the side
-  // panels' room twice (too far out on a wide screen, and no move at all on a narrow one).
   const pad = viewPadding(), ms = document.hidden ? 0 : 1800, token = ++state.flightToken;
   const target = { center: [lon, lat], zoom, offset: [(pad.left - pad.right) / 2, (pad.top - pad.bottom) / 2] };
   clearTimeout(state.flightTimer);
@@ -687,12 +706,10 @@ function flyToBounds(bounds, { duration = FLY_MS, labelRoom = 0 } = {}) {
   };
   map.once("moveend", land);
   map.fitBounds(bounds, { padding, duration: ms, curve: 1.5, maxZoom: 12 });
-  // A paused page never finishes the animation, so the camera lands anyway.
   if (ms > 0) state.flightTimer = setTimeout(() => { if (token === state.flightToken && state.flying) { map.stop(); map.fitBounds(bounds, { padding, duration: 0 }); land(); } }, ms + 900);
 }
 
 const usBounds = () => [Math.min(...rivers.map((r) => r.bounds[0])), Math.min(...rivers.map((r) => r.bounds[1])), Math.max(...rivers.map((r) => r.bounds[2])), Math.max(...rivers.map((r) => r.bounds[3]))];
-// "Zoomed out" is relative to how the selected event fits this screen, so it works on any window size.
 function overviewBelow(bounds) {
   const cam = map.cameraForBounds(bounds, { padding: viewPadding() });
   return (cam && Number.isFinite(cam.zoom) ? cam.zoom : 8.5) - 1.5;
@@ -713,8 +730,6 @@ function settleNow() {
   loadInView();
 }
 
-// A river's data (2 to 3 MB) loads once its river is on screen, not all fourteen at the start. The chosen river
-// loads through activate(); this adds the neighbours in view, so their estimates draw too.
 function loadInView() {
   if (!state.mapReady || map.getZoom() < 7) return;
   const b = map.getBounds();
@@ -730,17 +745,15 @@ function renderFlyBack() {
   if (state.river) $("fly-back").textContent = `Zoom to the ${shortRiver(state.river)}`;
 }
 
-// ---------- events: the list and the pins on the map ----------
 function riverStatus(r) {
   if (state.mode === "history") {
     const f = r.frozen, best = r.passes.filter((p) => p.score !== null && p.score !== undefined).sort((x, y) => y.score - x.score)[0];
     const fair = f && f.csi !== null && f.csi !== undefined;
-    if (fair) return { status: `${r.event}, fair test on ${passDate(f.pair)}, match score ${f.csi.toFixed(2)}`, cls: "past", value: f.csi.toFixed(2), sub: `${r.event} · fair test, ${passDate(f.pair)}` };
-    if (r.role === "auto") return { status: `${r.event}, added automatically, not tested, and dams and levees weren't checked`, cls: "past", value: "not tested", sub: `${r.event} · added automatically` };
-    if (r.role === "sealed") return { status: `${r.event}, the sealed test's river, where NISAR's next passes are scored against a prediction sealed on Nov 15`, cls: "past", value: "sealed", sub: `${r.event} · sealed test` };
-    // A held-out river whose frozen test had too little flooding to judge: still a fair test, just without a score.
-    if (f && r.role === "held-out") return { status: `${r.event}, fair test on ${passDate(f.pair)}, too little flooding to score`, cls: "past", value: "not scored", sub: `${r.event} · fair test, ${passDate(f.pair)}` };
-    return { status: `${r.event}, helped build GLOWfm${best ? `, match score up to ${best.score.toFixed(2)}` : ""}`, cls: "past", value: best ? `up to ${best.score.toFixed(2)}` : "—", sub: `${r.event} · helped build GLOWfm` };
+    if (fair) return { status: `${r.event}, fair test on ${passDate(f.pair)}, match score ${f.csi.toFixed(2)}`, cls: "past", value: f.csi.toFixed(2), sub: `fair test, ${passDate(f.pair)}` };
+    if (r.role === "auto") return { status: `${r.event}, added automatically, not tested, and dams and levees weren't checked`, cls: "past", value: "not tested", sub: "added automatically" };
+    if (r.role === "sealed") return { status: `${r.event}, the sealed test's river, where NISAR's next passes are scored against a prediction sealed on Nov 15`, cls: "past", value: "sealed", sub: "sealed test" };
+    if (f && r.role === "held-out") return { status: `${r.event}, fair test on ${passDate(f.pair)}, too little flooding to score`, cls: "past", value: "not scored", sub: `fair test, ${passDate(f.pair)}` };
+    return { status: `${r.event}, helped build GLOWfm${best ? `, match score up to ${best.score.toFixed(2)}` : ""}`, cls: "past", value: best ? `up to ${best.score.toFixed(2)}` : "—", sub: "helped build GLOWfm" };
   }
   let status = "no live data", cls = "grey", value = "no data";
   const levels = state.stripLevels;
@@ -756,12 +769,12 @@ function riverStatus(r) {
 
 function renderEvents() {
   const activeId = state.river && state.river.id;
-  const row = (id, name, s) => `<button type="button" class="event-row${id === activeId ? " on" : ""}" data-river="${id}" aria-pressed="${id === activeId}" aria-label="${name}: ${s.status}"><span class="event-main"><i class="status-dot ${s.cls}"></i><span class="event-name">${name}</span><span class="event-value">${s.value}</span></span>${s.sub ? `<span class="event-sub">${s.sub}</span>` : ""}</button>`;
+  const row = (r, s) => { const name = shortRiver(r), where = r.title.split(", ")[1] || "";
+    return `<button type="button" class="event-row${r.id === activeId ? " on" : ""}" data-river="${r.id}" aria-pressed="${r.id === activeId}" aria-label="${name}, ${where}: ${s.status}"><span class="event-main"><i class="status-dot ${s.cls}"></i><span class="event-name">${name}</span><span class="event-value">${s.value}</span></span><span class="event-sub">${[where, s.sub || r.event].filter(Boolean).join(" · ")}</span></button>`; };
   const statuses = Object.fromEntries(rivers.map((r) => [r.id, riverStatus(r)]));
   const head = state.mode === "history" ? "Match score (0–1)" : "Closest to flood level";
   const focused = document.activeElement && document.activeElement.closest && document.activeElement.closest("#events [data-river]"), focusId = focused && focused.dataset.river;
-  $("events").innerHTML = `<div class="events-head" aria-hidden="true"><span>River</span><span>${head}</span></div>` + rivers.map((r) => row(r.id, r.title.replace(" River", ""), statuses[r.id])).join("");
-  // The list is redrawn when levels refresh, so keyboard users keep their place.
+  $("events").innerHTML = `<div class="events-head" aria-hidden="true"><span>River</span><span>${head}</span></div>` + rivers.map((r) => row(r, statuses[r.id])).join("");
   if (focusId) { const again = $("events").querySelector(`[data-river="${focusId}"]`); if (again) again.focus(); }
   state.pins.forEach((p) => {
     p.el.classList.toggle("is-active", p.id === activeId);
@@ -773,7 +786,6 @@ function renderEvents() {
 
 function addPin(id, name, lngLat) {
   const side = PIN_SIDE[id] || "right", el = document.createElement("button");
-  // The event list offers the same choices, so keyboards and screen readers use that instead of the pins.
   el.type = "button"; el.className = `event-pin pin-${side}`; el.tabIndex = -1; el.setAttribute("aria-hidden", "true");
   el.innerHTML = `<i class="status-dot grey"></i><span>${name}</span>`;
   el.addEventListener("click", (e) => { e.stopPropagation(); setFloodTab("tested"); activate(id); });
@@ -789,7 +801,6 @@ async function loadStrip() {
   scheduleBackground();
 }
 
-// ---------- river and mode ----------
 async function activate(id, { fly = true, time, mode } = {}) {
   const r = rivers.find((x) => x.id === id) || rivers[0], changed = r !== state.river;
   stopPlay();
@@ -810,9 +821,16 @@ async function activate(id, { fly = true, time, mode } = {}) {
   raise(r);
   await setMode(state.mode);
   if (state.river === r) loadCatalog(r);
+  if (state.river === r && !st.live) prefetchLive(r, st);
 }
 
-// The selected river's layers sit on top where neighbouring valleys overlap.
+async function prefetchLive(r, st) {
+  try { await loadLive(r, st, false, false); } catch (e) { console.warn("USGS unavailable", e); return; }
+  if (state.river !== r || st.stripLiveAt === st.liveAt) return;
+  timeStrip(r, st);
+  update();
+}
+
 function raise(r) {
   if (!state.mapReady) return;
   [`gfm:${r.id}`, `nisar:${r.id}`, `est:${r.id}`].forEach((id) => { if (map.getLayer(id)) map.moveLayer(id); });
@@ -820,22 +838,23 @@ function raise(r) {
 
 async function setMode(mode, force = false) {
   stopPlay();
+  if (state.mode !== mode) $("facts").style.minHeight = "";
   state.mode = mode;
   paintMode(mode);
-  $("time-bar").hidden = mode !== "history";
+  $("time-bar").hidden = false;
   state.liveFailed = false;
   const r = state.river, st = storeOf(r);
   if (mode === "live") {
     try {
       await loadLive(r, st, force);
       if (state.river !== r || state.mode !== "live") return;
+      if (st.stripLiveAt !== st.liveAt) timeStrip(r, st);
     } catch (e) {
       console.warn("USGS unavailable", e);
       if (state.river !== r) return;
       state.liveFailed = true;
       state.mode = "history";
       paintMode("history");
-      $("time-bar").hidden = false;
       state.series = state.histSeries;
     }
   } else state.series = state.histSeries;
@@ -846,56 +865,77 @@ async function setMode(mode, force = false) {
 }
 
 function paintMode(mode) {
-  document.querySelectorAll(".dash-bar .seg button").forEach((b) => { const on = b.dataset.mode === mode; b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); });
+  $("time-bar").classList.toggle("is-live", mode === "live");
 }
 
-async function loadLive(r, st, force) {
+async function loadLive(r, st, force, use = true) {
   if (force || !st.live || Date.now() - st.liveAt > LIVE_REUSE) {
     st.live = await fetchLevels(r.gauges.map((g) => g.id), "P8D");
     st.liveAt = Date.now();
   }
-  if (state.river !== r) return;
+  if (!use || state.river !== r) return;
   state.series = st.live;
   state.now = st.liveAt;
   state.updated = st.liveAt;
 }
 
-// ---------- time controls ----------
-// The time bar is the site's pass strip (strip.js): the river at each gauge against flood level (gauges without a flood
-// stage are left out), NISAR's passes marked, and a head at the moment shown. Dragging moves by the hour; the arrow keys,
-// the Pass buttons and Play go from one NISAR pass to the next.
 function timeStrip(r, st) {
   const t0 = st.grid[0], t1 = st.grid[st.grid.length - 1];
+  const nowAt = st.live ? st.liveAt : null, tailFrom = nowAt === null ? null : Math.max(t1 + HOUR, nowAt - 7 * DAY);
   const rows = r.gauges.filter((g) => g.flood_ft && st.histSeries[g.id]).map((g) => {
-    const s = st.histSeries[g.id];
-    return s.times.map((t, k) => [t, (s.ft[k] - g.flood_ft) * FT]).filter(([t, v]) => t >= t0 && t <= t1 && Number.isFinite(v));
+    const s = st.histSeries[g.id], l = st.live && st.live[g.id];
+    const past = s.times.map((t, k) => [t, (s.ft[k] - g.flood_ft) * FT]).filter(([t, v]) => t >= t0 && t <= t1 && Number.isFinite(v));
+    const recent = l && nowAt !== null ? l.times.map((t, k) => [t, (l.ft[k] - g.flood_ft) * FT]).filter(([t, v]) => t >= tailFrom && t <= nowAt && Number.isFinite(v)) : [];
+    return past.concat(recent);
   }).filter((x) => x.length);
   const events = r.passes.map((p) => ({ t: Date.parse(p.time), who: "nisar" }));
   const nearest = (t) => st.grid.reduce((best, x, k) => (Math.abs(x - t) < Math.abs(st.grid[best] - t) ? k : best), 0);
+  const gapDays = nowAt === null ? 0 : Math.round((tailFrom - t1) / DAY);
+  const tail = nowAt === null ? null : { t0: tailFrom, t1: nowAt, gap: gapDays >= 1 ? `${gapDays} d` : "" };
   const box = $("t-strip");
-  state.strip = passStrip(box, { t0, t1, rows: rows.length ? rows : [[[t0, 0], [t1, 0]]], zero: rows.length > 0, events,
-    label: "Time in this flood. The marks are NISAR passes. Drag, or use the arrow keys.",
-    scrub: (t) => { stopPlay(); state.i = nearest(t); update(); },
+  state.strip = passStrip(box, { t0, t1, rows: rows.length ? rows : [[[t0, 0], [t1, 0]]], zero: rows.length > 0, events, tail,
+    label: "Time in this flood, then now. The marks are NISAR passes. Drag, or use the arrow keys.",
+    scrub: (t) => { stopPlay(); if (t > t1) goNow(); else goTo(nearest(t)); },
     onKey: (dir) => { stopPlay(); jumpPass(dir); } });
+  st.stripLiveAt = nowAt;
   box.setAttribute("aria-valuemin", "0");
-  box.setAttribute("aria-valuemax", String(st.grid.length - 1));
+  box.setAttribute("aria-valuemax", String(st.grid.length));
 }
-function nextPassLoop() {
-  const t = currentTime(), times = state.river.passes.map((p) => Date.parse(p.time)), target = times.find((x) => x > t + 60000) ?? times[0];
-  state.i = Math.max(0, state.grid.findIndex((x) => x >= target));
-  update();
+function goTo(i) {
+  state.i = Math.max(0, Math.min(state.grid.length - 1, i));
+  if (state.mode !== "history") setMode("history"); else update();
 }
-function stopPlay() { clearInterval(state.timer); state.timer = null; $("t-play").textContent = "Play"; }
+function goNow() { if (state.mode !== "live") setMode("live"); }
+const PLAY_MS = 700;
+function nextDay() {
+  const k = state.grid.findIndex((x) => x >= currentTime() + DAY);
+  if (k >= 0) { state.i = k; update(); return; }
+  if (state.i < state.grid.length - 1) { state.i = state.grid.length - 1; update(); return; }
+  stopPlay();
+  goNow();
+}
+function setPlayIcon(playing) {
+  const b = $("t-play");
+  b.innerHTML = playing ? '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="3" width="3" height="10" rx="0.6"/><rect x="9.5" y="3" width="3" height="10" rx="0.6"/></svg>'
+    : '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.8v10.4a.6.6 0 0 0 .9.5l8.2-5.2a.6.6 0 0 0 0-1L5.4 2.3a.6.6 0 0 0-.9.5z"/></svg>';
+  b.setAttribute("aria-label", playing ? "Pause" : "Play, one day at a time");
+  b.title = playing ? "Pause" : "Play, one day at a time";
+}
+async function startPlay() {
+  if (state.mode === "live" || state.i >= state.grid.length - 1) { state.i = 0; if (state.mode !== "history") await setMode("history"); else update(); }
+  setPlayIcon(true);
+  state.timer = setInterval(nextDay, PLAY_MS);
+}
+function stopPlay() { clearInterval(state.timer); state.timer = null; setPlayIcon(false); }
 function jumpPass(dir) {
-  const t = currentTime(), times = state.river.passes.map((p) => Date.parse(p.time));
+  const t = state.mode === "live" ? Infinity : currentTime(), times = state.river.passes.map((p) => Date.parse(p.time));
   const target = dir > 0 ? times.find((x) => x > t + 60000) : [...times].reverse().find((x) => x < t - 60000);
-  if (target === undefined) return;
-  state.i = Math.max(0, state.grid.findIndex((x) => x >= target));
-  update();
+  if (target === undefined) { if (dir > 0) goNow(); return; }
+  goTo(state.grid.findIndex((x) => x >= target));
 }
 
 function syncUrl() {
-  if (WANT_FLOOD && !world.opened) return;   // a flood link keeps its address until that flood is found (worldfloods.js)
+  if (WANT_FLOOD && !world.opened) return;
   if (state.sel === "pick") return atlasUrl();
   const q = new URLSearchParams({ river: state.river.id, mode: state.mode });
   if (state.mode === "history") q.set("t", new Date(state.grid[state.i]).toISOString().slice(0, 16));
@@ -915,14 +955,11 @@ function downloadCsv() {
   a.click();
 }
 
-// ---------- panels ----------
 function setPanel(name) {
   state.panel = state.panel === name ? null : name;
   const body = document.body, wasOpen = body.classList.contains("drawer-open"), nowOpen = DRAWER_PANELS.includes(state.panel);
   body.classList.toggle("drawer-open", nowOpen);
-  // Keep the selected flood in the part of the map the drawer leaves open.
   if (wasOpen !== nowOpen && !state.overview && state.mapReady && state.sel === "river") flyToBounds(activeBounds(), { duration: 500 });
-  // Keyboard users land in the drawer when it opens and return to their button when it closes.
   if (nowOpen && !wasOpen) { state.panelOpener = document.activeElement; $("drawer").focus({ preventScroll: true }); }
   if (wasOpen && !nowOpen && state.panelOpener && state.panelOpener.isConnected) state.panelOpener.focus({ preventScroll: true });
   body.dataset.sheet = state.panel === "left" || state.panel === "right" ? state.panel : "";
@@ -936,14 +973,14 @@ function setPanel(name) {
 }
 
 function wireControls() {
-  // Live and past both describe a tested river, so from a flood or place they return to the last one.
-  document.querySelectorAll(".dash-bar .seg button").forEach((b) => b.addEventListener("click", () => {
-    if (state.sel !== "river") { setFloodTab("tested"); activate(state.river.id, { mode: b.dataset.mode }); return; }
-    setMode(b.dataset.mode);
-  }));
-  $("rise").addEventListener("input", (e) => { state.rise = Number(e.target.value); $("rise-out").textContent = `+${state.rise} m`; update(); scheduleBackground(); });
+  if (isPhone()) $("layers-box").open = false;
+  $("rise").addEventListener("input", (e) => {
+    state.rise = Number(e.target.value); $("rise-out").textContent = `+${state.rise} m`;
+    const f = $("facts"), before = f.offsetHeight;
+    update(); scheduleBackground();
+    if (f.offsetHeight < before) f.style.minHeight = `${before}px`;
+  });
   $("show-switch").addEventListener("click", (e) => { const b = e.target.closest("[data-show]"); if (b) setShow(b.dataset.show); });
-  // The menu stays open a moment so the result shows where it was asked for.
   $("share").addEventListener("click", async () => {
     let said;
     try { await navigator.clipboard.writeText(location.href); said = "Link copied"; } catch { said = "Couldn't copy the link"; }
@@ -951,11 +988,7 @@ function wireControls() {
     setTimeout(() => { $("share").textContent = "Copy link to this view"; $("bar-more").open = false; }, 1200);
   });
   $("csv").addEventListener("click", downloadCsv);
-  $("t-play").addEventListener("click", () => {
-    if (state.timer) return stopPlay();
-    $("t-play").textContent = "Pause";
-    state.timer = setInterval(nextPassLoop, 1600);
-  });
+  $("t-play").addEventListener("click", () => { if (state.timer) stopPlay(); else startPlay(); });
   $("t-prev").addEventListener("click", () => { stopPlay(); jumpPass(-1); });
   $("t-next").addEventListener("click", () => { stopPlay(); jumpPass(1); });
   $("events").addEventListener("click", (e) => { const b = e.target.closest("[data-river]"); if (!b) return; activate(b.dataset.river); if (isPhone()) setPanel("left"); });
@@ -963,7 +996,6 @@ function wireControls() {
   $("zoom-in").addEventListener("click", () => map.zoomIn());
   $("zoom-out").addEventListener("click", () => map.zoomOut());
   document.querySelectorAll("button[data-panel]").forEach((b) => b.addEventListener("click", () => setPanel(b.dataset.panel)));
-  // The "More" menu closes once something in it is chosen, or on a click elsewhere.
   $("bar-more").addEventListener("click", (e) => { if (e.target.closest(".bar-menu a, .bar-menu button") && !e.target.closest("#share")) $("bar-more").open = false; });
   document.addEventListener("click", (e) => { if (!e.target.closest("#bar-more")) $("bar-more").open = false; });
   $("drawer-close").addEventListener("click", () => setPanel(state.panel));
@@ -975,7 +1007,6 @@ function wireControls() {
   LAYER_ROWS.forEach((l) => $(`lyr-${l.key}`).addEventListener("change", (e) => { state.layers[l.key] = e.target.checked; update(); scheduleBackground(); }));
 }
 
-// NISAR, Estimate or Both: one map, so panning never changes what a pixel shows.
 function setShow(show) {
   state.show = SHOWS.includes(show) ? show : "both";
   document.querySelectorAll("#show-switch [data-show]").forEach((b) => { const on = b.dataset.show === state.show; b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on)); });
@@ -986,7 +1017,6 @@ function setShow(show) {
 function setupMap(startBounds) {
   return new Promise((resolve) => {
     const startPadding = viewPadding();
-    // Room for the river pins' names on the opening view of all rivers, where the screen is wide enough to give it.
     if (!new URLSearchParams(location.search).get("river") && innerWidth - startPadding.left - startPadding.right > 520) { startPadding.left += 110; startPadding.right += 110; }
     const opts = (container) => ({ container, style: STYLE, bounds: startBounds, fitBoundsOptions: { padding: startPadding }, attributionControl: { compact: true }, dragRotate: false, pitchWithRotate: false, touchPitch: false });
     map = new maplibregl.Map(opts("dash-map"));
@@ -996,17 +1026,23 @@ function setupMap(startBounds) {
       m.addSource("grid", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
       m.addLayer({ id: "grid", type: "line", source: "grid", paint: { "line-color": "#e8eef2", "line-opacity": 0.16, "line-width": 1 } });
     };
-    // Each river starts on its right pass, so nothing interrupts an image while it's loading.
     const add = (m, r, kinds) => kinds.forEach((kind) => {
       const id = `${kind}:${r.id}`, pass = passFor(r);
       storeOf(r).radarUrl = pass.layer;
       m.addSource(id, { type: "image", url: kind === "nisar" ? `data/${pass.layer}` : BLANK, coordinates: r.corners });
       m.addLayer({ id, type: "raster", source: id, paint: { "raster-resampling": "nearest", "raster-fade-duration": 0 }, layout: { visibility: "none" } });
     });
-    // "style.load" doesn't wait for imagery tiles, so slow tiles can't hold up the layers.
     map.once("style.load", () => {
       addAtlasLayer(map); addGrid(map); rivers.forEach((r) => add(map, r, ["gfm", "nisar"])); addAtlasPick(map); addWorldLayer(map);
       state.mapReady = true;
+      const credits = document.querySelector("#dash-map .maplibregl-ctrl-attrib");
+      if (credits) {
+        let wanted = false;
+        credits.addEventListener("click", () => setTimeout(() => { wanted = credits.classList.contains("maplibregl-compact-show"); }));
+        map.on("dragstart", () => { wanted = false; });
+        const fold = () => { if (!wanted && credits.classList.contains("maplibregl-compact-show")) { credits.classList.remove("maplibregl-compact-show"); credits.removeAttribute("open"); } };
+        fold(); map.on("idle", fold);
+      }
       rivers.forEach((r) => { const st = state.stores[r.id]; if (st && st.pack) attachCanvas(r, st); });
       rivers.forEach((r) => addPin(r.id, shortRiver(r), [(r.bounds[0] + r.bounds[2]) / 2, (r.bounds[1] + r.bounds[3]) / 2]));
       renderEvents();
@@ -1015,7 +1051,6 @@ function setupMap(startBounds) {
       scheduleBackground();
       resolve();
     });
-    // Scrubbing through passes cancels images that are still loading, which isn't a failure.
     map.on("error", (e) => { if (!e.error || e.error.name !== "AbortError") console.error(e.error || e); });
     map.on("click", onMapClick);
     map.on("movestart", (e) => { if (e.originalEvent) state.userMoved = true; });
@@ -1031,9 +1066,10 @@ function setupMap(startBounds) {
 (async function start() {
   const { rivers: list } = await fetch("data/dashboard/rivers.json").then((r) => r.json());
   rivers = list;
+  loadFloodRain().then((x) => { state.rain = x; if (state.river && state.pack) update(); });
   rivers.forEach((r) => r.gauges.forEach((g) => { g.name = tidyName(g.name); }));
   const q = new URLSearchParams(location.search), wanted = q.get("river");
-  state.mode = q.get("mode") === "history" ? "history" : "live";
+  state.mode = q.get("mode") === "live" ? "live" : "history";
   state.rise = Math.max(0, Math.min(5, Number(q.get("rise")) || 0));
   $("rise").value = String(state.rise); $("rise-out").textContent = `+${state.rise} m`;
   state.river = rivers.find((r) => r.id === wanted) || rivers[0];
@@ -1047,13 +1083,10 @@ function setupMap(startBounds) {
   if (q.get("blind") === "off" && !atlasLink) atlasSetEnabled(false);
   const opening = setupMap(atlasLink ? ATLAS_WORLD : deepLink ? first.bounds : usBounds());
   wireWorld();
-  // The worldwide list waits until the map and the first river are up, so it never slows the page's own start (a flood
-  // link asks at once).
   opening.then(() => setTimeout(loadWorld, WANT_FLOOD ? 0 : 1500));
   loadStrip();
   await activate(first.id, { fly: false, ...(t ? { time: Date.parse(t.length === 13 ? `${t}:00:00Z` : `${t}:00Z`) } : {}) });
   await opening;
-  // A plain visit opens on all the rivers, then flies to the first one.
   await loadAtlas();
   renderAtlas();
   if (atlasLink) {

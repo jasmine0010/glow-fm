@@ -1,13 +1,9 @@
-// Floods reported worldwide now (GDACS, the UN and EU disaster alert system), and NISAR's scenes over each reported point
-// (NASA's CMR catalog), asked from the browser. The dashboard lists the floods (worldfloods.js); the story page counts them
-// live (liveCoverage, below) by the same rule as scripts/build_coverage.py, showing its saved snapshot until the count is in.
 const GDACS_URL = "https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH";
 const CMR_TITLES_URL = "https://cmr.earthdata.nasa.gov/search/granules.json";
 const WORLD_DAYS = 60, WORLD_TIMEOUT_MS = 8000;
 
 const ymd = (t) => new Date(t).toISOString().slice(0, 10);
 
-// Every request here is cancelled when the page is left, so nothing is still loading while the next page starts.
 const worldLeave = new AbortController();
 addEventListener("pagehide", () => worldLeave.abort());
 
@@ -38,14 +34,9 @@ async function fetchGdacs() {
   return [...out.values()];
 }
 
-// NASA moved NISAR to a new collection on Oct 21, 2026, and listed some scenes from that day in both. Asking the old
-// one only before its successor's first scene, and the new one only after, counts every pass once.
 const NISAR_SPLIT = Date.parse("2026-10-21T17:07:00Z");
 const NISAR_OLD = "NISAR_L2_GCOV_PROVISIONAL_V1", NISAR_NEW = "NISAR_L2_GCOV_V1";
 
-// ---------- the story page's live count ----------
-// For each reported flood: NISAR scenes covering its point while GDACS reported it, and how many are of the kind the
-// method reads (40 MHz, HH and HV). Scene names say which, so one light request per collection answers both.
 const METHOD_KIND = /_4005_DHDH_/;
 const COVERAGE_CACHE_MS = 3600 * 1000;
 
@@ -70,8 +61,6 @@ async function scenesOver(e, end) {
   return got;
 }
 
-// The same summary scripts/build_coverage.py saves (the parts that need no arrival dates), computed now. Any failure
-// rejects the whole count, so a page never shows a partial one.
 async function liveCoverage() {
   const now = Date.now(), events = (await fetchGdacs()).filter((e) => Math.min(e.to, now) > e.from);
   if (!events.length) throw new Error("GDACS listed no floods");

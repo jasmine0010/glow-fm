@@ -1,15 +1,11 @@
-// The one-minute guided tour. Each part sets its whole picture from scratch, so jumping between parts always shows the same thing.
-// Every number comes from the same data as the other pages.
 
 const TOUR_STYLE = BASEMAP;
 const TOUR_START = [-86, 28.5, -78, 34.5], TOUR_WORLD = [-170, -56, 179, 74];
 const stillMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// atlas.js draws its ring on the page's main map.
 let map, tourTop;
 const tour = { i: 0, t: 0, playing: false, last: null, scenes: [], camera: null, finished: false, lens: { x: 0.5, y: 0.45, r: 0 } };
 
-// ---------- the picture ----------
 const BASE_LAYERS = ["photo", "gfm_none", "gfm_excl", "gfm", "atlas", "atlas-pick"];
 
 function showLayers(baseOn, topOn) {
@@ -33,7 +29,6 @@ function lensRadius() {
 const fullRadius = () => { const box = $("tour-stage").getBoundingClientRect(); return Math.hypot(box.width, box.height) * 1.1; };
 
 function setTopMap(mode) {
-  // "off" hides the top map, "lens" shows it inside the circle, and "open" shows all of it.
   $("tour-top").style.visibility = mode === "off" ? "hidden" : "visible";
   $("tour-ring").hidden = mode !== "lens";
   if (mode === "open") setLens(0.5, 0.5, fullRadius());
@@ -44,7 +39,6 @@ function viewPadding() {
   return { top: small ? 58 : 66, bottom: Math.max(40, innerHeight - bar.top + 8), left: small ? 10 : 36, right: small ? 10 : 36 };
 }
 
-// Moves the camera. While jumping between parts, or with reduced motion, it goes straight there.
 function moveCamera(bounds, ms, animate) {
   tour.camera = { bounds, ends: tour.t + ms };
   map.stop();
@@ -81,7 +75,6 @@ function setChip(text) {
   $("tour-chip").hidden = !text;
 }
 
-// ---------- the script ----------
 function buildScenes(manifest, metrics, summary, iquitos) {
   const hero = manifest.hero, audit = metrics.satilla_audit, lead = metrics.overbank[0], [lo, hi] = scoreRange(metrics), yellow = manifest.sites.find((s) => s.timeline), frames = yellow.timeline;
   const heroBounds = [hero.bounds[0], hero.bounds[1] - 0.04, hero.bounds[2], hero.bounds[3] + 0.04];
@@ -133,7 +126,7 @@ function buildScenes(manifest, metrics, summary, iquitos) {
         showLayers(["photo", "gfm_none", "gfm_excl", "gfm"], []);
         setTopMap("off");
         moveCamera(heroBounds, 0, false);
-        setWords(`A global flood map's first scene here, on Oct 24, showed ${ha(audit.gfm_on_wet_ha)} of ${ha(audit.estimated_ha)} hectares of estimated flooding.`, "Copernicus GFM had no scene here from Sep 30, and it marks dense forest as ground it can't map. Grey is its own mask, and pale ground had no data.", "Copernicus GFM, Oct 24");
+        setWords(`A global flood map's first scene here, on Oct 24, showed ${ha(audit.gfm_on_wet_ha)} of ${ha(audit.estimated_ha)} hectares of estimated flooding.`, "Copernicus GFM had no scene here from Sep 30, and it marks dense forest as ground it can't map. Gray is its own mask, and pale ground had no data.", "Copernicus GFM, Oct 24");
       } },
     { name: "Why forest lights up", ms: 6000,
       enter() {
@@ -157,18 +150,17 @@ function buildScenes(manifest, metrics, summary, iquitos) {
       } },
     { name: "Where it falls short", ms: 5500,
       enter() {
-        // The last pass with a map, because the final pass has none to show.
         showLayers([], [frameLayer(frames.map((f) => f.flagged_ha > 0).lastIndexOf(true))]);
         setTopMap("open");
         moveCamera(yellow.bounds, 0, false);
-        setWords(`It doesn't always work. Fair-test scores ran from ${lo.toFixed(2)} to ${hi.toFixed(2)}, and a lidar map matched the Satilla better.`, "The early passes on this river matched poorly too. A lidar map looks the same on every date, though, so it can't follow a flood.");
+        setWords(`It doesn't always work. In the latest test, scores ran from ${lo.toFixed(2)} to ${hi.toFixed(2)}, and a lidar map matched the Satilla better.`, "The early passes on this river matched poorly too. A lidar map looks the same on every date, though, so it can't follow a flood.");
       } },
     { name: "The whole world", ms: 6500,
       enter(animate) {
         showLayers(["atlas"], []);
         setTopMap("off");
         moveCamera(TOUR_WORLD, 2600, animate);
-        setWords(`This isn't only Georgia. ${(summary.tree_km2 / 1e6).toFixed(1)} million km² of the world's mapped river floodplains sit under trees.`, "From a modelled 100-year flood map and land cover. This shows risk, not flooding.");
+        setWords(`This isn't only Georgia. ${(summary.tree_km2 / 1e6).toFixed(1)} million km² of the world's mapped river floodplains sit under trees.`, "From a modeled 100-year flood map and land cover. This shows risk, not flooding.");
       } },
     { name: "A town", ms: 6000,
       enter(animate) {
@@ -181,7 +173,6 @@ function buildScenes(manifest, metrics, summary, iquitos) {
   ];
 }
 
-// ---------- playing ----------
 function goTo(i, animate) {
   if (animate && tour.i !== i) soundTick(0.03);
   tour.finished = false;
@@ -210,7 +201,6 @@ function setPlaying(on) {
   if (on) resumeCamera(); else map.stop();
 }
 
-const totalMs = () => tour.scenes.reduce((sum, s) => sum + s.ms, 0);
 const doneBefore = (i) => tour.scenes.slice(0, i).reduce((sum, s) => sum + s.ms, 0);
 
 function renderParts() {
@@ -228,7 +218,6 @@ function clock() {
 
 function loop(now) {
   if (tour.playing && tour.last !== null) {
-    // A slow frame, such as while the map loads a large image, slows the tour down and never skips part of it.
     tour.t += Math.min(now - tour.last, 200);
     const scene = tour.scenes[tour.i];
     if (scene.tick) scene.tick(tour.t / scene.ms);
@@ -262,7 +251,6 @@ function wire() {
   addEventListener("resize", () => { if (!tour.playing && tour.scenes.length) jump(tour.i); });
 }
 
-// ---------- starting ----------
 const imageLoaded = (url) => new Promise((resolve) => { const img = new Image(); img.onload = resolve; img.onerror = resolve; img.src = url; });
 
 function addImage(m, id, url, corners, resampling = "nearest") {

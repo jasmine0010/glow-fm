@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=43">
+  <link rel="stylesheet" href="style.css?v=103">
 </head>
 <body class="night results">
   <nav class="topbar" aria-label="Sections">
@@ -26,8 +26,7 @@
       <a class="brand" href="index.html" aria-label="GLOWfm"><span aria-hidden="true">GLOW<span class="brand-fm">fm</span></span></a>
       <div class="topbar-links">
         <a href="#abstract">Abstract</a>
-        <a href="#figures">Figures</a>
-        <a href="#tables">Tables</a>
+        <a href="#figures">Figures and tables</a>
         <a href="#methods">Methods</a>
       </div>
       <span class="topbar-pages"><a class="topbar-plain" href="index.html">Story</a><a class="topbar-tool" href="dashboard.html">Dashboard</a><a class="topbar-tool" href="live.html">Run it yourself</a><a class="topbar-plain here" href="evidence.html" aria-current="page">Results</a></span>
@@ -38,166 +37,130 @@
     <header class="evidence-head">
       <p class="eyebrow">Results</p>
       <h1>Floods under forest, seen by NISAR: every test, including the failures</h1>
-      <section class="abstract" id="abstract" aria-labelledby="abstract-h">
-        <h2 id="abstract-h">Abstract</h2>
-        <p id="abstract-text"></p>
-      </section>
-      <p class="plain">Four things to know first. Scores are CSI, the flooded pixels correctly mapped, divided by those plus misses and false alarms, where 1 is perfect.</p>
+      <p class="ev-summary" id="summary"></p>
       <div class="stat-cards ev-findings" id="limits"></div>
+      <details class="ev-fold" id="abstract-fold">
+        <summary>Full abstract</summary>
+        <section class="abstract" id="abstract" aria-label="Abstract"><p id="abstract-text"></p></section>
+      </details>
     </header>
 
     <section id="figures" class="figures">
       <div class="figs-head">
-        <h2>Figures</h2>
+        <h2>Figures and tables</h2>
         <span class="figs-tools">
-          <button type="button" class="btn-quiet paper-toggle" id="paper-btn" aria-pressed="false">Print colours</button>
+          <button type="button" class="btn-quiet paper-toggle" id="paper-btn" aria-pressed="false">Print colors</button>
           <button type="button" class="btn-quiet paper-toggle" id="pdf-btn">Save as PDF</button>
         </span>
       </div>
-      <p class="sub">Hover or tap for values. Every figure downloads as SVG, PNG or the plotted data (CSV). Panels marked descriptive were computed after the frozen tests from their saved pixel layers; nothing was re-scored or re-tuned.</p>
+      <p class="sub">Hover or tap any chart for its values, and open a figure's details for what each panel shows. Every figure also downloads as SVG, PNG or the data it plots.</p>
 
-      <figure class="paper-fig" id="fig1" data-title="Study design">
-        <div class="fig-mount" data-fig="study"></div>
-        <figcaption data-cap="study"></figcaption>
-      </figure>
-      <figure class="paper-fig" id="fig2" data-title="Flooded forest lights up in L-band radar">
-        <div class="fig-mount" data-fig="signature"></div>
-        <figcaption data-cap="signature"></figcaption>
-      </figure>
-      <figure class="paper-fig" id="fig3" data-title="How well the signal separates flooded from dry ground">
-        <div class="fig-mount" data-fig="separability"></div>
-        <figcaption data-cap="separability"></figcaption>
-      </figure>
-      <figure class="paper-fig" id="fig4" data-title="What the maps look like">
-        <div class="fig-mount" data-fig="maps"></div>
-        <figcaption data-cap="maps"></figcaption>
-      </figure>
-      <figure class="paper-fig" id="fig5" data-title="Every frozen one-time test">
-        <div class="fig-mount" data-fig="accuracy"></div>
-        <figcaption data-cap="accuracy"></figcaption>
-      </figure>
-      <figure class="paper-fig" id="fig6" data-title="Where it works, and when to trust it">
-        <div class="fig-mount" data-fig="strata"></div>
-        <figcaption data-cap="strata"></figcaption>
-      </figure>
-      <figure class="paper-fig" id="fig7" data-title="A flood through time">
-        <div class="fig-mount" data-fig="time"></div>
-        <figcaption data-cap="time"></figcaption>
-      </figure>
-      <figure class="paper-fig" id="fig8" data-title="The official flood map's blind spot">
+      <figure class="paper-fig" id="fig-blind" data-title="The official flood map leaves out the forest">
         <div class="fig-mount" data-fig="blind"></div>
         <figcaption data-cap="blind"></figcaption>
       </figure>
-      <figure class="paper-fig" id="fig9" data-title="Where the forested floodplain is, worldwide">
-        <div class="fig-mount" data-fig="world"></div>
-        <figcaption data-cap="world"></figcaption>
+      <figure class="paper-fig" id="fig-signature" data-title="Flooded forest brightens in L-band radar">
+        <div class="fig-mount" data-fig="signature"></div>
+        <figcaption data-cap="signature"></figcaption>
       </figure>
-      <figure class="paper-fig" id="fig10" data-title="Checking the reference">
+      <figure class="paper-fig" id="fig-maps" data-title="What a hit, a miss and a false alarm look like">
+        <div class="fig-mount" data-fig="maps"></div>
+        <figcaption data-cap="maps"></figcaption>
+      </figure>
+      <figure class="paper-fig" id="fig-accuracy" data-title="Every frozen test, failures included">
+        <div class="fig-mount" data-fig="accuracy"></div>
+        <figcaption data-cap="accuracy"></figcaption>
+      </figure>
+      <section id="lidar" class="paper-table">
+        <h3><span class="fig-no">Table 1</span> Radar against a lidar map</h3>
+        <p class="sub">How GLOWfm compares on the latest test's passes with a lidar-only map, which simply calls land under 2 m above the river flooded.</p>
+        <div class="table-wrap"><table id="t-lidar"></table></div>
+        <details class="fig-more"><summary>Details</summary>
+          <p>The lidar map uses no radar or gauges, and since the reference it's scored against is built from that same lidar, the comparison favors it.</p>
+          <p id="lidar-note"></p>
+        </details>
+      </section>
+      <figure class="paper-fig" id="fig-time" data-title="Radar shows when; a lidar map can't">
+        <div class="fig-mount" data-fig="time"></div>
+        <figcaption data-cap="time"></figcaption>
+      </figure>
+      <section id="no-lidar" class="paper-table">
+        <h3><span class="fig-no">Table 2</span> Without lidar</h3>
+        <p class="sub">Most of the world has no lidar, so two more frozen tests swapped in global elevation data, first treetop heights (Copernicus) and then bare earth (FABDEM).</p>
+        <div class="table-wrap"><table id="t-elevation"></table></div>
+        <details class="fig-more"><summary>Details</summary>
+          <p>Both ran on the seven judged passes and were scored against the same gauge-and-lidar reference, with each column giving NISAR's score for one source of ground height.</p>
+          <p id="elevation-note"></p>
+        </details>
+      </section>
+      <figure class="paper-fig" id="fig-reference" data-title="The reference is a model, with real error">
         <div class="fig-mount" data-fig="reference"></div>
         <figcaption data-cap="reference"></figcaption>
       </figure>
-      <figure class="paper-fig" id="fig11" data-title="How often and how soon NISAR saw this season's floods">
-        <div class="fig-mount" data-fig="coverage"></div>
-        <figcaption data-cap="coverage"></figcaption>
-      </figure>
-      <figure class="paper-fig" id="fig12" data-title="Water level under the canopy (exploratory)">
-        <div class="fig-mount" data-fig="fringes"></div>
-        <figcaption data-cap="fringes"></figcaption>
-      </figure>
+
+      <details class="ev-fold ev-more" id="more-figs">
+        <summary>More figures: study design, how soon NISAR saw floods, the sealed test, water level under the canopy</summary>
+        <figure class="paper-fig" id="fig-study" data-title="Study design">
+          <div class="fig-mount" data-fig="study"></div>
+          <figcaption data-cap="study"></figcaption>
+        </figure>
+        <figure class="paper-fig" id="fig-coverage" data-title="How often and how soon NISAR saw this season's floods">
+          <div class="fig-mount" data-fig="coverage"></div>
+          <figcaption data-cap="coverage"></figcaption>
+        </figure>
+        <section id="sealed" class="paper-table" hidden>
+          <h3><span class="fig-no">Table 3</span> A test sealed before the passes were acquired</h3>
+          <p class="sub" id="sealed-sub"></p>
+          <div class="table-wrap"><table id="t-sealed"></table></div>
+          <details class="fig-more"><summary>Details</summary><p id="sealed-note"></p></details>
+        </section>
+        <figure class="paper-fig" id="fig-fringes" data-title="Water level under the canopy (exploratory)">
+          <div class="fig-mount" data-fig="fringes"></div>
+          <figcaption data-cap="fringes"></figcaption>
+        </figure>
+      </details>
     </section>
 
-    <section id="tables">
-      <h2>Tables</h2>
-      <section id="tests" class="paper-table">
-        <h3><span class="fig-no">Table 1</span> Every fair test</h3>
-        <p class="sub">Each method was frozen before a new flood's data was opened, then run once.</p>
-        <div class="table-wrap"><table id="t-tests"></table></div>
-        <button type="button" class="btn-quiet ev-more" id="tests-more" hidden></button>
-        <p class="note" id="tests-note"></p>
-      </section>
-      <section id="lidar" class="paper-table">
-        <h3><span class="fig-no">Table 2</span> Radar against a lidar map</h3>
-        <p class="sub">The latest test, on the same pixels. The lidar map is the same on every date, land under 2 m above the river, with no radar or gauges. The estimate is built from the same lidar, which favours it.</p>
-        <div class="table-wrap"><table id="t-lidar"></table></div>
-        <p class="note" id="lidar-note"></p>
-      </section>
-      <section id="no-lidar" class="paper-table">
-        <h3><span class="fig-no">Table 3</span> Without lidar</h3>
-        <p class="sub">Most of the world has no lidar, so two more frozen one-time tests put global elevation data in its place on the seven judged passes. Copernicus GLO-30 measures the treetops; FABDEM is the same model with trees and buildings removed. The river's answer still uses lidar and gauges. Columns give NISAR's score with each source of ground height.</p>
-        <div class="table-wrap"><table id="t-elevation"></table></div>
-        <p class="note" id="elevation-note"></p>
-      </section>
-      <section id="gap" class="paper-table">
-        <h3><span class="fig-no">Table 4</span> The flood-map gap</h3>
-        <p class="sub" id="gap-audit"></p>
-        <p class="sub">The blind-spot map uses floodplain under trees as a stand-in for what Copernicus GFM says it can't map. This checks that against GFM's own mask.</p>
-        <div class="table-wrap"><table id="t-blind"></table></div>
-        <p class="note" id="blind-note"></p>
-      </section>
-      <section id="sealed" class="paper-table" hidden>
-        <h3><span class="fig-no">Table 5</span> A test sealed before the passes were acquired</h3>
-        <p class="sub" id="sealed-sub"></p>
-        <div class="table-wrap"><table id="t-sealed"></table></div>
-        <p class="note" id="sealed-note"></p>
-      </section>
-      <section id="independent" class="paper-table">
-        <h3><span class="fig-no">Table 6</span> Checks against imagery, independent of lidar</h3>
-        <p class="sub">Every score above uses a reference built from the same lidar the method and the lidar-only map use. Two checks looked for water in photos instead, at points sampled by what radar flagged and what the reference said. They were fixed in advance, read blind by two AI vision models (not trained photo interpreters), and change no frozen score.</p>
-        <div class="table-wrap"><table>
-          <tr><th>Check</th><th>Imagery</th><th>What it could decide</th><th>Reading</th></tr>
-          <tr><td>The reference's flooded against dry points, Satilla</td><td>Sentinel-2, 18.5 hours before radar</td><td>21% of points; the rest canopy or unsure</td><td>Supported: water at 9 of 14 decidable flooded points, 0 of 11 dry (difference +0.64, 95% interval +0.28 to +0.84)</td></tr>
-          <tr><td>The same, Lower Sabine and lower Yellow</td><td>Sentinel-2; NOAA aerial photos</td><td>11% of points</td><td>Imagery can't decide</td></tr>
-          <tr><td>Radar flags beyond the reference's corridor</td><td>Sentinel-2; NOAA aerial photos</td><td>Too few points on every river</td><td>Imagery can't decide</td></tr>
-          <tr><td>Water through the canopy where radar flagged forest, Yellow</td><td>NOAA aerial photos, 4–5 days before radar</td><td>No class reached 10 decidable points</td><td>Not supported: radar-flagged forest scored about the same as forest at least 10 m above the river</td></tr>
-        </table></div>
-        <p class="note">So the reference has some independent support where photos can see the ground, and mapping under closed canopy remains unvalidated by anything but the reference. The photos can't separate water from shadow under trees. Rules and full tables are in research/INDEPENDENT_CHECK_PROTOCOL.md, INDEPENDENT_CHECK_RESULTS.md, INDEPENDENT_AERIAL_PROTOCOL.md and INDEPENDENT_AERIAL_RESULTS.md.</p>
-      </section>
-    </section>
-
+    <details class="ev-fold" id="methods-fold">
+      <summary>Methods, data and code</summary>
     <section id="methods" class="methods">
       <h2>Methods</h2>
       <h3>Data</h3>
-      <p>NISAR Level-2 GCOV backscatter (HH and HV, provisional release CRID P05023, 40 MHz scenes), resampled to a 50 m grid. Each flood pass is compared with earlier passes on the same track. Land cover is ESA WorldCover 2021, ground height is USGS 3DEP lidar (Copernicus GLO-30 and FABDEM V1-2 in the tests without lidar), river levels are USGS gauges, rainfall is IMERG V07 Late Run, and the official flood map is Copernicus Global Flood Monitoring (GFM).</p>
+      <p>We used NISAR's Level-2 GCOV backscatter (HH and HV, provisional release P05023, 40 MHz scenes) on a 50 m grid, comparing each flood pass with earlier passes on the same track. Land cover comes from ESA WorldCover 2021, ground height from USGS 3DEP lidar (or Copernicus GLO-30 and FABDEM in the tests without it), river levels from USGS gauges, rainfall from IMERG, and the official flood map from Copernicus GFM.</p>
       <h3>GLOWfm's method (version 4, frozen)</h3>
-      <ul class="plain-list">
-        <li><b>Baseline.</b> The per-pixel median of every same-track scene within 60 days of the flood pass, excluding the flood date, where at least three values exist.</li>
-        <li><b>Signal.</b> The change in HH backscatter (terrain-flattened γ⁰, as NISAR GCOV delivers it), smoothed over 3×3 pixels. If higher valley forest (4–8 m above the river) brightened by more than 0.5 dB, as rain on the canopy does, the signal becomes the HH change minus the HV change.</li>
-        <li><b>Where it looks.</b> Tree cover, herbaceous wetland and other land cover under 6 m above the river profile and within 4 km of the valley line.</li>
-        <li><b>Cut-off.</b> Otsu's split of the signal over that valley floor, at least 0.5 dB. It is set by each scene and uses no reference data.</li>
-        <li><b>Abstains</b> where the nearest gauge is more than six days past its crest.</li>
-      </ul>
+      <p>For every pixel, GLOWfm takes the median of each same-track scene within 60 days as its dry baseline and measures how much the HH backscatter changed, smoothed over 3×3 pixels. It switches to HH minus HV when higher valley forest brightened by more than 0.5 dB, as rain on the canopy does. It only looks at forest, wetland and other land within 6 m above the river and 4 km of the valley, where it splits the signal with Otsu's method at no less than 0.5 dB, so each scene sets its own cut-off without any reference data. It holds back wherever the nearest gauge is more than six days past its crest.</p>
       <h3>Trust light</h3>
-      <p>Green when low valley forest (under 2 m above the river) brightened more than higher valley forest by more than 0.5 dB, and the pass wasn't rainy (at least 5 mm in the prior 24 hours or 25 mm in 72 hours). Red otherwise. The rule was fixed before its first fair test, where it was right on 3 of 4 judgeable passes (Fig. 6d).</p>
+      <p>The light turns green when low valley forest (under 2 m above the river) brightened more than higher forest by over 0.5 dB and the pass wasn't rainy, and red otherwise. It was fixed before its first fair test, where it was right on 3 of 4 judgeable passes (<a data-ref="fig-accuracy" data-panel="b"></a>), which is too few to prove it.</p>
       <h3>The reference ("the river's answer")</h3>
-      <p>Water levels from USGS gauges at the time of the pass are interpolated along the valley and compared with lidar ground height. A pixel is flooded where the water stands more than 0.5 m above the ground, and dry where the ground is 0.5–5 m above the water. Pixels in between are left unlabelled. Labels are kept only within a 4 km valley corridor, where flooding connects to the river's reference water, within 10 km of a gauge along the valley, and outside permanent water. It is an estimate, not an observation of water. Fig. 10 tests it by hiding gauges and, post hoc, by moving its water surface; Table 6 checks it against photos.</p>
+      <p>Gauge levels at the time of the pass are interpolated along the valley and compared with lidar ground height, so a pixel counts as flooded where the water stands more than 0.5 m above the ground and dry where the ground sits 0.5–5 m above the water. It's kept to a 4 km corridor within 10 km of a gauge and outside permanent water, which makes it an estimate rather than an observation, and <a data-ref="fig-reference"></a> tests it. Two checks against photos, fixed in advance, supported it where the ground was visible on the Satilla (water at 9 of 14 flooded points and 0 of 11 dry), but under closed canopy photos can't tell water from shadow, so mapping under trees is checked against this reference alone.</p>
       <h3>Scoring</h3>
-      <p>Critical success index, CSI = hits / (hits + misses + false alarms), on mapped, gauge-supported pixels outside permanent water. 95% intervals come from a block bootstrap with 2 km blocks along the valley (2,000 resamples, seed 0); differences between maps use paired resamples. Post hoc, the same intervals were recomputed with 5 km and 10 km blocks, since flood extent is correlated over longer distances; most widen (Fig. 5 caption, scripts/posthoc_reference_checks.py). A pass is judged when the reference holds at least 500 ha of flooding.</p>
+      <p>CSI is hits divided by hits, misses and false alarms, counted on mapped, gauge-supported pixels outside permanent water, with 95% intervals from a 2 km block bootstrap (2,000 resamples) and paired resamples for differences between maps. A pass is judged when the reference holds at least 500 ha of flooding, and recomputing the intervals with 10 km blocks widens most of them (<a data-ref="fig-accuracy"></a>).</p>
       <h3>Frozen one-time tests</h3>
-      <p>Before each test, its protocol, scene list, site files, run code and scientific modules were hashed (SHA-256) into a receipt. The run refuses to start if any of them has changed, and refuses a second attempt. Results are written once; a fix after scoring is labelled post hoc and doesn't replace the first number. Readings were fixed in each protocol before the data was opened, including what would count as a failure.</p>
+      <p>Before each test, its protocol, scene list, site files, run code and scientific modules were hashed into a receipt, and the run refuses to start if any of them changed or if it has already run once. Each protocol set out in advance what would count as success or failure, and any fix made after scoring is labeled post hoc without replacing the first number.</p>
       <h3>Without lidar</h3>
-      <p>Two frozen tests replaced lidar ground height in GLOWfm with global elevation data, first Copernicus GLO-30, a surface model that includes treetops, then FABDEM V1-2, the same model with forests and buildings removed by a trained correction. Everything else in version 4 stayed fixed, including its 6 m limit, and each was scored on the same pixels against the same reference. A height map with no radar (land under 2 m above the river, by the same elevation data) was scored alongside. The bare-earth test fixed in advance a check that any gain didn't come from mapping more ground the reference can't label, and predicted its cause, that flooded forest should sit near the river by FABDEM. On the Satilla it sat a median 0.39 m above the river, against 4.92 m by Copernicus and −0.39 m by lidar.</p>
-      <h3>Coverage and delay (Fig. 11)</h3>
-      <p>For every flood GDACS reported in a 60-day window, NASA's CMR catalog was asked for each NISAR GCOV scene covering the reported point while the flood was reported, from both the provisional and the final collection. Each scene keeps its recording time and its first "Insert" date in the catalog; the gap between them is the wait before anyone can use it. Built by <code>scripts/build_coverage.py</code>; it describes NISAR's first season as the catalog showed it on the day it ran.</p>
-      <h3>Water level under the canopy (Fig. 12)</h3>
-      <p>An exploratory check, made after the frozen tests and not scored. NISAR's GUNW product compares the radar phase of two passes 12 days apart. Where flooded swamp stays coherent, a change in phase along the swamp is a change in water level, about 16 cm per cycle at this incidence. Three pairs over the Choctawhatchee River delta were read, a dry-season control and two pairs spanning Hurricane Isaias, seen from opposite directions. Phase steps were added up from west to east over coherent pixels and set to zero at the FDEP gauge at Bunker (CTBF1). Built by <code>scripts/posthoc_swamp_fringes.py</code>; the feasibility notes, with the gauge readings, are in <code>research/FEASIBILITY.md</code>.</p>
+      <p>Two frozen tests swapped lidar for global elevation data, first Copernicus GLO-30, which includes the treetops, and then FABDEM, which removes them, keeping everything else in version 4 and scoring the same pixels against the same reference. The bare-earth test checked in advance that any gain didn't just come from mapping more ground, and as it predicted, flooded forest on the Satilla sat a median 0.39 m above the river by FABDEM, against 4.92 m by Copernicus and −0.39 m by lidar.</p>
+      <h3>Coverage and delay (<a data-ref="fig-coverage"></a>)</h3>
+      <p>For every flood GDACS reported over 60 days, we searched NASA's catalog for NISAR scenes covering the reported point while the flood was being reported, keeping each scene's recording time and the date it reached the catalog (<code>scripts/build_coverage.py</code>).</p>
+      <h3>Water level under the canopy (<a data-ref="fig-fringes"></a>)</h3>
+      <p>This is an exploratory check, made after the frozen tests and not scored. NISAR's GUNW product compares the radar phase of two passes 12 days apart, and where flooded swamp stays coherent, a phase change is a change in water level of about 16 cm per cycle. We read a dry-season control and two pairs spanning Hurricane Isaias over the Choctawhatchee delta, adding up the phase steps from west to east and setting them to zero at the Bunker gauge (<code>scripts/posthoc_swamp_fringes.py</code>).</p>
       <h3>Descriptive figures</h3>
-      <p>Figs. 2, 3, 4 and 6 were computed after the tests from the saved pixel layers of the twelve frozen version-4 runs. The build checks them against the frozen records (pooled counts equal each run's scores, medians and ROC areas match the stored values) and nothing was re-scored or re-tuned.</p>
+      <p><a data-ref="fig-signature"></a> and <a data-ref="fig-maps"></a> were computed after the tests from the saved pixel layers of the twelve frozen version-4 runs, and the build checks them against the frozen records so nothing is re-scored or re-tuned. ROC curves (area under the curve 0.54–0.91) and agreement by depth, height and land cover come from the same layers, and their data is in <code>data/figures/separability.json</code> and <code>strata.json</code>.</p>
     </section>
 
     <section id="records" class="methods">
       <h2>Data and code availability</h2>
-      <p class="note">All code is open source (MIT) in the project repository. Rules, results and hash receipts are in its <code>research/</code> folder; start with <code>OVERBANK_RESULTS.md</code>, <code>BARE_EARTH_RESULTS.md</code>, <code>BLIND_SPOT_AUDIT.md</code> and <code>BLIND_SPOT_ATLAS.md</code>. FABDEM is CC BY-NC-SA 4.0 (Hawker et al. 2022, <i>Environ. Res. Lett.</i> 17, 024016), so no FABDEM tile or layer made from it is included; only scores are shown. The figure data is built by <code>scripts/build_figures.py</code>, which checks it against the frozen records before writing it, and every figure above downloads with the data it plots.</p>
+      <p class="note">All code is open source (MIT), and the rules, results and hash receipts are in the repository's <code>research/</code> folder, starting with <code>OVERBANK_RESULTS.md</code>, <code>BARE_EARTH_RESULTS.md</code>, <code>BLIND_SPOT_AUDIT.md</code> and <code>BLIND_SPOT_ATLAS.md</code>. FABDEM is CC BY-NC-SA 4.0 (Hawker et al. 2022, <i>Environ. Res. Lett.</i> 17, 024016), so no FABDEM layer is included and only its scores are shown. The figure data is built by <code>scripts/build_figures.py</code>, which checks it against the frozen records, and every figure downloads with the data it plots.</p>
     </section>
+    </details>
   </main>
 
   <footer class="wrap foot">
     <p>Data: NISAR L2 PROVISIONAL GCOV/GUNW (NASA/ISRO, CRID P05023) · Copernicus Emergency Management Service Global Flood Monitoring · Sentinel-1 (ESA/Copernicus) · OPERA DSWx-S1 (NASA JPL) · USGS water data and 3DEP lidar · Copernicus GLO-30 DEM · FABDEM V1-2 (University of Bristol), produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved · ESA WorldCover 2021 · CEMS GloFAS flood hazard maps · GeoNames · Natural Earth · © OpenStreetMap contributors.</p>
-    <p>Provisional data; not an operational product. Much of the code was written with AI assistance (Claude).</p>
   </footer>
 
-  <script src="shared.js?v=31"></script>
-  <script src="figkit.js?v=32"></script>
-  <script src="figures.js?v=36"></script>
-  <script src="evidence.js?v=37"></script>
+  <script src="shared.js?v=47"></script>
+  <script src="figkit.js?v=40"></script>
+  <script src="figures.js?v=48"></script>
+  <script src="evidence.js?v=50"></script>
 </body>
 </html>

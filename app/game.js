@@ -1,12 +1,4 @@
-// Beat the satellite: the reader paints where they think the Satilla flood is, on the photo from the day before NISAR's pass, and the
-// river's answer (gauges and lidar) grades them beside NISAR. The answer key is data/satilla/047A_oct15/game.png from
-// scripts/build_story_charts.py: red marks scored ground, green the river's answer, blue NISAR's map, each 0 or 255.
-// Scores count only scored ground, exactly as the frozen test does. Nothing the reader paints leaves the page.
-// Grading plays NISAR's pass as a beam sweeping up the map (an illustration: an ascending pass builds its image from south
-// to north), with the result drawn in behind it.
 
-// The colour language: water cyan, you amber, NISAR magenta. Form carries the meaning too: found is solid, missed is
-// hatched, marked-but-dry is dotted.
 const GAME_COLORS = { water: [0, 200, 220], you: [255, 180, 90], nisar: [214, 58, 214], paint: "rgba(255, 180, 90, 0.72)", ground: [205, 219, 226] };
 const game = { key: null, map: null, paint: null, glow: null, result: null, tool: "paint", painted: 0, done: false, show: "you", me: null, nisar: null, sweeping: false };
 
@@ -14,7 +6,6 @@ const hex = (c) => `#${c.map((v) => v.toString(16).padStart(2, "0")).join("")}`;
 const mercY = (lat) => Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360));
 
 async function loadGameKey(meta) {
-  // A load event, not img.decode(), which can wait indefinitely in a background tab.
   const img = new Image();
   await new Promise((ok, fail) => { img.onload = ok; img.onerror = fail; img.src = `data/${meta.file}`; });
   const c = document.createElement("canvas");
@@ -27,7 +18,6 @@ async function loadGameKey(meta) {
   return { ...meta, scored, wet, nisar, n };
 }
 
-// The rows and columns of scored ground, and their extent on the map.
 function scoredBox(key) {
   let c0 = key.cols, c1 = 0, r0 = key.rows, r1 = 0;
   for (let i = 0; i < key.n; i++) {
@@ -44,7 +34,6 @@ function scoredBounds(key) {
   return [keyLon(key, c0), keyLat(key, r1 + 1), keyLon(key, c1 + 1), keyLat(key, r0)];
 }
 
-// Found, missed and marked-but-dry, on scored ground only. The match score is the one used in every test: found / (found + missed + dry).
 function gradeMap(key, marked) {
   let found = 0, missed = 0, dry = 0;
   for (let i = 0; i < key.n; i++) {
@@ -60,7 +49,6 @@ function paintedMask() {
   return out;
 }
 
-// The picture for one view, as pixels: "you" or "nisar" graded against the river's answer, or the answer itself.
 function resultImage(view) {
   const key = game.key, img = game.result.getContext("2d").createImageData(key.cols, key.rows), d = img.data;
   const mine = view === "you" ? game.me.mask : key.nisar, marker = view === "you" ? GAME_COLORS.you : GAME_COLORS.nisar;
@@ -81,7 +69,6 @@ function drawResult(view) {
   refresh("game-result");
 }
 
-// A canvas source only re-uploads while it plays, so it plays for one frame after each change.
 function refresh(id) {
   const src = game.map && game.map.getSource(id);
   if (!src) return;
@@ -90,7 +77,6 @@ function refresh(id) {
   game.map.triggerRepaint();
 }
 
-// The soft glow under your paint: a blurred copy, on its own layer so it never touches the score.
 function refreshGlow() {
   const g = game.glow.getContext("2d");
   g.clearRect(0, 0, game.glow.width, game.glow.height);
@@ -127,7 +113,6 @@ function setShow(view) {
     : `<span><i class="swatch sw-found"></i>Found</span><span><i class="swatch sw-missed"></i>Missed</span><span><i class="swatch sw-dry sw-dry-${view}"></i>Marked, but dry</span>`;
 }
 
-// NISAR's pass, played as a beam rising up the map: the graded picture appears behind it and your paint gives way.
 function sweep(img, done) {
   const key = game.key, m = game.map, beam = $("game-beam"), box = $("game-map");
   if (reducedMotion() || !m.getSource("game-result")) { game.result.getContext("2d").putImageData(img, 0, 0); refresh("game-result"); done(); return; }
@@ -140,42 +125,46 @@ function sweep(img, done) {
   rctx.clearRect(0, 0, key.cols, key.rows);
   const sources = ["game-result", "game-paint", "game-glow"].map((id) => m.getSource(id)).filter(Boolean);
   sources.forEach((s) => s.play());
-  const { r0, r1 } = scoredBox(key), lonMid = (keyLon(key, 0) + keyLon(key, key.cols)) / 2, ms = 1800, t0 = performance.now();
-  soundChirp(ms);
-  const frame = (t) => {
-    const f = Math.min(1, (t - t0) / ms), row = Math.max(0, Math.round(r1 + 1 - (r1 + 1 - r0) * f));
-    rctx.putImageData(img, 0, 0, 0, row, key.cols, key.rows - row);
-    pctx.clearRect(0, row, key.cols, key.rows - row);
-    gctx.clearRect(0, row, key.cols, key.rows - row);
-    const y = m.project([lonMid, keyLat(key, row)]).y;
+  const { r0, r1 } = scoredBox(key), lonMid = (keyLon(key, 0) + keyLon(key, key.cols)) / 2, ms = 3200, t0 = performance.now();
+  const yTop = m.project([lonMid, keyLat(key, r0)]).y, yBot = m.project([lonMid, keyLat(key, r1 + 1)]).y;
+  const rowAt = (y) => Math.max(r0, Math.min(r1 + 1, Math.round(r0 + ((y - yTop) / Math.max(1, yBot - yTop)) * (r1 + 1 - r0))));
+  const beamAt = (y, a) => {
     bctx.clearRect(0, 0, W, H);
+    if (a <= 0) return;
+    bctx.globalAlpha = a;
     const trail = bctx.createLinearGradient(0, y, 0, y + 90);
     trail.addColorStop(0, "rgba(229, 122, 229, .32)"); trail.addColorStop(1, "rgba(229, 122, 229, 0)");
     bctx.fillStyle = trail; bctx.fillRect(0, y, W, 90);
     bctx.fillStyle = "rgba(255, 236, 255, .95)"; bctx.fillRect(0, y - 1, W, 2);
+    bctx.globalAlpha = 1;
+  };
+  soundChirp(ms);
+  const frame = (t) => {
+    const f = Math.min(1, (t - t0) / ms), y = H + 2 - (H + 4) * f, row = rowAt(y);
+    rctx.putImageData(img, 0, 0, 0, row, key.cols, key.rows - row);
+    pctx.clearRect(0, row, key.cols, key.rows - row);
+    gctx.clearRect(0, row, key.cols, key.rows - row);
+    beamAt(y, 1);
     if (f < 1) { requestAnimationFrame(frame); return; }
     sources.forEach((s) => s.pause());
-    bctx.clearRect(0, 0, W, H);
     game.sweeping = false;
     soundPing({ gain: 0.09 });
     done();
+    const t1 = performance.now(), fade = (tt) => { const a = 1 - Math.min(1, (tt - t1) / 700); beamAt(y, a); if (a > 0) requestAnimationFrame(fade); };
+    requestAnimationFrame(fade);
   };
   requestAnimationFrame(frame);
 }
 
-// What "match" means, drawn: for you and for NISAR, one circle is the flooding the gauges point to and the other is
-// the map, both to scale. The map slides in until the circles share exactly what it found; the match is that overlap
-// divided by everything either circle covers. Your counts are your paint's; NISAR's are its published test scores.
 function gameOverlap(me, n, skipped) {
   const cv = $("game-tally");
   if (!cv) return;
   const rows = [];
-  // In units of the flood (the gauges' flooded area = 1).
   if (!skipped) { const flood = me.found + me.missed || 1; rows.push({ label: "You", color: "255, 201, 138", found: me.found / flood, map: (me.found + me.dry) / flood, csi: me.csi }); }
   rows.push({ label: "NISAR", color: "229, 122, 229", found: n.share, map: n.share / Math.max(1e-9, 1 - n.onDry), csi: n.csi });
   const biggest = Math.max(1, ...rows.map((r) => r.map));
   Motion.instrument(cv, (ctx, t, w, h) => {
-    const colW = w / rows.length, R = Math.min(colW * 0.28, (h - 64) / 2) / Math.sqrt(biggest);   // the largest circle fits
+    const colW = w / rows.length, R = Math.min(colW * 0.28, (h - 50) / 2) / Math.sqrt(biggest);
     rows.forEach((r, k) => {
       const rf = R, rm = R * Math.sqrt(r.map), cy = 26 + Math.max(rf, rm), cx = k * colW + colW / 2;
       const target = Motion.distanceForOverlap(rf, rm, r.found * R * R * Math.PI), far = rf + rm + 14;
@@ -189,21 +178,18 @@ function gameOverlap(me, n, skipped) {
       ctx.lineWidth = 1.2;
       ctx.strokeStyle = "#6fe3ef"; ctx.beginPath(); ctx.arc(fx, cy, rf, 0, 2 * Math.PI); ctx.stroke();
       ctx.strokeStyle = `rgb(${r.color})`; ctx.beginPath(); ctx.arc(mx, cy, Math.max(0.5, rm), 0, 2 * Math.PI); ctx.stroke();
-      // The match, read off the geometry as it is now.
       const shared = Motion.circleOverlap(rf, rm, d), match = shared / (Math.PI * rf * rf + Math.PI * rm * rm - shared);
       const shown = t >= 1 ? r.csi : match;
       ctx.textAlign = "center"; ctx.fillStyle = `rgb(${r.color})`; ctx.font = "600 12px 'IBM Plex Sans', system-ui, sans-serif";
       ctx.fillText(r.label, cx, 14);
       ctx.font = "600 20px 'Space Grotesk', 'IBM Plex Sans', system-ui, sans-serif"; ctx.fillStyle = "#f2f6f8";
-      ctx.fillText(`match ${shown.toFixed(2)}`, cx, h - 22);
-      ctx.font = "500 11px 'IBM Plex Sans', system-ui, sans-serif"; ctx.fillStyle = "#a7b9c5";
-      ctx.fillText("overlap ÷ everything covered", cx, h - 6);
+      ctx.fillText(`match ${shown.toFixed(2)}`, cx, h - 4);
     });
-  }, { ms: 2200, start: "none" }).play();
+  }, { ms: 3500, start: "none" }).play();
 }
 
 function grade(skipped = false) {
-  if (!game.key || game.sweeping) return;   // the answer key loads with the map, just before the section comes into view
+  if (!game.key || game.sweeping) return;
   game.done = true;
   game.me = { mask: skipped ? new Uint8Array(game.key.n) : paintedMask() };
   Object.assign(game.me, gradeMap(game.key, game.me.mask));
@@ -223,16 +209,16 @@ function grade(skipped = false) {
     $("game-side").innerHTML = `<h3>${skipped ? "The answer" : "How you did"}</h3>
       <p class="game-verdict">${verdict}</p>
       <div class="game-scores">
-        ${skipped ? "" : `<div class="qn" style="--c: var(--people-ink)"><span class="qn-k">You</span><b class="qn-n" id="gs-you">${pc(me.share)}</b><span class="qn-u">of the flood found · ${pc(me.onDry)} of your paint on dry ground · match ${me.csi.toFixed(2)}</span></div>`}
-        <div class="qn" style="--c: var(--nisar-ink)"><span class="qn-k">NISAR radar</span><b class="qn-n" id="gs-nisar">${pc(n.share)}</b><span class="qn-u">of the flood found · ${pc(n.onDry)} of its map on dry ground · match ${n.csi.toFixed(2)}</span></div>
+        ${skipped ? "" : `<div class="qn" style="--c: var(--people-ink)"><span class="qn-k">You</span><b class="qn-n" id="gs-you">${pc(me.share)}</b><span class="qn-u">of the flood found · ${pc(me.onDry)} on dry ground</span></div>`}
+        <div class="qn" style="--c: var(--nisar-ink)"><span class="qn-k">NISAR radar</span><b class="qn-n" id="gs-nisar">${pc(n.share)}</b><span class="qn-u">of the flood found · ${pc(n.onDry)} on dry ground</span></div>
       </div>
-      <figure class="game-tally"><canvas id="game-tally" role="img" aria-label="${skipped ? "" : `Your match: ${me.csi.toFixed(2)}. `}NISAR's match: ${n.csi.toFixed(2)}."></canvas><figcaption class="act-legend">Circles to scale. Cyan: the flooding the river's gauges point to on this ground. The other circle: the map. Where they overlap is what was found; the match is the overlap divided by everything either circle covers.</figcaption></figure>
+      <figure class="game-tally"><canvas id="game-tally" role="img" aria-label="Circles to scale: the flood the gauges point to, and the map. ${skipped ? "" : `Your match: ${me.csi.toFixed(2)}. `}NISAR's match: ${n.csi.toFixed(2)}."></canvas></figure>
       <p class="game-trust">${trustChip(trustLight({ confident: n.confident, rainy: n.rainy }))}</p>
       <div class="game-key" id="game-key"></div>
       <details class="fine"><summary>The fine print</summary><div class="fine-body"><p>The official flood map had no picture of this river during the crest; ${n.gfmLater}.</p><p>Match (1 is perfect) is the score used in every test here. A lidar height map scored ${n.lidar.toFixed(2)} here, but it draws the same map every day, flood or not.</p></div></details>
       <p class="game-buttons"><button type="button" class="btn" id="game-again">Try again</button></p>`;
-    if (!skipped) countUp($("gs-you"), 100 * me.share, (x) => `${Math.round(x)}%`, 900);
-    countUp($("gs-nisar"), 100 * n.share, (x) => `${Math.round(x)}%`, 1200);
+    if (!skipped) countUp($("gs-you"), 100 * me.share, (x) => `${Math.round(x)}%`, 1500);
+    countUp($("gs-nisar"), 100 * n.share, (x) => `${Math.round(x)}%`, 2000);
     gameOverlap(me, n, skipped);
     $("game-again").addEventListener("click", resetGame);
     $("game-view").hidden = false;
@@ -261,7 +247,6 @@ function setupPainting(meta) {
     const r = box.getBoundingClientRect(), ll = m.unproject([ev.clientX - r.left, ev.clientY - r.top]);
     return [(ll.lng - w) / (e - w) * meta.cols, (yN - mercY(ll.lat)) / (yN - yS) * meta.rows];
   };
-  // About 14 screen pixels, whatever the map's size.
   const radius = () => 14 * meta.cols / Math.max(1, m.project([e, nLat]).x - m.project([w, nLat]).x);
   let last = null;
   const stroke = (p) => {
@@ -300,7 +285,6 @@ function setupPainting(meta) {
 async function setupGame(manifest, metrics) {
   const hero = manifest.hero, row = metrics.held_out.find((r) => r.site === hero.site && r.pair === hero.pass), ob = metrics.overbank.find((r) => r.site === hero.site && r.pair === hero.pass);
   const a = metrics.satilla_audit, later = calendarDays(hero.time, a.scene_time_utc);
-  // NISAR's line uses the frozen test's own numbers, not the web-grid copy, so it matches the rest of the site.
   game.nisar = { csi: ob.csi, share: row.recall, onDry: 1 - row.precision, lidar: ob.lidar_csi, confident: ob.high, rainy: ob.rainy, gfmLater: `${inWords(later)} days later: ${ha(a.gfm_on_wet_ha)} ha flooded` };
   const before = calendarDays(HERO_PHOTO.time, hero.time);
   $("game-fine-photo").textContent = `The photo of the ${siteTitle(hero.site).replace(", GA", ", Georgia")} is Sentinel-2 from ${fmtDay(HERO_PHOTO.time)}, ${before === 1 ? "the day" : `${inWords(before)} days`} before NISAR's ${fmtDay(hero.time)} pass.`;
@@ -313,11 +297,11 @@ async function setupGame(manifest, metrics) {
     game.result = make();
     const [key] = await Promise.all([loadGameKey(meta)]);
     game.key = key;
-    // Framed on the ground that counts, so every stroke can matter.
     const frame = scoredBounds(key);
     const m = new maplibregl.Map({ container: "game-map", style: STYLE, bounds: frame, fitBoundsOptions: { padding: 24 }, attributionControl: { compact: true },
       interactive: false });
     game.map = m;
+    if ("ResizeObserver" in window) new ResizeObserver(() => { m.resize(); m.fitBounds(frame, { padding: 24, duration: 0 }); }).observe($("game-map"));
     addInstruments(m, { coords: false });
     m.on("load", () => {
       addOverlay(m, "photo", `data/${hero.site}/${hero.pass}/${HERO_PHOTO.file}`, HERO_PHOTO.corners, true);

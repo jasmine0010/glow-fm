@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=44">
+  <link rel="stylesheet" href="style.css?v=103">
 </head>
 <body class="live-page night">
   <nav class="topbar" aria-label="Pages">
@@ -36,7 +36,6 @@
       <h1>Run GLOWfm yourself</h1>
       <p class="live-lede">Pick a flood and press Run to run GLOWfm, frozen as tested, in your browser on NISAR's radar. These are this season's floods, not the tested results.</p>
     </header>
-    <!-- shown when the dashboard links a flood this site hasn't prepared -->
     <p class="live-banner" id="live-banner" role="status" hidden></p>
 
     <div class="live-grid">
@@ -66,6 +65,7 @@
       <section class="live-map-wrap" aria-label="Map of the chosen flood">
         <div id="live-map" class="map live-map"></div>
         <div class="live-legend" id="live-legend" role="group" aria-label="Map layers"></div>
+        <figure class="cut-instr" id="cut-instr" hidden><p class="cut-title">How the scene set its own cut-off</p><canvas role="img" aria-label="The valley floor's radar change, and the cut-off the scene set"></canvas><figcaption class="act-legend"></figcaption></figure>
       </section>
 
       <section class="live-panel" id="live-panel" aria-labelledby="case-title">
@@ -77,9 +77,8 @@
         <details class="live-how" id="how" hidden>
           <summary>How it got there</summary>
           <ol class="live-steps" id="steps"></ol>
-          <figure class="cut-instr" id="cut-instr" hidden><canvas role="img" aria-label="The valley floor's radar change, and the cut-off the scene set"></canvas><figcaption class="act-legend"></figcaption></figure>
         </details>
-        <details class="live-settings" id="settings">
+        <details class="live-settings" id="settings" open>
           <summary>Change GLOWfm's settings</summary>
           <p class="note">For this run only; the published result uses the frozen settings.</p>
           <fieldset><legend>Dry reference</legend>
@@ -101,24 +100,18 @@
         <p class="live-dl" id="downloads" hidden>Download <button type="button" class="link-btn" id="brief-download">one-page brief</button> · <button type="button" class="link-btn" id="map-download">map (PNG)</button> · <button type="button" class="link-btn" id="run-download">run data (JSON)</button></p>
         <p class="note live-notes" id="case-notes"></p>
       </section>
-      <!-- under the flood list and the map, beside the long run panel, so the figures show right after the map -->
       <section class="live-analysis" id="analysis" hidden aria-labelledby="analysis-title">
         <p class="live-step"><span aria-hidden="true">3</span> Why</p>
         <h2 id="analysis-title">Why GLOWfm did what it did</h2>
         <p class="plain" id="analysis-sub"></p>
-        <!-- livefigs.js puts two figures here for this flood, and the rest under More figures -->
         <div class="analysis-grid" id="figs-main">
-          <figure class="analysis-fig" id="af-signature"><div class="af-mount"></div><figcaption><b>The radar signature here.</b> Flooded forest brightens; higher ground stays put.</figcaption></figure>
-          <figure class="analysis-fig" id="af-score" hidden><div class="af-mount"></div><figcaption><b>Against the river's gauges and lidar.</b> The score at each cut-off; the published test is marked.</figcaption></figure>
+          <figure class="analysis-fig" id="af-signature"><div class="af-mount"></div><figcaption><b>Is there a flood signal here?</b> If this is flooding under trees, forest close to the water should brighten and be flagged more than forest higher up. The shading marks ground above the 6 m height limit, which GLOWfm never checks.</figcaption></figure>
+          <figure class="analysis-fig" id="af-noise"><div class="af-mount"></div><figcaption><b>Bigger than ordinary change?</b> The same pixels on the last pass before the flood, against the median of the earlier passes. Where that pass clears the cut-off nearly as often as the flood pass, the cut-off alone can't tell flood from ordinary change, and the trust light's check is what guards against it. The shading marks cut-offs below the 0.5 dB floor, which GLOWfm never uses.</figcaption></figure>
           <figure class="analysis-fig" id="af-trust"><div class="af-mount"></div><figcaption><b>The trust light's own check.</b> Green only if forest near the water brightened more than forest above it.</figcaption></figure>
+          <figure class="analysis-fig" id="af-score" hidden><div class="af-mount"></div><figcaption><b>Against the river's gauges and lidar.</b> The score at each cut-off, the published test with its 95% range, and what the valley's shape alone scores with no radar. A cut-off chosen after seeing this curve is tuning, not testing. The shading marks cut-offs below the 0.5 dB floor, which GLOWfm never uses.</figcaption></figure>
+          <figure class="analysis-fig" id="af-agree" hidden><div class="af-mount"></div><figcaption><b>Where it agrees.</b> This run's map against the gauge-and-lidar estimate, pixel by pixel.</figcaption></figure>
+          <figure class="analysis-fig" id="af-robust"><div class="af-mount"></div><figcaption><b>How fragile is it?</b> The method rerun with a lower or higher height limit. The area at other cut-offs is the chart under the map.</figcaption></figure>
         </div>
-        <details class="live-more" id="figs-more">
-          <summary>More figures</summary>
-          <div class="analysis-grid" id="figs-more-grid">
-            <figure class="analysis-fig analysis-wide" id="af-robust"><div class="af-mount"></div><figcaption><b>How much the map depends on its settings.</b> A flat line means a stable answer.</figcaption></figure>
-            <figure class="analysis-fig" id="af-where"><div class="af-mount"></div><figcaption><b>Where the flagged area sits.</b> Flooded forest close to the water should dominate.</figcaption></figure>
-          </div>
-        </details>
       </section>
     </div>
     <details class="fine live-foot">
@@ -126,22 +119,26 @@
       <div class="fine-body">
         <p id="live-updated"></p>
         <p>The area excludes permanent lakes and rivers. US floods are graded against the river's gauges and lidar; elsewhere there's no ground truth, and the trust light decides. <span id="case-sources"></span></p>
-        <p>The trust light is also on trial. Before NISAR acquired them, we sealed which of its next passes over US floods will be scored, and what the light predicts for each (<a href="evidence.html#sealed">Table 5 in the results</a>).</p>
+        <p>The trust light is also on trial. Before NISAR acquired them, we sealed which of its next passes over US floods will be scored, and what the light predicts for each (<a href="evidence.html#sealed">the sealed test in the results</a>).</p>
         <p>Floods the job looked at but couldn't prepare (<span id="skip-n">0</span>), and why:</p>
         <ul class="live-skipped" id="skipped"></ul>
-        <p>GLOWfm compares NISAR's pass during the flood with earlier passes on the same track, keeps forest and wetland close to the river, and lets the scene set its own cut-off. Its rules are in <a href="evidence.html">the results</a> and in research/LIVE_PROTOCOL.md; since protocol v2 (research/LIVE_PROTOCOL_V2.md), floods outside the US use bare-earth heights from FABDEM, which <a href="evidence.html#no-lidar">tested better than treetop heights without lidar</a>. Data: NISAR GCOV (NASA/ISRO, via ASF), NOAA river gauges, USGS river lines, gauges and 3DEP lidar, ESA WorldCover 2021, Copernicus GLO-30, FABDEM V1-2 (University of Bristol; Hawker et al. 2022; CC BY-NC-SA 4.0, height layers made from it are shared under the same licence for non-commercial use; produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved), GDACS. Imagery © Esri.</p>
+        <p>Floods prepared but not offered to run (<span id="scope-n">0</span>), and why. Two rules, added on Nov 15, 2026, after the list grew to floods where runs scored near zero, and both settled before any run. A US flood is offered only if its gauge was at NOAA's flood stage when NISAR passed, read from USGS's 15-minute record: a gauge that tops it for an hour a day, or a pass after the river fell, leaves no flood to map. And GLOWfm reads flooding under trees, so a flood is offered only where at least half of the valley floor (land up to 6 m above the nearest water and within 4 km of the river) is forest or wetland.</p>
+        <ul class="live-skipped" id="out-scope"></ul>
+        <p id="offered-anyway" hidden></p>
+        <p>GLOWfm compares NISAR's pass during the flood with earlier passes on the same track, keeps forest and wetland close to the river, and lets the scene set its own cut-off. Its rules are in <a href="evidence.html">the results</a> and in research/LIVE_PROTOCOL.md; since protocol v2 (research/LIVE_PROTOCOL_V2.md), floods outside the US use bare-earth heights from FABDEM, which <a href="evidence.html#no-lidar">tested better than treetop heights without lidar</a>. Data: NISAR GCOV (NASA/ISRO, via ASF), NOAA river gauges, USGS river lines, gauges and 3DEP lidar, ESA WorldCover 2021, Copernicus GLO-30, FABDEM V1-2 (University of Bristol; Hawker et al. 2022; CC BY-NC-SA 4.0, height layers made from it are shared under the same license for non-commercial use; produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved), GDACS. Imagery © Esri.</p>
         <p>Roads under water are drivable roads from OpenStreetMap (© OpenStreetMap contributors, ODbL), with footpaths and bridges left out, counted on the ground GLOWfm flags. They're saved with each prepared flood (scripts/build_live_roads.py); a run of your own asks OpenStreetMap for its box. Mapped roads can be incomplete, and a raised road can stay dry where the ground beside it floods.</p>
       </div>
     </details>
   </main>
 
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-  <script src="shared.js?v=31"></script>
-  <script src="sound.js?v=29"></script>
-  <script src="motion.js?v=29"></script>
-  <script src="livemethod.js?v=30"></script>
-  <script src="figkit.js?v=29"></script>
-  <script src="livefigs.js?v=38"></script>
-  <script src="live.js?v=40"></script>
+  <script src="shared.js?v=47"></script>
+  <script src="sound.js?v=34"></script>
+  <script src="motion.js?v=33"></script>
+  <script src="livemethod.js?v=31"></script>
+  <script src="livescope.js?v=2"></script>
+  <script src="figkit.js?v=37"></script>
+  <script src="livefigs.js?v=51"></script>
+  <script src="live.js?v=55"></script>
 </body>
 </html>

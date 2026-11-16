@@ -1,0 +1,198 @@
+{
+ "id": "tested_st_marys_098D_oct07",
+ "kind": "us",
+ "tested": "held-out",
+ "site": "st_marys",
+ "pair": "098D_oct07",
+ "name": "St Marys River, GA/FL",
+ "place": "St Marys River, GA/FL",
+ "category": "tested",
+ "lat": 30.358847,
+ "lon": -82.081501,
+ "wet": {
+  "time": "2026-10-07T00:11:51Z",
+  "name": "NISAR_L2_PR_GCOV_032_098_D_073_4005_DHDH_A_20261007T001151_20261007T001226_P05023_N_F_J_001"
+ },
+ "baseline": [
+  {
+   "time": "2026-08-20T00:11:51Z",
+   "name": "NISAR_L2_PR_GCOV_028_098_D_073_4005_DHDH_A_20260820T001151_20260820T001226_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-09-01T00:11:51Z",
+   "name": "NISAR_L2_PR_GCOV_029_098_D_073_4005_DHDH_A_20260901T001151_20260901T001226_P05023_N_F_J_002"
+  },
+  {
+   "time": "2026-09-13T00:11:51Z",
+   "name": "NISAR_L2_PR_GCOV_030_098_D_073_4005_DHDH_A_20260913T001151_20260913T001226_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-09-25T00:11:51Z",
+   "name": "NISAR_L2_PR_GCOV_031_098_D_073_4005_DHDH_A_20260925T001151_20260925T001226_P05023_N_F_J_001"
+  },
+  {
+   "time": "2026-10-19T00:11:51Z",
+   "name": "NISAR_L2_PR_GCOV_033_098_D_073_4005_DHDH_A_20261019T001151_20261019T001226_P05023_N_F_J_001"
+  }
+ ],
+ "corners": [
+  [
+   -82.148237,
+   30.8433
+  ],
+  [
+   -81.964208,
+   30.844801
+  ],
+  [
+   -81.958819,
+   30.298486
+  ],
+  [
+   -82.141819,
+   30.297017
+  ]
+ ],
+ "pixel_ha": 0.25,
+ "layout": {
+  "width": 352,
+  "height": 1211,
+  "arrays": [
+   {
+    "name": "wet_hh",
+    "type": "int16"
+   },
+   {
+    "name": "wet_hv",
+    "type": "int16"
+   },
+   {
+    "name": "median_hh",
+    "type": "int16"
+   },
+   {
+    "name": "median_hv",
+    "type": "int16"
+   },
+   {
+    "name": "one_hh",
+    "type": "int16"
+   },
+   {
+    "name": "one_hv",
+    "type": "int16"
+   },
+   {
+    "name": "hand",
+    "type": "int16"
+   },
+   {
+    "name": "dist",
+    "type": "uint16"
+   },
+   {
+    "name": "landcover",
+    "type": "uint8"
+   },
+   {
+    "name": "timing",
+    "type": "uint8"
+   },
+   {
+    "name": "water",
+    "type": "uint8"
+   },
+   {
+    "name": "estimate",
+    "type": "uint8"
+   }
+  ]
+ },
+ "inputs": {
+  "epsg": "EPSG:32617",
+  "heights": "3DEP lidar (bare earth)",
+  "river": "the river's centre line, as in the published test",
+  "gauges": [
+   {
+    "usgs": "02231000",
+    "name": "ST. MARYS RIVER NEAR MACCLENNY, FL"
+   },
+   {
+    "usgs": "02231175",
+    "name": "ST MARYS RIVER AT FERRY LANDING NEAR FOLKSTON, GA"
+   }
+  ],
+  "test": "method 4, October",
+  "protocol": "research/OVERBANK_PROTOCOL.md"
+ },
+ "rule": {
+  "type": "v4",
+  "baseline": "median",
+  "signal": "adaptive",
+  "flood_check_db": null,
+  "confidence_db": 0.5,
+  "wet_scene_db": 0.5,
+  "smooth_px": 3,
+  "hand_max_m": 6.0,
+  "valley_m": 4000.0,
+  "min_threshold_db": 0.5,
+  "landcover": [
+   1,
+   2,
+   0
+  ],
+  "abstain_timing": [
+   4
+  ]
+ },
+ "frozen_run": {
+  "threshold_db": 0.5561408593156378,
+  "used_hh_minus_hv": true,
+  "confident": true,
+  "low_minus_high_db": 0.517989993095398,
+  "flagged_ha": 6693.5,
+  "mapped_ha": 106568.0
+ },
+ "reference_run": {
+  "threshold_db": 0.5555743166420134,
+  "flagged_px": 26755,
+  "flagged_land_px": 26742,
+  "used_hh_minus_hv": true,
+  "confident": true,
+  "low_minus_high_db": 0.5177778005599976
+ },
+ "score": {
+  "scores": {
+   "tp": 3041,
+   "fn": 739,
+   "fp": 1465,
+   "tn": 9292,
+   "recall": 0.8044973544973545,
+   "precision": 0.6748779405237462,
+   "csi": 0.5797902764537655,
+   "f1": 0.7340091720975139,
+   "tp_ha": 760.25,
+   "fn_ha": 184.75,
+   "fp_ha": 366.25,
+   "tn_ha": 2323.0
+  },
+  "ci95": {
+   "recall": [
+    0.7243994943109987,
+    0.8716474711380385
+   ],
+   "precision": [
+    0.3801209717157781,
+    0.805124054095559
+   ],
+   "csi": [
+    0.3380775864214688,
+    0.6837997043349168
+   ],
+   "f1": [
+    0.5053183600663445,
+    0.8122102670142758
+   ]
+  }
+ }
+}

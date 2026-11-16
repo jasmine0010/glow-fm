@@ -1,30 +1,46 @@
-// Run it yourself (live runs): pick a flood from this season and run the frozen method on it in the browser (app/livemethod.js).
-// Cases are prepared by scripts/live_cases.py under research/LIVE_PROTOCOL.md; this page never contacts NASA.
 const LIVE_STYLE = BASEMAP;
 const LIVE_COLORS = { nisar: [214, 58, 214], estimate: [0, 200, 220] };
 const escHtml = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const day = (iso) => new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
-const floodWord = (c) => (c.kind === "us" ? `${escHtml(c.category)} flood` : c.noaa ? `${escHtml(c.category)} flood, no USGS gauge` : `GDACS ${escHtml(c.category)} alert`);
+const floodWord = (c) => (c.tested ? "Held-out test" : c.kind === "us" ? `${escHtml(c.category)} flood` : c.noaa ? `${escHtml(c.category)} flood, no USGS gauge` : `GDACS ${escHtml(c.category)} alert`);
 const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+const NISAR_ONLY_FROM = Date.parse("2026-11-16T00:00:00Z");
+const nisarOnly = (c) => !c.tested && !c.custom && Date.parse(c.wet && c.wet.time ? c.wet.time : c.wet) >= NISAR_ONLY_FROM;
 const live = { index: null, map: null, case: null, data: null, result: null, roads: null, roadsState: null, layers: { flood: true, estimate: false, change: false, roads: true }, token: 0, ready: null };
 
-// ---------- the list: the shared flood board (shared.js) ----------
 function renderList() {
   const cases = currentCases(live.index);
   $("cases-board").innerHTML = floodPicker(cases, floodWord);
+  live.ranked = rankByScore(cases);
   if (!cases.some((c) => c.kind === "us")) $("cases-note").insertAdjacentHTML("afterbegin", "No US flood is ready right now. The job prepares new ones as they happen. ");
   const skipped = live.index.considered || [];
   $("skip-n").textContent = skipped.length;
   $("skipped").innerHTML = skipped.map((s) => `<li><b>${escHtml(s.place || s.name)}</b>. ${escHtml(s.skip)}</li>`).join("");
+  const outside = notOfferedCases(live.index).sort((a, b) => a.place.localeCompare(b.place));
+  $("scope-n").textContent = outside.length;
+  $("out-scope").innerHTML = outside.map((c) => `<li><a href="?case=${encodeURIComponent(c.id)}">${escHtml(c.place)}</a>. ${escHtml(notOffered(c))}.</li>`).join("");
+  const exempt = currentCases(live.index).filter((c) => c.pass_stage && c.pass_stage.exempt);
+  $("offered-anyway").hidden = !exempt.length;
+  $("offered-anyway").innerHTML = exempt.map((c) => `Offered although below flood stage at the pass: <a href="?case=${encodeURIComponent(c.id)}">${escHtml(c.place)}</a>, ${c.pass_stage.ft.toFixed(1)} ft against its ${escHtml(c.pass_stage.flood_ft)} ft flood stage. ${escHtml(c.pass_stage.exempt.replace(/^[^,]*, but /, "It was "))}.`).join(" ");
   $("live-updated").textContent = `${live.index.checked_utc ? `Floods last checked ${new Date(live.index.checked_utc).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}. ` : ""}NISAR scenes reach NASA's catalog days after they're recorded.`;
-  // The wait, as measured over this season's scenes (scripts/build_coverage.py).
   fetch("data/figures/coverage.json").then((r) => r.json()).then(({ summary: c }) => {
     $("live-updated").textContent = $("live-updated").textContent.replace("days after they're recorded.", `a median ${c.latency_days.median} days after they're recorded, though ${Math.round(100 * c.latency_days.share_over_7)}% of this season's took more than a week.`);
   }).catch(() => {});
 }
 
+function rankByScore(cases) {
+  const scored = cases.filter((c) => c.kind === "us" && c.scored);
+  return Promise.all(scored.map((c) => fetch(`data/live/${c.id}/case.json`).then((r) => r.json())
+    .then((rec) => [c.id, rec.score && rec.score.scores ? rec.score.scores.csi : null]).catch(() => [c.id, null])))
+    .then((pairs) => {
+      const scores = Object.fromEntries(pairs.filter(([, s]) => Number.isFinite(s)));
+      if (Object.keys(scores).length) { $("cases-board").innerHTML = floodPicker(cases, floodWord, scores); markActive(); }
+      return scores;
+    });
+}
+
 function markActive() {
-  const shown = live.case && (live.index.cases.find((c) => c.id === live.case.id)?.superseded_by || live.case.id);   // a first run lights its newer twin's row
+  const shown = live.case && (live.index.cases.find((c) => c.id === live.case.id)?.superseded_by || live.case.id);
   document.querySelectorAll(".live-row").forEach((b) => {
     const on = b.dataset.case === shown;
     b.classList.toggle("on", on);
@@ -32,19 +48,16 @@ function markActive() {
   });
 }
 
-// ---------- choosing a case ----------
 async function chooseCase(id) {
   const summary = live.index.cases.find((c) => c.id === id);
   if (!summary) return;
   await showCase(summary, `data/live/${id}`);
 }
 
-// Show a prepared case (published, or a custom one from the local box reader) from its folder.
-// A pack is stored gzipped when the index says so ("pack": "gz"), about half the size; the browser unpacks it.
 async function readPack(base, kind) {
   const buf = await fetch(`${base}/${kind === "gz" ? "pack.bin.gz" : "pack.bin"}`).then((r) => r.arrayBuffer());
   const head = new Uint8Array(buf, 0, 2);
-  if (head[0] !== 0x1f || head[1] !== 0x8b) return buf;   // already unpacked on the way (a server that sends it as gzip encoding)
+  if (head[0] !== 0x1f || head[1] !== 0x8b) return buf;
   return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer();
 }
 
@@ -53,10 +66,14 @@ async function showCase(summary, base) {
   $("case-title").textContent = summary.place;
   $("case-sub").textContent = "Loading the prepared radar…";
   $("run").disabled = true;
+  $("run").hidden = false;
+  $("settings").hidden = false;
+  live.outOfScope = false;
   $("how").hidden = true;
   $("how").open = false;
   $("downloads").hidden = true;
   $("cut-instr").hidden = true;
+  cutRoom(false);
   $("analysis").hidden = true;
   $("result").innerHTML = "";
   live.result = null;
@@ -64,22 +81,26 @@ async function showCase(summary, base) {
   if (mine !== live.token) return;
   live.case = rec;
   live.data = LiveMethod.decodePack(buf, rec.layout);
+  if (nisarOnly(rec)) { rec.nisarOnly = true; rec.score = null; rec.score_skipped = "Shown as NISAR's map only, without the gauge check."; delete live.data.estimate; }
   live.roads = null;
   live.roadsState = "loading";
   loadRoads(rec, base).then((lines) => { if (mine !== live.token) return; live.roads = layRoads(lines, rec); live.roadsState = "ready"; afterRoads(); })
     .catch((err) => { console.warn("Roads not loaded", err); if (mine !== live.token) return; live.roadsState = "failed"; afterRoads(); });
-  history.replaceState(null, "", rec.custom ? location.pathname : `?case=${encodeURIComponent(id)}`);   // a custom run has no shareable link
+  history.replaceState(null, "", rec.custom ? location.pathname : `?case=${encodeURIComponent(id)}`);
   markActive();
   const scored = rec.kind === "us" && rec.score, unchecked = '<br><span class="live-warn">Not checked against ground truth.</span>';
-  $("case-sub").innerHTML = (rec.custom ? "Your box" : `${floodWord(rec)} since ${day(rec.flood_from)}${rec.flood_from_is_record_start ? " (or earlier)" : ""}`) +
-    ` · NISAR passed <b>${day(rec.wet.time)}</b> · ${rec.baseline.length} earlier passes to compare` + (rec.kind === "us" && !rec.custom ? "" : unchecked);
+  const span = rec.flood_to ? `${day(rec.flood_from)}${rec.flood_from_is_record_start ? " (or earlier)" : ""} to ${day(rec.flood_to)}` : `since ${day(rec.flood_from)}${rec.flood_from_is_record_start ? " (or earlier)" : ""}`;
+  $("case-sub").innerHTML = (rec.custom ? "Your box" : rec.tested ? `Held-out test, ${escHtml(rec.inputs.test)}` : `${floodWord(rec)} ${span}`) +
+    ` · NISAR passed <b>${day(rec.wet.time)}</b> · ${rec.baseline.length} earlier passes to compare` + (rec.kind === "us" && !rec.custom && !rec.nisarOnly ? "" : unchecked);
   $("case-sources").textContent = `This flood's heights come from ${rec.inputs.heights}, and its river from ${rec.inputs.river}.` +
     (rec.kind === "us" ? (scored ? ` Scored on ground within reach of ${rec.inputs.gauges.length} USGS gauge${rec.inputs.gauges.length === 1 ? "" : "s"}.` : ` ${rec.score_skipped || "Not scored."}`) : "") +
     (rec.custom ? " A box of your own uses the frozen method; it isn't a test of it." : rec.kind === "us" ? "" : rec.noaa ? " No USGS gauge is near this NOAA gauge, so NISAR's map runs alone and isn't graded." : " GDACS gives one point per flood, so its 24 km box may miss the flooding.");
   $("case-notes").innerHTML = [rec.wet.quicklook ? `<a href="${escHtml(rec.wet.quicklook.url)}" target="_blank" rel="noopener">NASA's picture of this pass</a>` : "",
     rec.report ? `<a href="${escHtml(rec.report)}" target="_blank" rel="noopener">GDACS report</a>` : "",
-    `<a href="dashboard.html${summary.gdacs ? `?flood=${encodeURIComponent(summary.gdacs)}` : ""}">See it on the dashboard</a>`].filter(Boolean).join(" · ") + versionNote(rec, summary);
-  // While the flood may still be going (its pass is under two repeat cycles old): when NISAR should see it next.
+    rec.tested ? `<a href="dashboard.html?river=${encodeURIComponent(rec.site)}&amp;mode=history&amp;t=${encodeURIComponent(rec.wet.time.slice(0, 16))}">See this test on the dashboard</a>`
+      : `<a href="dashboard.html${summary.gdacs ? `?flood=${encodeURIComponent(summary.gdacs)}` : ""}">See it on the dashboard</a>`].filter(Boolean).join(" · ") + versionNote(rec, summary) +
+    (rec.tested ? " One of GLOWfm's published held-out tests, packed so it can be rerun here; its published score is the one shown, and the run should match it." : "") +
+    (summary.pass_stage && summary.pass_stage.exempt ? ` The gauge read ${summary.pass_stage.ft.toFixed(1)} ft at the pass, just under its ${escHtml(summary.pass_stage.flood_ft)} ft flood stage. It's offered by exception, chosen after seeing its score.` : "");
   const lastPass = Date.parse(rec.wet.time);
   if (Date.now() - lastPass < 2 * NISAR_REPEAT_MS) catalogWait().then((w) => { if (mine === live.token) $("case-notes").insertAdjacentHTML("beforeend", ` If the flood is still going, ${nextPassText(lastPass, w)}`); });
   renderLayerToggles();
@@ -91,11 +112,21 @@ async function showCase(summary, base) {
   live.map.getSource("gauge").setData({ type: "Feature", geometry: { type: "Point", coordinates: [rec.lon, rec.lat] }, properties: {} });
   drawLayer(null);
   drawRoads(null);
+  const ps = summary.pass_stage, share = LiveScope.share(live.data, rec.rule);
+  const why = ps && ps.in_flood === false && !ps.exempt
+    ?`<b>Not in flood when NISAR passed.</b> The river read ${ps.ft.toFixed(1)} ft at the pass, below its ${escHtml(ps.flood_ft)} ft flood stage, so there was no flood for GLOWfm to map.`
+    : !LiveScope.inScope(share) ? `<b>Outside GLOWfm's scope.</b> ${escHtml(LiveScope.why(share))}` : "";
+  if (why) {
+    live.outOfScope = true;
+    $("run").hidden = true;
+    $("settings").hidden = true;
+    $("result").innerHTML = `<p class="live-scope">${why}</p>`;
+    return;
+  }
   $("run").disabled = false;
   $("run").textContent = "Run GLOWfm";
 }
 
-// Protocol v2 rebuilt each first-run world flood with bare-earth heights (FABDEM) in place of treetop heights.
 function versionNote(rec, summary) {
   const link = (id, text) => `<a href="?case=${encodeURIComponent(id)}" data-case-switch="${escHtml(id)}">${text}</a>`;
   if (rec.rebuilt_from) {
@@ -108,7 +139,6 @@ function versionNote(rec, summary) {
   return "";
 }
 
-// ---------- running ----------
 function settings() {
   return {
     baseline: document.querySelector('input[name="baseline"]:checked').value,
@@ -121,7 +151,6 @@ function settings() {
 const isFrozen = (s) => s.baseline === "median" && s.signal === "adaptive" && s.min_threshold_db === 0.5 && s.hand_max_m === 6 && s.abstain_timing.length === 1;
 
 const STEPS = RUN_STEPS;
-// The map view as an image: read in the same frame it's drawn, so the WebGL canvas still holds it.
 const captureMap = () => new Promise((resolve) => {
   live.map.once("render", () => {
     try { const src = live.map.getCanvas(), c = document.createElement("canvas"); c.width = src.width; c.height = src.height; c.getContext("2d").drawImage(src, 0, 0); resolve(c); } catch { resolve(null); }
@@ -132,10 +161,6 @@ const saveFile = (name, blob) => { const a = document.createElement("a"); a.href
 const sdb = (x) => `${x >= 0 ? "+" : "−"}${Math.abs(x).toFixed(2)} dB`;
 const pause = (ms) => new Promise((ok) => setTimeout(ok, ms));
 
-// The cut-off, set by the scene, as Otsu's search actually runs: a line scans every candidate cut-off across the valley
-// floor's histogram while the between-class variance (how cleanly that cut splits the pixels in two) draws behind it.
-// The cut-off lands on the curve's peak, then rises to the floor if the peak fell below it. Bars right of the line are
-// what the method keeps.
 function cutInstrument() {
   if (live.cut) return live.cut;
   const fig = $("cut-instr"), cv = fig.querySelector("canvas");
@@ -144,7 +169,6 @@ function cutInstrument() {
     if (!st) return;
     const H = st.hist, O = st.scan, max = Math.max(...H.counts), vmax = Math.max(...O.curve) || 1, base = h - 18, top = 26;
     const X = (v) => ((v - H.lo) / (H.hi - H.lo)) * w, bw = w / H.counts.length, raised = st.otsu < st.floor;
-    // The scan (0 to 0.6), back to the peak (0.6 to 0.78), up to the floor if needed (0.78 to 1).
     const scanX = H.lo + (H.hi - H.lo) * Motion.clamp(t / 0.6);
     const back = Motion.ease(Motion.clamp((t - 0.6) / 0.18)), up = raised ? Motion.ease(Motion.clamp((t - 0.78) / 0.22)) : 0;
     const line = t < 0.6 ? scanX : Motion.lerp(Motion.lerp(H.hi, st.otsu, back), st.cut, up);
@@ -153,7 +177,6 @@ function cutInstrument() {
       ctx.fillStyle = mid > line ? "#e57ae5" : "rgba(185, 196, 203, .5)";
       ctx.fillRect(k * bw + 0.5, base - bh, Math.max(1, bw - 1), bh);
     });
-    // The variance curve, drawn as far as the scan has reached, and the best split so far.
     const reach = t < 0.6 ? scanX : H.hi, pts = [];
     let best = -1, bestX = 0;
     O.curve.forEach((v, k) => {
@@ -180,11 +203,35 @@ function cutInstrument() {
   return live.cut;
 }
 
+function cutRoom(on) {
+  placeCut();
+  const wrap = document.querySelector(".live-map-wrap");
+  if (!wrap || wrap.classList.contains("with-cut") === on) return;
+  wrap.classList.toggle("with-cut", on);
+  if (!live.map) return;
+  live.map.resize();
+  const c = live.case && live.case.corners;
+  if (c) live.map.fitBounds([[Math.min(...c.map((p) => p[0])), Math.min(...c.map((p) => p[1]))], [Math.max(...c.map((p) => p[0])), Math.max(...c.map((p) => p[1]))]], { padding: 24, duration: 0 });
+  if (on && wideRun() && wrap.getBoundingClientRect().bottom + 280 > innerHeight) document.querySelector(".live-grid").scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
+}
+
+const wideRun = () => innerWidth > 1100;
+function placeCut() {
+  const fig = $("cut-instr"), home = wideRun() ? document.querySelector(".live-map-wrap") : $("how");
+  if (fig && home && fig.parentElement !== home) home.appendChild(fig);
+}
+addEventListener("resize", placeCut);
+
 async function showCut(res, s, animate) {
   const fig = $("cut-instr"), H = res.floorHist, raised = res.otsuDb < s.min_threshold_db;
   fig.hidden = false;
   live.cutState = { hist: H, scan: res.otsuScan, otsu: res.otsuDb, floor: s.min_threshold_db, cut: res.threshold };
-  const text = `The valley floor's radar change, ${H.n.toLocaleString("en-US")} pixels. Otsu's split ` +
+  const N = H.counts.reduce((a, b) => a + b, 0), w = (H.hi - H.lo) / H.counts.length;
+  const mean = H.counts.reduce((a, c, k) => a + c * (H.lo + (k + 0.5) * w), 0) / Math.max(1, N);
+  const varT = H.counts.reduce((a, c, k) => a + c * (H.lo + (k + 0.5) * w - mean) ** 2, 0) / Math.max(1, N);
+  const eta = varT > 0 ? Math.min(1, Math.max(...res.otsuScan.curve) / (H.n * H.n) / varT) : null;
+  const shape = eta === null ? "" : eta >= 0.75 ? ` It splits into two clear groups (separability ${eta.toFixed(2)}).` : ` It has one hump, not two (separability ${eta.toFixed(2)}, where one bell curve gives about 0.64), so Otsu's split says little here.`;
+  const text = `The valley floor's radar change, ${H.n.toLocaleString("en-US")} pixels.${shape} Otsu's split ` +
     (raised ? `peaked at ${sdb(res.otsuDb)}, below the ${s.min_threshold_db.toFixed(1)} dB floor, so the floor is the cut-off.` : `peaked at ${sdb(res.threshold)}, which is the cut-off.`) + " Magenta is what's kept as flooded.";
   fig.querySelector("figcaption").textContent = text;
   fig.querySelector("canvas").setAttribute("aria-label", text);
@@ -192,7 +239,6 @@ async function showCut(res, s, animate) {
   if (animate && !reduced()) { inst.play(); await pause(2650); } else inst.finish();
 }
 
-// NISAR's map, strongest echo first: the counter is the pixels shown so far, ending at the run's own total.
 async function revealPixels(res) {
   const d = live.data, rec = live.case, vals = [];
   for (let i = 0; i < res.pred.length; i++) if (res.pred[i] && !(d.water && d.water[i])) vals.push(res.change[i]);
@@ -208,11 +254,13 @@ async function revealPixels(res) {
 }
 
 async function runMethod(animate) {
+  if (live.outOfScope) return;
   const rec = live.case, s = settings();
   $("run").disabled = true;
   const steps = $("steps");
   $("how").hidden = false;
   $("how").open = true;
+  cutRoom(true);
   steps.innerHTML = STEPS.map(([k, t]) => `<li data-step="${k}">${t}<span class="live-step-note"></span></li>`).join("");
   const res = LiveMethod.run(live.data, rec.layout.width, rec.layout.height, s);
   const notes = res.error ? {} : {
@@ -250,7 +298,8 @@ function renderResult(s) {
   const graded = rec.kind === "us" && live.data.estimate, mine = graded ? LiveMethod.score(res, live.data.estimate) : null;
   let html = `<div class="run-area"><span class="stat-num">${ha(area)} ha</span><span class="stat-label">flagged as flooded</span></div>`;
   html += `<div class="run-row">${graded ? `<span class="run-score"><b>${mine.csi === null ? "—" : mine.csi.toFixed(2)}</b> match with the river's gauges${isFrozen(s) ? "" : ", your settings"}</span>`
-    : '<span class="run-score run-none">No gauges here to grade it</span>'}${trustChip(light)}</div>`;
+    : '<span class="run-score run-none">No gauges here to grade it</span>'}</div>`;
+  html += `<div class="run-trust">${trustChip(light, { long: true })}</div>`;
   const lines = [], km = roadsKm(res);
   if (km !== null) lines.push(km < 0.05 ? "No mapped road on it" : `<b class="run-roads">${kmText(km)}</b> of road on it`);
   if (graded) {
@@ -260,11 +309,6 @@ function renderResult(s) {
   box.innerHTML = html + lines.map((l) => `<p class="run-line">${l}</p>`).join("");
 }
 
-// ---------- roads under water ----------
-// The drivable roads in the box (scripts/build_live_roads.py saves them for a prepared flood; a custom run asks
-// OpenStreetMap from the browser), laid on the case's 50 m grid in short pieces, one per pixel crossed, as on the
-// dashboard (scripts/build_roads.py). The stretches on ground the method flags are drawn orange over the whole road,
-// and added up. The rules are the frozen blind-spot audit's: drivable roads only, footpaths and bridges left out.
 const ROAD_SKIP = new Set(["footway", "path", "steps", "cycleway", "pedestrian", "bridleway", "corridor", "proposed", "construction"]);
 const ROAD_MAJOR = new Set(["motorway", "motorway_link", "trunk", "trunk_link", "primary", "primary_link", "secondary", "secondary_link", "tertiary", "tertiary_link"]);
 const OVERPASS_URL = "https://overpass-api.de/api/interpreter";
@@ -287,8 +331,6 @@ async function loadRoads(rec, base) {
   }).map((el) => ({ major: ROAD_MAJOR.has(el.tags.highway), pts: el.geometry.map((g) => [g.lon, g.lat]) }));
 }
 
-// The grid is 50 m UTM, placed by its corners (NW, NE, SE, SW); across 24 km a straight-line mapping from longitude and
-// latitude to grid columns and rows is good to well under a metre.
 function layRoads(lines, rec) {
   const [nw, ne, , sw] = rec.corners, w = rec.layout.width, h = rec.layout.height, res = Math.sqrt(rec.pixel_ha * 1e4);
   const ax = ne[0] - nw[0], ay = ne[1] - nw[1], bx = sw[0] - nw[0], by = sw[1] - nw[1], det = ax * by - bx * ay;
@@ -314,7 +356,6 @@ function layRoads(lines, rec) {
   return { lines, ...pieces };
 }
 
-// Road on the ground the method flags, in kilometres: the same pixels it counts as flooded (permanent water left out).
 function roadsFlagged(res) {
   const d = live.data, R = live.roads, flooded = (i) => res.pred[i] && !(d.water && d.water[i]);
   let m = 0;
@@ -326,7 +367,6 @@ function roadsKm(res) {
   return live.roadsState === "ready" ? roadsFlagged(res) : null;
 }
 
-// When the roads arrive after a run, its result and map catch up.
 function afterRoads() {
   if (live.result && !live.result.error) { renderResult(settings()); drawRoads(live.result); }
 }
@@ -339,7 +379,6 @@ function addRoadLayers(m) {
     .forEach(([id, k, color, w, opacity]) => m.addLayer({ id, type: "line", source: "roads", filter: kind(k), layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": color, "line-width": width(w), "line-opacity": opacity } }));
 }
 
-// Each road with any flagged stretch, drawn whole in white, and its flagged stretches over it in orange.
 function drawRoads(res) {
   const src = live.map && live.map.getSource("roads");
   if (!src) return;
@@ -360,7 +399,6 @@ function drawRoads(res) {
   ] });
 }
 
-// ---------- the map ----------
 function renderLayerToggles() {
   const rows = [["flood", "NISAR's flood map", "#d63ad6"], ["roads", "Road under water", "#ff8c42"], ["change", "Radar change since before", "#bfc6cc"]];
   if (live.case.kind === "us" && live.data.estimate) rows.splice(1, 0, ["estimate", "Gauge-and-lidar estimate", "#00c8dc"]);
@@ -381,7 +419,7 @@ function drawLayer(res, minChange = null) {
       if (v === v) { const t = Math.max(0, Math.min(1, (v + 3) / 6)); r = gg = b = Math.round(40 + 200 * t); a = 200; }
     }
     if (showFlood && res.pred[i] && !(d.water && d.water[i]) && (minChange === null || res.change[i] >= minChange)) { [r, gg, b] = LIVE_COLORS.nisar; a = 230; }
-    if (showEst && d.estimate[i] === 1) { [r, gg, b] = LIVE_COLORS.estimate; a = 235; }   // on top, so the small scored area stays visible
+    if (showEst && d.estimate[i] === 1) { [r, gg, b] = LIVE_COLORS.estimate; a = 235; }
     px[4 * i] = r; px[4 * i + 1] = gg; px[4 * i + 2] = b; px[4 * i + 3] = a;
   }
   g.putImageData(img, 0, 0);
@@ -409,13 +447,11 @@ function setupMap() {
   }));
 }
 
-// ---------- wiring ----------
 function wire() {
   document.querySelector(".live-cases").addEventListener("click", (e) => { const b = e.target.closest("[data-case]"); if (b) chooseCase(b.dataset.case); });
   $("run").addEventListener("click", () => runMethod(true));
   $("run-download").addEventListener("click", () => saveFile(`${live.case.id}-run.json`, new Blob([JSON.stringify(LiveFigs.record(), null, 1)], { type: "application/json" })));
   $("map-download").addEventListener("click", () => {
-    // NISAR's flood map for this run as a PNG, and its corners (lon, lat: NW, NE, SE, SW) so it can be placed in a GIS.
     const rec = live.case, w = rec.layout.width, h = rec.layout.height, c = document.createElement("canvas");
     c.width = w; c.height = h;
     const g = c.getContext("2d"), img = g.createImageData(w, h);
@@ -425,7 +461,6 @@ function wire() {
     saveFile(`${rec.id}-nisar-map-corners.json`, new Blob([JSON.stringify({ corners_lon_lat: rec.corners, order: "NW, NE, SE, SW", pixel_m: 50, epsg_of_grid: rec.inputs.epsg }, null, 1)], { type: "application/json" }));
   });
   $("brief-download").addEventListener("click", async () => {
-    // One page for someone who has to act on it: the run as shown, with its trust light, limits and sources.
     const rec = live.case, res = live.result, s = settings(), area = res.flaggedLand * rec.pixel_ha;
     const light = trustLight({ mapped: area > 0, confident: res.confident, rainy: null });
     const yourCsi = rec.kind === "us" && live.data.estimate ? LiveMethod.score(res, live.data.estimate).csi : null;
@@ -453,10 +488,9 @@ function wire() {
   });
 }
 
-// ---------- Run it anywhere (needs scripts/custom_server.py on this computer) ----------
 const anywhere = { box: null, drawing: false, start: null, poll: null };
 const anyDate = (d) => d.toISOString().slice(0, 10);
-const BOX_LIMITS = [5, 50];                 // km a side: the server holds the same limits
+const BOX_LIMITS = [5, 50];
 const boxKm = ([w, s, e, n]) => [(e - w) * 111.32 * Math.cos(((s + n) / 2) * Math.PI / 180), (n - s) * 111.32];
 const boxAround = (lon, lat, km = 24) => { const dy = km / 2 / 111.32, dx = dy / Math.max(0.1, Math.cos(lat * Math.PI / 180)); return [lon - dx, lat - dy, lon + dx, lat + dy]; };
 const ll = (lat, lon) => `${Math.abs(lat).toFixed(2)}°${lat >= 0 ? "N" : "S"} ${Math.abs(lon).toFixed(2)}°${lon >= 0 ? "E" : "W"}`;
@@ -464,14 +498,14 @@ const ll = (lat, lon) => `${Math.abs(lat).toFixed(2)}°${lat >= 0 ? "N" : "S"} $
 async function setupAnywhere() {
   const want = new URLSearchParams(location.search), wantBox = (want.get("box") || "").split(",").map(Number);
   const asked = wantBox.length === 4 && wantBox.every(Number.isFinite);
-  const noReader = () => {   // a link from the dashboard, but this copy of the site has no local box reader
+  const noReader = () => {
     if (!asked) return;
     const name = want.get("name"), flood = want.get("flood");
     const back = flood ? ` or <a href="dashboard.html?flood=${encodeURIComponent(flood)}">go back to it on the dashboard</a>` : "";
     $("live-banner").innerHTML = `<b>${name ? escHtml(name) : "This flood"} isn't ready to run yet.</b> Its NISAR radar still has to be read from NASA, which takes an Earthdata account, so it can't run in your browser. Pick one of this season's prepared floods below${back}.`;
     $("live-banner").hidden = false;
   };
-  if (!document.querySelector('meta[name="glowfm-reader"]')) { noReader(); return; }   // only scripts/custom_server.py adds this
+  if (!document.querySelector('meta[name="glowfm-reader"]')) { noReader(); return; }
   try { if (!(await fetch("/api/health").then((r) => r.json())).ok) { noReader(); return; } } catch { noReader(); return; }
   $("pick-tabs").hidden = false;
   document.querySelectorAll("#pick-tabs button").forEach((b) => b.addEventListener("click", () => setPane(b.dataset.pane)));
@@ -479,7 +513,6 @@ async function setupAnywhere() {
   $("any-from").value = anyDate(new Date(now - 30 * 864e5)); $("any-to").value = anyDate(now);
   const span = () => { $("any-span").textContent = $("any-to").value === anyDate(new Date()) && $("any-from").value === anyDate(new Date(Date.now() - 30 * 864e5)) ? "the last 30 days" : `${fmtDay($("any-from").value)} to ${fmtDay($("any-to").value)}`; };
   ["any-from", "any-to"].forEach((k) => $(k).addEventListener("change", () => { span(); if (anywhere.box) findPasses(); }));
-  // Typed coordinates make a 24 km box around the point.
   $("any-coords").addEventListener("change", () => {
     const m = $("any-coords").value.match(/^\s*(-?\d+(?:\.\d+)?)\s*[, ]\s*(-?\d+(?:\.\d+)?)\s*$/);
     if (!m || Math.abs(+m[1]) > 80 || Math.abs(+m[2]) > 180) { $("any-status").textContent = "Type latitude, then longitude, in decimal degrees, for example -3.25, -60.2."; return; }
@@ -493,7 +526,6 @@ async function setupAnywhere() {
     if (b) prepareCustom(b.dataset.pass, b.dataset.label);
   });
   if (asked) { if (want.get("from")) $("any-from").value = want.get("from"); if (want.get("to")) $("any-to").value = want.get("to"); span(); setPane("any"); }
-  // Only the map's own parts wait for the map; the rest works at once.
   await live.ready;
   live.map.addSource("any-box", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
   live.map.addLayer({ id: "any-box-fill", type: "fill", source: "any-box", paint: { "fill-color": "#ffd166", "fill-opacity": 0.12 } });
@@ -504,19 +536,17 @@ async function setupAnywhere() {
   const up = (e) => {
     if (!anywhere.drawing || !anywhere.start) return;
     const [x, y] = at(e), [x0, y0] = anywhere.start, tiny = Math.abs(x - x0) < 1e-3 && Math.abs(y - y0) < 1e-3;
-    setBox(tiny ? boxAround(x, y) : [Math.min(x, x0), Math.min(y, y0), Math.max(x, x0), Math.max(y, y0)]);   // a click drops a 24 km box
+    setBox(tiny ? boxAround(x, y) : [Math.min(x, x0), Math.min(y, y0), Math.max(x, x0), Math.max(y, y0)]);
     anywhere.start = null;
     drawMode(false);
-    findPasses();   // a drawn box is searched at once
+    findPasses();
   };
   ["mousedown", "touchstart"].forEach((k) => live.map.on(k, down));
   ["mousemove", "touchmove"].forEach((k) => live.map.on(k, move));
   ["mouseup", "touchend"].forEach((k) => live.map.on(k, up));
-  // A flood sent from the dashboard: its box, searched at once.
   if (asked) { setBox(wantBox, true); findPasses(); $("live-cases").scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" }); }
 }
 
-// One list at a time: the prepared floods, or your own box.
 function setPane(name) {
   document.querySelectorAll("#pick-tabs button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.pane === name)));
   $("pane-ready").hidden = name !== "ready";
@@ -552,7 +582,7 @@ function setBox(box, fly = false) {
 async function findPasses() {
   const box = anywhere.box;
   if (!box) return;
-  const [kx, ky] = boxKm(box), ask = (anywhere.ask = (anywhere.ask || 0) + 1);   // only the latest search writes the list
+  const [kx, ky] = boxKm(box), ask = (anywhere.ask = (anywhere.ask || 0) + 1);
   if (Math.min(kx, ky) < BOX_LIMITS[0] || Math.max(kx, ky) > BOX_LIMITS[1]) { $("any-status").textContent = `Boxes must be ${BOX_LIMITS[0]}–${BOX_LIMITS[1]} km a side; this one is ${kx.toFixed(0)} × ${ky.toFixed(0)} km.`; return; }
   $("any-status").textContent = "Searching NASA's catalog…";
   $("any-passes").innerHTML = "";
@@ -593,12 +623,20 @@ async function prepareCustom(name, label) {
   setupAnywhere();
   try {
     live.index = await fetch("data/live/index.json").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); });
+    const tested = await fetch("data/live/tested.json").then((r) => (r.ok ? r.json() : { cases: [] })).catch(() => ({ cases: [] }));
+    live.index.cases = live.index.cases.concat(tested.cases || []);
+    live.index.cases.forEach((c) => { if (nisarOnly(c)) { c.nisarOnly = true; c.scored = false; } });
   } catch {
     $("cases-note").textContent = "No live cases have been prepared yet.";
     return;
   }
   renderList();
   const wanted = new URLSearchParams(location.search).get("case");
-  const first = live.index.cases.find((c) => c.id === wanted) || currentCases(live.index).sort((a, b) => (b.kind === "us") - (a.kind === "us") || b.wet.localeCompare(a.wet))[0];
+  let first = live.index.cases.find((c) => c.id === wanted);
+  if (!first) {
+    const scores = await live.ranked.catch(() => ({})), offered = currentCases(live.index);
+    first = offered.filter((c) => Number.isFinite(scores[c.id])).sort((a, b) => scores[b.id] - scores[a.id])[0]
+      || offered.sort((a, b) => (b.kind === "us") - (a.kind === "us") || b.wet.localeCompare(a.wet))[0];
+  }
   if (first) chooseCase(first.id);
 })();

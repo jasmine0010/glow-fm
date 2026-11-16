@@ -1,0 +1,232 @@
+{
+  "id": "us_sara1_20261105",
+  "kind": "us",
+  "name": "Bayou Sara at Saraland",
+  "place": "Bayou Sara at Saraland, AL",
+  "category": "minor",
+  "lat": 30.824999,
+  "lon": -88.0699,
+  "flood_from": "2026-09-30T00:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": null,
+  "usgs": "02470805",
+  "noaa": "SARA1",
+  "wet": {
+    "time": "2026-11-05T11:10:44Z",
+    "name": "NISAR_L2_PR_GCOV_035_004_A_017_4005_DHDH_A_20261105T111044_20261105T111119_P05036_N_F_J_001",
+    "stack": "004A_017_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_035_004_A_017_4005_DHDH_A_20261105T111044_20261105T111119_P05036_N_F_J_001/NISAR_L2_PR_GCOV_035_004_A_017_4005_DHDH_A_20261105T111044_20261105T111119_P05036_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          -86.75121,
+          29.94017
+        ],
+        [
+          -87.43156,
+          32.06429
+        ],
+        [
+          -89.98826,
+          31.42249
+        ],
+        [
+          -89.256,
+          29.31371
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-08-13T11:10:44Z",
+      "name": "NISAR_L2_PR_GCOV_028_004_A_017_4005_DHDH_A_20260813T111044_20260813T111118_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-08-25T11:10:43Z",
+      "name": "NISAR_L2_PR_GCOV_029_004_A_017_4005_DHDH_A_20260825T111043_20260825T111118_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-06T11:10:43Z",
+      "name": "NISAR_L2_PR_GCOV_030_004_A_017_4005_DHDH_A_20260906T111043_20260906T111118_P05023_N_F_J_002"
+    },
+    {
+      "time": "2026-09-18T11:10:43Z",
+      "name": "NISAR_L2_PR_GCOV_031_004_A_017_4005_DHDH_A_20260918T111043_20260918T111118_P05023_F_F_J_001"
+    }
+  ],
+  "passes_during": 7,
+  "corners": [
+    [
+      -88.198501,
+      30.933069
+    ],
+    [
+      -87.94418,
+      30.935177
+    ],
+    [
+      -87.942046,
+      30.716838
+    ],
+    [
+      -88.195793,
+      30.714749
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 486,
+    "height": 484,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      },
+      {
+        "name": "estimate",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32616",
+    "gauges": [
+      {
+        "usgs": "02470805",
+        "name": "BAYOU SARA AT SARALAND, ALA",
+        "lat": 30.82521804,
+        "lon": -88.07002725,
+        "datum_ft": 2.0,
+        "datum": "NAVD88",
+        "level_source": "stage + gauge datum (NAVD88)",
+        "reading_ft": 3.584222222222222,
+        "wse_m": 1.7020709333333333,
+        "timing": 3
+      }
+    ],
+    "heights": "3DEP lidar (bare earth)",
+    "river": "USGS river line through the gauge",
+    "protocol": "research/LIVE_PROTOCOL_V2.md"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.5,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": -0.05804397910833359,
+    "flagged_ha": 4167.5,
+    "mapped_ha": 58806.0
+  },
+  "reference_run": {
+    "threshold_db": 0.5,
+    "flagged_px": 19059,
+    "flagged_land_px": 16653,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": -0.058888763189315796
+  },
+  "score": {
+    "scores": {
+      "tp": 51,
+      "fn": 470,
+      "fp": 882,
+      "tn": 4826,
+      "recall": 0.09788867562380038,
+      "precision": 0.05466237942122187,
+      "csi": 0.036350677120456164,
+      "f1": 0.07015130674002751,
+      "tp_ha": 12.75,
+      "fn_ha": 117.5,
+      "fp_ha": 220.5,
+      "tn_ha": 1206.5
+    },
+    "ci95": {
+      "recall": [
+        0.0707070707070707,
+        0.11455108359133127
+      ],
+      "precision": [
+        0.0,
+        0.2413793103448276
+      ],
+      "csi": [
+        0.0,
+        0.05785123966942149
+      ],
+      "f1": [
+        0.0,
+        0.109375
+      ]
+    },
+    "estimate_wet_ha": 130.25,
+    "estimate_dry_ha": 1427.0
+  },
+  "attempt": {
+    "case": "us_sara1_20261105",
+    "dev": false,
+    "git_head": "eef8bde2ac18bbce9be9b862a2f19a5e3a3fff57"
+  },
+  "dev": false,
+  "selection": "coverage",
+  "flood_to": "2026-11-06T23:59:59Z"
+}

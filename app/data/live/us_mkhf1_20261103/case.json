@@ -1,0 +1,232 @@
+{
+  "id": "us_mkhf1_20261103",
+  "kind": "us",
+  "name": "Manatee River near Myakka Head at SR 64",
+  "place": "Manatee River near Myakka Head at SR 64, FL",
+  "category": "minor",
+  "lat": 27.473333333333,
+  "lon": -82.211388888889,
+  "flood_from": "2026-10-09T00:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": null,
+  "usgs": "02299950",
+  "noaa": "MKHF1",
+  "wet": {
+    "time": "2026-11-03T10:52:58Z",
+    "name": "NISAR_L2_PR_GCOV_034_148_A_015_4005_DHDH_A_20261103T105258_20261103T105332_P05036_N_F_J_001",
+    "stack": "148A_015_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_148_A_015_4005_DHDH_A_20261103T105258_20261103T105332_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_148_A_015_4005_DHDH_A_20261103T105258_20261103T105332_P05036_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          -81.38091,
+          25.96723
+        ],
+        [
+          -81.99349,
+          28.03854
+        ],
+        [
+          -84.46559,
+          27.42268
+        ],
+        [
+          -83.81175,
+          25.36436
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-08-11T10:52:58Z",
+      "name": "NISAR_L2_PR_GCOV_027_148_A_015_4005_DHDH_A_20260811T105258_20260811T105333_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-04T10:52:57Z",
+      "name": "NISAR_L2_PR_GCOV_029_148_A_015_4005_DHDH_A_20260904T105257_20260904T105332_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-16T10:52:57Z",
+      "name": "NISAR_L2_PR_GCOV_030_148_A_015_4005_DHDH_A_20260916T105257_20260916T105332_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-28T10:52:57Z",
+      "name": "NISAR_L2_PR_GCOV_031_148_A_015_4005_DHDH_A_20260928T105257_20260928T105332_P05023_N_F_J_001"
+    }
+  ],
+  "passes_during": 8,
+  "corners": [
+    [
+      -82.335799,
+      27.581445
+    ],
+    [
+      -82.089651,
+      27.583595
+    ],
+    [
+      -82.087504,
+      27.365157
+    ],
+    [
+      -82.333168,
+      27.363027
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 486,
+    "height": 484,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      },
+      {
+        "name": "estimate",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32617",
+    "gauges": [
+      {
+        "usgs": "02299950",
+        "name": "MANATEE RIVER AT SR 64 NEAR MYAKKA HEAD, FL",
+        "lat": 27.47365281,
+        "lon": -82.2112497,
+        "datum_ft": 40.93,
+        "datum": "NGVD29",
+        "level_source": "water elevation above NAVD88",
+        "reading_ft": 52.76531111111111,
+        "wse_m": 16.082866826666667,
+        "timing": 2
+      }
+    ],
+    "heights": "3DEP lidar (bare earth)",
+    "river": "USGS river line through the gauge",
+    "protocol": "research/LIVE_PROTOCOL_V2.md"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.6700537151750185,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": 0.44956371560692787,
+    "flagged_ha": 2145.25,
+    "mapped_ha": 58806.0
+  },
+  "reference_run": {
+    "threshold_db": 0.6719609700399529,
+    "flagged_px": 11303,
+    "flagged_land_px": 8542,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": 0.4500001445412636
+  },
+  "score": {
+    "scores": {
+      "tp": 11,
+      "fn": 244,
+      "fp": 166,
+      "tn": 1769,
+      "recall": 0.043137254901960784,
+      "precision": 0.062146892655367235,
+      "csi": 0.026128266033254157,
+      "f1": 0.05092592592592592,
+      "tp_ha": 2.75,
+      "fn_ha": 61.0,
+      "fp_ha": 41.5,
+      "tn_ha": 442.25
+    },
+    "ci95": {
+      "recall": [
+        0.0,
+        0.07142857142857142
+      ],
+      "precision": [
+        0.0,
+        1.0
+      ],
+      "csi": [
+        0.0,
+        0.07142857142857142
+      ],
+      "f1": [
+        0.0,
+        0.13333333333333333
+      ]
+    },
+    "estimate_wet_ha": 63.75,
+    "estimate_dry_ha": 483.75
+  },
+  "attempt": {
+    "case": "us_mkhf1_20261103",
+    "dev": false,
+    "git_head": "eef8bde2ac18bbce9be9b862a2f19a5e3a3fff57"
+  },
+  "dev": false,
+  "selection": "coverage",
+  "flood_to": "2026-11-04T23:59:59Z"
+}

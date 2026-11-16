@@ -1,0 +1,181 @@
+{
+  "id": "us_mnrc2_20261113",
+  "kind": "us",
+  "name": "Mancos River near Mancos",
+  "place": "Mancos River near Mancos, CO",
+  "category": "minor",
+  "lat": 37.3572184,
+  "lon": -108.254803,
+  "flood_from": "2026-11-11T00:30:00Z",
+  "flood_from_is_record_start": false,
+  "report": null,
+  "usgs": "09370000",
+  "noaa": "MNRC2",
+  "wet": {
+    "time": "2026-11-13T12:19:34Z",
+    "name": "NISAR_L2_PR_GCOV_035_120_A_021_4005_DHDH_A_20261113T121934_20261113T122009_P05036_N_F_J_001",
+    "stack": "120A_021_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_035_120_A_021_4005_DHDH_A_20261113T121934_20261113T122009_P05036_N_F_J_001/NISAR_L2_PR_GCOV_035_120_A_021_4005_DHDH_A_20261113T121934_20261113T122009_P05036_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          -106.06655,
+          37.84316
+        ],
+        [
+          -106.8905,
+          39.9488
+        ],
+        [
+          -109.82173,
+          39.20419
+        ],
+        [
+          -108.91921,
+          37.12058
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-09-14T12:19:33Z",
+      "name": "NISAR_L2_PR_GCOV_030_120_A_021_4005_DHDH_A_20260914T121933_20260914T122008_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-26T12:19:33Z",
+      "name": "NISAR_L2_PR_GCOV_031_120_A_021_4005_DHDH_A_20260926T121933_20260926T122008_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-10-20T12:19:34Z",
+      "name": "NISAR_L2_PR_GCOV_033_120_A_021_4005_DHDH_A_20261020T121934_20261020T122008_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-11-01T12:19:34Z",
+      "name": "NISAR_L2_PR_GCOV_034_120_A_021_4005_DHDH_A_20261101T121934_20261101T122009_P05036_N_F_J_001"
+    }
+  ],
+  "passes_during": 2,
+  "corners": [
+    [
+      -108.400425,
+      37.465085
+    ],
+    [
+      -108.119292,
+      37.472849
+    ],
+    [
+      -108.110058,
+      37.249636
+    ],
+    [
+      -108.390362,
+      37.241934
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 498,
+    "height": 496,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32613",
+    "gauges": [],
+    "heights": "3DEP lidar (bare earth)",
+    "river": "USGS river line through the gauge",
+    "protocol": "research/LIVE_PROTOCOL_V2.md"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.5,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": -0.3293999508023262,
+    "flagged_ha": 87.75,
+    "mapped_ha": 61752.0
+  },
+  "reference_run": {
+    "threshold_db": 0.5,
+    "flagged_px": 549,
+    "flagged_land_px": 351,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": -0.3255554810166359
+  },
+  "score": null,
+  "attempt": {
+    "case": "us_mnrc2_20261113",
+    "dev": false,
+    "git_head": "eef8bde2ac18bbce9be9b862a2f19a5e3a3fff57"
+  },
+  "dev": false,
+  "score_skipped": "No usable USGS gauge with a known height reference in the box.",
+  "selection": "coverage",
+  "usgs_stand_in_km": 0.0
+}

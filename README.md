@@ -46,7 +46,7 @@ The site is static: everything is in `app/`, with no server code. Pages:
 Five more passes in that last test couldn't be judged, four of them with an estimate of 0 ha on the Alapaha and Withlacoochee (`research/OVERBANK_RESULTS.md`).
 
 **Known limits:**
-- A lidar height cutoff with no radar scored about the same in the latest test (mean 0.61, against v4's 0.62), and higher on 10 of 15 earlier passes (`research/STATIC_BASELINE.md`). The estimate uses the same lidar, which favours it. Radar's clear addition is timing.
+- A lidar height cutoff with no radar scored about the same in the latest test (mean 0.61, against v4's 0.62), and higher on 10 of 15 earlier passes (`research/STATIC_BASELINE.md`). The estimate uses the same lidar, which favors it. Radar's clear addition is timing.
 - With no lidar in the map, NISAR averaged 0.25 against 0.22 for a height map from a global elevation model, winning on 4 of 7 passes and losing on 2. The height map would average 0.31 at its best limit per pass, so the margin isn't robust (`research/NO_LIDAR_RESULTS.md`).
 - Outside the US, the method hasn't transferred. At Tonle Sap in Cambodia, an unvalidated case, three of four predictions failed. A signal found afterwards looks promising but needs its own test (`research/TONLE_SAP_RESULTS.md`).
 - A trust signal fixed in advance was right on 3 of 4 judgeable passes, too few for a verdict. A High confidence label reached 0.60 on only 2 of 4.

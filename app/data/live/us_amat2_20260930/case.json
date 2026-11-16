@@ -1,0 +1,181 @@
+{
+  "id": "us_amat2_20260930",
+  "kind": "us",
+  "name": "Canadian River at Amarillo",
+  "place": "Canadian River at Amarillo, TX",
+  "category": "minor",
+  "lat": 35.470277777778,
+  "lon": -101.87916666667,
+  "flood_from": "2026-09-30T00:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": null,
+  "usgs": "07227500",
+  "noaa": "AMAT2",
+  "wet": {
+    "time": "2026-09-30T01:42:17Z",
+    "name": "NISAR_L2_PR_GCOV_031_171_D_071_4005_DHDH_A_20260930T014217_20260930T014252_P05023_N_F_J_001",
+    "stack": "171D_071_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_171_D_071_4005_DHDH_A_20260930T014217_20260930T014252_P05023_N_F_J_001/NISAR_L2_PR_GCOV_031_171_D_071_4005_DHDH_A_20260930T014217_20260930T014252_P05023_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          -104.12326,
+          36.10878
+        ],
+        [
+          -104.87086,
+          33.99358
+        ],
+        [
+          -102.17312,
+          33.31426
+        ],
+        [
+          -101.36624,
+          35.41242
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-08-13T01:42:18Z",
+      "name": "NISAR_L2_PR_GCOV_027_171_D_071_4005_DHDH_A_20260813T014218_20260813T014253_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-08-25T01:42:18Z",
+      "name": "NISAR_L2_PR_GCOV_028_171_D_071_4005_DHDH_A_20260825T014218_20260825T014252_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-06T01:42:17Z",
+      "name": "NISAR_L2_PR_GCOV_029_171_D_071_4005_DHDH_A_20260906T014217_20260906T014252_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-18T01:42:17Z",
+      "name": "NISAR_L2_PR_GCOV_030_171_D_071_4005_DHDH_A_20260918T014217_20260918T014252_P05023_F_F_J_001"
+    }
+  ],
+  "passes_during": 2,
+  "corners": [
+    [
+      -102.011389,
+      35.585158
+    ],
+    [
+      -101.73807,
+      35.578064
+    ],
+    [
+      -101.747064,
+      35.355262
+    ],
+    [
+      -102.019632,
+      35.362297
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 496,
+    "height": 495,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32613",
+    "gauges": [],
+    "heights": "3DEP lidar (bare earth)",
+    "river": "USGS river line through the gauge",
+    "protocol": "research/LIVE_PROTOCOL_V2.md"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 3.780210317199815,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": null,
+    "flagged_ha": 31.0,
+    "mapped_ha": 61380.0
+  },
+  "reference_run": {
+    "threshold_db": 3.7825766845780877,
+    "flagged_px": 311,
+    "flagged_land_px": 124,
+    "used_hh_minus_hv": false,
+    "confident": false,
+    "low_minus_high_db": null
+  },
+  "score": null,
+  "attempt": {
+    "case": "us_amat2_20260930",
+    "dev": false,
+    "git_head": "eef8bde2ac18bbce9be9b862a2f19a5e3a3fff57"
+  },
+  "dev": false,
+  "score_skipped": "No usable USGS gauge with a known height reference in the box.",
+  "selection": "coverage",
+  "flood_to": "2026-10-01T23:59:59Z"
+}

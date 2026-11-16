@@ -1,7 +1,3 @@
-// The gauge-and-lidar flood estimate in the browser. It follows hydraulic_truth in src/hidden_floods/truth.py:
-// water level is interpolated along the valley between gauges and held flat past the ends, and ground counts as flooded
-// if the water sits more than the margin above it and connects to reference water through ground below the water.
-// scripts/check_estimator.cjs compares it with the Python result at the end of each build.
 
 const FLAG = { SEED: 1, SUPPORTED: 2, LC_SHIFT: 2, LC_MASK: 12, GFM_EXCLUDED: 16, GFM_COVERED: 32 };
 
@@ -13,7 +9,6 @@ function packFromBuffer(meta, buffer) {
   return { meta, n, idx, dem, chain, flags, lookup, depth: new Float32Array(n), wet: new Uint8Array(n), seen: new Uint8Array(n), queue: new Int32Array(n) };
 }
 
-// points: [{ chain, wse }]. extra is the what-if rise in metres, added to every gauge.
 function estimateFlood(pack, points, extra = 0) {
   const { meta, n, idx, dem, chain, flags, lookup, depth, wet, seen, queue } = pack;
   const sorted = [...points].sort((a, b) => a.chain - b.chain);
@@ -30,7 +25,6 @@ function estimateFlood(pack, points, extra = 0) {
     }
     depth[i] = w - dem[i];
   }
-  // Flood fill from reference water through ground below the water surface, with 8 neighbours.
   seen.fill(0);
   let head = 0, tail = 0;
   for (let i = 0; i < n; i++) if ((flags[i] & FLAG.SEED) && depth[i] > 0) { seen[i] = 1; queue[tail++] = i; }
@@ -63,10 +57,6 @@ function estimateFlood(pack, points, extra = 0) {
   return { ha: wetCount * area, treeShare: wetCount ? tree / wetCount : null, maskShare: covered ? excluded / covered : null, meanDepth: wetCount ? depthSum / wetCount : null, maxDepth: wetCount ? maxDepth : null };
 }
 
-// Roads on the corridor (scripts/build_roads.py). First the whole of each road that crosses the corridor (points in
-// longitude and latitude, with offsets), then short pieces, one per pixel a road crosses: its pixel number, the stretch
-// of road it lies on (a point number), where along that stretch it starts and ends (0 to 65535), its length in metres,
-// and 1 for a major road. way[j] is the road each piece belongs to.
 function roadsFromBuffer(buffer) {
   const L = new Int32Array(buffer, 0, 1)[0], off = new Int32Array(buffer, 4, L + 1), pts = new Float32Array(buffer, 8 + 4 * L, 2 * off[L]);
   const at = 8 + 4 * L + 8 * off[L], k = new Int32Array(buffer, at, 1)[0];
@@ -76,8 +66,6 @@ function roadsFromBuffer(buffer) {
   return { L, off, pts, k, pix, seg, t, metres, major, way };
 }
 
-// Road under the flooding estimateFlood just computed (pack.wet), and the part where Copernicus GFM's exclusion mask says
-// today's flood map doesn't map. The same rules as the frozen blind-spot audit: drivable roads, bridges left out.
 function roadsUnder(pack, roads) {
   let m = 0, hidden = 0, major = 0;
   for (let j = 0; j < roads.k; j++) {

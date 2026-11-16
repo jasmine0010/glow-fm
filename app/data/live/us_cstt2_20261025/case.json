@@ -1,0 +1,232 @@
+{
+  "id": "us_cstt2_20261025",
+  "kind": "us",
+  "name": "Rio Grande at Castolon",
+  "place": "Rio Grande at Castolon, TX",
+  "category": "minor",
+  "lat": 29.13798,
+  "lon": -103.5249033,
+  "flood_from": "2026-09-25T00:00:00Z",
+  "flood_from_is_record_start": false,
+  "report": null,
+  "usgs": "08374550",
+  "noaa": "CSTT2",
+  "wet": {
+    "time": "2026-10-25T12:08:26Z",
+    "name": "NISAR_L2_PR_GCOV_034_019_A_016_4005_DHDH_A_20261025T120826_20261025T120901_P05036_N_F_J_001",
+    "stack": "019A_016_4005_DHDH",
+    "quicklook": {
+      "url": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_019_A_016_4005_DHDH_A_20261025T120826_20261025T120901_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_019_A_016_4005_DHDH_A_20261025T120826_20261025T120901_P05036_N_F_J_001_LATLON.png",
+      "corners": [
+        [
+          -100.64456,
+          27.96923
+        ],
+        [
+          -101.29914,
+          30.09664
+        ],
+        [
+          -103.86575,
+          29.45535
+        ],
+        [
+          -103.1645,
+          27.34217
+        ]
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "time": "2026-08-14T12:08:26Z",
+      "name": "NISAR_L2_PR_GCOV_028_019_A_016_4005_DHDH_A_20260814T120826_20260814T120900_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-08-26T12:08:26Z",
+      "name": "NISAR_L2_PR_GCOV_029_019_A_016_4005_DHDH_A_20260826T120826_20260826T120900_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-07T12:08:25Z",
+      "name": "NISAR_L2_PR_GCOV_030_019_A_016_4005_DHDH_A_20260907T120825_20260907T120900_P05023_N_F_J_001"
+    },
+    {
+      "time": "2026-09-19T12:08:26Z",
+      "name": "NISAR_L2_PR_GCOV_031_019_A_016_4005_DHDH_A_20260919T120826_20260919T120900_P05023_F_F_J_001"
+    }
+  ],
+  "passes_during": 8,
+  "corners": [
+    [
+      -103.648768,
+      29.248731
+    ],
+    [
+      -103.397738,
+      29.245958
+    ],
+    [
+      -103.401129,
+      29.027169
+    ],
+    [
+      -103.651628,
+      29.029917
+    ]
+  ],
+  "pixel_ha": 0.25,
+  "layout": {
+    "width": 488,
+    "height": 485,
+    "arrays": [
+      {
+        "name": "wet_hh",
+        "type": "int16"
+      },
+      {
+        "name": "wet_hv",
+        "type": "int16"
+      },
+      {
+        "name": "median_hh",
+        "type": "int16"
+      },
+      {
+        "name": "median_hv",
+        "type": "int16"
+      },
+      {
+        "name": "one_hh",
+        "type": "int16"
+      },
+      {
+        "name": "one_hv",
+        "type": "int16"
+      },
+      {
+        "name": "hand",
+        "type": "int16"
+      },
+      {
+        "name": "dist",
+        "type": "uint16"
+      },
+      {
+        "name": "landcover",
+        "type": "uint8"
+      },
+      {
+        "name": "timing",
+        "type": "uint8"
+      },
+      {
+        "name": "water",
+        "type": "uint8"
+      },
+      {
+        "name": "estimate",
+        "type": "uint8"
+      }
+    ]
+  },
+  "inputs": {
+    "epsg": "EPSG:32613",
+    "gauges": [
+      {
+        "usgs": "08374550",
+        "name": "Rio Grande nr Castolon, TX",
+        "lat": 29.13798,
+        "lon": -103.5249033,
+        "datum_ft": 2109.6,
+        "datum": "NAVD88",
+        "level_source": "stage + gauge datum (NAVD88)",
+        "reading_ft": 2.35,
+        "wse_m": 643.72236,
+        "timing": 1
+      }
+    ],
+    "heights": "3DEP lidar (bare earth)",
+    "river": "USGS river line through the gauge",
+    "protocol": "research/LIVE_PROTOCOL_V2.md"
+  },
+  "rule": {
+    "type": "v4",
+    "baseline": "median",
+    "signal": "adaptive",
+    "flood_check_db": null,
+    "confidence_db": 0.5,
+    "wet_scene_db": 0.5,
+    "smooth_px": 3,
+    "hand_max_m": 6.0,
+    "valley_m": 4000.0,
+    "min_threshold_db": 0.5,
+    "landcover": [
+      1,
+      2,
+      0
+    ],
+    "abstain_timing": [
+      4
+    ]
+  },
+  "frozen_run": {
+    "threshold_db": 0.5,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": 0.17735502123832703,
+    "flagged_ha": 226.5,
+    "mapped_ha": 59170.0
+  },
+  "reference_run": {
+    "threshold_db": 0.5,
+    "flagged_px": 1303,
+    "flagged_land_px": 906,
+    "used_hh_minus_hv": true,
+    "confident": false,
+    "low_minus_high_db": 0.1766664981842041
+  },
+  "score": {
+    "scores": {
+      "tp": 28,
+      "fn": 150,
+      "fp": 72,
+      "tn": 1115,
+      "recall": 0.15730337078651685,
+      "precision": 0.28,
+      "csi": 0.112,
+      "f1": 0.2014388489208633,
+      "tp_ha": 7.0,
+      "fn_ha": 37.5,
+      "fp_ha": 18.0,
+      "tn_ha": 278.75
+    },
+    "ci95": {
+      "recall": [
+        0.1388888888888889,
+        0.16981132075471697
+      ],
+      "precision": [
+        0.20833333333333334,
+        0.34615384615384615
+      ],
+      "csi": [
+        0.09090909090909091,
+        0.12857142857142856
+      ],
+      "f1": [
+        0.16666666666666666,
+        0.22784810126582278
+      ]
+    },
+    "estimate_wet_ha": 44.5,
+    "estimate_dry_ha": 296.75
+  },
+  "attempt": {
+    "case": "us_cstt2_20261025",
+    "dev": false,
+    "git_head": "eef8bde2ac18bbce9be9b862a2f19a5e3a3fff57"
+  },
+  "dev": false,
+  "selection": "coverage",
+  "flood_to": "2026-10-27T23:59:59Z"
+}

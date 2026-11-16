@@ -1,12 +1,8 @@
-// Opt-in sound for the story page: radar pings, a chirp and soft ticks, made with the Web Audio API (no audio files).
-// It stays silent until the reader switches it on, and the switch is remembered in this browser only. "Hear the echo"
-// always plays, because pressing it is the request. Browsers only start audio after a click or key press, so a stored
-// "on" waits for the reader's first one.
 
-const Sound = { on: false, ac: null };
+const Sound = { on: false, ac: null, waiting: false };
 
-function soundStored() { try { return localStorage.getItem("hf.sound") === "on"; } catch { return false; } }
-function soundStore(on) { try { localStorage.setItem("hf.sound", on ? "on" : "off"); } catch { /* private mode: not remembered */ } }
+function soundStored(fallback = false) { try { const v = localStorage.getItem("hf.sound"); return v ? v === "on" : fallback; } catch { return fallback; } }
+function soundStore(on) { try { localStorage.setItem("hf.sound", on ? "on" : "off"); } catch {  } }
 
 function soundContext() {
   if (!Sound.ac) {
@@ -18,9 +14,8 @@ function soundContext() {
   return Sound.ac.state === "running" || Sound.ac.state === "suspended" ? Sound.ac : null;
 }
 
-// One ping: a short falling tone, like a radar return. gain is amplitude (0 to 1).
 function soundPing({ gain = 0.09, from = 1400, to = 520, at = 0, len = 0.6, force = false } = {}) {
-  if (!Sound.on && !force) return;
+  if ((!Sound.on || Sound.waiting) && !force) return;
   const ac = soundContext();
   if (!ac) return;
   const t = ac.currentTime + 0.03 + at, o = ac.createOscillator(), g = ac.createGain();
@@ -35,12 +30,10 @@ function soundPing({ gain = 0.09, from = 1400, to = 520, at = 0, len = 0.6, forc
   o.stop(t + len + 0.05);
 }
 
-// A soft tick, for passing a station or lighting a step.
 const soundTick = (gain = 0.025) => soundPing({ gain, from: 2400, to: 1900, len: 0.07 });
 
-// A rising linear chirp: the shape of the pulse a radar like NISAR transmits, slowed down into hearing range.
 function soundChirp(ms = 1600, gain = 0.035) {
-  if (!Sound.on) return;
+  if (!Sound.on || Sound.waiting) return;
   const ac = soundContext();
   if (!ac) return;
   const t = ac.currentTime + 0.03, s = ms / 1000, o = ac.createOscillator(), f = ac.createBiquadFilter(), g = ac.createGain();
@@ -57,15 +50,29 @@ function soundChirp(ms = 1600, gain = 0.035) {
   o.stop(t + s + 0.05);
 }
 
-// Two echoes: a reference, then one with `powerRatio` times the power (amplitude is the square root of power).
-function soundEcho(powerRatio, { force = true, gap = 0.9 } = {}) {
-  soundPing({ gain: 0.12, force });
-  soundPing({ gain: 0.12 * Math.sqrt(powerRatio), at: gap, force });
+function soundReturn({ gain, ring = 0, at = 0, force = false }) {
+  if ((!Sound.on || Sound.waiting) && !force) return;
+  const ac = soundContext();
+  if (!ac) return;
+  const t = ac.currentTime + 0.03 + at, n = Math.round(ac.sampleRate * 0.45), buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0);
+  for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ac.sampleRate * 0.09)) * (Math.random() < 0.08 ? 2.2 : 1);
+  const src = ac.createBufferSource(), bp = ac.createBiquadFilter(), g = ac.createGain();
+  src.buffer = buf; bp.type = "bandpass"; bp.frequency.value = 1300; bp.Q.value = 1.4;
+  g.gain.value = 2.4 * gain * (1 - 0.65 * ring);
+  src.connect(bp).connect(g).connect(ac.destination);
+  src.start(t);
+  if (ring > 0.02) {
+    soundPing({ gain: gain * ring, from: 1500, to: 980, at, len: 0.95, force });
+    soundPing({ gain: gain * ring * 0.3, from: 1500, to: 980, at: at + 0.12, len: 0.7, force });
+  }
 }
 
-// The river: a soft rush of water whose loudness and depth follow the river's measured level, as the reader scrolls
-// through a flood. It's a sonification of the gauges (filtered noise made here), not a recording. Only the journey's
-// river and "Watch it move" use it; each passes level 0..1, or null when it leaves the screen.
+function soundEcho(powerRatio, { force = true, gap = 0.9 } = {}) {
+  const ring = Math.max(0, Math.min(1, (10 * Math.log10(powerRatio)) / 3));
+  soundReturn({ gain: 0.11, force });
+  soundReturn({ gain: 0.11 * Math.sqrt(powerRatio), ring, at: gap, force });
+}
+
 const River = { src: null, filter: null, gain: null, owner: null };
 function riverFade(to, secs = 0.35) {
   if (River.gain && Sound.ac) River.gain.gain.setTargetAtTime(to, Sound.ac.currentTime, secs);
@@ -73,11 +80,10 @@ function riverFade(to, secs = 0.35) {
 function riverSound(owner, level) {
   if (level === null) { if (River.owner === owner) { River.owner = null; riverFade(0); } return; }
   River.owner = owner;
-  if (!Sound.on) { riverFade(0); return; }
+  if (!Sound.on || Sound.waiting) { riverFade(0); return; }
   const ac = soundContext();
   if (!ac) return;
   if (!River.src) {
-    // two seconds of brown noise, looped: the low, even rush of moving water
     const n = 2 * ac.sampleRate, buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0);
     let last = 0;
     for (let i = 0; i < n; i++) { last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02; d[i] = last * 3.5; }
@@ -88,30 +94,38 @@ function riverSound(owner, level) {
     River.src.start();
   }
   const v = Math.max(0, Math.min(1, level)), t = ac.currentTime;
-  River.filter.frequency.setTargetAtTime(180 + 1500 * v * v, t, 0.3);   // a higher river sounds fuller and brighter
+  River.filter.frequency.setTargetAtTime(180 + 1500 * v * v, t, 0.3);
   River.gain.gain.setTargetAtTime(0.02 + 0.13 * v, t, 0.3);
 }
 
-// The speaker switch in the top bar (wired below, on any page that has one).
 function setupSoundToggle(btn) {
   if (!btn) return;
   const render = () => {
-    btn.setAttribute("aria-pressed", String(Sound.on));
-    btn.querySelector(".sound-word").textContent = Sound.on ? "Sound on" : "Sound off";
-    btn.classList.toggle("on", Sound.on);
+    const playing = Sound.on && !Sound.waiting;
+    btn.setAttribute("aria-pressed", String(playing));
+    btn.querySelector(".sound-word").textContent = playing ? "Sound on" : "Sound off";
+    btn.classList.toggle("on", playing);
   };
-  Sound.on = soundStored();
-  if (Sound.on) {
-    const wake = () => { soundContext(); removeEventListener("pointerdown", wake); removeEventListener("keydown", wake); };
-    addEventListener("pointerdown", wake);
-    addEventListener("keydown", wake);
-  }
+  const start = () => {
+    const ac = soundContext();
+    if (!ac) return Promise.resolve();
+    return ac.resume().then(() => {
+      if (ac.state !== "running" || !Sound.waiting) return;
+      Sound.waiting = false;
+      if (typeof ambienceSwitch === "function") ambienceSwitch(true);
+      render();
+    });
+  };
+  Sound.on = soundStored(btn.dataset.default === "on");
+  Sound.waiting = Sound.on;
   render();
   btn.addEventListener("click", () => {
+    if (Sound.waiting) { start().then(() => soundPing({ gain: 0.07 })); return; }
     Sound.on = !Sound.on;
     soundStore(Sound.on);
     render();
     if (Sound.on) soundPing({ gain: 0.07 }); else riverFade(0, 0.1);
+    if (typeof ambienceSwitch === "function") ambienceSwitch(Sound.on);
   });
 }
 
